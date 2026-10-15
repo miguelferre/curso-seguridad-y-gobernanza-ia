@@ -1,0 +1,112 @@
+[
+  {
+    "id": "m09l04-q01",
+    "tipo": "unica",
+    "enunciado": "En la teoría de la negociación, ¿qué es el rango de negociación?",
+    "opciones": [
+      "El reparto que resulta de pelear, ponderado por las probabilidades de ganar",
+      "El conjunto de repartos que ambas partes prefieren a pelear",
+      "La diferencia de fuerza entre los dos actores",
+      "El número de rondas que dura una negociación"
+    ],
+    "correcta": 1,
+    "explicacion": "El rango son los repartos que cada parte prefiere a lo que espera de pelear. Si los rangos de aceptación de los dos actores no se solapan, no hay acuerdo posible y el conflicto es racional."
+  },
+  {
+    "id": "m09l04-q02",
+    "tipo": "numerica",
+    "enunciado": "Un demandante reclama una indemnización de 50.000 $. Cree que ganará con probabilidad 0,8 y ir a juicio le costaría 6.000 $ (al demandado, 9.000 $). ¿Cuál es el mínimo, en dólares, que aceptaría en un acuerdo?",
+    "correcta": 34000,
+    "tolerancia": 1,
+    "explicacion": "El mínimo que acepta es lo que espera obtener peleando: 0,8 × 50.000 − 6.000 = 40.000 − 6.000 = 34.000 $. Cualquier oferta por debajo la rechaza. Los 9.000 $ del demandado no intervienen en el mínimo del demandante, solo en el máximo que el demandado concede."
+  },
+  {
+    "id": "m09l04-q03",
+    "tipo": "numerica",
+    "enunciado": "En el modelo de la lección, dos actores tienen costes de pelear de 18 y 22 puntos. Cada uno sobrestima su fuerza: A en 30 puntos y B en 25. No hay ventaja de golpear primero, ni cambio de poder ni pérdida al repartir. ¿Cuál es el ancho del rango (un valor negativo indica que no hay acuerdo)?",
+    "correcta": -15,
+    "tolerancia": 0.1,
+    "explicacion": "Ancho = (costes totales) − (optimismo total) = (18 + 22) − (30 + 25) = 40 − 55 = −15. El optimismo supera a los costes en 15 puntos, y por eso el mínimo de A queda 15 puntos por encima del máximo de B."
+  },
+  {
+    "id": "m09l04-q04",
+    "tipo": "unica",
+    "enunciado": "Un actor sabe que dentro de unos años será claramente más débil que su rival. ¿Por qué puede preferir pelear hoy aunque su probabilidad de ganar hoy sea menor que la del rival?",
+    "opciones": [
+      "Porque los actores que pierden poder siempre son más agresivos",
+      "Porque cualquier acuerdo de hoy se renegociará más adelante con el rival más fuerte, y el resultado le será peor que el que puede esperar ahora peleando",
+      "Porque pelear hoy no tiene costes",
+      "Porque el rival ha mentido sobre su fuerza"
+    ],
+    "correcta": 1,
+    "explicacion": "Es el problema de compromiso del desplazamiento de poder: el que sube no puede comprometerse a no explotar su ventaja futura. El que baja compara pelear hoy con el techo del rango de mañana, y elige pelear si la caída supera los costes totales de pelear. No depende de agresividad, de costes nulos ni de engaño."
+  },
+  {
+    "id": "m09l04-q05",
+    "tipo": "vf",
+    "enunciado": "Verdadero o falso: si el bien se puede repartir como se quiera, los dos actores conocen bien sus probabilidades de ganar y sus costes, y no hay desplazamiento de poder ni ventaja del primer golpe, existe siempre un reparto que ambos prefieren a pelear (siempre que pelear tenga algún coste).",
+    "correcta": true,
+    "explicacion": "Verdadero. Pelear destruye valor y repartir solo lo distribuye, así que el rango mide los costes de pelear y no puede ser negativo. Para que el conflicto sea racional tiene que fallar algo: compromiso (poder o primer golpe), información o divisibilidad."
+  },
+  {
+    "id": "m09l04-q06",
+    "tipo": "multiple",
+    "enunciado": "Según el libro, ¿cuáles de estos factores son problemas de compromiso? Marca todos los correctos.",
+    "opciones": [
+      "Desplazamiento de poder",
+      "Ventaja del primer golpe",
+      "Indivisibilidad del bien",
+      "Información errónea sobre la fuerza del rival",
+      "Engaño deliberado en la negociación"
+    ],
+    "correcta": [0, 1, 2],
+    "explicacion": "Los problemas de compromiso son el desplazamiento de poder, la ventaja del primer golpe y la indivisibilidad. La información errónea y el engaño son problemas de información, y la desigualdad queda fuera del marco racional."
+  },
+  {
+    "id": "m09l04-q07",
+    "tipo": "unica",
+    "enunciado": "El libro cita la invasión rusa de Ucrania de 2022 como posible ejemplo de un cálculo equivocado de la voluntad de resistir de Ucrania. ¿Qué factor ilustra?",
+    "opciones": [
+      "Indivisibilidad del bien",
+      "Ventaja del primer golpe",
+      "Información errónea",
+      "Privación relativa"
+    ],
+    "correcta": 2,
+    "explicacion": "Es información errónea (misinformation): un error involuntario sobre la fuerza o la voluntad del rival, que lleva a hacer demandas demasiado altas. Si hubiera habido intención de engañar, sería engaño (disinformation)."
+  },
+  {
+    "id": "m09l04-q08",
+    "tipo": "unica",
+    "enunciado": "Los pagos compensatorios pueden resolver la indivisibilidad, como en la compra de Filipinas en 1898, pero fallaron en Múnich en 1938. Según el libro, ¿cuándo pueden funcionar?",
+    "opciones": [
+      "Siempre que el que paga sea el más fuerte",
+      "Solo si el bien es un territorio",
+      "Cuando el valor de la compensación supera el valor del bien para quien la recibe",
+      "Cuando se pagan antes de que empiece la pelea"
+    ],
+    "correcta": 2,
+    "explicacion": "Una compensación solo compra la paz si vale más para el receptor que el bien mismo. En Múnich las concesiones no saciaron las ambiciones de Alemania, y por eso no evitaron la guerra."
+  },
+  {
+    "id": "m09l04-q09",
+    "tipo": "vf",
+    "enunciado": "Verdadero o falso: según el libro, una IA que traiga abundancia material eliminaría el conflicto derivado de la privación relativa, porque nadie tendría carencias.",
+    "correcta": false,
+    "explicacion": "Falso. La privación relativa es una comparación subjetiva con los demás, no una carencia absoluta, y puede persistir con abundancia (cinta hedónica, competencia por estatus). Además, la IA podría aumentar la desigualdad entre países."
+  },
+  {
+    "id": "m09l04-q10",
+    "tipo": "multiple",
+    "enunciado": "En el modelo de la lección (ancho = costes − optimismo − 2 × primer golpe − caída de poder − pérdida al repartir), ¿qué medidas pueden reabrir un rango que se había cerrado? Marca todas las correctas.",
+    "opciones": [
+      "Compartir información fiable (un canal de comunicación o un perito común), que baja el optimismo",
+      "Reforzar la defensa frente a la ofensiva, que baja la ventaja de atacar primero",
+      "Repartir el bien de forma que se pierda más valor",
+      "Esperar a que aumente la caída de poder que espera el actor más débil",
+      "Subir los costes de pelear para ambos"
+    ],
+    "correcta": [0, 1, 4],
+    "explicacion": "Compartir información, equilibrar ataque y defensa y encarecer la pelea aumentan el ancho. Perder más valor al repartir y una caída de poder mayor lo reducen. (La cuenta con factores sumados es un modelo propio del curso; el libro trata cada factor por separado.)"
+  }
+]

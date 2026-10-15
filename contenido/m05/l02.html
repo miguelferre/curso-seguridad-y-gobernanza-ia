@@ -1,0 +1,224 @@
+<section class="leccion" data-id="m05/l02">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Un modelo solo sabe lo que ha visto. Ante algo distinto, como una radiografía de un escáner que nunca vio, responde con la misma seguridad de siempre, y esa respuesta puede no valer nada. Un detector de anomalías añade una segunda salida: una puntuación de cuán raro es el dato. Si la puntuación pasa de un umbral, una persona revisa antes de fiarse del modelo.</p>
+<p>El trabajo difícil es medir si el detector merece la pena. Cuando lo raro es raro de verdad, la exactitud engaña. Se usan el AUROC (¿ordena lo anómalo por encima de lo normal?), el FPR al 95 % de TPR (¿cuántas falsas alarmas cuesta cazar casi todo?) y, como añadido propio, el AUPR (¿qué parte de las alarmas es real?). La puntuación puede ir desde la probabilidad máxima del softmax hasta métodos que miran el interior de la red.</p>
+
+<svg viewBox="0 0 360 216" role="img" aria-labelledby="da-t da-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="da-t">Un detector de anomalías: dos distribuciones y un umbral</title>
+<desc id="da-d">Dos campanas de puntuación de anomalía que se solapan en el centro. La gris, a la izquierda, son los datos normales. La violeta, más a la derecha, son los anómalos. Una línea de puntos marca el umbral: a su derecha salta la alarma. La cola de la campana gris a la derecha del umbral son las falsas alarmas, en ámbar, y la parte violeta a la derecha del umbral son las anomalías detectadas.</desc>
+<rect x="4" y="4" width="352" height="208" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<polygon points="165,150 165.0,126.4 168.3,130.0 171.6,133.3 174.9,136.1 178.2,138.6 181.5,140.8 184.8,142.6 188.1,144.1 191.4,145.4 194.7,146.4 198.0,147.2 201.3,147.9 204.6,148.4 207.9,148.8 211.2,149.1 214.5,149.4 217.8,149.5 221.1,149.7 224.4,149.8 227.7,149.8 231.0,149.9 234.3,149.9 237.6,149.9 240.9,150.0 244.2,150.0 247.5,150.0 250.8,150.0 254.1,150.0 257.4,150.0 260.7,150.0 264.0,150.0 267.3,150.0 270.6,150.0 273.9,150.0 277.2,150.0 280.5,150.0 283.8,150.0 287.1,150.0 290.4,150.0 293.7,150.0 297.0,150.0 300.3,150.0 303.6,150.0 306.9,150.0 310.2,150.0 313.5,150.0 316.8,150.0 320.1,150.0 323.4,150.0 326.7,150.0 330.0,150.0 330,150" style="fill:var(--trap);opacity:.55"/>
+<polygon points="165,150 165.0,134.2 168.3,131.3 171.6,128.2 174.9,124.7 178.2,120.9 181.5,116.9 184.8,112.7 188.1,108.4 191.4,104.0 194.7,99.6 198.0,95.3 201.3,91.2 204.6,87.4 207.9,83.9 211.2,80.9 214.5,78.5 217.8,76.7 221.1,75.5 224.4,75.0 227.7,75.2 231.0,76.2 234.3,77.8 237.6,80.0 240.9,82.8 244.2,86.1 247.5,89.7 250.8,93.8 254.1,98.0 257.4,102.4 260.7,106.8 264.0,111.2 267.3,115.4 270.6,119.5 273.9,123.3 277.2,126.9 280.5,130.2 283.8,133.2 287.1,135.9 290.4,138.2 293.7,140.3 297.0,142.0 300.3,143.5 303.6,144.8 306.9,145.9 310.2,146.8 313.5,147.5 316.8,148.0 320.1,148.5 323.4,148.9 326.7,149.1 330.0,149.4 330,150" style="fill:var(--accent);opacity:.3"/>
+<polyline points="30.0,147.7 35.0,146.5 40.0,144.9 45.0,142.7 50.0,139.8 55.0,136.2 60.0,131.7 65.0,126.4 70.0,120.2 75.0,113.4 80.0,106.0 85.0,98.4 90.0,91.0 95.0,84.2 100.0,78.3 105.0,73.8 110.0,71.0 115.0,70.0 120.0,71.0 125.0,73.8 130.0,78.3 135.0,84.2 140.0,91.0 145.0,98.4 150.0,106.0 155.0,113.4 160.0,120.2 165.0,126.4 170.0,131.7 175.0,136.2 180.0,139.8 185.0,142.7 190.0,144.9 195.0,146.5 200.0,147.7 205.0,148.5 210.0,149.0 215.0,149.4 220.0,149.6 225.0,149.8 230.0,149.9 235.0,149.9 240.0,150.0 245.0,150.0 250.0,150.0 255.0,150.0 260.0,150.0 265.0,150.0 270.0,150.0 275.0,150.0 280.0,150.0 285.0,150.0 290.0,150.0 295.0,150.0 300.0,150.0 305.0,150.0 310.0,150.0 315.0,150.0 320.0,150.0 325.0,150.0 330.0,150.0" style="fill:none;stroke:var(--muted);stroke-width:2"/>
+<polyline points="30.0,150.0 35.0,150.0 40.0,150.0 45.0,150.0 50.0,150.0 55.0,150.0 60.0,150.0 65.0,150.0 70.0,150.0 75.0,150.0 80.0,150.0 85.0,150.0 90.0,150.0 95.0,149.9 100.0,149.9 105.0,149.9 110.0,149.8 115.0,149.6 120.0,149.4 125.0,149.0 130.0,148.5 135.0,147.7 140.0,146.7 145.0,145.3 150.0,143.4 155.0,141.0 160.0,137.9 165.0,134.2 170.0,129.7 175.0,124.6 180.0,118.8 185.0,112.5 190.0,105.8 195.0,99.2 200.0,92.8 205.0,86.9 210.0,82.0 215.0,78.2 220.0,75.8 225.0,75.0 230.0,75.8 235.0,78.2 240.0,82.0 245.0,86.9 250.0,92.8 255.0,99.2 260.0,105.8 265.0,112.5 270.0,118.8 275.0,124.6 280.0,129.7 285.0,134.2 290.0,137.9 295.0,141.0 300.0,143.4 305.0,145.3 310.0,146.7 315.0,147.7 320.0,148.5 325.0,149.0 330.0,149.4" style="fill:none;stroke:var(--accent);stroke-width:2.5"/>
+<line x1="30" y1="150" x2="330" y2="150" style="stroke:var(--rule-strong)"/>
+<line x1="165" y1="30" x2="165" y2="150" style="stroke:var(--ink);stroke-width:1.5;stroke-dasharray:5 3"/>
+<text x="169" y="40" style="fill:var(--ink);font-size:11px">umbral: a la derecha salta la alarma</text>
+<text x="80" y="64" text-anchor="middle" style="fill:var(--muted);font-size:12px;font-weight:700">normales</text>
+<text x="282" y="80" text-anchor="middle" style="fill:var(--accent-ink);font-size:12px;font-weight:700">anómalas</text>
+<text x="30" y="166" style="fill:var(--muted);font-size:11px">puntuación baja: parece normal</text>
+<text x="330" y="166" text-anchor="end" style="fill:var(--muted);font-size:11px">alta: parece raro</text>
+<rect x="30" y="176" width="10" height="10" style="fill:var(--trap);opacity:.55"/>
+<text x="46" y="185" style="fill:var(--muted);font-size:11px">falsas alarmas: normales que disparan la alarma</text>
+<rect x="30" y="194" width="10" height="10" style="fill:var(--accent);opacity:.3"/>
+<text x="46" y="203" style="fill:var(--muted);font-size:11px">anomalías detectadas (las demás se escapan)</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Explicar qué es un dato fuera de distribución y por qué un clasificador no lo delata por sí solo.</li>
+<li>Calcular TPR, FPR, precisión y AUROC (contando pares) a partir de una lista pequeña de puntuaciones, y hallar el FPR al 95 % de TPR.</li>
+<li>Justificar por qué la exactitud no sirve con anomalías raras y cuándo el AUPR o la precisión informan más que el AUROC.</li>
+<li>Comparar las familias de puntuación (softmax máximo, exposición a atípicos, verosimilitud de un modelo generativo, autosupervisión, Mahalanobis y ViM) por lo que miran y por su límite.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>¿Qué le pasa a un modelo con lo que no ha visto?</h3>
+<p>Un modelo de radiografías de tórax se entrena con imágenes de un fabricante. El hospital instala un escáner de otro, con otro contraste, ruido y resolución. El modelo sigue dando su diagnóstico con su seguridad de siempre: nadie le ha dado forma de decir "esto no lo conozco" (ejemplo propio). Las notas del curso lo ilustran con un clasificador de gatos y perros ante la foto de un hámster: solo puede repartir el 100 % entre esas dos clases, y el reparto no significa nada. Un dato así está fuera de distribución (<em>out-of-distribution</em>, OOD): viene de una población distinta de la del entrenamiento.</p>
+<p>La detección fuera de distribución (<em>OOD detection</em>) intenta cubrir ese hueco. El modelo entrega dos cosas: la predicción y una puntuación de anomalía. Si la puntuación pasa un umbral, un sistema externo puede auditar la predicción, descartarla o sustituirla por una política prudente. El libro pide que cace mucho sin tantas falsas alarmas que el personal deje de atenderlas (fatiga de alarmas) y apunta a extenderlo a amenazas desconocidas, como los troyanos (módulo 5, lección 5). Su lugar en la monitorización es tema de la lección anterior.</p>
+<p>Anomalía, novedad, atípico y fuera de distribución se usan casi como sinónimos. Convención propia: aquí la puntuación va siempre en un sentido, más alta es más rara (las notas hablan de "confianza" y a veces invierten el signo).</p>
+
+<h3>¿Cómo se plantea el problema?</h3>
+<p>Se entrena con datos normales. Para probar, se mezclan datos normales (<em>in</em>) y anómalos (<em>out</em>). El detector puntúa cada imagen y quedan dos listas: un buen detector las deja lo más separadas posible.</p>
+<p>Se elige un umbral \(t\): hay alarma si la puntuación es mayor o igual que \(t\). En la práctica no es fijo: se saca de las normales, por ejemplo con el percentil 95 de sus puntuaciones, para que solo moleste el 5 % de ellas. "Positivo" significa "anómalo", y un falso positivo es una imagen normal que dispara la alarma.</p>
+
+<h3>¿Por qué no sirve la exactitud, y qué se mide en su lugar?</h3>
+<p>Si solo el 1 % de los datos es anómalo, un detector que no avisa nunca acierta el 99 % de las veces y no sirve para nada. Con eventos raros, la exactitud premia no hacer nada. Hay que separar los dos errores posibles.</p>
+<dl class="facts">
+<div><dt>TPR (sensibilidad, exhaustividad)</dt><dd>Fracción de las anomalías que se marcan: \(\text{TPR}=\frac{TP}{TP+FN}\).</dd></div>
+<div><dt>FPR (tasa de falsos positivos)</dt><dd>Fracción de las normales que se marcan por error: \(\text{FPR}=\frac{FP}{FP+TN}\).</dd></div>
+<div><dt>Precisión</dt><dd>De las alarmas que saltan, la fracción que son anomalías de verdad: \(\frac{TP}{TP+FP}\).</dd></div>
+</dl>
+
+<h4>FPR95: un solo punto</h4>
+<p>El FPR al 95 % de TPR (FPR95) baja el umbral hasta cazar el 95 % de las anomalías y mira qué fracción de las normales molesta. Menos es mejor. Es la referencia de la comunidad, aunque el 95 es una convención (hay trabajos con 90), y solo mira un punto de la curva.</p>
+
+<h4>AUROC: todos los umbrales a la vez</h4>
+<p>Si se recorren todos los umbrales y se dibuja, para cada uno, el TPR frente al FPR, sale la curva ROC (<em>receiver operating characteristic</em>). El área bajo ella es el AUROC. No depende de ningún umbral concreto. Vale 0,5 si el detector es como el azar y 1 si separa perfectamente. Tiene una lectura probabilística: es la probabilidad de que una normal elegida al azar puntúe menos que una anómala elegida al azar.</p>
+<p>Eso permite calcularlo a mano, contando pares. Ejemplo propio: normales con 0,1 y 0,4; anómalas con 0,3, 0,6 y 0,9. De los \(2\times3=6\) pares, 5 quedan bien ordenados (la anómala 0,3 solo pierde con la normal 0,4): AUROC \(=5/6\approx0{,}83\).</p>
+
+<h4>AUPR: cuando las anomalías son raras (añadido propio)</h4>
+<p>El AUROC pesa igual a todas las normales, así que un 1 % de falsas alarmas entre 9.900 normales parece poco aunque sean 99 alarmas falsas frente a 100 anomalías. La precisión sí lo nota, porque depende de la prevalencia (la fracción de anomalías en los datos). La curva de precisión frente a exhaustividad y su área, el AUPR, recogen eso, y su azar no vale 0,5 sino la prevalencia. La ficha del Atlas sobre AUPRC recomienda informar los dos números con una clase positiva minoritaria. Este apartado no viene de las notas del curso.</p>
+<p>Para ver cómo se mueven el umbral, las curvas y las métricas al cambiar el solapamiento y la prevalencia, <a data-ir="practica" href="#sim-m05-l02-auroc">pruébalo en Práctica</a>.</p>
+
+<h3>¿Sobre qué datos se prueba?</h3>
+<p>Las anomalías reales son imprevistas por definición, así que no hay un conjunto "de anomalías" que recoger. El truco es barato: se toman dos conjuntos de datos y se declara normal uno y anómalo el otro. Sirve para imágenes, texto, audio o genómica, aunque cuesta fijar estándares comunes. Una variante es la clasificación de una clase (<em>one-class</em>): se entrena con una sola clase y todas las demás cuentan como anómalas, así que hacen falta métodos sin etiquetas.</p>
+<p>En imagen se suele probar con conjuntos pequeños de 32 por 32 píxeles: CIFAR-10 o SVHN como normal, y CIFAR-100, TinyImageNet o LSUN como anómalos. Cuanto más se parecen los dos conjuntos, más difícil es separarlos: con CIFAR-10 como normal, SVHN (números de fachadas) es más fácil de cazar que CIFAR-100.</p>
+<p>La salida de referencia del notebook trae una advertencia: con un modelo entrenado con aumento de datos (PixMix), el AUROC medio del logit máximo sube de 82,9 % a 91,3 %, pero el de ViM baja de 93,0 % a 90,4 %. Conviene evaluar contra varios conjuntos, también cercanos: un detector puede resolver fotos de un móvil y fallar con imágenes de otro escáner (ejemplo propio).</p>
+
+<h3>¿Cómo se calcula la puntuación?</h3>
+<p>Las familias siguientes van de lo más barato a lo más elaborado.</p>
+
+<h4>Probabilidad softmax máxima (MSP): la línea base</h4>
+<p>La confianza es la mayor de las probabilidades de salida (<em>maximum softmax probability</em>). Si el clasificador de gatos y perros devuelve \([0{,}8;\,0{,}2]\), la confianza es 0,8. La puntuación de anomalía es su opuesto:</p>
+<div class="formula">\[ s(x)=-\max_k\, p(y=k\mid x) \]</div>
+<p>Es una línea base sencilla que a veces sorprende, pero suele quedar corta. Marca el listón mínimo: un método que no gana a la MSP no aporta. El notebook prueba otras dos parecidas: el opuesto del logit máximo, \(-\max_k l_k\), y \(\bar l-\ln\sum_c e^{l_c}\) (media de los logits menos su logsumexp), que crece cuanto más uniforme es la salida. Por qué la confianza del softmax suele estar inflada se ve en la lección de incertidumbre interpretable.</p>
+
+<h4>Exposición a atípicos (outlier exposure)</h4>
+<p>La idea es enseñar al modelo cómo es lo raro. Se reúne un conjunto auxiliar de datos fuera de distribución y, durante el entrenamiento, se penaliza que el modelo esté seguro con ellos. La pérdida tiene esta plantilla, con \(\lambda\) para ponderar el segundo término:</p>
+<div class="formula">\[ \mathbb{E}_{(x,y)\sim\mathcal D_{\text{in}}}\Big[\mathcal L\big(f_\theta(x),y\big)\Big]\;+\;\lambda\;\mathbb{E}_{x'\sim\mathcal D_{\text{out}}^{\text{aux}}}\Big[\mathcal L_{\text{OE}}\big(f_\theta(x')\big)\Big] \]</div>
+<p>En imagen, \(\mathcal L\) suele ser la entropía cruzada y \(\mathcal L_{\text{OE}}\) mide la divergencia KL entre la salida y una distribución uniforme: se pide al modelo que sobre lo raro no sepa qué decir. La prueba se hace con anomalías que el modelo no ha visto, porque el detector debe cubrir puntos ciegos.</p>
+<p>Ejemplo propio: para el escáner nuevo, un auxiliar de TAC, ecografías y radiografías de otras zonas, y evaluación con imágenes del escáner. Según los autores del método, el auxiliar no tiene que parecerse al de la prueba: importa que sea diverso y que no esté tan lejos de lo normal como para que baste un truco fácil para distinguirlo.</p>
+
+<h4>Modelos generativos y verosimilitudes</h4>
+<p>Un modelo generativo que produce datos como los de entrenamiento parece el candidato natural, y su verosimilitud (<em>likelihood</em>) se ha usado como puntuación. El problema: varios trabajos encontraron modelos que daban más verosimilitud a datos anómalos que a los normales, sin que se entienda bien por qué. Una imagen muy lisa y de poco contraste, fácil de describir, podría explicarlo en parte (lectura propia). Según las notas, estos métodos necesitan trucos y no superan a los mejores discriminativos.</p>
+
+<h4>Autosupervisión</h4>
+<p>¿Cómo saber, sin etiquetas, si el modelo entiende la estructura de una imagen? Con una tarea que se corrige sola, por ejemplo girar la imagen 0, 90, 180 o 270 grados y pedir que adivine el giro. Cuanto más anómala es la imagen, peor resuelve la tarea el modelo, y ese fallo sirve de puntuación. Un trabajo de 2019 entrenó una red solo con rotaciones y ya superó a la exposición a atípicos con una clase de ImageNet; añadiendo traslaciones y ajustes de arquitectura, la ventaja creció mucho.</p>
+
+<h4>Estadísticos: ODIN y Mahalanobis</h4>
+<p>ODIN aplica una temperatura muy alta al softmax (1000) y perturbaciones adversarias; las notas señalan que los datos normales suelen ser más sensibles a ellas que los anómalos. La distancia de Mahalanobis modela las características de cada clase como una gaussiana con media \(\mu_c\) y una covarianza común \(\Sigma\), y puntúa la cercanía a la clase más próxima:</p>
+<div class="formula">\[ M(x)=\max_c\Big[-\big(f(x)-\hat\mu_c\big)^{\top}\hat\Sigma^{-1}\big(f(x)-\hat\mu_c\big)\Big] \]</div>
+<p>Aquí \(f(x)\) son las características internas de la red. Como \(M\) es alta cuando el dato está cerca de una clase, para tener una puntuación de anomalía hay que cambiarle el signo (propio).</p>
+
+<h4>ViM: coincidencia de logits virtuales</h4>
+<p>Es el método que se programa en el notebook (curso L8, no las notas). Toma las características de justo antes de la última capa, halla sus componentes principales con datos de entrenamiento (el notebook usa 12) y separa cada dato en lo que cae en ese espacio y el residuo que queda fuera. Idea (explicación propia): lo normal deja poco residuo y lo raro mucho. El residuo se convierte en un logit virtual, con un coeficiente \(\alpha\) que iguala escalas:</p>
+<div class="formula">\[ \alpha=\frac{\sum_{i}\max_j\, l^{\,i}_j}{\sum_{i}\big\lVert x_i^{P^\perp}\big\rVert},\qquad \text{vlogit}=\alpha\,\lVert x^{P^\perp}\rVert,\qquad s(x)=\text{vlogit}-\ln\sum_{c}e^{\,l_c} \]</div>
+<p>El logaritmo de la suma de exponenciales de los logits es la energía: la puntuación sube con el residuo y baja con logits muy altos. En la salida de referencia del notebook (no es una ejecución propia), ViM gana con el ruido y con SVHN, pero pierde con CIFAR-100 frente a la MSP (83,5 % de AUROC contra 88,1 %).</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Un servicio de radiología procesa 10.000 imágenes al mes. Cien de ellas, el 1 %, vienen del escáner nuevo, que el modelo no conoce. El detector puede trabajar con dos umbrales:</p>
+<div class="tw"><table>
+<thead><tr><th>Umbral</th><th>TPR</th><th>FPR</th><th>Anomalías cazadas</th><th>Falsas alarmas</th><th>Alarmas</th><th>Precisión</th></tr></thead>
+<tbody>
+<tr><td>A</td><td>90 %</td><td>5 %</td><td>90</td><td>495</td><td>585</td><td>15,4 %</td></tr>
+<tr><td>B</td><td>95 %</td><td>20 %</td><td>95</td><td>1.980</td><td>2.075</td><td>4,6 %</td></tr>
+</tbody></table></div>
+<p>Las cuentas: con el umbral A, el TPR de 0,90 sobre 100 anomalías da 90, y el FPR de 0,05 sobre las 9.900 normales da 495 falsas alarmas. Con el B se cazan 5 anomalías más, pero se pagan 1.485 falsas alarmas más. Si revisar cada alarma lleva dos minutos, A supone 19,5 horas de revisión al mes y B unas 69. Ese es el precio de bajar el umbral, y el AUROC no lo enseña.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Confundir AUROC alto con alarmas fiables (aviso propio).</strong> Un AUROC de 0,92 dice que el detector ordena bien, no que las alarmas acierten. Con anomalías raras, casi todas las alarmas pueden ser falsas. Hay que mirar también la precisión y el AUPR con la prevalencia real. Y el detector es una capa más, no una garantía: en el queso suizo de modelos de accidente, su agujero es una anomalía con puntuación baja.</p>
+<p><strong>Elegir el umbral por exactitud.</strong> Con anomalías raras, el umbral que maximiza la exactitud es el que avisa muy poco. El umbral se fija por lo que cuesta cada error: dejar pasar una anomalía o revisar una falsa alarma.</p>
+<p><strong>Validar contra un solo conjunto anómalo.</strong> Un detector que separa bien el ruido puede fallar con lo que ocurra en producción, que suele parecerse más a lo normal. Evalúa con varios conjuntos, incluidos los cercanos.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>I don't judge an anomaly detector by accuracy: I use AUROC for how well it ranks, FPR at 95% TPR for a concrete operating point, and precision at the real prevalence, because a detector that cries wolf gets ignored.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 3.2 Monitoring, subsección 3.2.7 "Evaluations and Anomaly Detection", págs. 134 y 135 (PDF 152 y 153); el párrafo sobre detección de anomalías está en la 135. Se usa solo como marco: la exigencia de exhaustividad alta con pocas falsas alarmas (fatiga de alarmas) y la extensión a amenazas desconocidas como los troyanos.</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS), lección L8 Anomaly Detection. Notas (Oliver Zhang): planteamiento, métricas, bancos de pruebas y familias de puntuación. Notebook L08 (Jason Ding): logit máximo, softmax máximo, entropía cruzada, ViM y la comparación con PixMix.</li>
+<li>Atlas de métricas de monitorización (obra propia): fichas AUROC, AUPRC, sensibilidad (TPR), tasa de falsos positivos (FPR), precisión y prevalencia.</li>
+<li>Añadido propio, no procede de las fuentes: la convención de la puntuación (más alta, más raro), los ejemplos del escáner y del servicio de radiología, el apartado de AUPR, el ejemplo de conteo de pares, la lectura de las verosimilitudes en imágenes lisas, la explicación intuitiva de ViM, el simulador (dos gaussianas), los ejercicios y el resumen del notebook.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: un simulador para mover el umbral y el solapamiento, tres ejercicios y un notebook para programar las puntuaciones.</p>
+
+<p class="consigna"><strong>Simulador del detector.</strong> Con separación 2, prevalencia del 1 % y umbral 1,0, el AUROC sale 0,92 pero solo el 5 % de las alarmas son anomalías. Pulsa "Umbral con TPR = 95 %" y mira el FPR95. Cambia a la curva de precisión y exhaustividad y compara el AUPR con el AUROC. Sube la prevalencia al 20 % y al 50 %: el AUROC no se mueve, el AUPR sí. Pulsa "Umbral de máxima exactitud" con el 1 %: la exactitud sube al 99,05 %, un poco por encima de la del detector mudo, y solo caza el 10 % de las anomalías. Por último, separación 0: mira qué valen AUROC y AUPR cuando el detector no distingue nada.</p>
+<div data-widget="m05-l02-auroc" id="sim-m05-l02-auroc"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: métricas de una lista pequeña (a mano, 6 minutos)</p>
+<p>Un detector da estas puntuaciones de anomalía (más alta, más raro). Cinco imágenes normales: 0,1; 0,2; 0,3; 0,4 y 0,6. Cinco anómalas: 0,35; 0,5; 0,7; 0,8 y 0,9. Hay alarma si la puntuación es mayor o igual que el umbral.</p>
+<ol>
+<li>Calcula el AUROC contando pares.</li>
+<li>Calcula TPR y FPR para los umbrales 0,35, 0,5 y 0,7.</li>
+<li>¿Cuál es el FPR95 de esta muestra?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Para cada anómala se cuentan las normales que puntúan menos: 0,35 supera a 3 (0,1; 0,2 y 0,3), 0,5 a 4, y 0,7; 0,8 y 0,9 superan a las 5. En total \(3+4+5+5+5=22\) pares de \(5\times5=25\): AUROC \(=22/25=0{,}88\).</p>
+<p><strong>2.</strong> Con \(t=0{,}35\): las 5 anómalas están por encima (TPR 1,0) y de las normales solo 0,4 y 0,6 (FPR 0,4). Con \(t=0{,}5\): quedan 0,5; 0,7; 0,8 y 0,9 (TPR 0,8) y de las normales solo 0,6 (FPR 0,2). Con \(t=0{,}7\): TPR 0,6 y FPR 0.</p>
+<p><strong>3.</strong> Para tener TPR de al menos 0,95 con 5 anomalías hay que cazar las 5, y eso obliga a \(t\le0{,}35\). El FPR en ese umbral es 0,4, y bajarlo más lo empeora. FPR95 \(=0{,}4\).</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: prevalencia y carga de revisión (a mano, 4 minutos)</p>
+<p>Un detector tiene TPR 90 % y FPR 5 %. Cada mes se procesan 10.000 imágenes.</p>
+<ol>
+<li>Si el 1 % es anómalo, ¿cuántas alarmas ciertas y falsas hay al mes? ¿Cuántas falsas por cada cierta?</li>
+<li>¿Y si el 20 % es anómalo? Da también la precisión en los dos casos.</li>
+<li>¿A partir de qué prevalencia la mitad de las alarmas son ciertas?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Anómalas: 100. Ciertas: \(0{,}9\times100=90\). Normales: 9.900. Falsas: \(0{,}05\times9.900=495\). Falsas por cada cierta: \(495/90=5{,}5\). Precisión \(90/585\approx15{,}4\,\%\).</p>
+<p><strong>2.</strong> Anómalas: 2.000. Ciertas: 1.800. Normales: 8.000. Falsas: 400. Precisión \(1.800/2.200\approx81{,}8\,\%\). Mismo detector, precisión de 15 % a 82 %: la precisión depende de la prevalencia.</p>
+<p><strong>3.</strong> Se busca \(\pi\) con \(0{,}9\pi=0{,}05(1-\pi)\), es decir, \(0{,}95\pi=0{,}05\) y \(\pi\approx0{,}0526\): con algo más de un 5 % de anomalías, la mitad de las alarmas son ciertas. Por debajo, dominan las falsas alarmas.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: puntuaciones y AUPR con Python (8 minutos)</p>
+<p>El fragmento calcula tres puntuaciones de anomalía sobre los logits de dos imágenes y compara AUROC y AUPR con la misma separación y distinta prevalencia. Antes de ejecutarlo, predice qué imagen es más anómala según cada puntuación y qué pasará con el AUPR.</p>
+<pre><code>import numpy as np
+from scipy.special import logsumexp, softmax
+from sklearn.metrics import roc_auc_score, average_precision_score
+
+# Parte 1: tres puntuaciones de anomalía sobre dos vectores de logits
+logits = np.array([[4.0, 1.0, 0.5],    # imagen A: el modelo lo tiene claro
+                   [1.2, 1.0, 0.9]])   # imagen B: el modelo duda
+msp = -softmax(logits, axis=1).max(axis=1)   # opuesto de la probabilidad softmax máxima
+maxlogit = -logits.max(axis=1)               # opuesto del logit máximo
+energia = -logsumexp(logits, axis=1)         # opuesto de la energía
+print(np.round(msp, 3), np.round(maxlogit, 3), np.round(energia, 3))
+
+# Parte 2: AUROC y AUPR con la misma separación y distinta prevalencia
+rng = np.random.default_rng(0)
+for prevalencia in (0.01, 0.5):
+    n_an = int(20_000 * prevalencia)
+    n_no = 20_000 - n_an
+    y = np.r_[np.zeros(n_no), np.ones(n_an)]
+    s = np.r_[rng.normal(0, 1, n_no), rng.normal(2, 1, n_an)]
+    print(prevalencia, round(roc_auc_score(y, s), 3), round(average_precision_score(y, s), 3))</code></pre>
+<details>
+<summary>Ver solución</summary>
+<p>La primera línea impresa es <code>[-0.926 -0.391] [-4. -1.2] [-4.077 -2.14]</code>. Las tres puntuaciones dan más alto a la imagen B, la que deja al modelo dudando: es la más anómala. Aquí las tres coinciden, pero podrían discrepar: la probabilidad softmax mira solo el reparto relativo entre clases, el logit máximo mira la magnitud del logit mayor y la energía combina la magnitud de todos.</p>
+<p>En la parte 2, con esa semilla, salen unos <code>0.01 0.905 0.244</code> y <code>0.5 0.919 0.92</code>. El AUROC teórico de dos gaussianas con separación 2 es 0,92 en los dos casos (el 0,905 es ruido de muestreo con solo 200 anomalías). El AUPR pasa de 0,24 a 0,92: es el mismo detector, y con un 1 % de anomalías casi todo lo que marca es falso. (El simulador da 0,27 para el 1 %, porque integra la curva teórica.) El azar tendría un AUPR igual a la prevalencia: 0,01 y 0,5.</p>
+</details>
+</div>
+
+<div class="notebook" style="background:var(--surface);border:1px solid var(--rule);border-left:4px solid var(--accent);border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0">
+<p class="label">Notebook: puntuaciones de anomalía y ViM sobre CIFAR-10</p>
+<p>Es un esqueleto de ejercicio del curso Intro to ML Safety (lección L8), adaptado al español. Con un clasificador de CIFAR-10 ya entrenado (una WideResNet) y tres conjuntos anómalos (ruido de Rademacher, SVHN y CIFAR-100), escribes el código de las celdas con <code>TODO</code>: el AUROC (<code>sklearn.metrics.roc_auc_score</code>), las tres puntuaciones (logit máximo, softmax máximo y entropía cruzada frente a la uniforme) y ViM (espacio principal, residuo, \(\alpha\), que debería salir cerca de 16,16, y puntuación). Después comparas las cuatro puntuaciones y repites con un segundo modelo entrenado con aumento de datos PixMix.</p>
+<p><strong>Tiempo aproximado:</strong> de 1,5 a 2 horas escribiendo el código (estimación propia, no medida). Sin GPU el código usa menos datos.</p>
+<p><strong>Dos avisos antes de abrirlo:</strong></p>
+<ul>
+<li><strong>Necesita descargas que no están en este curso.</strong> El modelo de CIFAR-10 y <code>wrn_with_pen.py</code> están en GitHub, y el modelo PixMix y su clase en Google Drive; las instrucciones están en las celdas de requisitos. Hacen falta <code>torch</code>, <code>torchvision</code>, <code>numpy</code>, <code>scipy</code> y <code>scikit-learn</code> (PyTorch es una descarga grande). Torchvision baja los conjuntos de datos.</li>
+<li><strong>No se ha ejecutado.</strong> La adaptación conserva el código del original y cada celda es sintácticamente correcta, pero ni el notebook ni las descargas ni la solución de referencia se han ejecutado. Puede haber fallos de versiones (el original fijaba <code>torchvision==0.12.0</code>, que no sirve con Python 3.13) o de <code>DataLoader</code> con varios procesos en Windows. Además, el original tiene un fallo al cargar el modelo PixMix (llama a <code>net</code> en vez de <code>pixmix_net</code>), avisado en un comentario de esa celda: con GPU probablemente da un error de dispositivos.</li>
+</ul>
+<p><strong>Enlace:</strong> <a href="../notebooks/m05-l02-deteccion-anomalias.ipynb"><code>notebooks/m05-l02-deteccion-anomalias.ipynb</code></a></p>
+</div>
+
+</div>
+
+</section>

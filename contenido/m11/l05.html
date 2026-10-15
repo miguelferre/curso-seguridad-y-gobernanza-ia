@@ -1,0 +1,207 @@
+<section class="leccion" data-id="m11/l05">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Hay dos maneras clásicas de responder a "¿qué debo hacer?". El utilitarismo mira lo que pasa después: elige la acción que deja más bienestar en total, contando a todos por igual. La deontología mira el acto en sí: hay cosas que no se hacen, como mentir o matar, aunque saliera bien, y hay derechos que nadie puede pisar. Fuera de esos límites, cada uno elige.</p>
+<p>Ante el mismo caso, una pregunta es "¿qué ocurre si lo hago?" y la otra "¿qué clase de acto es?". Cada teoría tiene un punto débil que la otra explota: el utilitarismo puede exigir demasiado o justificar lo que casi nadie aceptaría, y la deontología puede obligar a dejar que el mundo salga peor.</p>
+<p>Para quien trabaja con IA no es filosofía de sobremesa: cada teoría se traduce en un diseño. Una maximiza una función de bienestar y la otra impone restricciones que no se cruzan, y las dos tienen problemas prácticos.</p>
+
+<svg viewBox="0 0 360 262" role="img" aria-labelledby="ut-t ut-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="ut-t">Utilitarismo y deontología</title>
+<desc id="ut-d">Arriba, el utilitarismo compara dos acciones por su utilidad esperada: ir en bus vale menos uno y conducir menos 49,05, así que gana el bus. Abajo, la deontología separa un recinto de restricciones que no se cruzan, como mentir o dañar, de una zona amplia de opciones libres.</desc>
+<rect x="4" y="4" width="352" height="122" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="26" style="fill:var(--accent-ink);font-weight:700;font-size:14px">UTILITARISMO: ¿qué resultado produce?</text>
+<text x="18" y="52" style="fill:currentColor;font-size:12.5px">Bus</text>
+<rect x="72" y="41" width="6" height="14" rx="2" style="fill:var(--accent)"/>
+<text x="86" y="52" style="fill:currentColor;font-size:12.5px;font-weight:700">−1</text>
+<text x="18" y="76" style="fill:currentColor;font-size:12.5px">Coche</text>
+<rect x="72" y="65" width="230" height="14" rx="2" style="fill:var(--trap)"/>
+<text x="296" y="76" text-anchor="end" style="fill:var(--surface);font-size:12.5px;font-weight:700">−49,05</text>
+<text x="18" y="102" style="fill:var(--muted);font-size:12px">Utilidad esperada de cada acción (ejemplo del libro)</text>
+<text x="18" y="118" style="fill:var(--accent-ink);font-size:12.5px;font-weight:700">Se elige la de mayor bienestar esperado: el bus</text>
+
+<rect x="4" y="136" width="352" height="122" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="18" y="158" style="fill:var(--ex);font-weight:700;font-size:14px">DEONTOLOGÍA: ¿qué clase de acto es?</text>
+<rect x="18" y="170" width="324" height="80" rx="8" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<rect x="30" y="180" width="120" height="60" rx="6" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:2"/>
+<text x="90" y="200" text-anchor="middle" style="fill:currentColor;font-size:12.5px;font-weight:700">Restricciones</text>
+<text x="90" y="216" text-anchor="middle" style="fill:currentColor;font-size:12px">no mentir</text>
+<text x="90" y="231" text-anchor="middle" style="fill:currentColor;font-size:12px">no dañar</text>
+<text x="246" y="200" text-anchor="middle" style="fill:currentColor;font-size:12.5px;font-weight:700">Opciones libres</text>
+<text x="246" y="218" text-anchor="middle" style="fill:currentColor;font-size:12px">todo lo demás</text>
+<text x="246" y="233" text-anchor="middle" style="fill:currentColor;font-size:12px">lo eliges tú</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Calcular la utilidad esperada de dos acciones, decir cuál recomienda el utilitarismo y enunciar sus cuatro afirmaciones centrales.</li>
+<li>Explicar qué son las restricciones, la autonomía, las opciones, el doble efecto y la distinción entre acción y omisión en la deontología.</li>
+<li>Nombrar tres objeciones a cada teoría con la respuesta que recoge el libro, cuando la hay.</li>
+<li>Aplicar la prueba de la ley universal y la fórmula de la humanidad de Kant a un caso de IA.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>Dos preguntas para el mismo caso</h3>
+<p>Una teoría moral (<em>moral theory</em>) es un intento de explicar, con principios generales y coherentes, qué hace correcta o incorrecta una acción para cualquiera. El libro defiende conocerlas por una razón práctica: sin ese fondo, quien desarrolla o usa IA tiende a sacar conclusiones con una seguridad que no ha ganado, y comparar teorías obliga a poner a prueba los argumentos y a ver supuestos que pasaban desapercibidos (p. 549).</p>
+<p>Hoy vemos las dos que más pesan en los debates sobre IA. Las consecuencialistas (<em>consequentialist</em>) sostienen que la moralidad de una acción depende de sus resultados; el utilitarismo es la más conocida y su meta es el bienestar de todos. Las deontológicas (<em>deontological</em>) sostienen que depende de si la acción respeta reglas o principios, y subrayan derechos, obligaciones especiales y restricciones (p. 549). La ética de la virtud y el contrato social se dejan para la lección siguiente.</p>
+
+<h3>Utilitarismo: cómo se calcula lo correcto</h3>
+<p>Ante un caso, el utilitarismo (<em>utilitarianism</em>) no pregunta quién actúa ni con qué motivos: suma lo que gana y pierde cada persona del mundo, implicada o no, y da por correcta la opción con mejor saldo (p. 550). Al efecto de una acción sobre el bienestar se le llama su utilidad (<em>utility</em>). Como nadie conoce el futuro, cada resultado posible se pondera por su probabilidad, y lo que sale es la utilidad esperada (<em>expected utility</em>, pp. 550 y 551), que ya viste en el módulo 11:</p>
+<div class="formula">\[ U_{\text{esp}}(a)=\sum_i p_i\,u_i \]</div>
+<p>Ejemplo del libro (pp. 550 y 551): Amanda ha bebido y decide entre volver en bus o conduciendo. Las cifras son orientativas, no medidas.</p>
+<div class="tw"><table>
+<thead><tr><th>Acción</th><th>Resultado</th><th>Probabilidad</th><th>Utilidad</th></tr></thead>
+<tbody>
+<tr><td>Bus</td><td>molestia: frío y espera</td><td>100 %</td><td>−1</td></tr>
+<tr><td rowspan="2">Conducir</td><td>llega sana y salva, antes</td><td>95 %</td><td>+1</td></tr>
+<tr><td>accidente con una víctima mortal</td><td>5 %</td><td>−1000</td></tr>
+</tbody></table></div>
+<p>Para el bus, \(1\times(-1)=-1\). Para conducir, \(0{,}95\times1+0{,}05\times(-1000)=-49{,}05\). Las dos son negativas, pero se elige la menos mala: el bus.</p>
+
+<h3>Las cuatro afirmaciones que lo definen</h3>
+<dl class="facts">
+<div><dt>Solo cuentan las consecuencias</dt><dd>Es una forma de consecuencialismo: nada del acto en sí, ni la intención, importa salvo por lo que provoca (p. 553).</dd></div>
+<div><dt>El bienestar es el único bien</dt><dd>Los utilitaristas clásicos lo entienden como placer menos sufrimiento; los de preferencias, como satisfacción de preferencias (p. 553). Las cuentas del módulo 8 sobre qué es el bienestar encajan aquí.</dd></div>
+<div><dt>Todos pesan lo mismo</dt><dd>Imparcialidad: para merecer trato moral basta con poder sufrir (Bentham, p. 553). Por eso cuentan los animales y contaría una IA que llegara a tener bienestar.</dd></div>
+<div><dt>Hay que maximizar</dt><dd>No basta un resultado bueno: el acto correcto es el mejor. No hay opciones (p. 554). Ejemplo del libro: Dorian puede enseñar biología, con un impacto positivo, o investigar la calidad del aire y salvar más vidas; aunque le guste más enseñar, el utilitarista dirá que debe investigar.</dd></div>
+</dl>
+<p>De ahí salen conclusiones que chocan con el sentido común. Ejemplo del libro (pp. 551 y 552): Carla ve a un niño ahogarse en un estanque y lleva un traje nuevo de 3.500 dólares. Casi todos dirían que debe tirarse. Singer replica que, si la distancia no cuenta, esa misma cantidad salvaría a otros niños lejanos, y que por tanto deberíamos dar mucho más de lo que damos.</p>
+
+<h3>Tres objeciones al utilitarismo, y qué responde</h3>
+<div class="tw"><table>
+<thead><tr><th>Objeción (págs.)</th><th>Qué dice</th><th>Respuesta utilitarista</th></tr></thead>
+<tbody>
+<tr><td>Demasiado exigente (554 y 555)</td><td>Pide lo mejor siempre: dejar el trabajo que amas, no hacer regalos si el dinero rinde más en otro sitio.</td><td>En la práctica exige menos: quien se agota o descuida a los suyos acaba haciendo menos bien. Aun así, casi todos deberíamos dar más.</td></tr>
+<tr><td>Cálculos intratables (555 y 556)</td><td>Los efectos de un acto son ilimitados y casi nunca se conocen las probabilidades.</td><td>Distinguir criterio de rectitud y procedimiento de decisión (abajo).</td></tr>
+<tr><td>Demasiado valor al bienestar (556 y 557)</td><td>Máquina de experiencias de Nozick (ejemplo del libro): no nos conectaríamos de por vida a una que simulara una vida estupenda, porque nos importa lo real.</td><td>Greene la reescribe con un sesgo del statu quo: quien vive en la máquina sin saberlo suele querer seguir. La intuición no es tan limpia.</td></tr>
+</tbody></table></div>
+<p>La segunda respuesta es la más útil para quien diseña sistemas. El criterio de rectitud (<em>criterion of rightness</em>) es lo que hace correcta una acción: para el utilitarismo, maximizar el bienestar esperado. El procedimiento de decisión (<em lang="en">decision procedure</em>) es el método que se recomienda usar para decidir, y puede ser otro (p. 555). Nadie le pide a Amanda que calcule a la puerta del bar: la regla "no conduzcas bebido" ya condensa el cálculo, y un utilitarista la defendería por sus resultados. En la práctica se apoya en reglas probadas, como decir la verdad o ser justo, y en la prudencia de la valla de Chesterton, que pide no quitar una barrera sin saber para qué se puso (p. 556).</p>
+
+<h3>Una IA utilitarista: qué haría falta</h3>
+<p>En principio sería sencillo; en la práctica no. Habría que representar el bienestar de cada persona (módulo 8), agregarlo en una función de bienestar social, decidir a quién afecta cada decisión y predecir efectos en sistemas complejos y a largo plazo. Y los sucesos raros y extremos (colas y cisnes negros, módulo 2) dificultan un método basado en el valor esperado (pp. 557 y 558).</p>
+
+<h3>Deontología: qué actos quedan fuera de la mesa</h3>
+<p>"No matarás", "no robarás": son reglas del tipo que da nombre a la deontología (<em>deontology</em>), un conjunto de teorías que rechazan que solo las consecuencias decidan lo correcto y lo apoyan en obligaciones y restricciones (p. 559). Algunas son religiosas, como el mandato divino; otras no, como la ética de Kant; y otras son reglas sueltas que intentan ajustarse a nuestras intuiciones sobre un problema concreto, sin teoría detrás. Se agrupan porque comparten lo que niegan, más que lo que afirman, y no coinciden entre sí (p. 561).</p>
+<dl class="facts">
+<div><dt>Restricciones</dt><dd>Algunos actos, como mentir o matar, están mal, y las buenas consecuencias no los justifican. Ejemplo del libro: si el jefe de Elena le pregunta por el esfuerzo de sus compañeros, un deontólogo diría que debe decir la verdad aunque algunos pierdan el empleo (p. 559).</dd></div>
+<div><dt>Derechos y autonomía</dt><dd>Muchas restricciones vienen de respetar derechos: reclamaciones que cada persona tiene por serlo. La deontología moderna, tras Kant, protege sobre todo la autonomía, la capacidad de elegir cómo actuar (pp. 559 y 560).</dd></div>
+<div><dt>Opciones</dt><dd>Fuera de las restricciones hay libertad. Al elegir carrera, no debes ser sicario ni torturador, pero puedes escoger entre muchas honradas, no necesariamente la que más bien haga (p. 560). Es lo contrario del utilitarismo.</dd></div>
+<div><dt>Intenciones</dt><dd>La intención puede estar mal aunque no se ejecute. Ejemplo del libro: Farid decide empujar a su madre por la escalera; en un caso lo hace y en otro ella se cae justo antes. Para algunas teorías, obra igual de mal en los dos. Para un utilitarista clásico, la intención solo importa por sus efectos (p. 560).</dd></div>
+</dl>
+<p>El derecho penal recoge esa idea con grados de intención, del propósito a la negligencia (pp. 560 y 561). El libro añade que, si la moral dependiera de la intención, juzgar a una IA exigiría poder determinar la suya, y eso es un objetivo de la investigación en transparencia (p. 561; módulo 5).</p>
+<p>Los deontólogos apoyan sus teorías en dos críticas al consecuencialismo (p. 561). Es demasiado exigente, porque no deja opciones: hasta elegir pareja o trabajo sería una decisión moral. Y llega a conclusiones radicales: si el total mejora, incluso dañar o matar a inocentes podría ser correcto.</p>
+
+<h3>Cuando una regla absoluta choca con el caso</h3>
+<p>Ejemplo del libro (pp. 561 y 562): unos gemelos unidos morirán los dos sin una operación en la que morirá uno. Una regla "no matar" prohibiría operar y no habría ninguna oportunidad de salvar a nadie. Para casos así, los deontólogos han añadido dos principios.</p>
+<ul>
+<li><strong>Doble efecto (<em>double effect</em>).</strong> La cirujana prevé que uno de los gemelos morirá, pero lo que persigue es salvar al otro. Ese es el principio: un efecto malo previsto es admisible cuando el efecto que se pretende es el bueno, y el deber de no dejar morir a los dos pesa más que la restricción (p. 562). El libro lo usa para justificar la operación y también la defensa propia. Ejemplo propio: una sedación paliativa que alivia el dolor y quizá acorte la vida, aceptable si la intención es aliviar y no acortar.</li>
+<li><strong>Acción y omisión (<em>action/omission</em>).</strong> Nos parece más responsable quien hace algo que quien deja que ocurra (p. 562). Ejemplo del libro: Gabe roba una bolsa del buzón del banco, y Heather lo ve y no avisa. Los dos obran mal, pero Gabe peor. Ejemplo propio: retirar a un paciente de una cama frente a no asignarla a otro.</li>
+</ul>
+
+<h3>Tres objeciones a la deontología</h3>
+<div class="tw"><table>
+<thead><tr><th>Objeción (págs.)</th><th>Qué dice</th><th>Respuesta del libro y su problema</th></tr></thead>
+<tbody>
+<tr><td>Catástrofes (562 y 563)</td><td>Ejemplo del libro: Jamie captura a Ines, que ha puesto una bomba nuclear que matará a millones; torturarla revelaría dónde. Negarse parece anteponer la propia pureza a millones de vidas.</td><td>La vista de umbral: si lo que está en juego llega a cierto número de vidas, la teoría cede al cálculo. Pero el umbral es arbitrario: si vale con un millón, ¿por qué no con diez mil o con diez? (p. 563).</td></tr>
+<tr><td>Empeora el mundo (563)</td><td>Ejemplo del libro: Kimiko podría reformar el sistema sanitario y salvar miles de vidas al año, pero ello rompe la promesa de no mudarse hasta que sus hijos terminen los estudios.</td><td>El libro no da réplica: nombra la paradoja de la deontología. La regla se mantiene aunque, cumpliéndola, se produzcan más actos como los que prohíbe. No se puede mentir para evitar cientos de mentiras.</td></tr>
+<tr><td>Kant, demasiado extremo (566 y 567)</td><td>Ejemplo del libro: un hombre con un hacha ensangrentado pregunta a Omar dónde está Piper, que está arriba. Kant sostenía que mentir estaría mal incluso así.</td><td>Deberes pro tanto (<em>pro tanto</em>, "hasta cierto punto"): pueden ceder ante un deber mayor. Omar debe evitar mentir, pero debe más proteger a Piper.</td></tr>
+</tbody></table></div>
+
+<h3>Kant en dos herramientas</h3>
+<p>Kant (pp. 563 a 566) sostenía que algunos actos, como matar, robar, mentir o romper promesas, están mal siempre, y que cualquiera puede llegar a esa conclusión razonando. Su método es el imperativo categórico (<em>categorical imperative</em>). Una regla como "revisa el informe si quieres que te aprueben el proyecto" solo obliga a quien busca la aprobación. Kant pedía reglas que obliguen a todos, sin condición, como "no falsees resultados". Las primeras son hipotéticas, "haz X para lograr Y", y las segundas categóricas, "haz X" (ejemplo propio). El libro presenta dos formulaciones.</p>
+<p><strong>Ley universal.</strong> Pregunta qué pasaría si todos hicieran lo mismo. Se aplica en cuatro pasos (pp. 564 a 566): (1) convertir el acto en una regla; (2) quitarte de la regla para que valga para todos; (3) comprobar la contradicción en la concepción: ¿se puede siquiera imaginar un mundo en que todos la sigan?; (4) si se puede, comprobar la contradicción en la voluntad: ¿se podría querer racionalmente? Ejemplo del libro: Luke no quiere sacar a pasear al perro de su madre, como había prometido. Su regla, "no cumplo promesas cuando me incomoda", falla en el paso 3, porque si nadie cumpliera promesas no existiría la práctica de prometer, que su regla presupone. El paso 4 lo ilustra el libro con la pereza de Mari: un mundo en que nadie se esfuerza es concebible, pero Kant sostiene que no se puede querer, porque desarrollar los propios talentos es propio de nuestra naturaleza racional (pp. 565 y 566).</p>
+<p><strong>Humanidad.</strong> Trata a las personas, dice Kant, siempre como un fin y nunca solo como un medio; en otras palabras, respeta su capacidad de razonar y decidir (p. 566). Ejemplo del libro: Nathan miente a una desconocida diciendo que su hermano sufre una alergia para que lo lleve a la ciudad a hacer karting. La usa como un medio y socava su autonomía al ocultarle la verdad.</p>
+<p>De Kant quedan la idea de fin y medio, el respeto a la autonomía y la universalización, aunque muchos filósofos actuales rechazan su rigidez (p. 567).</p>
+
+<h3>Reglas para una IA: la parte práctica</h3>
+<p>El libro sostiene que muchas IA se usarán para maximizar riqueza u otras metas ambiciosas, y que hacen falta restricciones. Como mínimo, cumplir la ley; pero la ley no basta, y una restricción como respetar la autonomía evitaría la manipulación legal pero poco ética (p. 567). El problema es que las IA siguen las reglas de forma poco fiable: en el banco de pruebas RuLES, modelos como GPT-4 y Llama 2 fallaban con instrucciones sencillas, y los jailbreaks y las inyecciones de instrucciones los llevaban a romperlas (p. 568). Una IA deontológica es, sobre todo, un asunto de robustez (módulo 4) (aplicación propia).</p>
+<p>Para probar las dos teorías con casos de IA clínica, <a data-ir="practica" href="#sim-dilemas">pasa a Práctica</a>.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Una UCI tiene una cama libre y dos pacientes que la necesitan. Con una cama, el paciente 1 tiene un 70 % de sobrevivir y, si sobrevive, le quedan unos 20 años de vida. El paciente 2 tiene un 50 % y le quedarían unos 40 años. Un utilitarista calcularía la utilidad esperada, pero el resultado depende de qué se cuente como bienestar:</p>
+<div class="tw"><table>
+<thead><tr><th>Medida de bienestar</th><th>Paciente 1</th><th>Paciente 2</th><th>Gana</th></tr></thead>
+<tbody>
+<tr><td>Supervivientes esperados</td><td>\(0{,}70\times1=0{,}70\)</td><td>\(0{,}50\times1=0{,}50\)</td><td>paciente 1</td></tr>
+<tr><td>Años de vida esperados</td><td>\(0{,}70\times20=14\)</td><td>\(0{,}50\times40=20\)</td><td>paciente 2</td></tr>
+</tbody></table></div>
+<p>La teoría es la misma y el veredicto cambia con la medida. Por eso el utilitarismo se apoya en una teoría del bienestar (módulo 8) y no puede prescindir de ella. Y ninguna de las dos filas es una recomendación clínica: el ejemplo solo enseña a leer la cuenta. Además, una deontología no daría una cuenta, sino otra pregunta: si alguno de los dos tiene un derecho que la elección vulnera.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Tomar las teorías por algoritmos.</strong> Un utilitarista no calcula cada decisión: usa reglas prácticas cuya razón es el bienestar. Un deontólogo no aplica reglas a ciegas: tiene el doble efecto, el umbral y los deberes pro tanto. Comparar sus versiones simples es útil, pero cada defensor tiene ya la respuesta a la objeción más obvia.</p>
+<p><strong>Creer que la cuenta es objetiva.</strong> Los números del utilitarismo dependen de qué se cuente como bienestar, del horizonte temporal y de estimaciones que casi nunca se conocen. Una cifra con dos decimales no vuelve exacta la decisión.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>Utilitarianism asks which option maximizes overall wellbeing, and deontology asks which acts are off limits whatever the outcome; when I design an AI system I check both, and I look closely at the cases where they disagree.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 11.4 Moral Theories (impresa como 10.4), subsecciones Utilitarianism, págs. 550 a 558 (PDF 568 a 576), y Deontology, págs. 559 a 568 (PDF 577 a 586). Utilitarismo: utilidad esperada y ejemplo de Amanda (550 y 551), implicaciones (551 y 552), cuatro afirmaciones (552 a 554), objeciones (554 a 557) e IA (557 y 558). Deontología: rasgos (559 a 561), doble efecto y acción y omisión (561 y 562), objeciones (562 y 563), Kant (563 a 567) e IA (567 y 568). Los apartados de la ética de la virtud y el contrato social son de la lección siguiente.</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS). Esta lección no usa notas del curso.</li>
+<li>Añadido propio, no procede de las fuentes: el ejemplo de la UCI y sus cifras; el ejemplo de la sedación paliativa y el de retirar frente a no asignar una cama; los nexos con transparencia, robustez y sustitutos (módulos 2, 4 y 5); el simulador de dilemas, con sus casos, cifras y la aplicación de las teorías a ellos; y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: un simulador con cuatro dilemas y después tres ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de dilemas.</strong> Elige un dilema, decide tú primero y mira qué recomienda cada teoría y qué objeción del libro se le aplica. En la UCI, mueve la probabilidad del paciente nuevo: el utilitarismo cambia al pasar del 30 % y la deontología no se mueve. En el asistente que miente, sube la probabilidad de que se descubra hasta que el cálculo cambie. En la lectura de mensajes, activa el umbral y muévelo hasta que la deontología cambie: fíjate en cómo un solo paciente marca la diferencia. En las horas extra, sube por encima de 20.</p>
+<div data-widget="m11-l05-dilemas" id="sim-dilemas"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: el punto de indiferencia de Amanda (a mano, 6 minutos)</p>
+<p>Variación propia sobre el ejemplo del libro: en el caso de Amanda, el bus vale −1 con seguridad, y conducir vale +1 si llega bien y −1000 si hay un accidente mortal. Aquí la probabilidad del accidente no es 5 %, sino \(p\), a averiguar.</p>
+<ol>
+<li>¿A qué valor de \(p\) empatan conducir y el bus? Da la cifra como porcentaje.</li>
+<li>¿Qué recomendaría el utilitarismo con \(p=0{,}1\,\%\) y con \(p=0{,}5\,\%\)?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Conducir vale \((1-p)\times1+p\times(-1000)=1-1001p\). Se iguala a \(-1\): \(1001p=2\), luego \(p=2/1001\approx0{,}002\), es decir, un 0,2 % (uno de cada 500).</p>
+<p><strong>2.</strong> Con \(p=0{,}001\): \(1-1{,}001=-0{,}001\), mayor que \(-1\), así que la cuenta recomienda conducir. Con \(p=0{,}005\): \(1-5{,}005=-4{,}005\), menor que \(-1\), así que recomienda el bus. Las cifras son ilustrativas; lo importante es que una probabilidad pequeña, y difícil de estimar bien, cambia el veredicto.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: la ley universal con un caso de IA (a mano, 8 minutos)</p>
+<p>Un equipo de IA sanitaria decide que, cuando le conviene, solo presentará al comité los resultados favorables de su modelo. Aplica las dos formulaciones de Kant.</p>
+<ol>
+<li>Escribe la regla, universalízala y busca la contradicción en la concepción. ¿Falla?</li>
+<li>Aplica la formulación de la humanidad. ¿A quién se trata como un medio?</li>
+<li>¿Qué conclusión sacaría un kantiano?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Regla: "presento solo los resultados favorables cuando me conviene". Universalizada: "todos los equipos presentan solo los resultados favorables cuando les conviene". Si todos lo hicieran, los informes de resultados no informarían y nadie los creería; la práctica de informar, que hace que la selección tenga algún efecto, desaparecería. Es la misma estructura que la del ejemplo de Luke con las promesas (razonamiento propio), así que falla en el paso 3.</p>
+<p><strong>2.</strong> Se trata como medio a los miembros del comité: se usa su confianza para lograr la aprobación y se les oculta información con la que decidirían por sí mismos. Se socava su autonomía, como en el ejemplo de Nathan.</p>
+<p><strong>3.</strong> Que la regla no es permisible, y que no importa cuán bueno sea el modelo: la restricción no depende de las consecuencias.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: criterio frente a procedimiento (5 minutos)</p>
+<p>Un comité que se declara utilitarista prohíbe al asistente del hospital mentir a los pacientes, aunque en algún caso concreto el cálculo salga a favor de mentir. ¿Es incoherente? ¿En qué se distingue su razón de la de un deontólogo para la misma prohibición?</p>
+<details>
+<summary>Ver solución</summary>
+<p>No es incoherente. El criterio de rectitud sigue siendo maximizar el bienestar, pero el procedimiento es una regla: decir la verdad. Calcular cada caso es intratable (nadie conoce, por ejemplo, la probabilidad de que se descubra la mentira), las mentiras individuales erosionan la confianza en el asistente, y las reglas probadas suelen recoger razones que no se ven a simple vista (valla de Chesterton, p. 556).</p>
+<p>La diferencia con el deontólogo está en el porqué. Para el utilitarista la regla es un medio: si se demostrara que otra regla da más bienestar, la cambiaría. Para el deontólogo, mentir está mal por ser el acto que es, y las consecuencias no justifican la regla (p. 559).</p>
+</details>
+</div>
+
+</div>
+
+</section>

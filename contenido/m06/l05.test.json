@@ -1,0 +1,106 @@
+[
+  {
+    "id": "m06l05-q01",
+    "tipo": "unica",
+    "enunciado": "En un sistema donde el modelo recomienda y una persona decide, ¿qué capa de monitorización gobierna lo que recibe el paciente?",
+    "opciones": [
+      "La capa 1, el modelo solo",
+      "La capa 2, la persona sola, con el juicio que tendría sin ver la recomendación",
+      "La capa 3, el sistema conjunto de persona más modelo",
+      "Ninguna: el resultado clínico depende solo de la exactitud del modelo"
+    ],
+    "correcta": 2,
+    "explicacion": "Solo la capa 3 describe lo que llega al paciente. Un modelo correcto que se anula sin motivo da un sistema peor que el modelo, y uno con fallos que alguien frena a tiempo da uno mejor, así que mirar solo la capa 1 no basta."
+  },
+  {
+    "id": "m06l05-q02",
+    "tipo": "numerica",
+    "enunciado": "Un modelo acierta 240 de 300 recomendaciones. La persona las anula en 50 casos: en 30 el modelo fallaba y ella acierta, y en 20 el modelo acertaba y ella se equivoca. ¿Qué porcentaje de aciertos tiene el sistema conjunto? Responde con una cifra, sin el símbolo de porcentaje.",
+    "correcta": 83.33,
+    "tolerancia": 0.5,
+    "explicacion": "Aciertos del sistema: 240 − 20 + 30 = 250, es decir, 250/300 = 83,3 %. Las 20 anulaciones erróneas restan y las 30 correctas suman; el modelo solo tenía un 80 %."
+  },
+  {
+    "id": "m06l05-q03",
+    "tipo": "unica",
+    "enunciado": "La tasa de anulación de un servicio baja del 12 % al 3 % en un año sin que el modelo cambie de versión. ¿Qué puedes afirmar?",
+    "opciones": [
+      "Que el modelo funciona mejor y hay que celebrarlo",
+      "Que la persona confía demasiado y hay que retirar el modelo",
+      "Que el equipo ya está calibrado, porque el valor bajo es el ideal",
+      "Que hay dos lecturas posibles, un modelo fiable o alguien que ya no comprueba, y hay que desglosarla y cruzarla con si las anulaciones eran correctas"
+    ],
+    "correcta": 3,
+    "explicacion": "La cifra sola no distingue las dos lecturas. Una caída sostenida sin cambio en la calidad del modelo es una señal temprana de convergencia por sesgo de automatización, pero solo se confirma desglosando por persona y subgrupo y triangulando con la realidad."
+  },
+  {
+    "id": "m06l05-q04",
+    "tipo": "numerica",
+    "enunciado": "En 200 casos, el modelo recomienda derivar en 40 y la persona decide derivar en 40. Coinciden en derivar en 30 casos y en no derivar en 150. ¿Cuánto vale el kappa de Cohen? Responde con dos decimales.",
+    "correcta": 0.69,
+    "tolerancia": 0.01,
+    "explicacion": "El acuerdo observado es \\(p_o=180/200=0{,}90\\). Por azar: \\(p_e=(40/200)(40/200)+(160/200)(160/200)=0{,}04+0{,}64=0{,}68\\). Entonces \\(\\kappa=(0{,}90-0{,}68)/(1-0{,}68)=0{,}6875\\approx0{,}69\\): acuerdo sustancial según Landis y Koch."
+  },
+  {
+    "id": "m06l05-q05",
+    "tipo": "numerica",
+    "enunciado": "Se capturó el juicio inicial de una persona. De 40 casos en que ella se equivocaba y el modelo acertaba, cambió hacia el modelo en 36. De 25 casos en que ella acertaba y el modelo se equivocaba, mantuvo su juicio en 5. ¿Cuánto vale el RSR, en porcentaje? Responde con una cifra, sin el símbolo de porcentaje.",
+    "correcta": 20,
+    "tolerancia": 0.5,
+    "explicacion": "RSR = casos con juicio inicial correcto, modelo erróneo y juicio mantenido, entre los casos con juicio inicial correcto y modelo erróneo: 5/25 = 20 %. El RAIR de este mismo caso sería 36/40 = 90 %."
+  },
+  {
+    "id": "m06l05-q06",
+    "tipo": "unica",
+    "enunciado": "Con los datos de la pregunta anterior, el RAIR es del 90 % y el RSR del 20 %. ¿Qué perfil de dependencia describen?",
+    "opciones": [
+      "Dependencia apropiada: sigue al modelo cuando acierta y lo resiste cuando falla",
+      "Aceptación acrítica: aprovecha al modelo cuando acierta, pero no lo resiste cuando falla",
+      "Rechazo sistemático: aversión al algoritmo",
+      "No se puede decir nada con solo dos tasas"
+    ],
+    "correcta": 1,
+    "explicacion": "RAIR alto y RSR bajo es sesgo de automatización con aspecto de buena adopción. Publicar solo el RAIR lo escondería. La aversión al algoritmo sería el perfil contrario, con RAIR bajo."
+  },
+  {
+    "id": "m06l05-q07",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas señales apuntan a aversión al algoritmo y no a sesgo de automatización? Marca todas las que correspondan.",
+    "opciones": [
+      "Una tasa de anulación sostenidamente alta, sin que las anulaciones correspondan a errores reales del modelo",
+      "Un RAIR bajo: la persona no cambia hacia el modelo cuando este acierta y ella falla",
+      "Un RSR bajo: la persona no resiste al modelo cuando este falla",
+      "Una aceptación del 95 % con un modelo que acierta el 60 %",
+      "Una anulación del 35 % en un subgrupo seis meses después de corregir el modelo, que ya acierta el 90 % en él"
+    ],
+    "correcta": [0, 1, 4],
+    "explicacion": "La aversión es infraconfianza persistente: anular aunque el modelo acierte, lo que baja el RAIR. Un RSR bajo y una aceptación alta con un modelo flojo son sobreconfianza, es decir, sesgo de automatización."
+  },
+  {
+    "id": "m06l05-q08",
+    "tipo": "vf",
+    "enunciado": "Si el acierto del sistema conjunto sube durante meses, queda descartada la pérdida de habilidad de la persona.",
+    "correcta": false,
+    "explicacion": "Falso. El acierto conjunto puede subir mientras el criterio propio se erosiona, y el problema aparece el día en que el modelo no está. Se mide con el rendimiento sin modelo antes y después, o con periodos de retirada planificados, y se triangula con el hueco frente a la realidad."
+  },
+  {
+    "id": "m06l05-q09",
+    "tipo": "unica",
+    "enunciado": "Para medir la pérdida de habilidad sin poner en riesgo al paciente, ¿qué método retiene el Atlas?",
+    "opciones": [
+      "Ocultar el modelo al azar en una fracción de casos en tiempo real",
+      "Un periodo de retirada planificado, desactivando la salida en una submuestra, y comparar con el rendimiento previo sin modelo",
+      "Introducir fallos inducidos, al estilo de las pruebas de phishing",
+      "Preguntar a las personas si sienten que han perdido habilidad"
+    ],
+    "correcta": 1,
+    "explicacion": "El Atlas descarta ocultar el modelo al azar en tiempo real (problema ético con el paciente al que le toca el hueco) y los fallos inducidos (inviables en servicios saturados y erosionan la confianza en la herramienta). Una encuesta de percepción no mide rendimiento."
+  },
+  {
+    "id": "m06l05-q10",
+    "tipo": "vf",
+    "enunciado": "Si el flujo obliga a abrir la pantalla de revisión en el 100 % de los casos, la cobertura de la supervisión humana es del 100 %.",
+    "correcta": false,
+    "explicacion": "Falso. Eso mide la pantalla abierta, que es supervisión nominal. La cobertura real exige evidencia de criterio aplicado, como tiempo de permanencia o una decisión activa registrada; en el ejemplo del Atlas, 90 de 900 casos se cerraban en menos de 2 segundos."
+  }
+]

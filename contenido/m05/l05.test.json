@@ -1,0 +1,116 @@
+[
+  {
+    "id": "m05l05-q01",
+    "tipo": "unica",
+    "enunciado": "¿Qué distingue a un troyano de un ejemplo adversarial?",
+    "opciones": [
+      "El troyano solo puede afectar a modelos de imagen, mientras que el ejemplo adversarial afecta a cualquier modelo",
+      "El ejemplo adversarial no es intencionado: es un error corriente del modelo",
+      "El troyano se prepara antes, en los datos o en los pesos del modelo; el ejemplo adversarial busca una entrada que engañe a un modelo ya entrenado",
+      "El ejemplo adversarial exige acceso a los datos con los que se entrenó el modelo"
+    ],
+    "correcta": 2,
+    "explicacion": "La diferencia está en el momento y en qué se toca. El troyano modifica el modelo (datos o pesos) antes de usarlo y se activa con un disparador fijo. El ejemplo adversarial no cambia el modelo: se construye una entrada que lo engaña. Los dos son intencionados y ninguno se limita a las imágenes."
+  },
+  {
+    "id": "m05l05-q02",
+    "tipo": "unica",
+    "enunciado": "¿Qué es el disparador (trigger) de un troyano?",
+    "opciones": [
+      "La etiqueta que el modelo predice por defecto",
+      "Una característica de la entrada, elegida de antemano, que activa la conducta oculta",
+      "El paso del entrenamiento en el que se inserta la puerta trasera",
+      "La métrica que mide la exactitud con datos limpios"
+    ],
+    "correcta": 1,
+    "explicacion": "El disparador es la marca o característica de la entrada que activa la conducta oculta, como un parche en una esquina o un patrón de ruido. Es lo que el atacante conoce y el resto no."
+  },
+  {
+    "id": "m05l05-q03",
+    "tipo": "numerica",
+    "enunciado": "Un conjunto de 200.000 imágenes se contamina con un 0,05 % de ejemplos envenenados. ¿Cuántas imágenes son?",
+    "correcta": 100,
+    "tolerancia": 0.5,
+    "explicacion": "0,05 % es 0,0005, y 0,0005 × 200.000 = 100 imágenes. Una fracción minúscula del conjunto: el ejercicio del curso explora justamente cuántos ejemplos así hacen falta, con fracciones de hasta 0,1 %."
+  },
+  {
+    "id": "m05l05-q04",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas son vías por las que puede entrar una puerta trasera en un modelo?",
+    "opciones": [
+      "Envenenar parte de los datos de entrenamiento con el disparador y otra etiqueta",
+      "Descargar un modelo comunitario ya manipulado y ajustarlo",
+      "Retocar los pesos de un modelo abierto, sin reentrenarlo con datos marcados",
+      "Aumentar el tamaño del lote durante el entrenamiento"
+    ],
+    "correcta": [0, 1, 2],
+    "explicacion": "Las notas del curso señalan las tres primeras: el envenenamiento de datos, los modelos comunitarios (el troyano se hereda al ajustar) y la manipulación directa de parámetros. El tamaño del lote es un detalle del entrenamiento sin relación con la puerta trasera."
+  },
+  {
+    "id": "m05l05-q05",
+    "tipo": "unica",
+    "enunciado": "Un modelo obtiene un 92 % de exactitud con datos limpios y un 95 % de éxito del disparador. ¿Qué conclusión es la correcta?",
+    "opciones": [
+      "Es un modelo sano: el 92 % es una exactitud alta",
+      "Tiene una puerta trasera, y la exactitud con datos limpios no la habría delatado",
+      "El disparador no funciona, porque la exactitud no ha bajado",
+      "El modelo está sobreajustado"
+    ],
+    "correcta": 1,
+    "explicacion": "Un éxito del disparador del 95 % es la señal de la trampa. La exactitud con datos limpios sale alta precisamente porque la puerta trasera no interfiere con las entradas normales."
+  },
+  {
+    "id": "m05l05-q06",
+    "tipo": "vf",
+    "enunciado": "Si un modelo tiene la misma exactitud con datos limpios que un modelo sano, se puede descartar que tenga una puerta trasera.",
+    "correcta": false,
+    "explicacion": "Falso. La validación limpia no incluye el disparador, así que un modelo con puerta trasera puede puntuar igual que uno sano. Hace falta medir también el éxito del disparador o buscarlo con las defensas de la lección."
+  },
+  {
+    "id": "m05l05-q07",
+    "tipo": "unica",
+    "enunciado": "En STRIP, ¿qué se espera al superponer una entrada que lleva el disparador con otras muestras?",
+    "opciones": [
+      "La entropía de la predicción sube, porque la mezcla confunde al modelo",
+      "La entropía de la predicción baja, porque el disparador mantiene la salida de la puerta trasera",
+      "El modelo predice siempre la clase original",
+      "La exactitud con datos limpios sube"
+    ],
+    "correcta": 1,
+    "explicacion": "Con dos entradas limpias mezcladas el modelo suele dudar: entropía alta. Si el disparador sigue en la mezcla, la puerta trasera domina y el modelo sigue seguro de la clase del atacante: entropía baja, que es lo que se usa para dar la alarma."
+  },
+  {
+    "id": "m05l05-q08",
+    "tipo": "numerica",
+    "enunciado": "Hay 60 imágenes envenenadas en un conjunto de 150.000. Un auditor revisa a mano una muestra aleatoria del 1 %. Aproximando que cada imagen envenenada cae en la muestra con probabilidad 0,01, por separado, ¿qué probabilidad hay de que vea al menos una? Responde como número entre 0 y 1.",
+    "correcta": 0.45,
+    "tolerancia": 0.02,
+    "explicacion": "La probabilidad de no ver ninguna es 0,99 elevado a 60, unos 0,547. Ver al menos una tiene probabilidad 1 - 0,547 = 0,453. Auditar una muestra pequeña a mano deja pasar la trampa más de la mitad de las veces."
+  },
+  {
+    "id": "m05l05-q09",
+    "tipo": "unica",
+    "enunciado": "¿Qué caracteriza a un troyano latente?",
+    "opciones": [
+      "No está presente hasta que se ajusta el modelo con datos del usuario; el atacante conoce el lugar y el tamaño del disparador, no sus valores",
+      "Solo se activa si el modelo se usa sin conexión a internet y con datos que nunca ha visto",
+      "Se implanta sumando el mismo ruido a todas las imágenes de entrenamiento antes de entrenar",
+      "Se elimina por sí solo cuando se reentrena el modelo durante más épocas con los mismos datos"
+    ],
+    "correcta": 0,
+    "explicacion": "En el tipo latente la trampa aparece tras el ajuste fino con datos del usuario. Por eso es importante fijarse también en el origen del modelo base, no solo en el modelo ya ajustado."
+  },
+  {
+    "id": "m05l05-q10",
+    "tipo": "unica",
+    "enunciado": "Según la figura de las notas, ¿qué pasa al podar las neuronas que se activan con el disparador reconstruido por Neural Cleanse?",
+    "opciones": [
+      "El troyano se elimina sin ningún coste",
+      "La tasa de éxito del ataque baja a 0 %, a costa de alrededor de un 10 % de exactitud total, según la leyenda",
+      "La exactitud sube, porque se quita ruido",
+      "El troyano se hace más difícil de detectar"
+    ],
+    "correcta": 1,
+    "explicacion": "La leyenda de la figura dice que la tasa de ataque llega a 0 % con una pérdida de exactitud de alrededor del 10 % (la curva de la figura sugiere algo menos, según cuántas neuronas se poden). Es un compromiso: se cierra la puerta trasera y se pierde parte de la capacidad del modelo."
+  }
+]

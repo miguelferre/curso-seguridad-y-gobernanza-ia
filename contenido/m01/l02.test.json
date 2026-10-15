@@ -1,0 +1,105 @@
+[
+  {
+    "id": "m01l02-q01",
+    "tipo": "unica",
+    "enunciado": "Según el libro, ¿por qué una carrera de la IA es peligrosa aunque ningún actor desee una IA arriesgada?",
+    "opciones": [
+      "Porque la tecnología es peligrosa por naturaleza y no hay forma de reducir su riesgo",
+      "Porque los incentivos hacen que, para no quedarse atrás, cada actor recorte la seguridad, y el conjunto acaba peor",
+      "Porque solo los Estados pueden desarrollar IA avanzada",
+      "Porque los actores desconocen los riesgos de la IA"
+    ],
+    "correcta": 1,
+    "explicacion": "Es un problema de acción colectiva: la decisión de acelerar es racional para cada actor y mala para el grupo. El riesgo sale de la presión competitiva, no solo de la técnica."
+  },
+  {
+    "id": "m01l02-q02",
+    "tipo": "unica",
+    "enunciado": "¿Por qué el libro dice que las armas letales autónomas pueden aumentar la probabilidad de guerra?",
+    "opciones": [
+      "Porque siempre son más baratas que cualquier otro armamento",
+      "Porque permiten atacar sin exponer a soldados propios, y así se debilita el freno de la opinión pública ante las bajas",
+      "Porque no pueden ser interceptadas por ningún sistema defensivo",
+      "Porque solo las usan actores no estatales"
+    ],
+    "correcta": 1,
+    "explicacion": "Sin cuerpos que vuelvan a casa, los dirigentes afrontan menos escrutinio interno. Ese freno político desaparece, y con él una barrera a entrar en conflicto."
+  },
+  {
+    "id": "m01l02-q03",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estos mecanismos pueden convertir un error o una falsa alarma en una escalada rápida, según la lección?",
+    "opciones": [
+      "Sistemas de represalia automática en varios bandos",
+      "Un ritmo de combate que supera el tiempo humano de decisión",
+      "La existencia de un tratado con inspecciones",
+      "Bucles entre sistemas automáticos, como el Flash Crash de 2010"
+    ],
+    "correcta": [0, 1, 3],
+    "explicacion": "La represalia automática, el ritmo que deja fuera a los humanos y los bucles de realimentación entre sistemas aceleran la escalada. Un tratado con inspecciones es una salida, no un mecanismo de escalada."
+  },
+  {
+    "id": "m01l02-q04",
+    "tipo": "vf",
+    "enunciado": "Verdadero o falso: el libro sostiene que la superioridad tecnológica militar garantiza la seguridad nacional.",
+    "correcta": false,
+    "explicacion": "Falso. Si todos avanzan, nadie gana ventaja y todos quedan con más riesgo; además, la disuasión sirve contra ataques pero no contra accidentes."
+  },
+  {
+    "id": "m01l02-q05",
+    "tipo": "numerica",
+    "enunciado": "Un mando estima un 10 % de perder el control de una IA armada si automatiza, y un 99 % de perder la guerra si no lo hace. Acepta el riesgo cuando 0,10 veces el coste de la catástrofe es menor que 0,99 veces el coste de perder la guerra. ¿Cuál es la razón mínima entre el coste de perder la guerra y el de la catástrofe a partir de la cual acepta? Responde con tres decimales.",
+    "correcta": 0.101,
+    "tolerancia": 0.002,
+    "explicacion": "0,10 L_c < 0,99 L_g equivale a L_g/L_c > 0,10/0,99 = 0,101. Basta con que perder la guerra parezca la décima parte de la catástrofe."
+  },
+  {
+    "id": "m01l02-q06",
+    "tipo": "numerica",
+    "enunciado": "Dos bandos aceptan, cada uno, un 10 % de probabilidad de perder el control de su IA, de forma independiente. ¿Qué probabilidad hay de que al menos uno la pierda? Responde como número entre 0 y 1.",
+    "correcta": 0.19,
+    "tolerancia": 0.005,
+    "explicacion": "1 − 0,9 × 0,9 = 0,19: el riesgo conjunto casi duplica el de cada bando por separado."
+  },
+  {
+    "id": "m01l02-q07",
+    "tipo": "unica",
+    "enunciado": "¿Qué tienen en común los casos de Ford Pinto, Boeing (MCAS) y Bhopal que cita el libro?",
+    "opciones": [
+      "Fueron accidentes sin ninguna causa humana",
+      "La presión competitiva y de costes llevó a recortar pruebas, diseño seguro, formación o mantenimiento",
+      "Ocurrieron todos en empresas estatales",
+      "Se resolvieron pronto gracias a la regulación"
+    ],
+    "correcta": 1,
+    "explicacion": "Son ejemplos de que la competencia por plazos y beneficios lleva a sacrificar seguridad. El libro los usa para advertir de que algo parecido puede ocurrir con la IA."
+  },
+  {
+    "id": "m01l02-q08",
+    "tipo": "numerica",
+    "enunciado": "En el modelo del curso con dos opciones (prudente y corre), si los dos son prudentes cada uno cobra 44,0. Si uno corre y el otro es prudente, quien corre cobra 62,3. ¿Cuánto vale la tentación de desviarse, es decir, cuánto gana quien pasa a correr? Redondea a un decimal.",
+    "correcta": 18.3,
+    "tolerancia": 0.2,
+    "explicacion": "62,3 − 44,0 = 18,3. Para que un acuerdo de prudencia se sostenga, la sanción esperada d × F debe superar esa cifra."
+  },
+  {
+    "id": "m01l02-q09",
+    "tipo": "vf",
+    "enunciado": "Verdadero o falso: un acuerdo con un suelo de seguridad cambia el equilibrio aunque la probabilidad de detectar el incumplimiento sea cero.",
+    "correcta": false,
+    "explicacion": "Falso. Con detección nula la sanción esperada es cero, saltarse el suelo sale gratis y el equilibrio no cambia: es una promesa sin efecto. Hace falta que d × F cubra la ganancia de incumplir."
+  },
+  {
+    "id": "m01l02-q10",
+    "tipo": "unica",
+    "enunciado": "Para el libro, ¿qué tres condiciones hacen que aparezca la selección natural, y por tanto que las presiones evolutivas se apliquen a las IA?",
+    "opciones": [
+      "Variación entre individuos, herencia de rasgos y propagación a ritmos distintos",
+      "Capital, regulación y competencia entre países",
+      "Cómputo, datos y algoritmos",
+      "Mutación aleatoria, extinción y cooperación"
+    ],
+    "correcta": 0,
+    "explicacion": "Son las tres condiciones de Lewontin: variación, herencia y propagación diferencial. Se cumplen en tecnologías como los recomendadores y en las IA, porque hay muchos desarrolladores y los modelos con éxito se copian."
+  }
+]

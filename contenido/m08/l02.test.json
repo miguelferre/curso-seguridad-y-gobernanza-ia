@@ -1,0 +1,105 @@
+[
+  {
+    "id": "m08l02-q01",
+    "tipo": "unica",
+    "enunciado": "¿Qué significa que una asignación sea eficiente en el sentido de Pareto?",
+    "opciones": [
+      "Que el reparto es equitativo entre todos los participantes",
+      "Que no se puede mejorar a nadie sin empeorar a otra persona",
+      "Que la producción total es la mayor posible",
+      "Que ninguna empresa tiene beneficios extraordinarios"
+    ],
+    "correcta": 1,
+    "explicacion": "Pareto eficiente significa que no queda ninguna ganancia gratuita: cualquier mejora para alguien exigiría un coste para otro. No dice nada sobre si el reparto es justo."
+  },
+  {
+    "id": "m08l02-q02",
+    "tipo": "vf",
+    "enunciado": "Verdadero o falso: si un mercado libre alcanza una asignación eficiente en el sentido de Pareto, entonces el reparto resultante es necesariamente justo.",
+    "correcta": false,
+    "explicacion": "Falso. Un reparto muy desigual, incluso uno en el que una sola persona lo tiene todo, puede ser eficiente en el sentido de Pareto. El teorema solo garantiza que no se desperdician ganancias."
+  },
+  {
+    "id": "m08l02-q03",
+    "tipo": "unica",
+    "enunciado": "Un hospital no puede comprobar cuál de dos herramientas de IA clínica es mejor y paga un precio medio por cualquiera de ellas. El proveedor de la buena no recupera lo invertido en validarla y acaba retirándose. ¿Qué fallo de mercado es?",
+    "opciones": [
+      "Externalidad negativa",
+      "Riesgo moral",
+      "Selección adversa por asimetría de información",
+      "Poder de mercado por costes fijos"
+    ],
+    "correcta": 2,
+    "explicacion": "El comprador no distingue la calidad y solo ofrece un precio medio. Los buenos oferentes se van y queda el mercado de los malos, como en el mercado de coches usados. Es selección adversa."
+  },
+  {
+    "id": "m08l02-q04",
+    "tipo": "numerica",
+    "enunciado": "Entrenar un modelo cuesta 100 millones de euros y cada consulta cuesta 0,001 euros. ¿Cuál es el coste medio por consulta, en euros, si el modelo atiende 5.000 millones de consultas (5 × 10^9)?",
+    "correcta": 0.021,
+    "tolerancia": 0.0005,
+    "explicacion": "El coste fijo repartido es 100.000.000 / 5.000.000.000 = 0,02 euros y a eso se suma el coste variable de 0,001: 0,021 euros. Cuantas más consultas, más baja el coste medio, lo que empuja hacia el oligopolio."
+  },
+  {
+    "id": "m08l02-q05",
+    "tipo": "numerica",
+    "enunciado": "Un servicio tiene demanda P = 120 - Q y coste privado marginal 20 + Q. Cada unidad causa un daño externo de 30. Calcula la pérdida de bienestar de dejar el mercado libre (con Q en miles y precios en euros, la pérdida sale en miles de euros).",
+    "correcta": 225,
+    "tolerancia": 1,
+    "explicacion": "Mercado: Q = (120 - 20) / 2 = 50. Óptimo: Q* = (120 - 20 - 30) / 2 = 35. La pérdida es 1/2 × 30 × (50 - 35) = 225."
+  },
+  {
+    "id": "m08l02-q06",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas medidas son remedios clásicos frente a una externalidad negativa?",
+    "opciones": [
+      "Un impuesto por unidad igual al daño externo",
+      "Definir derechos de propiedad para que las partes negocien",
+      "Litigio ante un tribunal por los daños causados",
+      "Limitar la responsabilidad de la empresa a su capital"
+    ],
+    "correcta": [0, 1, 2],
+    "explicacion": "El libro cita el litigio, los derechos de propiedad con negociación y los impuestos. Limitar la responsabilidad va en sentido contrario: externaliza aún más el riesgo, lo que agrava el riesgo moral."
+  },
+  {
+    "id": "m08l02-q07",
+    "tipo": "numerica",
+    "enunciado": "Una empresa gana G = 400 millones si su sistema sale bien y con probabilidad p = 2 % causa un accidente con un daño de 50.000 millones. ¿Cuántos millones tendría que poder perder como mínimo (su responsabilidad L) para que su valor esperado sea cero o negativo y desista? Usa L = (1 - p) G / p y escribe el número sin punto de millar.",
+    "correcta": 19600,
+    "tolerancia": 1,
+    "explicacion": "L = 0,98 × 400 / 0,02 = 19.600 millones. Con una responsabilidad menor, la empresa sigue lanzando aunque el valor esperado para la sociedad sea negativo (0,98 × 400 - 0,02 × 50.000 = -608)."
+  },
+  {
+    "id": "m08l02-q08",
+    "tipo": "unica",
+    "enunciado": "Según la lectura de Piketty que recoge el libro, ¿cuándo aumenta la desigualdad si la IA actúa como sustituto del trabajo?",
+    "opciones": [
+      "Cuando la rentabilidad del capital (r) es mayor que el crecimiento de la economía (g)",
+      "Cuando el crecimiento de la economía (g) es mayor que la rentabilidad del capital (r)",
+      "Cuando el capital es un complemento del trabajo",
+      "Cuando los salarios crecen más deprisa que el capital"
+    ],
+    "correcta": 0,
+    "explicacion": "Si el capital puede sustituir al trabajo y r supera a g, los dueños del capital acumulan más deprisa que los salarios. La visión estándar, con el capital como complemento, no predice ese resultado."
+  },
+  {
+    "id": "m08l02-q09",
+    "tipo": "unica",
+    "enunciado": "Un hospital encarga a una IA de gestión de camas que maximice la facturación. ¿Cuál es el riesgo principal según la distinción entre sustituto y propósito?",
+    "opciones": [
+      "Que la IA no entienda el concepto de facturación",
+      "Que la facturación suba mientras la atención empeora, porque la cifra no mide lo que se quiere",
+      "Que el hospital pague menos impuestos",
+      "Que la IA reduzca demasiado las externalidades"
+    ],
+    "correcta": 1,
+    "explicacion": "La facturación es un sustituto del bienestar de los pacientes. Una IA que la optimiza puede subirla con estancias largas o pruebas innecesarias, sin mejorar la salud. Ocurre lo mismo con el PIB."
+  },
+  {
+    "id": "m08l02-q10",
+    "tipo": "vf",
+    "enunciado": "Verdadero o falso: con discriminación perfecta de precios, el excedente social total (consumidor más productor) se reduce, porque los consumidores dejan de ganar.",
+    "correcta": false,
+    "explicacion": "Falso. El excedente pasa entero al productor, pero la suma no cambia. El excedente social es indiferente al reparto, y ese es uno de sus límites como medida de bienestar."
+  }
+]

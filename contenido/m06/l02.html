@@ -1,0 +1,224 @@
+<section class="leccion" data-id="m06/l02">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>El monitor de calidad hace la comprobación más natural: compara lo que el modelo dijo con lo que de verdad ocurrió. El problema es que esa etiqueta llega tarde, semanas después y a veces solo para una parte de los casos. Mientras tanto, el modelo sigue decidiendo.</p>
+<p>Dos mitades: leer bien las métricas (una sola, como la exactitud, engaña cuando el suceso es raro) y medir cuánto tiempo pasas a ciegas. La teoría de la calibración está en m05/l03; aquí solo vemos para qué sirve en producción.</p>
+
+<svg viewBox="0 0 360 150" role="img" aria-labelledby="rs-t rs-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="rs-t">Qué monitores esperan a la etiqueta</title>
+<desc id="rs-d">Deriva e impacto dispar se miden enseguida, sin etiquetas. La calidad espera semanas a la etiqueta, y los lotes de ese tiempo son ciegos.</desc>
+<text x="10" y="18" style="fill:var(--muted);font-size:11px;font-weight:600">Sin etiquetas (deriva, impacto dispar)</text>
+<rect x="10" y="26" width="90" height="26" rx="6" style="fill:var(--surface);stroke:var(--accent);stroke-width:1.5"/>
+<text x="55" y="43" text-anchor="middle" style="fill:var(--ink);font-size:11px">Predicción</text>
+<path d="M100 39 h44" style="stroke:var(--accent);stroke-width:2;fill:none"/>
+<path d="M144 39 l-6 -4 v8 z" style="fill:var(--accent)"/>
+<rect x="146" y="26" width="90" height="26" rx="6" style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5"/>
+<text x="191" y="43" text-anchor="middle" style="fill:var(--accent-ink);font-size:11px">Medición</text>
+<text x="246" y="43" style="fill:var(--muted);font-size:10px">enseguida</text>
+<text x="10" y="80" style="fill:var(--muted);font-size:11px;font-weight:600">Con etiquetas (calidad)</text>
+<rect x="10" y="88" width="90" height="26" rx="6" style="fill:var(--surface);stroke:var(--accent);stroke-width:1.5"/>
+<text x="55" y="105" text-anchor="middle" style="fill:var(--ink);font-size:11px">Predicción</text>
+<path d="M100 101 h84" style="stroke:var(--trap);stroke-width:2;fill:none;stroke-dasharray:5 4"/>
+<text x="142" y="94" text-anchor="middle" style="fill:var(--trap);font-size:10px">espera (semanas)</text>
+<rect x="186" y="88" width="76" height="26" rx="6" style="fill:var(--surface);stroke:var(--accent);stroke-width:1.5"/>
+<text x="224" y="105" text-anchor="middle" style="fill:var(--ink);font-size:11px">Etiqueta</text>
+<path d="M262 101 h20" style="stroke:var(--accent);stroke-width:2;fill:none"/>
+<path d="M282 101 l-6 -4 v8 z" style="fill:var(--accent)"/>
+<rect x="284" y="88" width="68" height="26" rx="6" style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5"/>
+<text x="318" y="105" text-anchor="middle" style="fill:var(--accent-ink);font-size:11px">Calidad</text>
+<path d="M10 124 v6 h174 v-6" style="stroke:var(--trap);stroke-width:1.5;fill:none"/>
+<text x="97" y="144" text-anchor="middle" style="fill:var(--trap);font-size:10px">lotes ciegos: el modelo decide sin saber cómo lo hace</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Calcular las métricas de calidad desde una matriz de confusión y explicar por qué la prevalencia las mueve.</li>
+<li>Explicar qué le pasa al monitor cuando las etiquetas llegan tarde o pocas.</li>
+<li>Estimar cuántos lotes quedan sin calidad medida y cuánto tarda en verse un fallo.</li>
+<li>Decidir cuándo fiarse de una estimación sin etiquetas y leer una medición con pocas etiquetas usando un intervalo de confianza.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>Un monitor que espera a la realidad</h3>
+<p>Unas medidas se calculan solo con lo que entra y sale del modelo, como la deriva. Otras necesitan además la respuesta correcta, la etiqueta (<em>ground truth</em>, o <em>feedback</em> en la jerga del monitor). La calidad es de estas, y también las de equidad basadas en errores, como la diferencia de falsos negativos.</p>
+<p>La etiqueta llega cuando el mundo alcanza a la predicción: el resultado de una biopsia, el reingreso a los 30 días. Según el Atlas, es el cuello de botella habitual en sanidad: la deriva sigue moviéndose sin etiquetas, pero la calidad se queda sin datos. Además, el monitor exige un mínimo de etiquetas para medir de nuevo; con menos, la última cifra visible se queda congelada y parece actual sin serlo.</p>
+
+<h3>La matriz de confusión y lo que sale de ella</h3>
+<p>Casi todas las métricas de calidad son cocientes de los mismos cuatro conteos. Con el punto de corte fijado, cada caso cae en una celda:</p>
+<div class="formula">\[ \begin{array}{c|cc} & \text{real: sí} & \text{real: no} \\ \hline \text{predicho: sí} & TP & FP \\ \text{predicho: no} & FN & TN \end{array} \]</div>
+<p>Conviene pedir siempre los conteos y no solo la tasa: un 20 % de falsos negativos puede ser 2 de 10 o 200 de 1.000. Ejemplo del Atlas (sintético): un modelo de derivación a Reumatología con TP = 325, FN = 78, FP = 47 y TN = 550, sobre 1.000 casos.</p>
+<div class="tw"><table>
+<thead><tr><th>Métrica</th><th>Cociente</th><th>Pregunta que responde</th><th>Ejemplo</th></tr></thead>
+<tbody>
+<tr><td>Exactitud (<em>accuracy</em>)</td><td><code>(TP+TN)/N</code></td><td>¿Cuántos casos clasifica como el registro?</td><td>0,875</td></tr>
+<tr><td>Precisión (<em>precision</em>)</td><td><code>TP/(TP+FP)</code></td><td>De las alertas, ¿cuántas eran reales?</td><td>0,874</td></tr>
+<tr><td>Sensibilidad (<em>recall</em>)</td><td><code>TP/(TP+FN)</code></td><td>De los casos reales, ¿cuántos detecta?</td><td>0,806</td></tr>
+<tr><td>Especificidad</td><td><code>TN/(TN+FP)</code></td><td>De los casos sanos, ¿cuántos descarta?</td><td>0,921</td></tr>
+<tr><td>F1</td><td><code>2TP/(2TP+FP+FN)</code></td><td>Media armónica de precisión y sensibilidad</td><td>0,839</td></tr>
+<tr><td>Valor predictivo negativo</td><td><code>TN/(TN+FN)</code></td><td>De los descartados, ¿cuántos estaban sanos?</td><td>0,876</td></tr>
+<tr><td>Exactitud equilibrada</td><td><code>(sensibilidad+especificidad)/2</code></td><td>¿Acierta igual en las dos clases?</td><td>0,864</td></tr>
+<tr><td>MCC</td><td><code>(TP·TN−FP·FN)/√((TP+FP)(TP+FN)(TN+FP)(TN+FN))</code></td><td>¿Acierta en las dos clases a la vez?</td><td>0,739</td></tr>
+</tbody></table></div>
+<p>Nota sobre una cifra: la sensibilidad es 325/403 = 0,8065, que redondea a 0,806; el Atlas escribe 0,807 y la diferencia es solo de redondeo. El monitor de Vigía enseña tres métricas: exactitud, sensibilidad (<code>true_positive_rate</code>) y F1. Los umbrales del ejemplo del Atlas son 0,80 para la exactitud, 0,70 para precisión, sensibilidad y F1, y 0,60 para el MCC: configuración, no norma.</p>
+
+<h3>Por qué la exactitud sola engaña</h3>
+<p>En un cribado de 1.000 pacientes con un 5 % de enfermos, un modelo que dice «sano» siempre acierta 950 veces: exactitud 0,95 y sensibilidad 0 (ejemplo del Atlas). Cuando una clase es rara, acertar la mayoritaria sale gratis.</p>
+<p>Dos remedios. La exactitud equilibrada da 0,5 al modelo del «siempre sano», que es lo justo. El MCC usa las cuatro celdas y no se puede inflar ignorando una clase. El F1, en cambio, ignora los verdaderos negativos: dos modelos con el mismo F1 pueden portarse muy distinto con la clase mayoritaria.</p>
+<p>El segundo problema es más sutil, porque el modelo no cambia. Con sensibilidad y especificidad fijas, la precisión depende de la prevalencia, la proporción de casos positivos de verdad. Ejemplo del Atlas, un cribado de reingreso con sensibilidad 0,80 y especificidad 0,90: con un 10 % de prevalencia, el valor predictivo positivo es unos 0,47; con un 3 %, unos 0,20. El simulador de Práctica traslada así una matriz a otra prevalencia \(\pi\), por cada 1.000 casos:</p>
+<div class="formula">\[ TP=1000\,\pi\,S,\quad FN=1000\,\pi\,(1-S),\quad FP=1000\,(1-\pi)(1-E),\quad TN=1000\,(1-\pi)\,E \]</div>
+<p>con \(S\) la sensibilidad y \(E\) la especificidad de la matriz de partida. Si la precisión cae, comprueba primero la prevalencia de la ventana: una mezcla de casos distinta la baja sin que el modelo empeore. <a data-ir="practica" href="#sim-m06-l02-calidad">Pruébalo en Práctica</a>.</p>
+<p>Las métricas que no dependen del corte, como el AUC ROC, sirven para comparar modelos antes de fijarlo; el monitor, que trabaja con el corte ya aplicado, usa métricas de corte.</p>
+
+<h3>Dónde entra la calibración</h3>
+<p>Un modelo calibrado es aquel cuya probabilidad coincide con la frecuencia real: entre 100 pacientes con riesgo 0,2, reingresan unos 20. Cómo se mide y se corrige está en m05/l03. En producción sirve para dos cosas.</p>
+<p>La primera, decidir con un umbral: un modelo que ordena bien pero está descalibrado mueve la matriz sin haber cambiado de orden. La segunda, estimar la calidad sin etiquetas (<em>confidence-based performance estimation</em>, CBPE): si las probabilidades son creíbles, la exactitud esperada de una ventana es la media de sus confianzas, y se calcula hoy, sin esperar. El <code>model_quality_score</code> de la deriva v2, que verás en la lección de deriva, persigue lo mismo con otro método.</p>
+<p>La trampa: solo vale con un modelo calibrado, y comprobar la calibración también necesita etiquetas. Caso del Atlas: confianza media de 0,85 y exactitud real de 0,70 cuando llegó el feedback. No había deriva, el modelo era sobreconfiado desde el principio.</p>
+
+<h3>Cuánto tiempo estás a ciegas</h3>
+<p>Un modelo sencillo, propio, lo hace concreto. Cada semana entra un lote de \(n\) casos; una fracción \(c\) acaba con etiqueta, y esta llega \(d\) semanas después. El monitor junta lotes consecutivos hasta reunir un mínimo de \(m\) etiquetas. Como cada lote aporta \(n\cdot c\):</p>
+<div class="formula">\[ g=\left\lceil \frac{m}{n\cdot c} \right\rceil \qquad\text{y la primera medición sale en la semana } g+d \]</div>
+<p>Un lote es ciego mientras su calidad no se ha medido, y su retraso medio hasta que se conoce es \(d+(g-1)/2\) semanas. Subir \(c\) o bajar \(m\) reduce \(g\) (bajar \(m\), a costa de mediciones más ruidosas); acortar \(d\) desplaza todo. Un fallo que empieza en la semana \(W\) solo se ve cuando se publica la medición del grupo que contiene ese lote. Es una cota optimista: supone que el efecto cruza el umbral aunque el grupo mezcle lotes sanos.</p>
+<p>Un apoyo mientras las etiquetas llegan es la estimación sin etiquetas de arriba, que al llegar el feedback se reconcilia con lo real. Otro, antes de activar el modelo, es la monitorización silenciosa (<em>silent monitoring</em>): el modelo procesa casos reales, pero su salida se archiva sin llegar al clínico y se contrasta después con el desenlace (Atlas). Debe durar al menos lo que tarda el feedback; así, cuando el modelo ya decide, se conoce su calidad prospectiva.</p>
+
+<h3>¿Cuánto fiarse de una medición con pocas etiquetas?</h3>
+<p>Con pocas etiquetas, una tasa es un punto en un intervalo ancho. Con 45 positivos, un solo caso mueve la sensibilidad más de dos puntos (0,844 a 0,822, Atlas). El intervalo de Wilson, que el Atlas recomienda por defecto para cualquier proporción (con \(z=1{,}96\) al 95 %), y que usa el simulador, es</p>
+<div class="formula">\[ \frac{\hat p+\dfrac{z^2}{2n}\pm z\sqrt{\dfrac{\hat p(1-\hat p)}{n}+\dfrac{z^2}{4n^2}}}{1+\dfrac{z^2}{n}} \]</div>
+<p>y para 3 de 20 da un rango de 0,052 a 0,360. Dos efectos se combinan: el tamaño de la medición fija cuánto se estrecha el intervalo de la exactitud, y la prevalencia fija cuántos positivos hay dentro. Con 135 etiquetas y un 10 % de prevalencia, la sensibilidad se mide con unos 13 positivos y su intervalo es enorme aunque la exactitud parezca precisa. Si el intervalo cruza el umbral, una medición sola no decide: hay que juntar más etiquetas o esperar a la siguiente.</p>
+
+<h3>Lo que la calidad global no ve</h3>
+<p>La exactitud es un promedio, y un promedio esconde daños concentrados. En la demo de Vigía (escenario 1, sintético), en el evento la exactitud pasa de 0,88 a 0,86 con umbral de 0,75 y sigue «ok», mientras la diferencia de falsos negativos da alerta: 0,631 frente a un umbral de 0,55 (demo de Vigía 1.0.0; equidad, en m06/l01). Y <code>issue_count</code> cero significa que ninguna métrica configurada cruzó su umbral, no que el modelo esté bien (Atlas).</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar; la matriz es del Atlas, sintética)</p>
+<p>Un modelo de derivación a Reumatología recibe lotes semanales de 450 casos. Solo el 10 % acaba con etiqueta, y esta llega 4 semanas después. El monitor pide 100 etiquetas para medir.</p>
+<ul>
+<li>Cada lote aporta 45 etiquetas, así que hay que juntar \(g=\lceil 100/45\rceil=3\) lotes por medición.</li>
+<li>La primera medición sale en la semana \(3+4=7\); después, en la 10, la 13 y la 16.</li>
+<li>En la semana 16, los lotes 13 a 16 siguen sin medir: 4 de 16, un 25 %. El retraso medio entre decidir y conocer la calidad es de 5 semanas.</li>
+<li>Si el modelo empieza a fallar en la semana 6, el grupo de los lotes 4 a 6 se mide en la semana 10: cuatro semanas decidiendo mal sin saberlo.</li>
+</ul>
+<p>Cada medición reúne 135 etiquetas. Con la exactitud de la matriz del Atlas (0,875), el intervalo de Wilson va de 0,809 a 0,921: sobre el umbral de 0,80, pero por poco.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Leer el silencio como buena noticia (aviso propio, apoyado en el Atlas).</strong> Un monitor de calidad sin etiquetas suficientes no alerta: congela la última cifra. Antes de fiarte de un «ok», mira cuándo se midió por última vez y con cuántas etiquetas.</p>
+<p><strong>Estimar sin etiquetas con un modelo descalibrado.</strong> Un modelo sobreconfiado dice «todo bien» mientras la exactitud real cae, y luego se confunde ese error con deriva.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>Quality monitoring is only as fast as the labels: I always ask how long the ground truth takes to arrive, how many cases ever get one, and what I trust in the meantime.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Atlas de métricas (obra propia de Miguel; ejemplos sintéticos), secciones de calidad, estadística y conceptos: matriz de confusión, prevalencia, retroalimentación, monitorización silenciosa, mínimo de muestra, CBPE, umbrales e <code>issue_count</code>, intervalo de Wilson.</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS), lección L9 «Interpretable Uncertainty», solo la idea de calibración. La teoría está en m05/l03.</li>
+<li>Vigía 1.0.0 (github.com/miguelferre/vigia), demo del escenario 1: cifras de la demo y datos del laboratorio.</li>
+<li>Añadido propio: el modelo de lotes y retraso, el traslado de la matriz a otra prevalencia, las métricas recalculadas, el ejemplo de los lotes, el simulador, los ejercicios y el test.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Primero un simulador, después el laboratorio en Vigía y por último tres ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de calidad con etiquetas tardías.</strong> Empieza con la matriz del Atlas y una prevalencia del 10 %: con el mismo modelo (sensibilidad 0,81, especificidad 0,92) la exactitud sube y la precisión y el F1 caen bajo su umbral. Pulsa «Cribado 5 %: siempre sano» y mira qué métricas lo delatan. Vuelve al ejemplo del Atlas y baja los casos con etiqueta al 2 %: observa el máximo de lotes ciegos y cuándo se vería un fallo que empieza en la semana 6. Con el 10 % otra vez, compara acortar el retraso a una semana con subir la cobertura al 20 %. Por último, pon la matriz en 300, 103, 75 y 522 (TP, FN, FP, TN) y la prevalencia en 40 %: la exactitud ronda 0,82 y su intervalo cruza el umbral de 0,80.</p>
+<div data-widget="m06-l02-calidad" id="sim-m06-l02-calidad"></div>
+
+<div class="laboratorio">
+<h4>Laboratorio en Vigía</h4>
+<p>Vigía es software libre (licencia MIT) del autor del curso: <a href="https://github.com/miguelferre/vigia">github.com/miguelferre/vigia</a>. Solo funciona en Windows 11 de 64 bits. Los datos son sintéticos. El modelo de la demo es un logístico de derivación de Atención Primaria a Reumatología, presentado como Digestivo. Pasos y cifras salen de la demo de Vigía 1.0.0; donde no hay dato, dice «comprueba en pantalla».</p>
+<ul>
+<li><strong>Vía 1, zip de la Release (la recomendada).</strong> Descarga <code>vigia-1.0.0-win64.zip</code> y <code>vigia-1.0.0-win64.zip.sha256</code> de la <a href="https://github.com/miguelferre/vigia/releases">página de Releases</a>. Comprueba la huella con <code>Get-FileHash vigia-1.0.0-win64.zip</code>. Extrae el zip entero. Dentro de <code>vigia-1.0.0-win64\</code> arranca con <code>Vigia.cmd &lt;carpeta&gt;</code>, que abre el navegador solo.</li>
+<li><strong>Vía 2, clon.</strong> <code>git clone https://github.com/miguelferre/vigia.git</code> y, desde su raíz, el bloque «Compilar desde el código» del README, copiado literal. Requisitos: Python 3.13 de python.org, uv y Node 20.19 o superior.
+<pre><code>uv sync --locked --extra dev --extra shap
+cd frontend
+npm ci
+$env:VITE_TEMA="miguel"
+npm run build
+cd ..
+.venv\Scripts\python.exe build\build.py all</code></pre>
+Ese bloque deja el zip en <code>dist\</code>. Extráelo y sigue como en la vía 1.</li>
+<li><strong>Carpeta de datos.</strong> Usa una carpeta aparte para el curso (<code>&lt;carpeta&gt;</code>). La carpeta por defecto, <code>Documents\vigia-datos</code>, guarda tus datos si ya usas Vigía.</li>
+</ul>
+<ol>
+<li><strong>Arranca</strong> Vigía con la carpeta de datos del curso: <code>Vigia.cmd &lt;carpeta&gt;</code>. El puerto es el que ves en la barra de direcciones del navegador.</li>
+<li><strong>Abre la demo.</strong> Ve a <code>http://127.0.0.1:&lt;puerto&gt;/demo?paso=0</code> (<code>&lt;puerto&gt;</code> es el de la barra de direcciones) y pulsa Empezar (29 pasos, del 0 al 28). Los pasos 1 a 3 los haces tú (crear el modelo, subir la línea base y revisar los monitores); después Vigía carga las semanas 2 a 5.</li>
+<li><strong>Busca el monitor de calidad.</strong> La ruta es <code>/monitores/calidad</code>. Muestra Exactitud (<code>accuracy</code>), <code>true_positive_rate</code> y Medida F1 (<code>f1_measure</code>); el umbral inferior de exactitud es 0,8 por defecto y 0,75 en la demo. De b1 a b5 la demo da exactitud 0,88, parecida a la del simulador (0,875), pero no asumas que es la misma matriz. En qué paso aparece, con cuántos registros y qué conteos: comprueba en pantalla.</li>
+<li><strong>Llega al evento.</strong> El paso 11 carga el lote de casos nuevos (botón «Cargar el lote de casos nuevos»). La demo da exactitud 0,86 (sigue ok), diferencia de tasa de falsos negativos 0,631 (alerta, umbral 0,55) y deriva de confianza 0,370 (alerta, umbral 0,30); compáralo con la pantalla. Los jóvenes pasan de ser el 15 % del lote a un 33 %. Pregúntate por qué la exactitud global apenas nota el daño concentrado en ese grupo.</li>
+<li><strong>Ejecuta un ensayo.</strong> Con la demo activa, abre <code>/demo?paso=28</code> y luego <code>/demo#laboratorio</code>, tarjeta «Ejecutar un ensayo». Según la demo, controla el tamaño (50 a 1000, por defecto 450), la proporción de 18 a 35 años (0 a 1, 0,33), el sesgo (-3 a 3, 1,1), la edad media, la dispersión y la seguridad del modelo (0,1 a 3, 1,0), y cada fase ofrece solo lo que su generador acepta. Cómo se elige la fase, si el ensayo devuelve calidad y con cuántos registros: comprueba en pantalla. Si la devuelve, repite con tamaño 50 y con 1000 y mira cuánto se mueve la exactitud. No avanza el guion y escribe solo en la carpeta de datos.</li>
+<li><strong>Prueba el retraso, sin servidor.</strong> En la carpeta de Vigía: <code>runtime\python\python.exe -m vigia eval --payload runtime\python\Lib\site-packages\vigia\data\demo\escenario_1\02_evento_payload.json --feedback runtime\python\Lib\site-packages\vigia\data\demo\escenario_1\02_evento_feedback.json --min-feedback N</code>. Imprime <code>quality.&lt;clave&gt;</code> con su valor y su estado. La salida 3 significa alerta y la 4 inestable, con umbrales por defecto y no los de la demo. Esos ficheros ya vienen en el zip (en el clon están en <code>data\demo\escenario_1\</code>). Cada escenario trae pares <code>*_payload.json</code> y <code>*_feedback.json</code> (<code>01_baseline</code>, <code>02_evento</code>, <code>03_recovery</code>); <code>escenario_2</code> no tiene línea base. Qué imprime si <code>N</code> supera las filas de feedback: comprueba en la consola.</li>
+<li><strong>Cierra.</strong> <code>runtime\python\python.exe -m vigia shutdown --data-dir &lt;carpeta&gt;</code> (en la carpeta de Vigía). Apunta tres observaciones: qué monitor alertó primero, si el de calidad vio el problema y qué habría pasado con etiquetas tardías.</li>
+</ol>
+<p>Cautelas: son datos sintéticos y nunca debes meter datos reales de personas.</p>
+</div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: matriz y prevalencia (a mano, 8 minutos)</p>
+<p>Un modelo de alerta de sepsis en planta, con cifras propias de práctica, tiene sobre 1.000 pacientes: TP = 60, FN = 40, FP = 30 y TN = 870.</p>
+<ol>
+<li>Calcula prevalencia, exactitud, precisión, sensibilidad, especificidad, F1 y exactitud equilibrada.</li>
+<li>¿Qué exactitud tendría un modelo que dijera «no hay sepsis» siempre? ¿Qué te dice eso sobre la exactitud de este modelo?</li>
+<li>Con la misma sensibilidad y especificidad, ¿qué precisión tendría si la prevalencia bajara al 2 %?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Prevalencia \((60+40)/1000=0{,}10\). Exactitud \(930/1000=0{,}93\). Precisión \(60/90=0{,}667\). Sensibilidad \(60/100=0{,}60\). Especificidad \(870/900=0{,}967\). F1 \(=120/190=0{,}632\). Exactitud equilibrada \((0{,}60+0{,}967)/2=0{,}783\).</p>
+<p><strong>2.</strong> Acertaría los 900 sanos: exactitud 0,90. El modelo real solo mejora 3 puntos sobre no hacer nada y pierde 4 de cada 10 casos de sepsis: la exactitud parece buena y la sensibilidad no.</p>
+<p><strong>3.</strong> La tasa de falsos positivos es \(30/900=0{,}033\). Con un 2 % hay 20 positivos y 980 negativos: TP \(=0{,}6\times20=12\) y FP \(\approx0{,}033\times980=32{,}7\). Precisión \(12/44{,}7\approx0{,}27\): apenas una de cada cuatro alertas es real.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: lotes ciegos (a mano, con el simulador para comprobar, 10 minutos)</p>
+<p>Un modelo recibe lotes semanales de 600 casos. El 5 % acaba con etiqueta, que llega 3 semanas después, y el monitor pide 90 etiquetas para medir.</p>
+<ol>
+<li>¿Cuántos lotes se miden juntos y en qué semana sale la primera medición?</li>
+<li>El modelo empieza a fallar en la semana 7. ¿En qué semana se ve? ¿Cuántas semanas fallando sin saberlo?</li>
+<li>Puedes mejorar una sola cosa: doblar la cobertura de etiquetas (10 %) o acortar el retraso a 1 semana. ¿Cuál acorta más el tiempo hasta ver el fallo?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Cada lote da \(600\times0{,}05=30\) etiquetas, así que \(g=\lceil90/30\rceil=3\). La primera medición sale en la semana \(3+3=6\); las siguientes, en la 9, la 12 y la 15.</p>
+<p><strong>2.</strong> El lote 7 está en el grupo de los lotes 7 a 9, que se mide en la semana \(9+3=12\). Son 5 semanas con el modelo fallando (de la 7 a la 12).</p>
+<p><strong>3.</strong> Con un 10 %: 60 etiquetas por lote, \(g=2\), el grupo de los lotes 7 y 8 se mide en la semana \(8+3=11\): 4 semanas. Con retraso de 1 semana: \(g=3\) y los lotes 7 a 9 se miden en la semana \(9+1=10\): 3 semanas. Gana acortar el retraso, aunque depende de dónde caiga el fallo en el grupo.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: estimar la calidad sin etiquetas, con Python (10 minutos)</p>
+<p>La estimación por confianzas propone como exactitud la media de las confianzas del modelo. Compara dos mundos: en uno el modelo está calibrado; en el otro es sobreconfiado y acierta 0,10 menos de lo que dice.</p>
+<pre><code>import random
+random.seed(7)
+
+N = 20_000
+confs = [random.uniform(0.60, 1.00) for _ in range(N)]  # confianza del modelo
+estimada = sum(confs) / N   # exactitud esperada si está calibrado
+
+def exactitud_real(resta):
+    # probabilidad real de acertar = confianza - resta (0 = calibrado)
+    aciertos = sum(random.random() &lt; c - resta for c in confs)
+    return aciertos / N
+
+for resta in (0.0, 0.10):
+    print(resta, round(estimada, 3), round(exactitud_real(resta), 3))</code></pre>
+<p>Responde: ¿qué estimación da el método en cada mundo, y qué exactitud real? Con solo la estimación, ¿distinguirías un modelo siempre sobreconfiado de un mundo que ha cambiado?</p>
+<details>
+<summary>Ver solución</summary>
+<p>La estimación sale cerca de 0,80 en los dos mundos, porque solo mira las confianzas. La exactitud real sale cerca de 0,80 en el calibrado y de 0,70 en el sobreconfiado: el método falla diez puntos. Sin etiquetas, un modelo sobreconfiado desde siempre y un mundo que ha cambiado dan la misma estimación optimista, y no se distinguen hasta que llega el feedback. Es un aviso temprano, no un sustituto.</p>
+</details>
+</div>
+
+</div>
+
+</section>

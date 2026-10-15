@@ -1,0 +1,110 @@
+[
+  {
+    "id": "m11l03-q01",
+    "tipo": "unica",
+    "enunciado": "¿Cuál es la diferencia entre un modelo normativo y uno descriptivo de la decisión?",
+    "opciones": [
+      "El normativo predice cómo decide la gente, y el descriptivo, cómo debería decidir un agente ideal",
+      "El normativo dice cómo debería decidir un agente ideal, y el descriptivo intenta predecir cómo decide la gente",
+      "El normativo usa probabilidades, y el descriptivo, solo utilidades",
+      "No hay diferencia: los dos son teorías de la racionalidad perfecta"
+    ],
+    "correcta": 1,
+    "explicacion": "La utilidad esperada de von Neumann y Morgenstern es normativa. La teoría de las perspectivas es descriptiva: explica cómo se decide, no cómo debería decidirse (libro 10.5, pp. 528 y 533)."
+  },
+  {
+    "id": "m11l03-q02",
+    "tipo": "unica",
+    "enunciado": "En la paradoja de Allais, la mayoría elige Gamble 1 en el escenario A y Gamble 2 en el B. ¿Qué axioma de von Neumann y Morgenstern rompe esa pareja de elecciones?",
+    "opciones": [
+      "La completitud: no sabe comparar los dos gambles",
+      "La transitividad: prefiere A a B y B a A",
+      "La independencia: quitando la parte común los dos escenarios son el mismo juego, y debería elegirse igual",
+      "La continuidad: no admite ninguna probabilidad intermedia"
+    ],
+    "correcta": 2,
+    "explicacion": "Tras quitar el 89 % común (1 M$ en A, 0 en B), los dos escenarios quedan en el mismo juego reducido. La independencia exige elegir lo mismo en ambos (p. 531)."
+  },
+  {
+    "id": "m11l03-q03",
+    "tipo": "multiple",
+    "enunciado": "¿Qué rasgos tiene la función de valor de la teoría de las perspectivas, según el libro?",
+    "opciones": [
+      "Se define sobre ganancias y pérdidas respecto a un punto de referencia, no sobre la riqueza final",
+      "Es cóncava en ganancias y convexa en pérdidas, es decir, tiene forma de S",
+      "Es más empinada en pérdidas que en ganancias",
+      "Transforma cada probabilidad en un peso de decisión"
+    ],
+    "correcta": [0, 1, 2],
+    "explicacion": "Los tres primeros son rasgos de la función de valor (p. 534). Transformar las probabilidades es tarea de la función de pesos, la otra pieza de la teoría (pp. 534 y 535)."
+  },
+  {
+    "id": "m11l03-q04",
+    "tipo": "vf",
+    "enunciado": "Según el libro, quien elige Gamble 1 en A y Gamble 2 en B comete necesariamente un error de juicio.",
+    "correcta": false,
+    "explicacion": "El libro plantea dos lecturas: un error de juicio, o que los axiomas de von Neumann y Morgenstern caractericen mal la racionalidad. El libro añade que Kahneman y Tversky concluyeron que la utilidad esperada deja fuera matices de cómo decidimos (p. 531)."
+  },
+  {
+    "id": "m11l03-q05",
+    "tipo": "numerica",
+    "enunciado": "En la paradoja de Allais, fija u(0) = 0, u(5 M$) = 1 y u(1 M$) = 0,8. ¿Cuál es la utilidad esperada del Gamble 2 en el escenario A (10 % de 5 M$, 89 % de 1 M$ y 1 % de 0)? Escribe el resultado con tres decimales.",
+    "correcta": 0.812,
+    "tolerancia": 0.001,
+    "explicacion": "0,10 × 1 + 0,89 × 0,8 + 0,01 × 0 = 0,10 + 0,712 = 0,812. El Gamble 1 vale 0,8, así que con esta u gana el Gamble 2 en A (y también en B): coherente. El cambio de ganador ocurre en u(1 M$) = 10/11."
+  },
+  {
+    "id": "m11l03-q06",
+    "tipo": "numerica",
+    "enunciado": "Una lotería da 16 con probabilidad 0,25 y 0 con probabilidad 0,75. En una teoría de las perspectivas con v(x) = raíz de x en ganancias, y con w(0,25) = 0,3, ¿cuánto vale V de la lotería?",
+    "correcta": 1.2,
+    "tolerancia": 0.01,
+    "explicacion": "V = w(0,25) × v(16) + w(0,75) × v(0) = 0,3 × 4 + w(0,75) × 0 = 1,2. Con probabilidades sin distorsionar, la utilidad esperada sería 0,25 × 4 = 1,0: el peso 0,3 sobrepondera la probabilidad baja."
+  },
+  {
+    "id": "m11l03-q07",
+    "tipo": "unica",
+    "enunciado": "En el problema de las 600 personas, los participantes tienden a elegir A1 (200 salvados seguro) en el escenario en vidas y B2 (la lotería) en el escenario en muertes. ¿Por qué eso no cabe en la utilidad esperada?",
+    "opciones": [
+      "Porque A1 y B2 tienen distinto valor esperado",
+      "Porque A1 y B1 son la misma política, y A2 y B2 la misma lotería: solo cambian las palabras, y la utilidad esperada pide elegir igual",
+      "Porque la utilidad esperada obliga a elegir siempre la lotería",
+      "Porque en B hay probabilidades y en A no"
+    ],
+    "correcta": 1,
+    "explicacion": "Salvar 200 con seguridad es lo mismo que dejar morir a 400 con seguridad, y la lotería es la misma en las dos redacciones. Un agente que solo mira probabilidades y resultados ignoraría el encuadre (pp. 532 y 533)."
+  },
+  {
+    "id": "m11l03-q08",
+    "tipo": "multiple",
+    "enunciado": "Sobre la IA y la irracionalidad humana, ¿cuáles de estas afirmaciones defiende el libro?",
+    "opciones": [
+      "Un satisfacedor es plausiblemente más seguro que un maximizador que empuja una métrica sin freno",
+      "Una IA entrenada con datos humanos y con interacción humana puede heredar sesgos, y con ello ser más difícil de predecir y controlar",
+      "Copiar los rasgos humanos de decisión garantiza que una IA sea segura",
+      "Entender cómo decide la gente ayuda a anticipar la conducta de quienes desarrollan, regulan y usan la IA"
+    ],
+    "correcta": [0, 1, 3],
+    "explicacion": "Las tres primeras ideas están en el libro (pp. 528 y 529). La tercera opción es falsa: la irracionalidad heredada puede hacer al sistema menos predecible, no más seguro."
+  },
+  {
+    "id": "m11l03-q09",
+    "tipo": "vf",
+    "enunciado": "Si los pesos de decisión son las propias probabilidades, w(p) = p, y la función de valor coincide con una utilidad, la teoría de las perspectivas da la misma elección que la utilidad esperada.",
+    "correcta": true,
+    "explicacion": "La fórmula de la teoría de las perspectivas tiene la misma estructura que la de la utilidad esperada: si w(p) = p y v = u, coinciden. Por eso la teoría generaliza la utilidad esperada (p. 536; la aclaración es un añadido propio). Con g = 1 en el simulador desaparece el patrón de Allais."
+  },
+  {
+    "id": "m11l03-q10",
+    "tipo": "unica",
+    "enunciado": "A Rachel le da igual dejar la herencia al hijo o a la hija, pero quiere tratarlos por igual, y hay un 50 % de que una ley lo dé todo al hijo. Si prefiere la lotería justa (hija 50 %, hijo 50 %) a la injusta (hijo 100 %), ¿qué muestra el ejemplo?",
+    "opciones": [
+      "Que Rachel comete un error de cálculo con las probabilidades",
+      "Que preferir la lotería justa rompe la independencia, porque a quien valora la equidad le importa qué más podía ocurrir",
+      "Que la teoría de las perspectivas resuelve el caso con la función de valor",
+      "Que la equidad no es un valor que pueda entrar en una decisión"
+    ],
+    "correcta": 1,
+    "explicacion": "Si le da igual el hijo o la hija con seguridad, la independencia le obligaría a la indiferencia entre las dos loterías. Preferir la justa rompe esa indiferencia por una razón moral. El libro no propone aquí un modelo con fórmula (pp. 531 y 532)."
+  }
+]

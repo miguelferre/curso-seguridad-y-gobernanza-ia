@@ -1,0 +1,115 @@
+[
+  {
+    "id": "m10l02-q01",
+    "tipo": "unica",
+    "enunciado": "Según la teoría del accionista, ¿para qué sirve la gobernanza corporativa?",
+    "opciones": [
+      "Para equilibrar los intereses de empleados, socios y sociedad civil",
+      "Para vigilar que quienes trabajan en la empresa actúen en interés de sus accionistas",
+      "Para que el Estado controle los modelos que lanza la empresa",
+      "Para que la empresa publique más información sobre sus modelos"
+    ],
+    "correcta": 1,
+    "explicacion": "La teoría del accionista ve la gobernanza como una herramienta para maximizar el valor de los dueños: los accionistas delegan y necesitan comprobar que directivos y plantilla no se desvían. Equilibrar otros intereses es la teoría de las partes interesadas."
+  },
+  {
+    "id": "m10l02-q02",
+    "tipo": "unica",
+    "enunciado": "Según el libro, ¿qué diferencia a una PBC de una C-corp?",
+    "opciones": [
+      "La PBC no tiene accionistas",
+      "La PBC puede perseguir además un beneficio público; la C-corp debe maximizar el valor para sus accionistas",
+      "La PBC está obligada a sacrificar beneficios cada vez que hay un riesgo",
+      "La C-corp solo existe en Delaware"
+    ],
+    "correcta": 1,
+    "explicacion": "La PBC puede pretender un beneficio público además del valor y sus estatutos deben declararlo. Eso permite, no obliga, a renunciar a beneficios. La C-corp debe maximizar el valor para los accionistas."
+  },
+  {
+    "id": "m10l02-q03",
+    "tipo": "vf",
+    "enunciado": "Según el libro, los accionistas de una C-corp pueden en teoría sustituir al consejo si no actúa en su interés, y en la práctica ocurre con frecuencia.",
+    "correcta": false,
+    "explicacion": "Falso. El libro dice que en teoría pueden, pero que en la práctica es muy raro. Es más habitual presionar con demandas a los consejeros que incumplen sus obligaciones."
+  },
+  {
+    "id": "m10l02-q04",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas son garantías externas que menciona el libro?",
+    "opciones": [
+      "Auditorías de terceros",
+      "Ejercicios de equipo rojo",
+      "Programas de recompensa por fallos",
+      "Una auditoría interna que informa al consejo"
+    ],
+    "correcta": [0, 1, 2],
+    "explicacion": "Las auditorías de terceros, el equipo rojo y las recompensas por fallos son externas: las hace o las motiva alguien ajeno. La auditoría interna es una garantía interna, aunque sea independiente de la dirección."
+  },
+  {
+    "id": "m10l02-q05",
+    "tipo": "numerica",
+    "enunciado": "Cifras de práctica. Una empresa adopta beneficio limitado: los inversores aportaron 2 M€ y su retorno tiene un techo de 4 veces lo aportado. Lo que lo supera pasa a la entidad sin ánimo de lucro. Si la empresa reparte 15 M€ en total, ¿cuántos millones de euros recibe la entidad sin ánimo de lucro?",
+    "correcta": 7,
+    "tolerancia": 0.01,
+    "explicacion": "El techo es 4 × 2 = 8 M€, que cobran los inversores. La entidad recibe el resto: 15 − 8 = 7 M€."
+  },
+  {
+    "id": "m10l02-q06",
+    "tipo": "unica",
+    "enunciado": "Según el libro, ¿qué se pretende con una auditoría interna en una empresa de IA?",
+    "opciones": [
+      "Que informe al director general y este decida qué comunica al consejo",
+      "Que sea independiente de la dirección e informe directamente al consejo",
+      "Que sustituya a las auditorías externas",
+      "Que apruebe cada lanzamiento antes de que lo vea el consejo"
+    ],
+    "correcta": 1,
+    "explicacion": "El libro propone un equipo de auditoría interna organizativamente independiente de la dirección que evalúa riesgos, controles y gobernanza y informa directamente al consejo, para que quienes deciden reciban información objetiva."
+  },
+  {
+    "id": "m10l02-q07",
+    "tipo": "unica",
+    "enunciado": "En el ejemplo del libro sobre Anthropic, ¿qué puede hacer el fideicomiso de beneficio a largo plazo?",
+    "opciones": [
+      "Elegir a miembros del consejo, que en teoría podrían despedir al director general",
+      "Aprobar cada modelo antes de su lanzamiento",
+      "Comprar acciones sin voto para proteger la misión",
+      "Sustituir al consejo de forma automática cada año"
+    ],
+    "correcta": 0,
+    "explicacion": "El fideicomiso elige a consejeros, que en teoría podrían despedir al director general. Es una influencia indirecta: el libro no dice que apruebe modelos ni que reemplace al consejo."
+  },
+  {
+    "id": "m10l02-q08",
+    "tipo": "vf",
+    "enunciado": "Según el libro, basta con que la empresa tenga un equipo de seguridad y de gobernanza; no importa si cuenta con recursos ni con respaldo de la dirección.",
+    "correcta": false,
+    "explicacion": "Falso. El libro indica que estos equipos deben tener buenos recursos y el respaldo de la alta dirección. Sin ellos, existir no basta."
+  },
+  {
+    "id": "m10l02-q09",
+    "tipo": "unica",
+    "enunciado": "Un diseño de gobernanza (propio de la lección) tiene comité de riesgo, director de riesgos y auditoría interna, pero ningún poder de veto y el control lo tienen accionistas que quieren crecer. Ante una carrera de lanzamiento, ¿cómo lo describe el criterio del simulador?",
+    "opciones": [
+      "Resiste, porque tiene tres mecanismos independientes",
+      "Muchas voces y ningún poder: avisan, pero nadie puede parar el lanzamiento",
+      "Expuesta, porque no hay ningún mecanismo que intervenga",
+      "Depende de un solo mecanismo firme"
+    ],
+    "correcta": 1,
+    "explicacion": "Los tres mecanismos dan voz (avisan, asesoran, informan) pero ninguno puede parar la decisión. Sin veto ni control ajeno a la presión, la última palabra la tiene quien tiene prisa."
+  },
+  {
+    "id": "m10l02-q10",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estos mecanismos son, según el libro, formas de personalizar la propiedad de una empresa de IA?",
+    "opciones": [
+      "Dos clases de acciones, con voto solo en una",
+      "Un techo al retorno de los inversores, con el exceso para una entidad sin ánimo de lucro",
+      "Pasar el control a un comité que represente a la sociedad bajo ciertas condiciones",
+      "Constituir la empresa en Delaware"
+    ],
+    "correcta": [0, 1, 2],
+    "explicacion": "Las tres primeras son estructuras de propiedad a medida. Constituirse en Delaware es una decisión sobre el lugar de constitución, es decir, sobre la estructura legal."
+  }
+]

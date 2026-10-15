@@ -1,0 +1,192 @@
+<section class="leccion" data-id="m01/l02">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Nadie quiere una IA peligrosa, pero muchos la construyen deprisa porque temen que el rival llegue antes. Un ejército que automatiza más ventaja al enemigo, una empresa que valida despacio pierde el mercado. Cada uno decide bien para sí y todos acaban peor.</p>
+<p>Es lo que el libro llama una carrera de la IA. El problema no está solo en la tecnología, sino en los incentivos: quien frena se queda atrás, así que el ritmo lo marca el menos prudente. La salida pasa por reglas que todos cumplan y que se puedan comprobar.</p>
+
+<svg viewBox="0 0 360 262" role="img" aria-labelledby="rs-t rs-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="rs-t">El círculo de la carrera</title>
+<desc id="rs-d">Tres cajas en círculo: el rival acelera, yo recorto seguridad para no perder, nadie gana ventaja y sube el riesgo. Una flecha vuelve de la tercera a la primera. Debajo, una caja verde: un acuerdo verificable rompe el círculo.</desc>
+<rect x="16" y="8" width="270" height="44" rx="8" style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5"/>
+<text x="151" y="35" text-anchor="middle" style="fill:currentColor;font-size:13px">1. El rival acelera</text>
+<path d="M151 52 V74" style="stroke:var(--muted);stroke-width:1.5;fill:none"/><polygon points="145,70 157,70 151,78" style="fill:var(--muted)"/>
+<rect x="16" y="78" width="270" height="44" rx="8" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5"/>
+<text x="151" y="105" text-anchor="middle" style="fill:currentColor;font-size:13px">2. Yo recorto seguridad para no perder</text>
+<path d="M151 122 V144" style="stroke:var(--muted);stroke-width:1.5;fill:none"/><polygon points="145,140 157,140 151,148" style="fill:var(--muted)"/>
+<rect x="16" y="148" width="270" height="44" rx="8" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5"/>
+<text x="151" y="175" text-anchor="middle" style="fill:currentColor;font-size:13px">3. Nadie gana ventaja y sube el riesgo</text>
+<path d="M286 170 H330 V30 H292" style="stroke:var(--muted);stroke-width:1.5;fill:none"/><polygon points="294,24 294,36 286,30" style="fill:var(--muted)"/>
+<text x="322" y="104" text-anchor="middle" transform="rotate(90 322 104)" style="fill:var(--muted);font-size:11px">más presión</text>
+<rect x="16" y="208" width="314" height="46" rx="8" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<text x="173" y="228" text-anchor="middle" style="fill:var(--ex);font-size:12px;font-weight:700">SALIDA</text>
+<text x="173" y="245" text-anchor="middle" style="fill:currentColor;font-size:12.5px">Acuerdo verificable que todos cumplen</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Explicar por qué la carrera es un problema de acción colectiva y por qué no basta con que un actor sea prudente.</li>
+<li>Describir cómo la IA empuja la carrera militar y la corporativa, con ejemplos de cada una.</li>
+<li>Leer un juego de dos actores: mejor respuesta, equilibrio, óptimo conjunto y tentación de desviarse.</li>
+<li>Decidir cuándo un acuerdo de seguridad se sostiene, comparando la sanción esperada con la ganancia de incumplir.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>Por qué se corre si nadie quiere el resultado</h3>
+<p>Empieza por un caso (ejemplo propio): tres hospitales compiten por ser los primeros en usar un modelo de triaje. El que valida durante seis meses pierde los contratos frente a los que despliegan ya. Aunque los tres prefieran un mundo donde todos validan, ninguno puede permitirse ser el único.</p>
+<p>El libro lleva esa lógica a Estados y empresas y la compara con la carrera nuclear de la Guerra Fría. Su tesis es que el riesgo no sale solo de lo que la IA es, sino de la presión de competir, que empuja a decidir con prisa lo que convendría decidir con calma.</p>
+<p>Es un problema de acción colectiva (<em>collective action problem</em>): lo que conviene a cada participante por separado perjudica al grupo. El libro lo ejemplifica con las emisiones contaminantes y sostiene que no coordinar estas carreras sería la causa más probable de una catástrofe existencial.</p>
+
+<h3>La carrera militar</h3>
+<p>Según el libro, la IA abre una nueva era bélica, la "tercera revolución" tras la pólvora y las armas nucleares. Tres vías conviene distinguir:</p>
+<div class="tw"><table>
+<thead><tr><th>Vía</th><th>Cómo empuja la carrera</th><th>Ejemplos del libro</th></tr></thead>
+<tbody>
+<tr><td>Armas letales autónomas (LAWs)</td><td>Identifican y atacan sin intervención humana; más precisión y velocidad. Sin bajas propias, se debilita el freno interno a la guerra. Pueden ser una rampa hacia accidentes, uso malicioso o pérdida de control.</td><td>Un agente de IA ganó 5 a 0 a un piloto de F-16 en simulacros (2020); drones sin supervisión en Libia (2020); enjambre de drones guiado por IA en 2021 (p. 15)</td></tr>
+<tr><td>Ciberataques</td><td>La IA puede abaratarlos, hacerlos más rápidos y sigilosos. Atribuirlos es más difícil, y eso invita a represalias contra el actor equivocado. El uso malicioso se vio en la lección anterior.</td><td>Ataque a la red eléctrica ucraniana en 2015, más de 200 000 personas sin luz (p. 16)</td></tr>
+<tr><td>Guerra automatizada</td><td>El combate se acelera tanto que los humanos ya no deciden a tiempo, y eso presiona a ceder el control a la IA para no quedarse atrás.</td><td>El sistema MonsterMind de la NSA; el oficial Petrov y la falsa alarma de 1983 (pp. 16 y 17)</td></tr>
+</tbody></table></div>
+
+<h4>Represalia automática y guerra relámpago</h4>
+<p>Si dos bandos automatizan la respuesta, un falso positivo puede convertirse en guerra antes de que nadie lo lea. Es una guerra relámpago (<em>flash war</em>), por analogía con el Flash Crash de 2010, cuando un bucle entre algoritmos de bolsa hizo desaparecer un billón de dólares en minutos (ejemplo del libro, p. 17). En 1983 fue una persona, Petrov, quien juzgó que una alarma soviética de misiles era falsa; con una IA al mando, dice el libro, el desenlace pudo ser otro. Ejemplo propio en sanidad: dos sistemas de alerta que se activan uno al otro (bloqueo de camas, desvío de ambulancias) más deprisa de lo que un coordinador puede leerlos.</p>
+<p>Otros dos efectos de la automatización que recoge el libro: quien ordena puede culpar al sistema de una violación de las leyes de la guerra, y una tecnología nueva vuelve incierto quién ganaría, lo que favorece el error de cálculo.</p>
+
+<h4>Cuánto riesgo se acepta para no perder</h4>
+<p>El libro plantea un ejemplo numérico: un mando estima un 10 % de perder el control de una IA armada, pero un 99 % de perder la guerra si no automatiza. Si vive la guerra como una lucha existencial, aceptará el riesgo. Con costes propios: sea \(L_c\) lo que cuesta la catástrofe y \(L_g\) perder la guerra. Se acepta el riesgo si</p>
+<div class="formula">\[ 0{,}10\,L_c &lt; 0{,}99\,L_g \iff \frac{L_g}{L_c} > 0{,}101 \]</div>
+<p>Basta con que perder la guerra parezca la décima parte de la catástrofe. Pero hay un fallo en el cálculo: el 99 % depende de lo que haga el rival. Si los dos frenaran, la probabilidad de perder no sería esa. De ahí que el libro niegue que la superioridad tecnológica garantice la seguridad: cuando todos refuerzan su armamento a la vez, la ventaja de cada uno se anula y el riesgo común crece. Recoge la frase de Danzig según la cual la disuasión sirve contra ataques, no contra accidentes, y concluye que ante un riesgo existencial todos están del mismo lado, así que cooperar es racional.</p>
+
+<h3>La carrera corporativa</h3>
+<p>En el mercado el mecanismo es el mismo con otro premio: llegar primero. Si cumplir los procedimientos de seguridad lleva tiempo, la empresa cuidadosa entrega más tarde y puede perder el mercado; por eso el libro sostiene que incluso las que querrían frenar acaban siguiendo el ritmo de las demás. Cita el lanzamiento de un buscador con IA en febrero de 2023, anunciado como el arranque de una carrera, y semanas después un chatbot que amenazó a usuarios (p. 20). También tres desastres industriales como precedentes:</p>
+<div class="tw"><table>
+<thead><tr><th>Caso (ejemplo del libro)</th><th>La presión competitiva</th><th>El recorte de seguridad</th></tr></thead>
+<tbody>
+<tr><td>Ford Pinto (años sesenta)</td><td>Competencia de coches importados; plan para diseñar un modelo en 25 meses</td><td>Depósito de combustible junto al parachoques trasero; incendios mortales (pp. 20 y 21)</td></tr>
+<tr><td>Boeing, MCAS</td><td>Rivalidad con Airbus y prisa por sacar un modelo más eficiente</td><td>Poca prueba y poca formación de pilotos; dos accidentes, 346 muertos (p. 21)</td></tr>
+<tr><td>Bhopal (1984)</td><td>Caída de la rentabilidad</td><td>Se recortó mantenimiento y formación; miles de muertos (p. 21)</td></tr>
+</tbody></table></div>
+<p>Ejemplo propio: empresas de IA clínica que compiten por el primer contrato de un servicio de urgencias. La que exige una validación prospectiva en varios hospitales tarda meses más. Si el mercado premia al primero, la validación cuidadosa es una desventaja competitiva, salvo que una norma la exija a todos.</p>
+<p>El libro añade un efecto trinquete: quien no sustituya trabajo humano por IA queda fuera del mercado, así que la automatización avanza por presión y no por decisión. Nombra el desempleo masivo, la automatización de la propia investigación en IA y una dependencia gradual de la que sería difícil volver. Sirve aquí como aviso de que la carrera decide el ritmo del cambio.</p>
+
+<h3>Un modelo para ver el equilibrio (modelo propio)</h3>
+<p>El libro describe la trampa con palabras. Para verla con números, el curso propone un modelo mínimo de dos actores, A y B, que no viene del libro. Cada uno elige su seguridad \(s_i\) entre 0 y 1: la parte de su esfuerzo que dedica a seguridad y no a velocidad. Sin accidente, el premio \(W\) va a quien llega antes; con accidente, los dos pierden \(D=100\).</p>
+<div class="formula">\[ v_i=1-0{,}9\,s_i,\quad p_i=\frac{v_i^{\gamma}}{v_i^{\gamma}+v_j^{\gamma}},\quad r_i=\rho(1-s_i)^2,\quad q=1-(1-r_A)(1-r_B) \]</div>
+<div class="formula">\[ U_i=(1-q)\,p_i\,W-q\,D-c\,s_i \qquad (c=5) \]</div>
+<p>\(p_i\) es la probabilidad de ganar la carrera y \(\gamma\) mide cuán decisiva es la velocidad. \(r_i\) es el riesgo de accidente de cada proyecto, que baja al subir su seguridad, y \(q\) la probabilidad de que ocurra al menos uno. Lo importante es la estructura. La seguridad de uno reduce el accidente de los dos, pero le cuesta velocidad solo a él, y la velocidad es un premio que uno gana lo que el otro pierde. Un actor recibe todo el beneficio de correr y comparte el coste.</p>
+<p>Cada actor elige la seguridad que maximiza su pago dada la del otro (su mejor respuesta, <em>best response</em>). Cuando los dos están en su mejor respuesta, nadie gana cambiando solo: es un equilibrio (equilibrio de Nash, que se estudia con rigor en el módulo de acción colectiva). Con \(W=100\), \(\rho=50\,\%\) y \(\gamma=2\), el equilibrio está en un 49 % de seguridad, con un 24,3 % de accidente y 11,1 puntos por actor. Si los dos eligiesen la misma seguridad y buscaran lo mejor para ambos, sería un 98 %, con 45,0 puntos y casi ningún accidente. La distancia entre ambos es el precio de la carrera. Para moverte por el modelo, <a data-ir="practica" href="#sim-carrera">pruébalo en Práctica</a>.</p>
+
+<h3>Cómo se sale: acuerdos que se pueden comprobar</h3>
+<p>El libro pide nuevos mecanismos de coordinación e instituciones, y en su conclusión, regulación de seguridad y cooperación entre naciones y empresas; su desarrollo llega en los módulos de acción colectiva y de gobernanza. El modelo añade una condición. Un acuerdo fija un suelo de seguridad \(s_{\min}\), y quien se sitúe por debajo y sea detectado con probabilidad \(d\) paga una sanción \(F\). El suelo se sostiene si saltárselo no compensa:</p>
+<div class="formula">\[ d\,F \ \ge\ G,\qquad G=\max_{s&lt;s_{\min}}\big[\,U_i(s,s_{\min})-U_i(s_{\min},s_{\min})\,\big] \]</div>
+<p>Con un suelo del 80 %, \(G=12{,}9\). Con \(d=60\,\%\) y \(F=60\) la sanción esperada es 36 y el acuerdo se sostiene: la seguridad de equilibrio sube al 80 % y el accidente baja al 4,0 %. Con \(d=0\) la sanción esperada es nula y el acuerdo es una promesa sin efecto (<em>cheap talk</em>). La verificación (auditores, certificación externa, inspecciones) es lo que convierte un pacto en un equilibrio. Una advertencia: con una detección intermedia puede haber dos equilibrios, uno donde todos cumplen y otro donde nadie cumple. El acuerdo funciona solo si cada uno cree que el otro cumplirá. Ejemplo propio: una certificación externa de la validación clínica mínima hace verificable el suelo que las empresas del ejemplo anterior no podían fijarse a sí mismas.</p>
+
+<h3>Un paso más: la carrera como selección (solo nombrada)</h3>
+<p>El libro reinterpreta la carrera como un proceso evolutivo. Parte de un caso conocido: los algoritmos de recomendación que más enganchan se conservan y se afinan, y los demás se abandonan. Eso es selección natural en el sentido del biólogo Lewontin, que la exige donde hay variación entre individuos, herencia de rasgos y ritmos de propagación distintos entre variantes. Según el libro, las IA cumplen las tres: hay muchos desarrolladores, los modelos con más éxito sirven de base a los siguientes y los rivales los imitan. Lo que se propaga es lo más competitivo, no lo más seguro, y los humanos solo influyen de forma nominal en esa selección. Esta línea, con sus rasgos egoístas y su relato de una economía autónoma, se trata a fondo en el módulo 9, lección 5.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, con cifras del modelo)</p>
+<p>Reducimos el modelo a dos opciones por actor, con \(W=100\), \(\rho=50\,\%\) y \(\gamma=2\): ser prudente (seguridad 0,9) o correr (seguridad 0,5). En cada casilla, el pago de A y el de B:</p>
+<div class="tw"><table>
+<thead><tr><th></th><th>B prudente</th><th>B corre</th></tr></thead>
+<tbody>
+<tr><th scope="row">A prudente</th><td>44,0 y 44,0</td><td>−8,2 y 62,3</td></tr>
+<tr><th scope="row">A corre</th><td>62,3 y −8,2</td><td>12,3 y 12,3</td></tr>
+</tbody></table></div>
+<p>Si B es prudente, A gana corriendo (62,3 frente a 44,0). Si B corre, A también gana corriendo (12,3 frente a −8,2). Correr es la mejor respuesta pase lo que pase, y B razona igual: el equilibrio es que los dos corran y cobren 12,3, cuando ser prudentes los dos daba 44,0. La tentación de romper la prudencia es \(62{,}3-44{,}0=18{,}3\). Para que la prudencia se sostuviera con una sanción, esta tendría que valer en expectativa más de 18,3, por ejemplo con \(d=0{,}5\) y \(F&gt;36{,}7\) (18,34 dividido entre 0,5 da 36,68, con las cifras sin redondear).</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>"Bastaría con que yo fuera prudente."</strong> En una carrera, la prudencia unilateral no protege: el actor prudente pierde la carrera y el riesgo lo sigue fijando el otro. Por eso hace falta que la regla sea común y verificable, no la virtud de uno solo.</p>
+<p><strong>Pensar que un acuerdo sin comprobación vale.</strong> Si nadie puede detectar el incumplimiento, saltarse el pacto sale gratis y la promesa no cambia el equilibrio (aviso propio, del modelo). Comprueba siempre \(d\,F\ge G\).</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>A safety-versus-speed race is a collective action problem: each lab is rational to cut corners, so we need commitments that are verifiable, not just good intentions.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 1.3 AI Race, págs. 14 a 28 (PDF 32 a 46): carrera armamentista militar (14 a 20), carrera corporativa (20 a 23) y presiones evolutivas (23 a 28). Las medidas de regulación y cooperación, en la conclusión 1.7, págs. 49 y 50.</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS). Esta lección no tiene una lección asignada en el curso.</li>
+<li>Añadido propio, no procede de las fuentes: el modelo de dos actores con sus fórmulas, sus cifras y el simulador; el cálculo del 10 % frente al 99 %; la condición \(d\,F\ge G\) y el aviso de la verificación; los ejemplos de los hospitales, de la IA clínica, de las alertas y de la certificación; el efecto trinquete como nombre; y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: primero un simulador para explorar el modelo, después tres ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de la carrera.</strong> Empieza con los dos actores en un 90 % de seguridad: cada uno cobra 44. Mira la curva de la derecha: la mejor respuesta de A está en un 65 % y le da unos 23 puntos más. Pulsa "Mejor respuesta de A" y luego "Mejor respuesta de B" varias veces, o "Ir al equilibrio": la seguridad baja al 49 % y el pago a 11,1. Es el precio de la carrera. Sube "Peligro sin seguridad" y el equilibrio sube, pero sigue lejos del 98 %; sube "Cuánto decide la velocidad" y el equilibrio baja. Después activa el acuerdo, con suelo del 80 %, detección del 60 % y sanción de 60: se sostiene. Baja la detección al 20 % y deja de sostenerse (sanción esperada 12 frente a una ganancia de incumplir de 12,9); con el 25 % vuelve a sostenerse. Para ver dos equilibrios a la vez, pon suelo del 70 %, detección del 10 % y sanción de 60: cumplir (70 %) y no cumplir (49 %) se sostienen los dos.</p>
+<div data-widget="m01-l02-carrera" id="sim-carrera"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: leer la matriz (a mano, 8 minutos)</p>
+<p>Usa la tabla del ejemplo (prudente 0,9, corre 0,5; en cada casilla, pago de A y de B): prudente-prudente 44,0 y 44,0; prudente-corre −8,2 y 62,3; corre-prudente 62,3 y −8,2; corre-corre 12,3 y 12,3.</p>
+<ol>
+<li>Halla la mejor respuesta de A a cada opción de B y el equilibrio.</li>
+<li>Calcula la suma de pagos de cada casilla. ¿Cuál es la mejor para el conjunto?</li>
+<li>¿Cuánto vale la tentación de A cuando los dos son prudentes?</li>
+<li>Se introduce un acuerdo con detección \(d=0{,}5\) y sanción \(F\) para quien corra. ¿Qué \(F\) mínima hace que ser prudentes sea un equilibrio?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Si B es prudente, A elige correr (62,3 &gt; 44,0). Si B corre, A elige correr (12,3 &gt; −8,2). Equilibrio: los dos corren, con 12,3 cada uno.</p>
+<p><strong>2.</strong> Sumando las cifras de la tabla: 88,0; 54,1; 54,1 y 24,7. La mejor es prudente-prudente.</p>
+<p><strong>3.</strong> \(62{,}3-44{,}0=18{,}3\).</p>
+<p><strong>4.</strong> Hace falta \(d\,F&gt;18{,}3\), es decir, \(F&gt;36{,}7\) (18,34 / 0,5 = 36,68 con las cifras sin redondear). Con \(F=50\) la sanción esperada es 25. Y con más de 20,5 desaparece también el equilibrio en el que los dos corren (porque \(12{,}3-d\,F&lt;-8{,}2\)); entre 18,3 y 20,5 conviven los dos.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: 10 % frente a 99 % (a mano, 6 minutos)</p>
+<p>Con el ejemplo del libro (10 % de perder el control de una IA armada, 99 % de perder la guerra si no se automatiza) y costes propios: la catástrofe cuesta \(L_c=1000\) y perder la guerra \(L_g\).</p>
+<ol>
+<li>¿Desde qué \(L_g\) compensa aceptar el riesgo?</li>
+<li>Si los dos bandos aceptan el riesgo, cada uno con un 10 % de perder el control y de forma independiente, ¿qué probabilidad hay de que al menos uno lo pierda?</li>
+<li>¿Qué supuesto del 99 % es discutible?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> \(0{,}10\times1000=100&lt;0{,}99\,L_g\), luego \(L_g&gt;101{,}0\). Basta con que perder la guerra parezca la décima parte de la catástrofe.</p>
+<p><strong>2.</strong> \(1-0{,}9^2=0{,}19\): un 19 %, casi el doble que el riesgo de cada bando por separado.</p>
+<p><strong>3.</strong> Que la probabilidad de perder no depende de lo que haga el rival. Si los dos frenasen, no sería un 99 %. Cada bando toma el 99 % como dado, y esa es la trampa.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: el premio y el equilibrio, con Python (10 minutos)</p>
+<p>Este fragmento repite el modelo y busca el equilibrio iterando mejores respuestas. Antes de ejecutarlo, predice qué pasa con la seguridad de equilibrio si sube el premio \(W\) de 60 a 150.</p>
+<pre><code>D, K, C = 100, 0.9, 5
+
+def pago(a, b, W=100, rho=0.5, g=2):
+    q = 1 - (1 - rho*(1-a)**2) * (1 - rho*(1-b)**2)
+    va, vb = (1 - K*a)**g, (1 - K*b)**g
+    return (1 - q) * va/(va+vb) * W - q*D - C*a
+
+def mejor(b, **kw):
+    return max((i/100 for i in range(101)), key=lambda a: pago(a, b, **kw))
+
+for W in (60, 100, 150):
+    s = 0.9
+    for _ in range(50):
+        s = mejor(s, W=W)
+    print(W, s, round(pago(s, s, W=W), 1))</code></pre>
+<p>Responde: ¿cómo cambia la seguridad al subir \(W\)? Repite con <code>rho</code> en 0.3 y en 0.8 y explica qué ves.</p>
+<details>
+<summary>Ver solución</summary>
+<p>Salen 0,57 (pago 4,2), 0,49 (pago 11,1) y 0,44 (pago 22,2). Cuanto más vale ganar, menos seguridad elige cada actor: la carrera se vuelve más atractiva frente al riesgo compartido. Con <code>W</code> = 100 y <code>rho</code> = 0.3 sale un equilibrio de 0,33; con 0.5, 0,49; con 0.8, 0,61. Cuanto más peligrosa es la tecnología, más seguridad elige cada uno por interés propio, pero en ningún caso se llega a los valores conjuntamente óptimos, que están por encima de 0,9. Corregir el peligro resuelve una parte del problema, no el problema.</p>
+</details>
+</div>
+
+</div>
+
+</section>

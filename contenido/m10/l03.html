@@ -1,0 +1,218 @@
+<section class="leccion" data-id="m10/l03">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Un Estado tiene una caja de herramientas para que la IA sea más segura, y cada herramienta actúa en un momento distinto. Unas fijan el listón antes de lanzar un sistema (normas y regulaciones). Otras hacen que alguien pague cuando algo sale mal (responsabilidad legal) o recaudan para prevenir y socorrer (impuestos). Otras amortiguan el golpe (resiliencia), reparten los beneficios y los riesgos (propiedad pública) o protegen al país de quedarse atrás (controles de exportación, seguridad de la información).</p>
+<p>Ninguna basta por sí sola, y cada una falla de una manera distinta. La regulación puede quedar en manos de quien debería vigilar. La responsabilidad legal llega tarde y no alcanza para daños enormes. Por eso el libro propone combinarlas, como capas de defensa (la imagen del queso suizo es una comparación propia).</p>
+
+<svg viewBox="0 0 360 278" role="img" aria-labelledby="gn-t gn-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="gn-t">Herramientas nacionales según el momento en que actúan</title>
+<desc id="gn-d">Cinco bandas. Antes de desplegar: normas y regulaciones. Después del daño: responsabilidad legal e impuestos. Cuando el daño ocurre: resiliencia. Sobre quién es el dueño: propiedad pública. Frente a otros países: controles de exportación, inmigración, inteligencia y seguridad de la información.</desc>
+<rect x="4" y="4" width="352" height="46" rx="8" style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5"/>
+<text x="16" y="24" style="fill:var(--accent-ink);font-weight:700;font-size:12.5px">ANTES: fijar el listón</text>
+<text x="16" y="42" style="fill:currentColor;font-size:12.5px">Normas (voluntarias) y regulaciones (obligatorias)</text>
+<rect x="4" y="54" width="352" height="46" rx="8" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5"/>
+<text x="16" y="74" style="fill:var(--trap);font-weight:700;font-size:12.5px">DESPUÉS: repartir el coste</text>
+<text x="16" y="92" style="fill:currentColor;font-size:12.5px">Responsabilidad legal e impuestos dirigidos</text>
+<rect x="4" y="104" width="352" height="46" rx="8" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<text x="16" y="124" style="fill:var(--ex);font-weight:700;font-size:12.5px">MIENTRAS TANTO: amortiguar</text>
+<text x="16" y="142" style="fill:currentColor;font-size:12.5px">Resiliencia: ciberseguridad, bioseguridad, vigilantes</text>
+<rect x="4" y="154" width="352" height="46" rx="8" style="fill:var(--surface);stroke:var(--accent);stroke-width:1.5"/>
+<text x="16" y="174" style="fill:var(--accent-ink);font-weight:700;font-size:12.5px">DUEÑO: quién asume beneficios y riesgos</text>
+<text x="16" y="192" style="fill:currentColor;font-size:12.5px">Propiedad pública de sistemas de IA</text>
+<rect x="4" y="204" width="352" height="70" rx="8" style="fill:var(--surface);stroke:var(--trap);stroke-width:1.5"/>
+<text x="16" y="224" style="fill:var(--trap);font-weight:700;font-size:12.5px">POSICIÓN: no quedarse atrás</text>
+<text x="16" y="242" style="fill:currentColor;font-size:12.5px">Exportaciones, talento e inteligencia</text>
+<text x="16" y="259" style="fill:currentColor;font-size:12.5px">Seguridad de la información (pesos del modelo)</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Distinguir una norma (voluntaria) de una regulación (obligatoria) y explicar por qué una norma puede acabar teniendo fuerza de ley.</li>
+<li>Explicar qué aporta la responsabilidad legal y calcular qué parte de un daño internaliza un desarrollador con capacidad de pago limitada.</li>
+<li>Emparejar un problema de riesgo de IA con la herramienta nacional que mejor lo ataca, señalando su ventaja y su límite.</li>
+<li>Argumentar por qué las herramientas se combinan y no se sustituyen.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>¿Por qué hace falta el Estado?</h3>
+<p>Una empresa por sí sola no puede sancionar a un competidor, ni exigir a todo el sector unas pruebas, ni pagar los daños de una catástrofe. Un gobierno sí puede obligar, tiene presupuesto, cuenta con diplomacia e inteligencia y, en principio, responde ante el interés público. Además, sus normas cambian los incentivos: si recortar en seguridad tiene una penalización, deja de compensar. Es la misma lógica de los problemas de acción colectiva del módulo 9 (el libro lo enlaza, sección 8.5, p. 472).</p>
+<p>Ejemplo propio: un hospital que compra un modelo de triaje no puede auditar por su cuenta cómo se entrenó ni cómo se probó. Si cada hospital exigiera lo suyo, el proveedor prudente perdería contra el que no se molesta. Una regla común quita esa ventaja al descuidado.</p>
+<p>La lección sigue las preguntas que se plantea un gobierno, no el orden del libro. Quedan fuera dos temas vecinos: cómo se gobiernan las propias empresas (lección anterior) y cómo cooperan los países entre sí (la siguiente).</p>
+
+<h3>¿Cómo se fija el listón: normas o reglas obligatorias?</h3>
+<p>Son dos herramientas complementarias, y la diferencia importa (libro, 8.5.1, pp. 472 a 474).</p>
+<dl class="facts">
+<div><dt>Norma (standard)</dt><dd>Descripción escrita de la mejor práctica para una actividad. No obliga por sí misma. Las hay de calidad, de seguridad y de interoperabilidad. Las redactan organismos de normalización, como el NIST estadounidense o la ISO.</dd></div>
+<div><dt>Regulación (regulation)</dt><dd>Requisito legal vinculante. Ejemplos del libro: la aprobación previa de fármacos, los límites de emisiones de los coches o la licencia de los pilotos.</dd></div>
+</dl>
+<p>El libro imagina normas de seguridad para la IA de frontera repartidas por el ciclo de vida del modelo: revisar el plan de entrenamiento antes de empezar, evaluar las capacidades y propensiones peligrosas a medio camino y, en el despliegue, ofrecer los modelos más potentes a través de una interfaz vigilada.</p>
+<p>Una norma no obliga, pero puede acabar pesando de tres maneras. Moldea lo que se considera práctica razonable, porque la publican organismos con autoridad. Puede volverse obligatoria si una ley la incorpora por referencia. Y el Estado puede premiarla sin obligar: exigir su cumplimiento para contratar con la administración o aceptarla como defensa en una demanda. El punto débil es quién la escribe. En EE. UU. la elaboración suele apoyarse mucho en la industria, y con ello crece el riesgo de que refleje sus intereses.</p>
+<p>En países como EE. UU. y el Reino Unido, según el libro, la regulación suele nacer en dos pasos: el legislativo aprueba una ley con mandatos generales y una agencia especializada concreta los detalles y vigila su cumplimiento. Así gana velocidad, foco y pericia, mientras el parlamento conserva palancas como el presupuesto y el mandato de la agencia. Pero las agencias fallan de dos maneras que el libro destaca:</p>
+<ul>
+<li><strong>Falta de recursos:</strong> sin presupuesto, plantilla o poderes, no diseña ni hace cumplir bien las reglas.</li>
+<li><strong>Captura regulatoria (regulatory capture):</strong> la agencia acaba priorizando a un grupo pequeño, sobre todo el sector al que regula, por encima del interés general. Ejemplo propio: un regulador de productos sanitarios cuyo personal deja la agencia por puestos mejor pagados en las empresas que vigilaba, y que por eso se muestra indulgente. El libro cita cinco vías, entre ellas esos empleos tras el cargo, la información técnica sesgada que aporta la industria, el apoyo político a legisladores afines, la influencia sobre quién dirige la agencia y las relaciones personales con los reguladores.</li>
+</ul>
+<p>Ejemplo propio: un protocolo compartido de validación clínica para modelos de detección de sepsis es una norma. Exigir que ningún modelo se use en la práctica clínica sin aprobación previa, como un fármaco, es una regulación.</p>
+<p><strong>Añadido propio, no procede del libro:</strong> el Reglamento Europeo de IA es un ejemplo cercano de regulación vinculante, porque obliga por ley y gradúa las exigencias según el riesgo del sistema. No entramos en su detalle ni en su articulado; para eso está el texto oficial.</p>
+
+<h3>¿Quién paga cuando el daño ya ha ocurrido?</h3>
+<p>La responsabilidad legal (liability) decide quién compensa cuando un accidente o un mal uso de la IA causa un daño (libro, 8.5.2, pp. 474 y 475). No hace falta una ley específica: en EE. UU. y el Reino Unido ya hay figuras que podrían aplicarse. La negligencia obliga a indemnizar a quien no actuó con el cuidado debido. La responsabilidad objetiva (strict liability) obliga a pagar por un producto defectuoso aunque no hubiera culpa. Como los jueces pueden interpretar de maneras distintas qué es negligencia o defecto en una IA, el legislador puede precisar las reglas.</p>
+<p>Sus ventajas, según el libro, son dos. Hace que el desarrollador internalice el efecto de su producto sobre los demás, porque paga si perjudica, y mejora así sus incentivos. Y da rendición de cuentas sin depender de una agencia, que puede tener pocos medios o estar capturada.</p>
+<h4>El límite: la capacidad de pago</h4>
+<p>Una compañía solo puede pagar hasta donde llegan sus activos. El libro pone un caso extremo: una IA usada para causar una pandemia que matara a una de cada cien personas generaría daños de decenas de billones, y el desarrollador solo podría pagar una fracción. Llamando \(C\) a lo máximo que puede pagar y \(D\) al daño, la parte del daño que asume es:</p>
+<div class="formula">\[ \text{fracción internalizada}=\min\!\left(1,\ \frac{C}{D}\right) \]</div>
+<p>La fórmula es un cálculo propio para ilustrar la idea del libro. El seguro obligatorio, habitual con los coches, sube \(C\), pero hay daños que ningún asegurador cubriría. El libro añade dos límites más: las catástrofes muy graves pueden alterar el propio sistema legal, y la responsabilidad disuade poco a quien no espera causar grandes daños, incluso si su desarrollo resulta peligrosísimo.</p>
+<p>Ejemplo propio: un fabricante vende un modelo clínico con un defecto que un tribunal considera negligente. Pagará las indemnizaciones por los pacientes perjudicados y el sector tomará nota. Esa respuesta funciona con daños individuales; con un daño de escala nacional ya no.</p>
+
+<h3>¿Cómo se financian la prevención y el socorro?</h3>
+<p>Los impuestos no obligan a nadie a internalizar el riesgo, pero recaudan dinero que se puede reservar para prevenir o remediar (libro, 8.5.3, p. 475). El ejemplo del libro es el Superfund estadounidense, un programa de limpieza de vertidos peligrosos abandonados que se financia con impuestos especiales (excise taxes) sobre las sustancias químicas: la industria que creó el problema paga su gestión. Un impuesto especial sobre la IA podría cumplir esa función.</p>
+<p>Los impuestos son también la herramienta más directa para redistribuir. Ya se han propuesto gravámenes específicos sobre robots, bienes y servicios digitales e IA. El libro señala además un sesgo del sistema fiscal estadounidense: contratar a una persona genera cotizaciones e impuestos, pero sustituirla por una IA solo genera el impuesto de sociedades. Si la IA da a unas pocas empresas beneficios enormes mientras buena parte de la población no paga renta, los ingresos públicos caerían. Los límites que cita son políticos: las empresas presionan para pagar menos y el debate sobre los efectos económicos de los impuestos es antiguo y muy discutido.</p>
+<p>Ejemplo propio, con cifras inventadas: una red de hospitales sustituye 1.000 puestos administrativos de 30.000 euros al año. Si la carga fiscal sobre el salario fuese del 30 %, el Estado deja de ingresar 9 millones. Si la IA factura 300 millones, una tasa del 3 % sobre esa facturación compensaría la pérdida. La cuenta se ve en el ejercicio B.</p>
+
+<h3>¿Y si el propietario fuera el público?</h3>
+<p>Con la propiedad pública (public ownership), el Estado se queda parte o todo de los sistemas de IA potentes. El razonamiento del libro (8.5.4, p. 476): el público recibe a la vez los beneficios y los costes, así que se atenúa el riesgo moral, y el gobierno puede controlar la operación y repartir los ingresos con equidad.</p>
+<p>La analogía es la de los servicios públicos. Se suelen nacionalizar cuando las economías de escala abaratan producir a lo grande: no compensa levantar varias redes eléctricas rivales. El libro cita a Électricité de France, propietaria de las centrales nucleares que dan la mayor parte de la electricidad del país. Y sugiere que la IA se parecería a un servicio público si estuviera presente en toda la economía, fuera esencial para la vida diaria y exigiera cuidados de seguridad especiales.</p>
+<p>El libro no desarrolla los inconvenientes de esta vía. Los que siguen son lectura propia: exige capacidad técnica en el Estado, concentra poder en quien lo dirige y solo alcanza a los sistemas que efectivamente se nacionalicen.</p>
+<h3>¿Qué pasa si el daño ocurre igualmente?</h3>
+<p>Ejemplo propio: un ataque de secuestro de datos (ransomware) paraliza la red informática de un hospital. No hay un modelo concreto al que exigir cuentas, y las herramientas anteriores actúan antes del daño o después de él. La resiliencia (resilience) actúa en el intermedio: reducir el daño mientras la IA ya está desplegada (libro, 8.5.5, pp. 476 y 477). Aquí sería financiar la detección temprana, exigir copias de seguridad y planes de continuidad a los centros sanitarios y coordinar la respuesta con ellos.</p>
+<p>El libro sostiene que estas medidas pueden subir el nivel de capacidad de IA necesario para provocar una catástrofe. Con eso se gana tiempo para desarrollar métodos de seguridad y más defensas; lo ideal sería que la defensa avanzara siempre a la par que la ofensa. Los instrumentos del gobierno son tres: financiar I+D en tecnologías defensivas, proponer colaboraciones voluntarias con el sector privado o exigir por regulación prácticas de resiliencia a los dueños de infraestructuras y plataformas. Los ámbitos que menciona el libro:</p>
+<div class="tw"><table>
+<thead><tr><th>Ámbito</th><th>Qué aporta</th><th>Riesgo que señala el libro</th></tr></thead>
+<tbody>
+<tr><td>Ciberseguridad</td><td>IA que localiza y corrige vulnerabilidades y detecta phishing y programas maliciosos, con foco en el software muy extendido y las infraestructuras críticas</td><td>Doble uso: la IA que encuentra vulnerabilidades sirve igual para explotarlas</td></tr>
+<tr><td>Bioseguridad</td><td>Detectar patógenos, por ejemplo con vigilancia de aguas residuales o cribado seguro y universal de la síntesis de ADN</td><td>El libro no señala uno</td></tr>
+<tr><td>Vigilantes de IA</td><td>IA que supervisa a otras y marca comportamientos peligrosos</td><td>Algunas versiones podrían dañar la privacidad</td></tr>
+</tbody></table></div>
+<p>El límite: si el Estado defiende solo un flanco, un atacante puede buscar otro, y las IA avanzadas pueden abrir amenazas nuevas en muchos campos, así que cuesta elegir defensas dirigidas que marquen la diferencia. El libro replica que quizá haya algunos dominios especialmente graves y abordables, como la ciberseguridad o la bioseguridad, y que ciertas defensas, como los vigilantes, protegen de forma más amplia.</p>
+
+<h3>¿Cómo ser prudente sin quedarse atrás?</h3>
+<p>Un país que avanza con cuidado puede quedar por detrás de otros más laxos, y sería peligroso que la vanguardia mundial estuviera donde no hay barandillas (libro, 8.5.6, pp. 477 y 478). El libro previene contra las políticas adversarias, que buscan el liderazgo de un país a costa de otro: pueden partir de supuestos falsos sobre quién pondrá límites, provocar contramedidas y tensiones que dificultan cooperar, y alimentar una mentalidad competitiva que sacrifica seguridad. Además la tecnología se difunde con rapidez, incluso con esfuerzos por mantener la ventaja. El libro apunta a la cooperación internacional como vía para evitar esos riesgos y la deja para la lección siguiente; para los casos en que falle, repasa cuatro herramientas:</p>
+<dl class="facts">
+<div><dt>Controles de exportación</dt><dd>Limitar la salida de hardware especializado en IA. Ventaja: fabricarlo es muy complejo y la cadena de suministro está muy concentrada, así que podrían funcionar sin acuerdo global. Se ampliará en la lección de gobernanza de cómputo.</dd></div>
+<div><dt>Política de inmigración</dt><dd>Atraer el talento, otro insumo clave. Según sondeos citados por el libro, la mano de obra internacional del sector prefiere EE. UU. a China. Coste: quien emigra puede difundir capacidades al volver o al mantener contactos, aunque muchos deciden quedarse.</dd></div>
+<div><dt>Recogida de inteligencia</dt><dd>Saber cómo van los demás evita tanto la autocomplacencia sin motivo como la inseguridad sin motivo.</dd></div>
+<div><dt>Seguridad de la información</dt><dd>Frenar la difusión de conocimientos y tecnología hacia países o grupos adversarios, con ayuda pública a los desarrolladores o exigiéndoles normas de seguridad. La tratamos ahora.</dd></div>
+</dl>
+<p>Ejemplo propio: un país exige auditorías estrictas a los modelos clínicos y sus empresas temen perder mercado frente a otro sin esas exigencias. Las herramientas de esta sección no eliminan ese temor; permiten atenuarlo mientras se negocia.</p>
+
+<h3>¿Cómo se protege lo más valioso, los pesos del modelo?</h3>
+<p>Ejemplo propio: una empresa ha invertido años y muchos millones en un modelo clínico. Si un atacante se lleva el fichero con sus pesos (weights), los parámetros aprendidos que lo definen, puede ejecutarlo sin ninguno de los límites que puso la empresa, y esta pierde lo invertido. El libro lo trata como asunto de seguridad nacional: un modelo potente robado podría servir para ciberataques o para desarrollar armas (libro, 8.5.7, pp. 478 y 479).</p>
+<p>¿Es probable que alguien lo intente? El libro dice que sí y da tres motivos: los sistemas más avanzados serán muy valiosos; crearlos cuesta miles de millones, lo que empuja a robarlos en lugar de entrenarlos; y su cadena de software y hardware es tan compleja que ofrece muchas puertas de entrada (superficie de ataque). Como precedentes cita el fallo Pegasus, que permitía controlar iPhones sin que el usuario tocara nada, y el hackeo a NVIDIA de 2022.</p>
+<p>Agrupamos las vías de entrada por lo que se ataca (agrupación propia; el libro las enumera en otro orden):</p>
+<div class="tw"><table>
+<thead><tr><th>Se ataca...</th><th>Vías que menciona el libro</th></tr></thead>
+<tbody>
+<tr><td>La tecnología</td><td>Código no autorizado que explota fallos, ataques a proveedores de software y equipos y abuso de las interfaces legítimas: se han recuperado partes de algunos modelos con el acceso normal a la API</td></tr>
+<tr><td>Las personas</td><td>Credenciales robadas por ingeniería social (por ejemplo, correos de phishing) o por contraseñas débiles; sobornos, extorsión e infiltrados</td></tr>
+<tr><td>El lugar</td><td>Acceso físico no autorizado a los sistemas</td></tr>
+</tbody></table></div>
+<p>Las defensas escalan con el adversario. Frente a ataques oportunistas, el libro apunta al doble factor de autenticación, la detección y respuesta a incidentes y la reducción de quién tiene acceso a los pesos. Frente a amenazas más serias añade, entre otras, las pruebas de penetración con un equipo externo bien dotado, un programa contra amenazas internas, la revisión de la seguridad de proveedores y el endurecimiento de las interfaces de acceso.</p>
+<p>Según el libro, cada medida ilustra un principio del módulo 2: limitar el acceso es mínimo privilegio, el equipo rojo es un caso de antifragilidad y las capas independientes son defensa en profundidad. Con todo, probablemente no basten contra Estados con muchos recursos. Protegerse de ellos exigiría inversiones fuertes, quizá diseños nuevos de hardware e instalaciones, y una cultura de seguridad sostenida: las medidas que estorban la productividad se saltan si la plantilla no las asume.</p>
+
+<h3>¿Basta con una herramienta?</h3>
+<p>No. Cada una tiene límites diferentes (libro, conclusiones de 8.5, p. 480): la regulación puede frenarla la captura, y la responsabilidad legal impone pocas penas y tarde. Por eso el libro habla de varias capas de defensa, la imagen del queso suizo de la lección de modelos de accidente (comparación propia). La tabla resume el conjunto (lectura propia, con datos del libro).</p>
+<div class="tw"><table>
+<thead><tr><th>Herramienta</th><th>Cuándo actúa</th><th>Fortaleza</th><th>Límite</th></tr></thead>
+<tbody>
+<tr><td>Normas</td><td>Antes</td><td>Fijan la buena práctica y pueden hacerse obligatorias</td><td>No obligan por sí solas; riesgo de sesgo hacia la industria</td></tr>
+<tr><td>Regulación</td><td>Antes</td><td>Vinculante, con agencia especializada</td><td>Falta de recursos y captura</td></tr>
+<tr><td>Responsabilidad legal</td><td>Después</td><td>Internaliza costes sin agencia</td><td>Capacidad de pago; llega tarde; disuade poco a quien no espera daños</td></tr>
+<tr><td>Impuestos dirigidos</td><td>Después</td><td>Financian prevención y socorro</td><td>Cabildeo y debate económico</td></tr>
+<tr><td>Propiedad pública</td><td>Siempre</td><td>Alinea beneficios y riesgos</td><td>Límites no desarrollados por el libro (lectura propia arriba)</td></tr>
+<tr><td>Resiliencia</td><td>Durante</td><td>Sube el listón para la catástrofe</td><td>Defensas estrechas, doble uso, privacidad</td></tr>
+<tr><td>No quedarse atrás</td><td>Siempre</td><td>Mantiene la competitividad con seguridad</td><td>Riesgo adversario y difusión de la tecnología</td></tr>
+<tr><td>Seguridad de la información</td><td>Siempre</td><td>Protege los pesos</td><td>Insuficiente ante Estados con muchos recursos</td></tr>
+</tbody></table></div>
+<p>Para practicar el emparejamiento de problemas y herramientas, <a data-ir="practica" href="#sim-m10-l03-herramientas">pruébalo en Práctica</a>.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Una empresa desarrolla un modelo que ayuda a priorizar pacientes en urgencias. Un error de diseño hace que, durante una semana, mande a casa a pacientes graves. Estimamos daños por 40.000 millones de euros y el fabricante puede pagar hasta 2.000 millones.</p>
+<div class="formula">\[ \frac{C}{D}=\frac{2\,000}{40\,000}=0{,}05 \]</div>
+<p>Solo internaliza el 5 % del daño. Un seguro obligatorio de 5.000 millones lo subiría a \(7\,000/40\,000=17{,}5\,\%\), y aun así quedaría sin cobrar más de cuatro quintos del daño. Las otras herramientas tienen que cubrir el resto: una regulación de aprobación previa habría exigido validar el modelo antes de usarlo, y un fondo alimentado por impuestos podría atender a los pacientes sin esperar a los tribunales.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Creer que la herramienta más fuerte es la que más protege.</strong> Una regulación estricta pero capturada, o sin presupuesto para vigilar, protege menos que otra más modesta que sí se hace cumplir. Cada herramienta se evalúa por su límite tanto como por su fuerza.</p>
+<p><strong>Confundir norma y regulación (aviso propio).</strong> Cumplir una norma no es cumplir la ley salvo que una ley la incorpore, y una norma que nadie exige es solo una recomendación.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>No single government lever is enough: standards and regulation set the bar, liability and taxes share the cost, resilience limits the damage, and each has its own failure mode.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 8.5 National Governance, págs. 472 a 480 (PDF 490 a 498): normas y regulaciones (472 a 474), responsabilidad legal (474 y 475), impuestos (475), propiedad pública (476), resiliencia (476 y 477), no quedarse atrás (477 y 478), seguridad de la información (478 y 479) y conclusiones (480).</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS). Esta lección no tiene equivalente en las notas del curso.</li>
+<li>Añadido propio, no procede de las fuentes: la mención del Reglamento Europeo de IA; la fórmula de la fracción internalizada; los ejemplos sanitarios (triaje, sepsis, ransomware, sustitución de puestos) y todas las cifras de los ejemplos y ejercicios; la lectura de los límites de la propiedad pública; la agrupación de las vías de ataque a los pesos y las tablas comparativas; los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: primero un simulador de emparejamiento, después tres ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de herramientas nacionales.</strong> Lee en el desplegable la ventaja y el límite de las ocho herramientas. Elige después la que mejor ataca cada problema y pulsa "Comprobar". Cada respuesta explica la ventaja y el límite de la herramienta correcta y, si has elegido otra, lo que esa otra sí resuelve. Observa que algunos problemas admiten una segunda herramienta válida y fíjate en qué límites se repiten y qué herramienta los cubriría.</p>
+<div data-widget="m10-l03-herramientas" id="sim-m10-l03-herramientas"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: capacidad de pago y seguro (a mano, 6 minutos)</p>
+<p>Un desarrollador de modelos clínicos puede pagar hasta \(C=1\,500\) millones de euros. La ley le obliga a contratar un seguro que cubre hasta 3.000 millones más (cifras propias). Calcula qué fracción del daño se internaliza en estos tres casos:</p>
+<ol>
+<li>Un error que causa daños por 400 millones.</li>
+<li>Un fallo que causa daños por 9.000 millones.</li>
+<li>Un daño de 60.000 millones.</li>
+</ol>
+<p>Después responde: ¿en qué caso el seguro cambia algo?, y ¿qué otra herramienta de la lección cubriría el resto del tercero?</p>
+<details>
+<summary>Ver solución</summary>
+<p>La capacidad total es \(1\,500+3\,000=4\,500\) millones. <strong>1.</strong> \(\min(1,\,4\,500/400)=1\): paga todo, y sin el seguro también, porque 1.500 ya superan 400. <strong>2.</strong> Con seguro: \(4\,500/9\,000=0{,}5\). Sin seguro: \(1\,500/9\,000\approx0{,}167\). <strong>3.</strong> \(4\,500/60\,000=0{,}075\), un 7,5 %.</p>
+<p>El seguro no cambia nada en el caso 1, triplica la fracción del 2 (de un 17 % a un 50 %) y también la del 3 (de un 2,5 % a un 7,5 %), que sigue siendo ínfima. Para lo que queda del tercero servirían las herramientas que no dependen de cobrar después: regulación de aprobación previa o normas de validación (evitar el daño), un fondo financiado con impuestos (atender el daño) y resiliencia (reducir su alcance). Es la razón por la que el libro pide combinarlas.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: un impuesto que compense la pérdida (a mano, 6 minutos)</p>
+<p>Una red de hospitales sustituye 1.000 puestos administrativos, de 30.000 euros al año cada uno, por una IA. Suponemos que impuestos y cotizaciones sobre el salario suman el 30 % del sueldo bruto (cifras propias). La empresa que vende la IA factura 300 millones de euros al año por el servicio.</p>
+<ol>
+<li>¿Cuánto deja de ingresar el Estado al año por esos puestos?</li>
+<li>¿Qué tasa sobre la facturación de la IA compensaría exactamente esa pérdida?</li>
+<li>Si la tasa se fija en el 2 %, ¿qué parte de la pérdida se recupera? Menciona una razón política, del libro, por la que fijarla en el 3 % podría ser difícil.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> \(1\,000\times30\,000=30\) millones en sueldos; el 30 % son 9 millones al año.</p>
+<p><strong>2.</strong> \(9/300=0{,}03\): un 3 %.</p>
+<p><strong>3.</strong> Con el 2 % se recaudan 6 millones, dos tercios de la pérdida; faltan 3. La razón política, del libro: las empresas presionan a los gobiernos para pagar menos impuestos (cabildeo) y el debate sobre los efectos económicos de los impuestos es largo y polémico. En este ejemplo, además, la cifra es inventada: en la práctica la pérdida real depende de cómo se calculen las cotizaciones y de qué haga el resto de la economía.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: diseñar una combinación de herramientas (10 minutos)</p>
+<p>Un ministerio quiere que ningún modelo de apoyo al diagnóstico llegue a los hospitales públicos sin garantías, que los pacientes perjudicados cobren y que los hospitales aguanten un ciberataque. Propón, para cada objetivo, una herramienta de la lección, di su límite y qué otra herramienta cubriría ese límite.</p>
+<details>
+<summary>Ver solución</summary>
+<p>Es una respuesta abierta; esta es una posible.</p>
+<ul>
+<li><strong>Garantías antes de llegar:</strong> regulación de aprobación previa, apoyada en normas de validación clínica incorporadas por referencia. Límite: agencia sin recursos o capturada. Lo cubre la responsabilidad legal, que no depende de la agencia, y exigir por contrato público el cumplimiento de la norma.</li>
+<li><strong>Que los pacientes cobren:</strong> responsabilidad legal con seguro obligatorio. Límite: capacidad de pago, llega tarde. Lo cubre un fondo alimentado por un impuesto especial, que atiende sin esperar a los tribunales.</li>
+<li><strong>Aguantar un ciberataque:</strong> resiliencia, con I+D en defensa y exigencias a los hospitales sobre copias y continuidad. Límite: se defiende un flanco y el atacante busca otro. Lo cubren defensas de alcance más amplio, como los vigilantes de IA, y la responsabilidad legal de quien dejó la puerta abierta.</li>
+</ul>
+<p>Cualquier respuesta es válida si toda herramienta nombra su límite y otra lo cubre. Enlaza con la idea de capas del queso suizo.</p>
+</details>
+</div>
+
+</div>
+
+</section>

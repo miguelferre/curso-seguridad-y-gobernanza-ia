@@ -1,0 +1,239 @@
+<section class="leccion" data-id="m00/l04">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Las redes que hoy escriben texto o leen radiografías no aparecieron de golpe. Se construyeron a saltos, y cada salto quitó un obstáculo: faltaba potencia de cálculo, los datos venían en secuencias, las redes muy profundas se atascaban.</p>
+<p>Esta lección recorre esos saltos entre 1989 y 2018, dónde se usa hoy el aprendizaje profundo, con qué conjuntos de datos se compara y cómo se comprueba, en el notebook, que una red escrita a mano funciona de verdad.</p>
+<p>Para un curso de seguridad sirve por una razón práctica: quien no sabe de dónde viene una arquitectura ni con qué se midió no sabe qué esperar de ella cuando falla.</p>
+
+<svg viewBox="0 0 360 262" role="img" aria-labelledby="lt-t lt-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="lt-t">Tres etapas del aprendizaje profundo</title>
+<desc id="lt-d">De arriba abajo: de 1989 a 1997, ideas tempranas con poco cómputo (LeNet, RNN y LSTM); de 2012 a 2015, la visión despega (AlexNet y ResNet); de 2017 a 2018, el lenguaje toma el relevo (Transformer, BERT y GPT).</desc>
+<rect x="4" y="4" width="352" height="70" rx="10" style="fill:var(--surface);stroke:var(--rule-strong);stroke-width:2"/>
+<text x="18" y="26" style="fill:var(--muted);font-weight:700;font-size:14px">1989 a 1997: las ideas llegan pronto</text>
+<text x="18" y="46" style="fill:currentColor;font-size:12.5px">LeNet, RNN y LSTM</text>
+<text x="18" y="64" style="fill:var(--muted);font-size:12px">Las CNN esperan al cómputo</text>
+<path d="M180 76 V92" style="fill:none;stroke:var(--faint);stroke-width:2"/>
+<polygon points="180,98 174,88 186,88" style="fill:var(--faint)"/>
+<rect x="4" y="100" width="352" height="70" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="122" style="fill:var(--accent);font-weight:700;font-size:14px">2012 a 2015: la visión despega</text>
+<text x="18" y="142" style="fill:currentColor;font-size:12.5px">AlexNet y ResNet</text>
+<text x="18" y="160" style="fill:var(--muted);font-size:12px">Error en ImageNet: del 26,2 % al 3,57 %</text>
+<path d="M180 172 V188" style="fill:none;stroke:var(--faint);stroke-width:2"/>
+<polygon points="180,194 174,184 186,184" style="fill:var(--faint)"/>
+<rect x="4" y="196" width="352" height="62" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="18" y="218" style="fill:var(--ex);font-weight:700;font-size:14px">2017 a 2018: el lenguaje toma el relevo</text>
+<text x="18" y="238" style="fill:currentColor;font-size:12.5px">Transformer, BERT y GPT</text>
+<text x="18" y="253" style="fill:var(--muted);font-size:12px">Preentrenar con texto masivo</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Ordenar en el tiempo los seis hitos de arquitecturas que recoge el libro y decir qué obstáculo quitó cada uno.</li>
+<li>Elegir una familia de arquitectura razonable para imágenes, series temporales, comprensión de texto y generación de texto.</li>
+<li>Reconocer CIFAR, ImageNet, SST-2, IMDB, GLUE y SuperGLUE y decir para qué sirve cada conjunto.</li>
+<li>Aplicar tres comprobaciones de cordura a una red (gradiente, pérdida inicial y sobreajuste de 50 ejemplos) y hacer las cuentas del notebook.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>¿Cómo se llegó a los modelos de hoy?</h3>
+<p>El libro reúne seis hitos, de 1989 a 2018. Más útil que memorizar los años es preguntarse, de cada uno, qué problema dejó atrás. Las fechas y las cifras son del libro; la última columna es una lectura propia. Para recorrer la línea con calma, <a data-ir="practica" href="#sim-m00-l04-linea-tiempo">usa el simulador de Práctica</a>.</p>
+<div class="tw"><table>
+<thead><tr><th>Año</th><th>Arquitectura</th><th>Idea central</th><th>Obstáculo que quita (propio)</th></tr></thead>
+<tbody>
+<tr><td>1989</td><td>LeNet</td><td>red convolucional entrenada con retropropagación</td><td>llevar las redes a un uso real</td></tr>
+<tr><td>1997</td><td>RNN y LSTM</td><td>estado oculto que recuerda; tres puertas en la LSTM</td><td>datos en secuencia</td></tr>
+<tr><td>2012</td><td>AlexNet</td><td>CNN de 8 capas sobre ImageNet</td><td>visión a gran escala</td></tr>
+<tr><td>2015</td><td>ResNet</td><td>conexiones residuales</td><td>profundidad sin perder rendimiento</td></tr>
+<tr><td>2017</td><td>Transformer</td><td>autoatención</td><td>secuencias sin recurrencia</td></tr>
+<tr><td>2018</td><td>BERT y GPT</td><td>preentrenamiento sobre Transformers</td><td>aprovechar texto sin etiquetar</td></tr>
+</tbody></table></div>
+
+<h4>De 1989 a 1997: las ideas llegan pronto</h4>
+<p>Si LeNet-5 ya servía en 1998, ¿por qué el salto de AlexNet no llegó hasta 2012? Según el libro, la causa fue el cómputo: las CNN tardaron más de una década en popularizarse por falta de potencia de cálculo. La primera de la línea, LeNet (Yann LeCun y su equipo en Bell Labs, 1989), fue además la primera aplicación práctica de la retropropagación (<em>backpropagation</em>); su versión refinada, LeNet-5, mostró que estas redes valían para tareas cotidianas. Cómo funciona una convolución, y por qué reutilizar el mismo filtro ahorra parámetros, es materia de la lección m00/l03.</p>
+<p>Las redes recurrentes (<em>recurrent neural networks</em>, RNN) atacan otro problema: el texto, la voz o una serie de constantes vitales llegan en orden, y lo que ocurre ahora depende de lo anterior. Su estado oculto se realimenta en cada paso, de modo que la red "recuerda". El precio era que costaban de entrenar y olvidaban los patrones largos. La LSTM (<em>long short-term memory</em>) añadió tres puertas, de entrada, de olvido y de salida, que deciden qué se admite, qué se retiene y qué se transmite. El libro agrupa ambas en 1997.</p>
+
+<h4>2012 y 2015: la visión despega</h4>
+<p>Antes de 2012, el mejor sistema fallaba en el 26,2 % de las imágenes de ImageNet (error top-5): el concurso pide clasificar imágenes en 1 000 categorías, con más de un millón de imágenes en el conjunto. Ese año, AlexNet bajó el error al 15,3 %, 10,9 puntos menos. Era una CNN de 8 capas (cinco convolucionales y tres completas) que usaba ReLU, dropout y aumento de datos (crear variantes de las imágenes de entrenamiento, como recortes o giros; explicación propia).</p>
+<p>ResNet (2015) añadió conexiones residuales, que suman la entrada de una capa a su salida, y ganó con un 3,57 %. Detrás hay un hecho llamativo que recogen las notas del curso: antes, una red demasiado profunda ajustaba peor incluso los datos de entrenamiento, y el mejor modelo previo en ImageNet tenía 22 capas. Con residuos, "apagar" una capa la convierte en la identidad, así que una red profunda puede imitar a una más corta. Las fuentes no coinciden en dos detalles: el libro fecha ResNet en 2015 y cita 34 capas; las notas dan 2016 (año de la publicación) y hablan de hasta 152. No lo resuelvo aquí; conviene contrastarlo con el artículo original.</p>
+
+<h4>2017 y 2018: el lenguaje toma el relevo</h4>
+<p>El Transformer nace en 2017 con el artículo "Attention is All You Need". Como las RNN, trata secuencias, pero con autoatención (<em>self-attention</em>): el modelo decide a qué partes de la entrada mirar. En 2018 aparecen BERT y GPT, los dos sobre Transformers y preentrenados con texto masivo sin etiquetar. Se diferencian en cómo aprenden:</p>
+<dl class="facts">
+<div><dt>BERT</dt><dd>Lee en ambos sentidos (bidireccional) y aprende rellenando palabras tapadas. Después se afina para preguntas y respuestas, sentimiento o reconocimiento de entidades. Según las notas, apila codificadores.</dd></div>
+<div><dt>GPT</dt><dd>Solo mira hacia atrás (unidireccional) y aprende a predecir lo que sigue. Según el libro, por eso genera texto largo con más naturalidad y es más popular que BERT. Según las notas, apila decodificadores con parte de la atención tapada.</dd></div>
+</dl>
+
+<h4>Lo que la lista no cuenta</h4>
+<p>El propio libro avisa de que omite muchos avances y de que ideas hoy olvidadas podrían volver. Las notas dan un ejemplo del mismo fenómeno: ConvNeXT, un modelo de visión moderno, conserva la estructura de ResNet (bloques repetidos con conexiones residuales) y cambia ReLU por GELU y la normalización por lotes por la de capa. Ninguna arquitectura "sustituye" del todo a la anterior; las piezas viajan de una a otra.</p>
+
+<h3>¿Qué familia suele ir con cada tipo de dato?</h3>
+<p>Con lo anterior sale una guía de partida (propia, no una regla). Sirve para razonar el diseño, no para cerrar la elección.</p>
+<div class="tw"><table>
+<thead><tr><th>Dato</th><th>Familia de partida</th><th>Motivo</th></tr></thead>
+<tbody>
+<tr><td>Imágenes</td><td>CNN y ResNet</td><td>el mismo filtro recorre toda la imagen y detecta un rasgo aunque cambie de sitio</td></tr>
+<tr><td>Series temporales</td><td>RNN o LSTM</td><td>memoria de lo ocurrido antes</td></tr>
+<tr><td>Comprender texto (clasificar, preguntar, extraer entidades)</td><td>BERT</td><td>usa el contexto por ambos lados</td></tr>
+<tr><td>Generar texto</td><td>GPT</td><td>predice lo que sigue, paso a paso</td></tr>
+</tbody></table></div>
+
+<h3>¿Para qué se usa el aprendizaje profundo?</h3>
+<p>El libro reparte las aplicaciones en cuatro grupos:</p>
+<ul>
+<li><strong>Comunicación y entretenimiento:</strong> chatbots y herramientas generativas, recomendadores de contenido, etiquetado automático de fotos y transcripción de vídeo, asistentes de voz.</li>
+<li><strong>Transporte y logística:</strong> vehículos autónomos, y en las empresas de venta y almacén, gestión de inventario, previsión de ventas y robots que se mueven por el almacén.</li>
+<li><strong>Sanidad:</strong> ayuda al diagnóstico, análisis de imagen médica, pronóstico del paciente, tratamientos personalizados y descubrimiento de fármacos.</li>
+<li><strong>Otros:</strong> ciberseguridad, agricultura, finanzas y análisis de negocio. Con los modelos de lenguaje, también generación de código y de texto.</li>
+</ul>
+<p>Una lectura propia: los dos grupos donde un error cuesta más, el vehículo y el diagnóstico, son los que motivan los módulos de robustez y de monitorización de este curso.</p>
+
+<h3>¿Con qué datos se compara y se practica?</h3>
+<p>Cada arquitectura se mide con conjuntos de datos comunes. Las notas del curso citan estos:</p>
+<div class="tw"><table>
+<thead><tr><th>Conjunto</th><th>Tarea</th><th>Tamaño</th><th>Para qué sirve</th></tr></thead>
+<tbody>
+<tr><td>CIFAR-10 y CIFAR-100</td><td>imágenes, 10 y 100 clases</td><td>50 000 de entrenamiento y 10 000 de prueba; 32 por 32 píxeles</td><td>experimentos rápidos; como sus clases no se solapan, uno hace de "dentro de distribución" y el otro de "fuera" en la detección de anomalías</td></tr>
+<tr><td>ImageNet</td><td>imágenes, 1 000 clases</td><td>1,2 millones de entrenamiento y 50 000 de evaluación</td><td>preentrenar CNN cuyas representaciones se transfieren a otras tareas</td></tr>
+<tr><td>ImageNet-22K</td><td>imágenes, unas 22 000 clases</td><td>unas 10 veces más ejemplos</td><td>versión ampliada</td></tr>
+<tr><td>SST-2 e IMDB</td><td>sentimiento binario</td><td>reseñas de cine (de críticos y de espectadores)</td><td>pruebas sencillas de lenguaje</td></tr>
+<tr><td>GLUE y SuperGLUE</td><td>varias tareas de lenguaje</td><td>mayores y más costosas</td><td>una nota agregada de muchas tareas, para modelos preentrenados</td></tr>
+</tbody></table></div>
+
+<h3>¿Cómo sé que mi red funciona? Comprobaciones de cordura</h3>
+<p>El notebook de esta lección, del curso Intro to ML Safety, construye una red a mano y trae cuatro comprobaciones que conviene hacer siempre antes de fiarse de un entrenamiento:</p>
+<ol>
+<li><strong>Gradiente numérico frente a analítico.</strong> Se compara el gradiente calculado a mano con una estimación numérica. Un error relativo de 1e-6 o menor indica que la pasada hacia atrás está bien.</li>
+<li><strong>Pérdida inicial razonable.</strong> Con pesos casi nulos, un clasificador de \(C\) clases reparte la probabilidad por igual y su entropía cruzada vale \(\ln C\): unos 2,3 con 10 clases. Si sale otra cosa, hay un error.</li>
+<li><strong>Sobreajustar un conjunto pequeño.</strong> Una red sana debe llegar al 100 % de acierto en entrenamiento con solo 50 imágenes. Si no puede memorizar 50 ejemplos, algo falla en el código o en los hiperparámetros.</li>
+<li><strong>Comparar profundidades.</strong> El notebook pide entrenar una red de tres capas y otra de cinco, y notar cuál cuesta más. Es el mismo problema que ResNet vino a resolver.</li>
+</ol>
+<p>Cómo se entrena y cómo se infiere queda para la lección m00/l03; aquí solo se comprueba que el código hace lo que dice.</p>
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Un hospital quiere clasificar radiografías de tórax en "normal" y "sospechosa". Dispone de 12 000 imágenes etiquetadas por radiólogos. Su decisión, con lo visto:</p>
+<ul>
+<li><strong>Familia:</strong> son imágenes, así que una CNN de la línea ResNet es el punto de partida razonable.</li>
+<li><strong>Datos:</strong> ImageNet tiene 1,2 millones de imágenes de entrenamiento, es decir, 100 veces más que las 12 000 del hospital. Entrenar desde cero con tan pocas es arriesgado; según las notas, las CNN preentrenadas en ImageNet dan buenas representaciones visuales y se pueden transferir. Se parte de un modelo preentrenado y se afina.</li>
+<li><strong>Reparto:</strong> se guardan 1 200 imágenes para validación y otras 1 200 para prueba, y quedan \(12\,000-2\,400=9\,600\) para entrenar. Igual que en el notebook, que separa entrenamiento, validación y prueba.</li>
+<li><strong>Comprobaciones:</strong> antes del entrenamiento largo, la pérdida inicial (con 2 clases, \(\ln 2\approx0{,}69\)) y el sobreajuste de 50 imágenes.</li>
+</ul>
+<p>Y una advertencia sobre las cifras de la lección: el 3,57 % de ResNet es un error top-5 sobre 1 000 categorías de ImageNet (se acierta si la etiqueta correcta está entre las cinco más puntuadas; aclaración propia). No dice nada sobre lo bien que detectará este modelo una neumonía. Para eso hay que medir en imágenes del hospital, con la métrica clínica que importe.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Creer que cada arquitectura reemplaza a la anterior (aviso propio).</strong> ConvNeXT reutiliza la estructura de ResNet, y el libro admite que ideas hoy dormidas pueden volver. Aprender la historia como una cadena de sustituciones lleva a descartar piezas que siguen en uso.</p>
+<p><strong>Confundir la nota en un banco de pruebas con la capacidad para tu tarea (aviso propio).</strong> Un buen resultado en ImageNet o en GLUE resume el rendimiento en esas tareas y con esos datos, no en otras distintas. Cambiar de hospital, de escáner o de idioma puede cambiar el resultado.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>Architectures did not simply replace each other: each one removed a bottleneck, like depth with ResNet or recurrence with the Transformer, and benchmarks like ImageNet and GLUE tell us what a model can do on those tasks, not on ours.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 2.3 Deep Learning, subsecciones 2.3.3 History and Timeline of Key Architectures (págs. 99 a 101) y 2.3.4 Applications (págs. 101 y 102). Las páginas son las impresas.</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS), lección L2 Deep Learning Review. Notas: apartados Residual Networks, From ResNet to ConvNeXT, BERT and GPT y Datasets. Notebook: <em>L02-deep-learning-review</em>, adaptado al español en esta lección.</li>
+<li>Añadido propio, no procede de las fuentes: la columna "obstáculo que quita", la guía de familia por tipo de dato, la lectura sobre sanidad y seguridad, el ejemplo de las radiografías y sus cifras, la aclaración de qué es el error top-5, las advertencias y los ejercicios. Discrepancia entre fuentes: el año y la profundidad de ResNet.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: un simulador para recorrer la línea de tiempo, tres ejercicios cortos y, aparte, un notebook opcional para construir una red a mano. El notebook no cuenta en los 30 minutos de la lección.</p>
+
+<p class="consigna"><strong>Simulador de la línea de tiempo.</strong> Empieza en AlexNet. Pulsa cada hito y lee su ficha: fíjate en cuánto cae el error top-5 entre el mejor resultado previo, AlexNet y ResNet. Marca y desmarca "Espaciar según los años reales": con la escala real se ve el hueco entre 1997 y 2012 y cómo se apiñan 2015, 2017 y 2018. Después pulsa "Empezar el reto" y sitúa cada arquitectura a partir de su descripción; el orden de las preguntas cambia cada vez.</p>
+<div data-widget="m00-l04-linea-tiempo" id="sim-m00-l04-linea-tiempo"></div>
+
+<div class="notebook" style="background:var(--surface);border:1px solid var(--rule);border-left:4px solid var(--accent);border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0">
+<p class="label">Notebook: redes totalmente conectadas a mano</p>
+<p>Es un esqueleto de ejercicio del curso Intro to ML Safety (lección L2), adaptado al español. Implementas, capa por capa y con pasada hacia delante y hacia atrás, una red totalmente conectada de profundidad arbitraria, y la entrenas con datos de Fashion-MNIST (imágenes de 28 por 28 y 10 clases, según el código). Las celdas con <code>TODO</code> están vacías a propósito. Los pasos son (tiempos estimados por este curso, no medidos):</p>
+<ol>
+<li><strong>Capa afín y capa ReLU</strong> (hacia delante y hacia atrás), con comprobación numérica del gradiente. Unos 25 minutos.</li>
+<li><strong>Pérdida softmax y red de dos capas</strong>, con la clase <code>Solver</code> y una precisión de al menos el 50 % en validación. Unos 30 minutos.</li>
+<li><strong>Red de capas arbitrarias</strong>, con las comprobaciones de cordura: pérdida inicial, gradiente y sobreajuste de 50 ejemplos con tres y con cinco capas. Unos 40 minutos.</li>
+<li><strong>SGD con momento y Adam</strong>: el momento se compara con el SGD simple en una red de seis capas, y Adam se comprueba con una prueba numérica. Después, un modelo final. Unos 40 minutos.</li>
+</ol>
+<p><strong>Tiempo aproximado:</strong> de 2 a 2,5 horas escribiendo el código, y de segundos a pocos minutos por entrenamiento en CPU (estimación propia). No necesita GPU: el cálculo va con NumPy, aunque el código importa <code>torch</code>.</p>
+<p><strong>Antes de abrirlo, dos avisos:</strong></p>
+<ul>
+<li><strong>Depende de material que no está en este curso ni en su repositorio.</strong> El notebook importa un paquete <code>deeplearning/</code> (<code>data_utils.py</code>, <code>gradient_check.py</code>, <code>fast_layers.py</code> y <code>wrn_with_pen.py</code>) y carga los datos de Fashion-MNIST desde él. Hay que descargar a mano el <code>.zip</code> original del ejercicio (<code>hw-fcnet-fashion-mnist.zip</code>, alojado en Google Drive; el id está en la sección "Requisitos para ejecutar en local" del notebook) y descomprimirlo junto al notebook. Además, hacen falta <code>numpy</code>, <code>matplotlib</code>, <code>jupyter</code> y PyTorch, que es una descarga grande. Sin el paquete, la celda de requisitos se detiene con un mensaje y no se puede seguir.</li>
+<li><strong>No se ha ejecutado.</strong> La adaptación al español conserva el código del original (se ha comprobado que la estructura de cada celda de código coincide con la del original), pero ni el notebook ni el material se han ejecutado al prepararla. Puede haber fallos por versiones de las bibliotecas.</li>
+</ul>
+<p>La teoría de las reglas de actualización y del bucle de entrenamiento está en la lección m00/l03; aquí se programa.</p>
+<p><strong>Enlace:</strong> <a href="../notebooks/m00-l04-repaso-aprendizaje-profundo.ipynb"><code>notebooks/m00-l04-repaso-aprendizaje-profundo.ipynb</code></a></p>
+</div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: leer la línea de tiempo con números (a mano, 4 minutos)</p>
+<p>Usa las cifras del libro: mejor resultado previo a 2012, 26,2 % de error top-5; AlexNet (2012), 15,3 %; ResNet (2015), 3,57 %.</p>
+<ol>
+<li>¿Cuántos años pasan entre LeNet-5 (1998) y AlexNet, y entre AlexNet y BERT y GPT (2018)?</li>
+<li>¿En qué porcentaje reduce el error AlexNet respecto al mejor resultado previo? ¿Y ResNet respecto a AlexNet?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> \(2012-1998=14\) años y \(2018-2012=6\) años. El hueco largo es el de las CNN esperando cómputo.</p>
+<p><strong>2.</strong> AlexNet: \((26{,}2-15{,}3)/26{,}2=10{,}9/26{,}2\approx41{,}6\,\%\). ResNet: \((15{,}3-3{,}57)/15{,}3=11{,}73/15{,}3\approx76{,}7\,\%\). La segunda mejora, en proporción, es mayor.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: las cuentas del notebook (a mano y con Python, 8 minutos)</p>
+<p>El notebook usa <code>FullyConnectedNet([100, 100])</code> con entrada de \(28\times28=784\) valores y 10 clases (los valores por defecto del código). Cada capa afín tiene \(\text{entrada}\times\text{salida}\) pesos más un sesgo por salida.</p>
+<ol>
+<li>Calcula los parámetros de cada capa y el total.</li>
+<li>La celda de sobreajuste usa 50 ejemplos, lotes de 25 y 20 épocas. El <code>Solver</code> hace <code>max(N // lote, 1)</code> iteraciones por época. ¿Cuántas iteraciones son? Y la comparación de SGD y momento, con 4 000 ejemplos, lotes de 100 y 5 épocas.</li>
+<li>(Opcional, con Python.) Comprueba con este fragmento que la pérdida inicial de un clasificador de 10 clases con logits casi nulos es \(\ln 10\):</li>
+</ol>
+<pre><code>import numpy as np
+
+def softmax_loss(x, y):        # la misma pérdida que el notebook
+    p = np.exp(x - x.max(axis=1, keepdims=True))
+    p /= p.sum(axis=1, keepdims=True)
+    return -np.log(p[np.arange(len(y)), y]).mean()
+
+rng = np.random.default_rng(0)
+x = 0.001 * rng.standard_normal((50, 10))
+y = rng.integers(0, 10, size=50)
+print(softmax_loss(x, y), np.log(10))</code></pre>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Primera capa: \(784\times100+100=78\,500\). Segunda: \(100\times100+100=10\,100\). Salida: \(100\times10+10=1\,010\). Total: \(89\,610\).</p>
+<p><strong>2.</strong> Con 50 ejemplos: \(50//25=2\) iteraciones por época y \(2\times20=40\) en total. Con 4 000: \(4000//100=40\) por época y \(40\times5=200\) en total.</p>
+<p><strong>3.</strong> Ambos números salen en torno a 2,3026. Con logits casi iguales, cada clase recibe una probabilidad de 0,1 y \(-\ln0{,}1=\ln10\approx2{,}3026\). Es lo que espera el notebook ("la pérdida debería ser 2,3"). Con 2 clases sería \(\ln2\approx0{,}69\).</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: elegir familia y datos para cuatro encargos (decisión, 6 minutos)</p>
+<p>Para cada encargo hospitalario, propón la familia de arquitectura de partida y di con qué tipo de conjunto público pre-evaluarías.</p>
+<ol>
+<li>Clasificar 12 000 radiografías como normales o sospechosas.</li>
+<li>Detectar un deterioro a partir de 24 horas de constantes vitales de un monitor.</li>
+<li>Marcar en las notas de alta las que mencionan una reacción adversa a un fármaco.</li>
+<li>Redactar un borrador de resumen de alta a partir de la historia clínica.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Imágenes: una CNN de la línea ResNet, preentrenada en ImageNet y afinada con las radiografías. ImageNet es el banco de referencia de visión; CIFAR sirve para pruebas rápidas.</p>
+<p><strong>2.</strong> Serie temporal: una RNN o una LSTM, por su memoria. No hay un conjunto público tan cerrado como ImageNet; la evaluación real debe hacerse con datos del hospital.</p>
+<p><strong>3.</strong> Comprender texto (clasificar): la familia de BERT, afinada en la tarea. SST-2 o GLUE dan una idea del nivel de lenguaje, pero no de un dominio clínico.</p>
+<p><strong>4.</strong> Generar texto: la familia de GPT, que predice lo que sigue. Aquí hay que vigilar más los errores plausibles, y una nota de un banco de lenguaje generalista no garantiza fidelidad clínica.</p>
+<p>En todos los casos, el banco público da solo una primera idea (véase la trampa): la validación definitiva se hace con datos del propio hospital.</p>
+</details>
+</div>
+
+</div>
+
+</section>
+

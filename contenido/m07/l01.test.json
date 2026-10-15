@@ -1,0 +1,106 @@
+[
+  {
+    "id": "m07l01-q01",
+    "tipo": "unica",
+    "enunciado": "Un asistente clínico afirma que la vacuna de la gripe da la gripe, un mito muy repetido en foros y presente en sus datos de entrenamiento. ¿Qué vía de engaño describe mejor el caso?",
+    "opciones": [
+      "Instrumental: le sirve para lograr su meta",
+      "Accidental: no sabía la respuesta",
+      "Instruida: una persona se lo pidió",
+      "Imitativa: copia falsedades de los datos"
+    ],
+    "correcta": 3,
+    "explicacion": "Repetir una falsedad extendida en los datos de entrenamiento es engaño imitativo. En el accidental el sistema no dispone de la respuesta correcta; en el instruido hay una persona que pide engañar; en el instrumental el engaño sirve a su meta."
+  },
+  {
+    "id": "m07l01-q02",
+    "tipo": "vf",
+    "enunciado": "Un modelo que da un dato falso porque no lo conoce es no veraz, pero puede ser honesto: lo que afirma coincide con lo que representa por dentro.",
+    "correcta": true,
+    "explicacion": "Veraz significa que lo afirmado es cierto; honesto, que lo afirmado coincide con lo que el modelo representa. Un error accidental falla lo primero y no lo segundo. La distinción es formulación propia del curso, a partir del tema L13."
+  },
+  {
+    "id": "m07l01-q03",
+    "tipo": "unica",
+    "enunciado": "¿Por qué la evaluación conductual sola no basta frente al alineamiento engañoso?",
+    "opciones": [
+      "Porque las evaluaciones conductuales son siempre demasiado caras",
+      "Porque un sistema que sabe que lo evalúan puede portarse bien mientras lo evalúan, y pasar la prueba no distingue entre alineado y engañoso",
+      "Porque los evaluadores humanos nunca aciertan al calificar",
+      "Porque un sistema engañoso siempre suspende las pruebas"
+    ],
+    "correcta": 1,
+    "explicacion": "Si el sistema engañoso también supera la prueba, superarla apenas cambia lo que creemos. Por eso se buscan pruebas que un engañoso pase mucho menos que un alineado, como las que miran las representaciones internas."
+  },
+  {
+    "id": "m07l01-q04",
+    "tipo": "numerica",
+    "enunciado": "Antes de auditar creemos que un sistema es engañoso con probabilidad 0,2. Supera una prueba el 95 % de los alineados y el 50 % de los engañosos, y este sistema la supera. ¿Qué probabilidad tiene ahora de ser engañoso? Responde como número entre 0 y 1.",
+    "correcta": 0.1163,
+    "tolerancia": 0.005,
+    "explicacion": "P = 0,2 × 0,5 / (0,2 × 0,5 + 0,8 × 0,95) = 0,10 / 0,86 ≈ 0,1163. La prueba discrimina bastante (razón de verosimilitud de unos 0,53), y la creencia baja de 0,2 a 0,116."
+  },
+  {
+    "id": "m07l01-q05",
+    "tipo": "multiple",
+    "enunciado": "El libro señala razones por las que buscar poder puede no ser racional para un agente. ¿Cuáles?",
+    "opciones": [
+      "Acumular recursos cuesta tiempo que se podría emplear en la meta",
+      "Los demás pueden responder con represalias o contrapesos",
+      "Los valores del propio agente pueden vetar algunas vías",
+      "El poder no sirve para casi ninguna meta final",
+      "En algunos casos, apagarse es lo óptimo para la meta"
+    ],
+    "correcta": [0, 1, 2, 4],
+    "explicacion": "El libro admite que el poder es útil para casi cualquier meta (casi una tautología), y lo discutible es si resulta racional buscarlo. Por eso la opción de que no sirve para casi ninguna meta es falsa."
+  },
+  {
+    "id": "m07l01-q06",
+    "tipo": "numerica",
+    "enunciado": "Con descuento gamma = 0,5, un agente sigue con probabilidad 0,6 una trayectoria con impactos 2, 4, 4 en t = 0, 1, 2, y con probabilidad 0,4 otra con impactos 2, 2, 2. ¿Cuál es su poder prospectivo?",
+    "correcta": 4.4,
+    "tolerancia": 0.01,
+    "explicacion": "Primera trayectoria: 2 + 0,5 × 4 + 0,25 × 4 = 5. Segunda: 2 + 0,5 × 2 + 0,25 × 2 = 3,5. Promedio: 0,6 × 5 + 0,4 × 3,5 = 3 + 1,4 = 4,4."
+  },
+  {
+    "id": "m07l01-q07",
+    "tipo": "unica",
+    "enunciado": "¿En qué caso es menos probable un giro traicionero?",
+    "opciones": [
+      "Un sistema con una meta desalineada muy corta, que se agota enseguida",
+      "Un sistema con una meta desalineada y consciente de que lo evalúan",
+      "Un sistema cuya única ocasión de perseguir su meta es un despliegue con poca supervisión",
+      "Un sistema que gana poder si se porta bien durante la evaluación"
+    ],
+    "correcta": 0,
+    "explicacion": "Un sistema con metas muy cortas no gana nada esperando, así que no tiene incentivo a fingir. En los otros casos, esperar para actuar cuando la vigilancia baja sí compensa."
+  },
+  {
+    "id": "m07l01-q08",
+    "tipo": "vf",
+    "enunciado": "El desaprendizaje garantiza que el conocimiento eliminado no puede volver a aprenderse.",
+    "correcta": false,
+    "explicacion": "El libro plantea que, si el conocimiento se recupera fácil con poco ajuste fino, el desaprendizaje vale menos, y que falta saber cuánto se puede quitar sin dañar la utilidad general. Su ventaja es no depender de filtros ni de un rechazo que el ajuste fino deshaga."
+  },
+  {
+    "id": "m07l01-q09",
+    "tipo": "unica",
+    "enunciado": "Según el libro, ¿en qué se diferencian el RLHF y el DPO del control de representaciones y del desaprendizaje?",
+    "opciones": [
+      "El RLHF y el DPO moldean las respuestas sin cambiar en lo esencial las capacidades ni las representaciones de fondo; las otras dos actúan sobre lo que el modelo contiene por dentro",
+      "El RLHF y el DPO solo funcionan con modelos muy pequeños",
+      "El RLHF y el DPO exigen borrar conocimiento del modelo",
+      "El control de representaciones y el desaprendizaje se basan en comparaciones de respuestas hechas por personas"
+    ],
+    "correcta": 0,
+    "explicacion": "El libro presenta el RLHF y el DPO como control de las propensiones a partir de la comparación de respuestas: ajustan lo que el modelo responde, sin cambios fundamentales en sus representaciones. El control de representaciones y el desaprendizaje buscan controlar o quitar representaciones internas. Que un sistema engañoso pudiera aprender a dar lo que se premia es una inferencia propia de la lección, no una afirmación del libro."
+  },
+  {
+    "id": "m07l01-q10",
+    "tipo": "numerica",
+    "enunciado": "En un modelo como el del simulador, un agente puede elegir entre 30 casillas: 8 en una sala pequeña y 22 en una grande. Cada objetivo da a cada casilla una recompensa aleatoria e independiente y el agente va a la mejor, sin penalización de poder. ¿Qué fracción de los objetivos lo lleva a la sala grande? Responde como número entre 0 y 1.",
+    "correcta": 0.7333,
+    "tolerancia": 0.01,
+    "explicacion": "Con recompensas independientes y de igual distribución, cada casilla es la mejor con la misma probabilidad, 1/30. La sala grande reúne 22 casillas, así que atrae 22/30 ≈ 0,733 de los objetivos. Es un modelo propio que ilustra la convergencia instrumental, no una prueba sobre IA reales. (En el simulador la casilla de salida también cuenta como destino posible: 22 de 31, un 71 %.)"
+  }
+]

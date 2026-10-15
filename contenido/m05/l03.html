@@ -1,0 +1,201 @@
+<section class="leccion" data-id="m05/l03">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Un modelo de riesgo no solo dice "este paciente reingresará": dice un número, por ejemplo 0,9. Ese número es útil si es honesto: entre todos los pacientes a los que el modelo dio 0,9, deberían reingresar unos nueve de cada diez. Eso es estar calibrado. Muchas redes modernas no lo están: hablan con más seguridad de la que tienen.</p>
+<p>La calibración se dibuja con una curva (la diagonal es la honestidad perfecta), se resume con un número (el ECE) y se arregla, en muchos casos, con un truco barato: dividir las salidas de la red por una temperatura. Pero estar calibrado no basta: un modelo que siempre dice "el 20 %" es honesto y no sirve para nada. Hace falta además que sea nítido, y hace falta medirlo con una regla de puntuación que no premie mentir.</p>
+
+<svg viewBox="0 0 360 250" role="img" aria-labelledby="rs-t rs-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="rs-t">Curva de fiabilidad: sobreconfianza e infraconfianza</title>
+<desc id="rs-d">Un cuadrado con una diagonal discontinua que marca la calibración perfecta. Una curva por debajo de la diagonal en la zona de probabilidades altas representa un modelo sobreconfiado. Otra curva por encima de la diagonal en esa zona representa un modelo infraconfiado.</desc>
+<rect x="60" y="20" width="240" height="180" style="fill:var(--surface);stroke:var(--rule-strong)"/>
+<line x1="60" y1="200" x2="300" y2="20" style="stroke:var(--faint);stroke-width:1.5;stroke-dasharray:5 4"/>
+<polyline points="72,173 132,140.6 180,113.6 228,95.6 276,77.6" style="fill:none;stroke:var(--trap);stroke-width:2.5"/>
+<polyline points="72,196.4 132,164 180,110 228,47 276,25.4" style="fill:none;stroke:var(--ex);stroke-width:2.5"/>
+<text x="200" y="192" style="fill:var(--trap);font-size:12px;font-weight:700">Sobreconfiado</text>
+<text x="70" y="40" style="fill:var(--ex);font-size:12px;font-weight:700">Infraconfiado</text>
+<text x="180" y="218" text-anchor="middle" style="fill:var(--muted);font-size:12px">Probabilidad que dice el modelo</text>
+<text x="18" y="110" text-anchor="middle" transform="rotate(-90 18 110)" style="fill:var(--muted);font-size:12px">Lo que ocurre de verdad</text>
+<text x="60" y="214" text-anchor="middle" style="fill:var(--muted);font-size:11px">0</text>
+<text x="300" y="214" text-anchor="middle" style="fill:var(--muted);font-size:11px">1</text>
+<text x="180" y="240" text-anchor="middle" style="fill:var(--muted);font-size:12px">Diagonal discontinua: calibración perfecta</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Distinguir calibración, discriminación y nitidez, y explicar por qué un modelo puede tener una sin las otras.</li>
+<li>Leer una curva de fiabilidad y calcular a mano el ECE, el MCE y la puntuación de Brier.</li>
+<li>Explicar qué es una regla de puntuación propia y por qué el error absoluto de una probabilidad no lo es.</li>
+<li>Aplicar el escalado de temperatura y reconocer cuándo no basta (cambio de población, intervalos y cuantiles).</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>¿Qué quiere decir que un modelo sepa cuándo se equivoca?</h3>
+<p>Imagina un modelo que estima, para cada paciente dado de alta, la probabilidad de reingreso en 30 días (ejemplo propio). El médico ve 0,9 y programa una llamada de seguimiento. Ese 0,9 solo es fiable si, entre los pacientes que recibieron esa cifra, reingresó cerca del 90 %. Esa propiedad se llama calibración (<em>calibration</em>): la probabilidad anunciada coincide con la frecuencia real. Un modelo calibrado no es sobreconfiado (<em>overconfident</em>: anuncia más de lo que ocurre) ni infraconfiado (<em>underconfident</em>: anuncia menos).</p>
+<p>Importa sobre todo en sanidad. Una red profunda es opaca: el clínico no puede inspeccionar su razonamiento y solo dispone de la confianza que declara. Si esa confianza es engañosa, el clínico tiende a fiarse de la máquina incluso cuando se equivoca de forma evidente. Ese es el argumento de las notas del curso.</p>
+<p>Las mismas notas recogen el caso que abrió el campo: un trabajo de 2017 (Guo y colaboradores) comparó una red pequeña de 5 capas (LeNet) con una de 110 (ResNet). La grande acertaba 14,3 puntos más en Cifar100, pero su error de calibración subió de 0,0485 a un valor entre 0,1057 y 0,1653, y siempre por exceso de confianza. Más exactitud no trajo más honestidad.</p>
+<p>De ahí una idea que conviene fijar (aporte propio, y el Atlas la subraya): la discriminación (<em>discrimination</em>, si el modelo ordena bien a los pacientes, medida por ejemplo con el AUROC) y la calibración son ejes independientes. Un modelo puede ordenar perfectamente a los pacientes y aun así dar probabilidades falsas. Para una lista de prioridades basta el orden; para decirle a un paciente "tienes un 30 % de riesgo" hace falta calibración.</p>
+
+<h3>¿Cómo se ve y cómo se mide?</h3>
+<p>La curva de fiabilidad (<em>reliability diagram</em>) agrupa las predicciones en tramos de probabilidad (<em>bins</em>: 0 a 10 %, 10 a 20 %...). Para cada tramo compara la probabilidad media anunciada con la frecuencia observada. La diagonal es la calibración perfecta; por debajo, el modelo es sobreconfiado en ese tramo; por encima, infraconfiado. Para verlo con un modelo real, <a data-ir="practica" href="#sim-calibracion">pruébalo en Práctica</a>.</p>
+<p>El resumen habitual es el error de calibración esperado (<em>expected calibration error</em>, ECE): la media, ponderada por el número de casos de cada tramo, de la distancia entre frecuencia observada y probabilidad anunciada. Su variante para los casos delicados es el error máximo (MCE), que solo mira el peor tramo. Con \(n\) casos y \(M\) tramos \(B_m\):</p>
+<div class="formula">\[ \text{ECE}=\sum_{m=1}^{M}\frac{|B_m|}{n}\,\bigl|\text{acc}(B_m)-\text{conf}(B_m)\bigr| \qquad \text{MCE}=\max_{m}\,\bigl|\text{acc}(B_m)-\text{conf}(B_m)\bigr| \]</div>
+<p>Los dos van de 0 a 1 y 0 es lo ideal. Una precisión: las notas calculan la confianza de la clase que el modelo elige y la comparan con su tasa de aciertos, mientras que el Atlas, para un evento binario, compara la probabilidad del evento con su frecuencia. Es la misma idea con dos vestidos. Como orden de magnitud, en ImageNet los clasificadores rondan un ECE de 0,01 a 0,08 y un valor de 0,02 o menor se considera fuerte; para el MCE, según las notas, 0,1 ya es bueno (estimaciones a ojo de esas notas, no un umbral oficial).</p>
+<p>Dos cautelas. La primera viene del Atlas: el número de tramos cambia el resultado, y con pocos el ECE puede parecer bajo y esconder un problema local. El MCE sirve para eso. La segunda: el ECE mide honestidad, no utilidad, como se ve a continuación.</p>
+<p>La ficha del Atlas añade otro resumen, más diagnóstico: la pendiente e intercepto de calibración (<em>calibration slope</em> e <em>intercept</em>). Se obtiene de una regresión logística del desenlace real sobre el logit de la probabilidad anunciada:</p>
+<div class="formula">\[ \text{logit}\,P(y=1)=\alpha+\beta\,\text{logit}(\hat p) \qquad\text{ideal: } \alpha=0,\ \beta=1 \]</div>
+<p>Una pendiente por debajo de 1 significa que el modelo exagera (es demasiado extremo); por encima de 1, que es tímido. Un intercepto distinto de 0 con pendiente 1 indica un modelo con buena forma pero desplazado, típico cuando la prevalencia cambió respecto al entrenamiento. Es lo que hace útil este par: dice qué recalibración hace falta, no solo si hace falta.</p>
+
+<h3>¿Basta con estar calibrado?</h3>
+<p>No, y aquí falla el ECE mirado en solitario. Un modelo que le asigna a todo paciente la prevalencia global de reingresos (digamos un 20 %) está perfectamente calibrado: de los pacientes a los que dice 20 %, reingresa el 20 %. Y es inútil: no separa a nadie. Le falta nitidez (<em>sharpness</em>): que sus probabilidades se alejen de la media y se acerquen a 0 o a 1 cuando hay motivos. La regla, formulada en la literatura de predicción probabilística (añadido propio: el curso declara el tema, pero sus notas no lo desarrollan), es buscar la máxima nitidez que siga siendo calibrada.</p>
+<p>El histograma de la práctica lo muestra: cuanto más se agrupan las predicciones en los extremos, más nítido. Y se conecta con la puntuación de Brier de la sección siguiente, que castiga a la vez la falta de calibración y la falta de nitidez. El Atlas la describe como una métrica que combina discriminación y calibración, y menciona su descomposición de Murphy sin desarrollarla. En su forma clásica (aporte propio) es: Brier = fiabilidad − resolución + incertidumbre. La fiabilidad es el defecto de calibración; la resolución premia separar casos con riesgos distintos; la incertidumbre es la dificultad del problema, que ningún modelo controla.</p>
+
+<h3>¿Qué regla de puntuación premia decir la verdad?</h3>
+<p>Para comparar modelos hay que puntuar sus probabilidades, y no todas las reglas de puntuación (<em>scoring rules</em>) se portan bien. Una regla es propia (<em>proper</em>) si la mejor puntuación esperada se consigue reportando la probabilidad verdadera; es estrictamente propia si esa es la única forma de lograrla. Una regla que no lo sea invita a distorsionar lo que se dice (el término y su definición son estándar; las notas solo afirman que la de Brier lo es).</p>
+<p>La puntuación de Brier (<em>Brier score</em>) es el error cuadrático medio entre la probabilidad \(p_i\) y el desenlace \(y_i\), que vale 0 o 1. Va de 0 a 1 y 0 es lo ideal:</p>
+<div class="formula">\[ \text{Brier}=\frac{1}{N}\sum_{i=1}^{N}(p_i-y_i)^2 \]</div>
+<p>Ejemplo del Atlas: con \(p=0{,}9\), un caso real cuesta \((0{,}9-1)^2=0{,}01\); si el evento no ocurre, el mismo 0,9 cuesta \(0{,}81\). Confiar mucho y equivocarse sale caro.</p>
+<p>Por qué es propia (deducción propia). Si el evento ocurre con probabilidad real \(q\) y tú reportas \(p\), tu Brier esperado es \(q(1-p)^2+(1-q)p^2\). Su derivada respecto a \(p\) es \(2(p-q)\): se anula y cambia de signo justo en \(p=q\). Decir la verdad es lo óptimo. Compárala con el error absoluto \(|y-p|\), cuyo valor esperado es \(q+p(1-2q)\): es una recta en \(p\), y su mínimo está en 0 o en 1 según \(q\) sea menor o mayor que 0,5. Esa regla premia exagerar hasta el extremo. La de "acierto o fallo con corte en 0,5" tampoco es estrictamente propia: cualquier probabilidad del lado correcto de 0,5 da la misma nota, así que no distingue una honesta de una exagerada. Para verlo con curvas, <a data-ir="practica" href="#sim-reglas-propias">pruébalo en Práctica</a>.</p>
+<p>La otra regla propia que citan las notas es la verosimilitud logarítmica negativa (<em>negative log likelihood</em>, NLL, o log loss): \(-\sum\log p(y\mid x)\). Se minimiza cuando el modelo coincide con la distribución verdadera, y no tiene techo: una predicción segura y errónea cuesta mucho. Ejemplo del Atlas: para un caso real, \(-\ln 0{,}9=0{,}105\) frente a \(-\ln 0{,}1=2{,}303\).</p>
+<p>Una lectura propia del valor de referencia: un predictor que responde siempre 0,5 obtiene un Brier de exactamente \(0{,}25\), pase lo que pase. El umbral de 0,25 que el Atlas usa como límite superior en su ejemplo equivale, pues, a "no mejor que una moneda". El Brier que hay que batir de verdad es el de predecir siempre la prevalencia, que vale \(\pi(1-\pi)\) para una prevalencia \(\pi\).</p>
+
+<h3>¿Cómo se arregla un modelo sobreconfiado?</h3>
+<p>La receta más barata es el escalado de temperatura (<em>temperature scaling</em>), propuesta por el mismo trabajo de 2017. Antes de aplicar el softmax se dividen los logits por una constante \(T\):</p>
+<div class="formula">\[ \text{softmax}(x,T)_i=\frac{\exp(x_i/T)}{\sum_j\exp(x_j/T)} \]</div>
+<p>Con \(T>1\) las probabilidades se aplanan; con \(T<1\) se afilan. Como la división no cambia qué logit es el mayor, tampoco cambia la clase elegida, la exactitud ni el orden de los pacientes: solo cuánto se atreve el modelo a decir. \(T\) se ajusta después de entrenar, minimizando la NLL sobre un conjunto de validación. Según las notas, con esto el ECE de los ResNet en Cifar100 baja a un valor entre 0,00 y 0,03. En binario, la sigmoide hace el mismo papel: \(\hat p=\sigma(\ell/T)\), con \(\ell\) el logit del modelo.</p>
+<p>Hay otras vías que las notas mencionan sin desarrollar: elegir arquitecturas mejor calibradas (los transformadores de visión y el MLP-Mixer, con un ECE de 0,01 a 0,03 en ImageNet), métodos basados en tramos, conjuntos de modelos y entrenar directamente sobre las métricas. Un límite propio: la temperatura corrige la pendiente, pero un intercepto desplazado (el modelo predice de media más o menos de lo que ocurre) pide otro ajuste, como indica la ficha de pendiente e intercepto.</p>
+
+<h3>¿Y si la salida no es una probabilidad sino un número?</h3>
+<p>Un modelo puede predecir cuántos días estará ingresado un paciente. La honestidad sobre la incertidumbre se expresa entonces con cuantiles e intervalos, y el Atlas aporta dos fichas. La pérdida de cuantil (<em>pinball loss</em>) para el cuantil \(\tau\) es:</p>
+<div class="formula">\[ L_\tau(y,\hat y)=\begin{cases}\tau\,(y-\hat y) & y\ge\hat y\\ (1-\tau)\,(\hat y-y) & y<\hat y\end{cases} \]</div>
+<p>Con \(\tau=0{,}9\), quedarse corto cuesta nueve veces más que pasarse, y eso empuja al modelo a predecir el valor que deja por debajo al 90 % de los casos. Ejemplo del Atlas: real 10 días, predicho 8, pérdida \(1{,}8\); predicho 12, pérdida \(0{,}2\). Es la regla propia para cuantiles (propiedad estándar, no de las fuentes): su valor esperado se minimiza en el cuantil verdadero.</p>
+<p>La segunda ficha es la cobertura de intervalos (<em>prediction interval coverage probability</em>, PICP): la fracción de valores reales que caen dentro del intervalo, comparada con la cobertura prometida. Ejemplo del Atlas: con intervalos del 90 %, 165 de 200 pacientes caen dentro; el PICP es 0,825 y el intervalo es más estrecho de lo que debería. Se puede inflar la cobertura ensanchando el intervalo sin límite, así que siempre se da junto al ancho medio. Aquí calibración y nitidez reaparecen con otros nombres: cobertura y anchura.</p>
+
+<h3>¿Aguanta cuando cambia la población?</h3>
+<p>Todo lo anterior se mide en datos parecidos a los de entrenamiento. Las notas citan un estudio de 2019 (Ovadia y colaboradores) que probó la calibración bajo cambio de distribución, con datos corrompidos o de fuera del dominio, y encontró que se degrada mucho. La temperatura y otros métodos pensados para datos del mismo tipo mejoraban poco frente a no hacer nada. El mejor punto de partida fueron los conjuntos de modelos (<em>deep ensembles</em>): entrenar el mismo diseño varias veces con pesos iniciales distintos y promediar. Con cinco modelos ya se nota la mejora; con diez o quince, algo más. También ayuda haber expuesto el modelo a datos anómalos durante el entrenamiento.</p>
+<p>La lectura clínica es directa (propia): un modelo de reingresos calibrado en el hospital A y llevado al hospital B, con otra población, puede volver a estar descalibrado. El simulador de Práctica lo reproduce con una casilla de deriva. Detectar que los datos ya no se parecen a los de entrenamiento es el tema de la lección de detección de anomalías; vigilar la calibración semana a semana en un sistema real, con Vigía, se verá en la lección de calidad y calibración del módulo 6.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>El modelo de reingreso ha puntuado a 1000 pacientes de un servicio de medicina interna. Se agrupan en cinco tramos. Para cada uno se anotan cuántos pacientes hay, la probabilidad media que dio el modelo y la frecuencia con que reingresaron:</p>
+<div class="tw"><table>
+<thead><tr><th>Tramo</th><th>Pacientes</th><th>Anunciado</th><th>Observado</th><th>Distancia</th><th>Peso × distancia</th></tr></thead>
+<tbody>
+<tr><td>0 a 20 %</td><td>350</td><td>0,08</td><td>0,14</td><td>0,06</td><td>0,0210</td></tr>
+<tr><td>20 a 40 %</td><td>250</td><td>0,30</td><td>0,33</td><td>0,03</td><td>0,0075</td></tr>
+<tr><td>40 a 60 %</td><td>200</td><td>0,50</td><td>0,46</td><td>0,04</td><td>0,0080</td></tr>
+<tr><td>60 a 80 %</td><td>120</td><td>0,70</td><td>0,55</td><td>0,15</td><td>0,0180</td></tr>
+<tr><td>80 a 100 %</td><td>80</td><td>0,90</td><td>0,62</td><td>0,28</td><td>0,0224</td></tr>
+</tbody></table></div>
+<div class="formula">\[ \text{ECE}=0{,}0210+0{,}0075+0{,}0080+0{,}0180+0{,}0224=0{,}0769 \qquad \text{MCE}=0{,}28 \]</div>
+<p>Leído con calma: un ECE de 0,077 parece moderado, pero el MCE avisa de que el último tramo está muy mal. Cuando el modelo dice "90 %", reingresa el 62 %, y cuando dice "8 %", el 14 %. Es un modelo sobreconfiado por los dos lados: demasiado extremo. Si la interfaz le enseña al médico ese "90 %" y este activa un recurso escaso para todos esos pacientes, gasta mucho más de lo que el riesgo real justifica. La pendiente de calibración saldría por debajo de 1, y el remedio natural es subir la temperatura para aplanar las probabilidades. El AUROC no cambiaría: los pacientes se ordenarían igual.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Dar por bueno un ECE bajo (aviso propio, apoyado en el Atlas).</strong> Un ECE pequeño no dice que el modelo sea útil (el predictor constante lo tiene nulo) y depende del número de tramos y del reparto de casos. Mira siempre la curva, el MCE, el histograma y la puntuación de Brier, y no calibres en el mismo conjunto en que puntúas.</p>
+<p><strong>Confiar en la temperatura tras un cambio de población.</strong> Se ajustó con datos parecidos a los de entrenamiento. Si el hospital, la edad de los pacientes o la prevalencia cambian, hay que volver a medir.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>A high AUROC only tells me the ranking is right; before we show a risk as a percentage, I check calibration and sharpness, and I score the probabilities with a strictly proper rule such as Brier.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS), lección L9 Interpretable Uncertainty, notas de Oliver Zhang (sin páginas; se citan las secciones): Introduction, Problem Statement y Metrics (ECE, MCE, NLL, Brier), Modern Neural Networks are Miscalibrated (Guo et al. 2017), Approaches (escalado de temperatura, arquitecturas, otros métodos) y Out of Distribution Calibration (Ovadia et al. 2019, conjuntos de modelos).</li>
+<li>Atlas de métricas (obra propia de Miguel), sección de calidad: fichas de calibración (curva de fiabilidad, ECE y MCE), de pendiente e intercepto de calibración, de la puntuación de Brier, de la pérdida logarítmica, de la pérdida de cuantil y de la cobertura de intervalos.</li>
+<li>El curso declara además como temas de L9 la calibración frente a la nitidez, las reglas de puntuación propias, el error de calibración RMS, los intervalos de confianza y la predicción por cuantiles. Sus notas no los desarrollan; el error RMS no se trata aquí.</li>
+<li>Añadido propio, no procede de las fuentes: el ejemplo del reingreso y su tabla; la definición de regla propia, la deducción para Brier y el contraejemplo del error absoluto; el Brier de referencia 0,25 y el de la prevalencia; la nitidez y la descomposición de Murphy; la propiedad del cuantil en la pérdida de cuantil; los dos simuladores; y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: primero dos simuladores para explorar, después tres ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de calibración.</strong> Empieza con T = 1: el modelo es sobreconfiado, la curva cae bajo la diagonal en la zona alta, la pendiente es 0,50 y el ECE ronda 0,085. Sube T hasta 2: el ECE baja a cerca de 0,01, la pendiente se acerca a 1 y el AUROC no se mueve. Sigue a T = 4 y verás el caso contrario, infraconfiado, con pendiente cercana a 2. Pulsa "Escalado de temperatura": encuentra la T con validación, cerca de 2. Después cambia el número de tramos (de 5 a 40) y observa que el ECE y sobre todo el MCE dependen de esa elección, incluso con el modelo ya calibrado. Por último marca la deriva y observa que la T ajustada deja de bastar: el intercepto se aleja de 0 y el riesgo medio predicho no coincide con el real.</p>
+<div data-widget="m05-l03-calibracion" id="sim-calibracion"></div>
+
+<p class="consigna"><strong>Simulador de reglas de puntuación.</strong> Con q = 30 % y p = 60 %, mira las tres curvas. En Brier y log loss el mínimo (el rombo) cae en p = 30 %, la probabilidad verdadera; en el error absoluto cae en un extremo. Mueve q por encima y por debajo de 50 % y comprueba que el mejor p del error absoluto salta de un extremo a otro, mientras que el de las reglas propias sigue a q. Fíjate en la columna del coste de no decir la verdad.</p>
+<div data-widget="m05-l03-reglas-propias" id="sim-reglas-propias"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: ECE y MCE a mano (8 minutos)</p>
+<p>Un modelo de riesgo de caídas ha puntuado a 1000 pacientes (cifras propias de práctica). Cuatro tramos:</p>
+<div class="tw"><table>
+<thead><tr><th>Tramo</th><th>Pacientes</th><th>Anunciado</th><th>Observado</th></tr></thead>
+<tbody>
+<tr><td>0 a 25 %</td><td>400</td><td>0,10</td><td>0,13</td></tr>
+<tr><td>25 a 50 %</td><td>300</td><td>0,35</td><td>0,38</td></tr>
+<tr><td>50 a 75 %</td><td>200</td><td>0,60</td><td>0,48</td></tr>
+<tr><td>75 a 100 %</td><td>100</td><td>0,90</td><td>0,70</td></tr>
+</tbody></table></div>
+<ol>
+<li>Calcula el ECE y el MCE. ¿En qué tramo revisarías el modelo antes de mostrar probabilidades al personal de planta?</li>
+<li>Junta los dos tramos centrales en uno solo, con el anunciado y el observado medios ponderados por pacientes. Recalcula el ECE. ¿Por qué baja?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Distancias: 0,03, 0,03, 0,12 y 0,20. ECE \(=0{,}4\cdot0{,}03+0{,}3\cdot0{,}03+0{,}2\cdot0{,}12+0{,}1\cdot0{,}20=0{,}012+0{,}009+0{,}024+0{,}020=0{,}065\). MCE \(=0{,}20\), del último tramo: cuando el modelo dice "90 %", el evento ocurre en el 70 %, veinte puntos menos de lo anunciado. Ese es el tramo a revisar.</p>
+<p><strong>2.</strong> Tramo central conjunto: 500 pacientes, anunciado \((300\cdot0{,}35+200\cdot0{,}60)/500=0{,}45\), observado \((300\cdot0{,}38+200\cdot0{,}48)/500=0{,}42\), distancia 0,03. ECE \(=0{,}012+0{,}5\cdot0{,}03+0{,}020=0{,}047\). Baja porque en uno de los tramos originales el modelo infraestimaba y en el otro sobreestimaba: al mezclarlos, los errores de signo contrario se compensan. Es la razón de mirar varios tramos, el MCE y la curva, no solo el ECE.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: mentir no sale gratis, salvo con la regla equivocada (8 minutos)</p>
+<p>Un evento ocurre con probabilidad real \(q=0{,}3\).</p>
+<ol>
+<li>Calcula el Brier esperado, \(q(1-p)^2+(1-q)p^2\), y el error absoluto esperado, \(q(1-p)+(1-q)p\), al reportar \(p=0{,}3\), \(p=0\) y \(p=0{,}6\). ¿Qué regla prefiere reportar 0?</li>
+<li>Un modelo predice el cuantil 0,9 de la estancia en días. Estancias observadas: 3, 4, 5, 7 y 12. Calcula la pérdida de cuantil media con \(\tau=0{,}9\) para las predicciones 6, 9 y 12. ¿Cuál es la mejor?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Brier: con \(p=0{,}3\), \(0{,}3\cdot0{,}49+0{,}7\cdot0{,}09=0{,}21\); con \(p=0\), \(0{,}3\); con \(p=0{,}6\), \(0{,}3\cdot0{,}16+0{,}7\cdot0{,}36=0{,}30\). Gana la verdad. Error absoluto: \(0{,}42\), \(0{,}30\) y \(0{,}54\). El error absoluto da mejor nota a reportar 0 (0,30) que a decir la verdad (0,42): no es una regla propia.</p>
+<p><strong>2.</strong> Con 6: \((0{,}1\cdot3+0{,}1\cdot2+0{,}1\cdot1+0{,}9\cdot1+0{,}9\cdot6)/5=6{,}9/5=1{,}38\). Con 9: \((0{,}6+0{,}5+0{,}4+0{,}2+2{,}7)/5=0{,}88\). Con 12: \((0{,}9+0{,}8+0{,}7+0{,}5+0)/5=0{,}58\). La mejor es 12: deja por debajo o igual a todas las estancias observadas, que es lo que pide un cuantil 0,9 con solo cinco datos.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: escalado de temperatura con Python (10 minutos)</p>
+<p>Diez pacientes, con el logit del modelo y el desenlace real (datos propios de práctica). Busca por rejilla la temperatura que minimiza la NLL y compara antes y después.</p>
+<pre><code>import math
+
+logits = [3.2, 2.5, 2.0, 1.4, 0.6, -0.2, -0.9, -1.5, -2.3, -3.0]
+y      = [1,   0,   1,   0,   1,    0,    0,    1,    0,    0]
+
+def sigmoide(x):
+    return 1 / (1 + math.exp(-x))
+
+def nll(T):
+    p = [sigmoide(l / T) for l in logits]
+    return -sum(math.log(pi) if yi else math.log(1 - pi)
+                for pi, yi in zip(p, y)) / len(y)
+
+def brier(T):
+    p = [sigmoide(l / T) for l in logits]
+    return sum((pi - yi) ** 2 for pi, yi in zip(p, y)) / len(y)
+
+rejilla = [0.5 + 0.25 * k for k in range(19)]   # T de 0,5 a 5
+mejor = min(rejilla, key=nll)
+print("T mejor:", mejor)
+print("NLL   T=1:", round(nll(1), 3), " T mejor:", round(nll(mejor), 3))
+print("Brier T=1:", round(brier(1), 3), " T mejor:", round(brier(mejor), 3))</code></pre>
+<p>Responde: ¿qué T sale? ¿El modelo original era sobreconfiado o infraconfiado? ¿Cambia el orden de los pacientes por riesgo? En un caso real, ¿con qué conjunto ajustarías T?</p>
+<details>
+<summary>Ver solución</summary>
+<p>Sale \(T=2{,}75\). La NLL baja de 0,759 a 0,634 y el Brier de 0,260 a 0,222. Como la T óptima es mayor que 1, el modelo original era sobreconfiado: había que aplanar. El orden no cambia, porque dividir todos los logits por la misma constante positiva conserva su ordenación. En un caso real se ajusta sobre un conjunto de validación separado del de entrenamiento y del de test: si no, la T sale optimista y la evaluación final también. Con solo diez pacientes el resultado es apenas ilustrativo.</p>
+</details>
+</div>
+
+</div>
+
+</section>

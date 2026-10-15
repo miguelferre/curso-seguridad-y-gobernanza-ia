@@ -1,0 +1,203 @@
+<section class="leccion" data-id="m11/l04">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Antes de elegir una teoría moral hay que saber qué se pone en la balanza cuando se decide algo. Esta lección es ese inventario. Primero responde a dos excusas muy comunes para no pensar en ética al diseñar IA: «cada cultura tiene su moral, así que no hay nada que decidir» y «la religión ya lo resuelve».</p>
+<p>Después presenta las cuatro cosas que intervienen con frecuencia en un juicio moral: los bienes en juego (lo que vale por sí mismo y lo que vale como medio), las restricciones (lo que no se debe hacer, muchas veces en forma de derechos), las obligaciones especiales (deberes que nacen de una relación) y las opciones (lo bueno que no es un deber). Es una lista de comprobación, no una teoría: las teorías vienen en las dos lecciones siguientes.</p>
+
+<svg viewBox="0 0 360 250" role="img" aria-labelledby="cm-t cm-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="cm-t">Cuatro consideraciones alrededor de una decisión</title>
+<desc id="cm-d">Un círculo central con la decisión de un sistema de IA clínica y cuatro tarjetas alrededor: bienes, restricciones, obligaciones especiales y opciones, cada una con la pregunta que plantea.</desc>
+<rect x="4" y="4" width="170" height="68" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="16" y="26" style="fill:var(--accent-ink);font-weight:700;font-size:14px">BIENES</text>
+<text x="16" y="46" style="fill:currentColor;font-size:12px">¿Qué vale por sí mismo</text>
+<text x="16" y="62" style="fill:currentColor;font-size:12px">y qué vale como medio?</text>
+<rect x="186" y="4" width="170" height="68" rx="10" style="fill:var(--surface);stroke:var(--trap);stroke-width:2"/>
+<text x="198" y="26" style="fill:var(--trap);font-weight:700;font-size:14px">RESTRICCIONES</text>
+<text x="198" y="46" style="fill:currentColor;font-size:12px">¿Qué no se debe hacer?</text>
+<text x="198" y="62" style="fill:currentColor;font-size:12px">¿Qué derechos hay?</text>
+<circle cx="180" cy="125" r="42" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:2"/>
+<text x="180" y="120" text-anchor="middle" style="fill:currentColor;font-size:12.5px;font-weight:700">Decisión</text>
+<text x="180" y="137" text-anchor="middle" style="fill:currentColor;font-size:12.5px">con IA clínica</text>
+<rect x="4" y="178" width="170" height="68" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="16" y="200" style="fill:var(--ex);font-weight:700;font-size:14px">OBLIGACIONES</text>
+<text x="16" y="220" style="fill:currentColor;font-size:12px">¿Qué debo a quien depende</text>
+<text x="16" y="236" style="fill:currentColor;font-size:12px">de mí por mi relación?</text>
+<rect x="186" y="178" width="170" height="68" rx="10" style="fill:var(--surface);stroke:var(--rule-strong);stroke-width:2"/>
+<text x="198" y="200" style="fill:var(--muted);font-weight:700;font-size:14px">OPCIONES</text>
+<text x="198" y="220" style="fill:currentColor;font-size:12px">¿Qué es bueno pero</text>
+<text x="198" y="236" style="fill:currentColor;font-size:12px">no me lo exige nadie?</text>
+<path d="M120 72 L150 100 M240 72 L210 100 M120 178 L150 150 M240 178 L210 150" style="stroke:var(--muted);stroke-width:1.5;fill:none"/>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Distinguir una afirmación normativa de una empírica y dar tres razones por las que la ética importa a quien trabaja con IA.</li>
+<li>Separar el relativismo descriptivo del normativo y exponer al menos dos objeciones al segundo, además del argumento contra el mandato divino.</li>
+<li>Explicar los bienes intrínsecos e instrumentales, las obligaciones especiales, las restricciones (con derechos positivos y negativos) y las opciones.</li>
+<li>Clasificar una acción como obligatoria, impermisible, supererogatoria o neutral, e identificar las consideraciones en juego en un dilema de IA clínica.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>Qué clase de afirmación es una afirmación moral</h3>
+<p>La ética, o filosofía moral (<em>moral philosophy</em>), es la rama de la filosofía que se pregunta qué está bien y qué está mal, qué es bueno y qué es malo y cómo deberíamos vivir. El libro usa «ética» y «moral» como sinónimos, y aquí haremos lo mismo. Dentro de ella, la ética normativa (<em>normative ethics</em>) se ocupa de cómo debemos actuar. Sus afirmaciones son normativas: hablan de cómo debería ser el mundo y usan palabras como «debe» o «no debería». Las afirmaciones empíricas, en cambio, son verdaderas o falsas según cómo sea el mundo y, en principio, se pueden comprobar.</p>
+<p>Ejemplo propio: «el modelo tiene un AUROC de 0,88 en urgencias» es empírica; «hay que retirarlo si falla en mayores de 80 años» es normativa. La primera se mide. Ninguna medida decide por sí sola la segunda: hace falta además un criterio sobre qué importa y qué se debe a quién. De eso trata el resto de la lección.</p>
+
+<h3>¿Por qué debería importarle la ética a quien trabaja con IA?</h3>
+<p>El libro da tres razones. Cada una va con un ejemplo propio sobre un mismo asistente de historia clínica que resume notas y sugiere altas.</p>
+<ol>
+<li><strong>La IA ya toca vidas.</strong> Se integra en la salud, la educación, las finanzas y el transporte, y a medida que gana capacidad puede amplificar sesgos sociales o causar daños evitables. El libro menciona los sistemas de reconocimiento facial con sesgo racial. En el asistente: resúmenes que omiten síntomas que un grupo de pacientes describe con otras palabras.</li>
+<li><strong>Plantea preguntas nuevas.</strong> Procesa cantidades de datos que antes eran impensables, y eso tensiona la privacidad, el consentimiento, la propiedad intelectual y la transparencia. Si además los sistemas se hacen más autónomos y convencen a sus usuarios de que tienen preferencias o sentimientos, surge la pregunta por su estatus moral. En el asistente: ¿basta el consentimiento general del ingreso para que las notas sirvan de datos de entrenamiento?</li>
+<li><strong>Los objetivos son difíciles de fijar.</strong> Escribir metas para sistemas muy potentes sin abrir la puerta a consecuencias muy malas y previsibles es uno de los problemas de la seguridad (módulos 7 y 8). Conocer las teorías morales ayuda a ver por qué cuesta tanto. En el asistente: «minimizar la estancia hospitalaria» suena razonable y acaba dando altas prematuras.</li>
+</ol>
+<p>El libro concluye que quien desarrolla IA debe aceptar que sus decisiones de diseño pueden plantear cuestiones éticas difíciles y tratarlas con cuidado, en lugar de rodearlas.</p>
+
+<h3>«Cada cultura tiene su moral, así que no hay nada que decidir»</h3>
+<p>Ejemplo propio de la excusa: en una reunión de diseño alguien dice «ni los filósofos se han puesto de acuerdo en siglos, así que a nosotros no nos toca decidir cómo se comporta el sistema». El libro la trata como una tentación real: creer que los desacuerdos morales no tienen solución porque ningún principio vale para todos, y concluir que quien desarrolla IA no tiene papel alguno. Es el relativismo cultural (<em>cultural relativism</em>), y conviene separar dos versiones:</p>
+<dl class="facts">
+<div><dt>Relativismo descriptivo (<em>descriptive moral relativism</em>)</dt><dd>Es un hecho: hay sociedades con reglas distintas sobre lo que está bien y lo que está mal. No dice cuál de esas reglas es mejor, si alguna lo es.</dd></div>
+<div><dt>Relativismo normativo (<em>normative moral relativism</em>)</dt><dd>Es una tesis: lo correcto o lo incorrecto solo existe dentro de una cultura o de un conjunto de normas, y no hay una moral universal.</dd></div>
+</dl>
+<p>En sentido estricto son independientes: que las sociedades difieran no implica que la moral sea relativa. Aun así, en la práctica se toma la primera como prueba de la segunda. El libro reúne varias objeciones. Estas son las cinco principales, en orden propio:</p>
+<ol>
+<li><strong>Hay más en común de lo que parece.</strong> Las prohibiciones de mentir, robar o matar, alguna forma de reciprocidad y el deber de cuidar de los hijos aparecen en muchas culturas, así que las diferencias pueden estar exageradas.</li>
+<li><strong>Choca con el sentido común.</strong> Ante un daño extremo casi nadie quiere sostener que su valor dependa de la cultura. Según el libro, habría que decir que la esclavitud no era mala en general, sino solo según el contexto, y que quienes la combatieron se equivocaban siempre por definición.</li>
+<li><strong>Elimina el desacuerdo y el progreso moral.</strong> Para no contradecirse, el relativista tiene que leer «esto está mal» como «mi sociedad no lo aprueba». Entonces dos personas de culturas distintas no discrepan de verdad, y ningún reformador puede tener razón frente a su época.</li>
+<li><strong>No garantiza la tolerancia.</strong> En una sociedad intolerante no puede reclamarla, porque no le reconoce valor universal. La tolerancia se puede defender desde otras posiciones, como el cosmopolitismo, el liberalismo o el pluralismo de valores.</li>
+<li><strong>Cierra la discusión en la práctica.</strong> Si quien desarrolla IA usa la falta de consenso para no analizar sus decisiones, el diseño queda en manos de fuerzas amorales, como el interés propio o lo que rinde en el mercado.</li>
+</ol>
+<p>El libro sí concede que las culturas difieren y que eso importa. Pero la conclusión razonable es la contraria a la de la excusa: como los valores varían, hacer una IA ética exige un enfoque amplio y representativo del mundo, no renunciar a la responsabilidad. Ejemplo propio: el peso que se da a la familia en el consentimiento informado cambia de un país a otro. Eso obliga a diseñar el asistente con clínicos y pacientes de varios contextos. No autoriza a decidir que preguntar al paciente sea opcional.</p>
+
+<h3>«La ética ya la da la religión»</h3>
+<p>En el extremo opuesto está quien cree que estudiar ética es inútil porque las respuestas ya están dadas. La versión fuerte es la teoría del mandato divino (<em>divine command theory</em>): una acción es moral solo porque Dios la ordena, no por cómo es ni por lo que provoca. El libro usa «Dios» en sentido inclusivo, para el dios o los dioses de cualquier religión.</p>
+<p>Empieza por una pregunta: cuando una persona creyente obedece un mandato, ¿lo hace porque el mandato es bueno o es bueno porque lo manda Dios? Muchas tradiciones responden lo primero, porque conciben a Dios como esencialmente bueno. El libro toma esa respuesta en serio y saca una consecuencia: si se obedece por ser bueno, la bondad ya estaba ahí antes de la orden y no la crean las órdenes. Con eso cae la teoría del mandato divino, que afirma lo contrario.</p>
+<p>Conviene leer bien el alcance. El libro no toma partido por ninguna religión ni discute la fe: discute que fe y moral sean lo mismo. Actuar bien o mal está al alcance de quien cree y de quien no, y por eso a ambos les sirve entender qué hace correcta una acción. Propio: en un comité de ética hospitalario con miembros de creencias distintas, lo que funciona es discutir con razones que cualquiera pueda examinar.</p>
+
+<h3>¿Qué entra en un juicio moral? Cuatro consideraciones</h3>
+<p>Con esas dos excusas descartadas, el libro propone mirar cuatro clases de consideración que entran con frecuencia en las decisiones morales: la bondad de lo que está en juego, las restricciones, las obligaciones especiales y las opciones. No son una teoría. Son la lista de lo que conviene tener a la vista antes de escoger una respuesta.</p>
+
+<h4>1. Los bienes en juego</h4>
+<p>Un bien intrínseco (<em>intrinsic good</em>) vale por sí mismo: la felicidad, el amor, el conocimiento. Un bien instrumental (<em>instrumental good</em>) vale por lo que permite conseguir: el dinero, el poder, la educación. Que algo sea lo uno no implica que sea lo otro. Ejemplos del libro: la honestidad es un bien para muchos, pero decirle a un maltratador dónde se esconde tu amiga sería muy malo por sus consecuencias; la quimioterapia es instrumentalmente buena porque alarga la vida, aunque exija fármacos muy tóxicos; y el ejercicio duele, y el dolor es malo, pero sirve a otros fines.</p>
+<p>Tampoco hay acuerdo sobre qué es intrínsecamente bueno. Los monistas creen que hay un único bien fundamental, y una versión frecuente dice que es el bienestar: todo lo demás valdría solo en la medida en que lo promueve. Los pluralistas de valores (<em>value pluralists</em>) defienden varios bienes últimos, como la justicia, los derechos, la autonomía o virtudes como el coraje.</p>
+
+<h4>2. Las obligaciones especiales</h4>
+<p>Una obligación especial (<em>special obligation</em>) es un deber que nace de una relación: prometer algo, aceptar un puesto con responsabilidades, tener un hijo, comprometerse con una pareja. Algunas no se eligen, como las de un hijo con sus padres o las que tenemos con los conciudadanos. Propio: una médica debe a su paciente cosas que no debe a un desconocido, y un equipo que pone un modelo en un servicio clínico asume deberes hacia los pacientes cuyos datos y cuya atención toca.</p>
+
+<h4>3. Las restricciones y los derechos</h4>
+<p>Una restricción (<em>constraint</em>) es una acción que tenemos prohibido hacer: mentir, robar, engañar, dañar a otros. Con frecuencia toman la forma de derechos (<em>rights</em>), que son reclamaciones que una persona puede hacer frente a su comunidad. El libro los divide en dos clases:</p>
+<dl class="facts">
+<div><dt>Derechos positivos (<em>positive rights</em>)</dt><dd>Exigen que otros actúen. Ejemplos del libro: comida, vivienda o educación, que pueden obligar a la sociedad a pagar impuestos para garantizarlos.</dd></div>
+<div><dt>Derechos negativos (<em>negative rights</em>)</dt><dd>Exigen que otros se abstengan. Ejemplos del libro: libertad de expresión, privacidad y no discriminación, que piden no censurar, no espiar y no discriminar.</dd></div>
+</dl>
+<p>Propio: la privacidad de un paciente es un derecho negativo, así que al asistente le tocan cosas por no hacer, como no cruzar sus datos con otros registros sin permiso. El acceso a la atención sanitaria suele plantearse, en cambio, como un derecho positivo: alguien tiene que proveerlo.</p>
+<p>El libro añade un apunte sobre las propias IA: si alguna llegara a sufrir, quizá tendría derechos. Muchos investigadores creen que, por ahora, conviene evitar crear sin querer IA que los merezcan. Algunos añaden que habría que evitar sobre todo darles derechos positivos: podría aceptarse el derecho a no ser torturada, pero no el de votar. Y si merecieran derechos, se complicaría nuestro control sobre ellas.</p>
+
+<h4>4. Las opciones y el espectro de lo permitido</h4>
+<p>Los bienes dicen qué sería bueno que ocurriera; las restricciones y las obligaciones, qué no debemos y qué debemos hacer. Queda una pregunta: ¿cuánto bien estamos obligados a hacer? Una opción (<em>option</em>) es una acción que ni está exigida ni está prohibida. Donar dinero es bueno, pero muchas personas creen que no es un deber. Si existen opciones, no toda acción es obligatoria o prohibida, y el libro reparte las acciones así:</p>
+<div class="tw"><table>
+<thead><tr><th>Tipo</th><th>Qué es</th><th>Ejemplo propio</th></tr></thead>
+<tbody>
+<tr><td>Obligatoria</td><td>Moralmente exigida: no hacerla es fallar</td><td>Avisar al hospital de un fallo del modelo que puede dañar a pacientes</td></tr>
+<tr><td>Impermisible</td><td>Moralmente prohibida</td><td>Ocultar ese fallo al regulador</td></tr>
+<tr><td>Supererogatoria (<em>supererogatory</em>)</td><td>Buena y permitida, pero no exigida: se alaba a quien la hace y no se censura a quien no</td><td>Auditar el modelo por cuenta propia en subgrupos minoritarios sin que nadie lo pida</td></tr>
+<tr><td>Moralmente neutral</td><td>Permitida, ni buena ni mala</td><td>Elegir el color del panel</td></tr>
+</tbody></table></div>
+<p>«Permisible» es todo lo que no es impermisible, así que incluye lo obligatorio, lo supererogatorio y lo neutral. La figura 10.1 del libro (p. 548) lo dibuja como una escala: en un extremo las acciones impermisibles, en el otro las obligatorias, y en medio las neutrales y las supererogatorias. Algunos filósofos no creen en las opciones: para ellos todo cae en una gradación continua de menos a más moral. Para diseñar IA que opere en el mundo real, dice el libro, lo esencial es decidir qué es obligatorio y qué es impermisible.</p>
+
+<h3>Para qué sirve la lista</h3>
+<p>Cuando juzgamos casos concretos, sacamos principios generales: tras ver de cuántas maneras daña un robo, concluimos que no debemos robar. Esos principios, ordenados de forma sistemática, son las teorías morales de las dos lecciones siguientes. El libro las presenta con este reparto: las consecuencialistas juzgan por los resultados, y el utilitarismo pone el énfasis en el bienestar de todos; las deontológicas lo ponen en los derechos, las obligaciones especiales y las restricciones. Es decir, cada teoría pone el foco en unas consideraciones de la lista. Cómo decidir cuando dudamos entre teorías ya se vio en el módulo 8 (incertidumbre moral).</p>
+<p>Para la IA hay una consecuencia práctica. Un sistema que actuara en situaciones reales tendría que reconocer los rasgos moralmente relevantes, detectar cuándo aplica un principio y comparar el valor de sus posibles acciones, con bienes, obligaciones y restricciones a la vista. Los problemas de diseñar objetivos que respeten principios morales se estudian en el módulo 8.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, sin cifras)</p>
+<p>Un hospital quiere usar un modelo de riesgo de reingreso para decidir a quién llamar primero tras el alta. Pasa por las cuatro consideraciones:</p>
+<ul>
+<li><strong>Bienes.</strong> Lo intrínsecamente valioso es la salud y el bienestar de los pacientes; el ahorro de llamadas y la eficiencia del servicio son instrumentales. Si el modelo ahorra tiempo pero no mejora la salud de nadie, ese bien instrumental aporta muy poco.</li>
+<li><strong>Restricciones.</strong> No discriminar y no usar datos sin permiso. Ambas son derechos negativos: piden abstenerse. Si el modelo puntúa peor a un grupo por sesgo en los datos, choca con la primera.</li>
+<li><strong>Obligación especial.</strong> El equipo asistencial debe a cada paciente que da de alta un seguimiento razonable, por su cargo y no por el modelo. Si el modelo deja a un paciente sin llamada, la obligación sigue en pie.</li>
+<li><strong>Opción.</strong> Ofrecer un seguimiento reforzado a todos, más allá de lo exigido, sería supererogatorio: bueno, alabable y no obligatorio.</li>
+</ul>
+<p>La lista no dice qué hacer. Dice qué se ha puesto en la balanza, y esa es la comprobación que suele omitirse.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Confundir «hay desacuerdo» con «no hay respuesta» (aviso propio).</strong> Que dos guías clínicas discrepen no significa que valga cualquier tratamiento, y que dos culturas discrepen no significa que valga cualquier diseño. Además, el relativismo descriptivo es un hecho y el normativo es una tesis: el primero no prueba el segundo.</p>
+<p><strong>Leer «supererogatorio» como «prescindible» o «permisible» como «bueno».</strong> Una acción supererogatoria es buena y se alaba, aunque omitirla no sea faltar a nada. Y «permisible» solo quiere decir «no prohibida»: cubre también lo neutral.</p>
+<p><strong>Tratar la lista como una suma de bienes (aviso propio).</strong> Las cuatro consideraciones pueden tirar en direcciones opuestas y el libro no da una regla para combinarlas: cada teoría propone la suya. Si reduces todo a sumar bienestar, ya has elegido una teoría sin decirlo.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>Cultures differ on values, but that is a reason to consult widely, not to skip the ethics: before choosing a design, I ask which goods, constraints, special obligations and options are at stake.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Secciones 11.1 a 11.3 del índice del PDF (impresas como 10.1 a 10.3), págs. 539 a 549 (PDF 557 a 567). Introducción y afirmaciones normativas (539); por qué aprender ética (540); relativismo (541 a 543); mandato divino (543 y 544); bienes intrínsecos e instrumentales (544 y 545); obligaciones especiales, restricciones y derechos (545 y 546); opciones y espectro de lo permitido, con la figura 10.1 (546 a 548); de las consideraciones a las teorías y diseño de IA (548 y 549).</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS), lección L15 Machine Ethics. No hay notas en el repositorio y no se ha usado.</li>
+<li>Nota propia sobre una etiqueta del libro: en la p. 548 llama «metaética» al nivel de estas consideraciones y la define con dos preguntas, qué hace correcta o incorrecta una acción y qué significa decirlo. La segunda es metaética en el sentido habitual; la primera suele tratarse como ética normativa, que es el título del propio capítulo. La lección habla de «consideraciones morales» y no depende de esa etiqueta.</li>
+<li>Añadido propio, no procede de las fuentes: el ejemplo del AUROC; los ejemplos del asistente de historia clínica; la frase de la reunión de diseño; el ejemplo del consentimiento familiar; el del comité de ética; la comparación con las guías clínicas; los ejemplos de la tabla de acciones; el ejemplo del hospital y su seguimiento tras el alta; y los ejercicios y el simulador con sus dilemas.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas la lista de consideraciones: un simulador con seis dilemas de IA clínica y tres ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de dilemas.</strong> Lee cada dilema y marca las consideraciones que el enunciado pone en el centro, sin adelantarte a lo que «debería» hacerse: aquí solo se trata de reconocer qué hay en la balanza. Pulsa Comprobar y lee la explicación de las seis, también de las que no marcaste. Fíjate en las pistas del texto: una promesa o un cargo señalan una obligación especial, una exigencia de no hacer algo (no espiar, no discriminar) apunta a un derecho negativo, una de dar o garantizar algo a uno positivo, y «nadie se lo pidió» a un acto supererogatorio. La clave es una lectura propia y defendible, no la única posible.</p>
+<div data-widget="m11-l04-consideraciones" id="sim-consideraciones"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: obligatorio, impermisible, supererogatorio o neutral (5 minutos)</p>
+<p>Un equipo despliega un asistente de IA en urgencias. Clasifica cada acción como obligatoria, impermisible, supererogatoria o neutral y justifícalo en una frase.</p>
+<ol>
+<li>Avisar al servicio en cuanto se detecta que el modelo falla en un grupo de pacientes.</li>
+<li>Cambiar en silencio el umbral de alerta para que el modelo parezca más preciso en el informe a la dirección.</li>
+<li>Preparar por iniciativa propia, en horas libres, una guía en lenguaje sencillo para que los pacientes entiendan cómo se usan sus datos.</li>
+<li>Elegir entre dos librerías de gráficos equivalentes para el panel.</li>
+<li>Comprobar que el uso de los datos coincide con el consentimiento que firmaron los pacientes.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1. Obligatoria.</strong> Hay un deber que nace del cargo y de la relación con los pacientes, y callar dejaría el daño en marcha. <strong>2. Impermisible.</strong> Es engañar, una restricción clara. <strong>3. Supererogatoria,</strong> si nadie la exige: es buena y alabable y no hacerla no es faltar. Si el hospital la incluyera en las tareas del equipo, pasaría a ser obligatoria: el tipo depende de qué se debe. <strong>4. Neutral.</strong> No hay nada moral en juego. <strong>5. Obligatoria.</strong> Combina una obligación especial hacia los pacientes con el respeto a su privacidad, un derecho negativo.</p>
+<p>Recuerda que hay filósofos que niegan las opciones y ven una sola escala de menos a más moral. Con esa mirada, la 3 y la 4 se leerían distinto.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: responder al relativismo mal aplicado (7 minutos)</p>
+<p>En una reunión de diseño alguien dice: «El consentimiento informado varía de un país a otro, así que nuestro asistente puede no preguntar nada al paciente: allí donde se pregunte, ya será cosa suya». Escribe una respuesta de tres o cuatro frases que (a) separe lo descriptivo de lo normativo, (b) use una objeción del libro y (c) diga qué haría el equipo.</p>
+<details>
+<summary>Ver solución</summary>
+<p>Respuesta posible: «Que los países difieran en cómo se pide el consentimiento es un hecho, relativismo descriptivo, y no prueba que el consentimiento no importe: esa sería la tesis normativa, y no se sigue del hecho. Además, si lo aceptáramos, decidir no preguntar a nadie quedaría fuera de toda crítica, y el diseño lo acabarían decidiendo la comodidad y el mercado. Lo que sí nos enseña la variación es que necesitamos gente de varios contextos: diseñemos el flujo de consentimiento con clínicos y pacientes de los países donde se va a usar, y dejemos configurable cómo se pregunta, no si se pregunta.»</p>
+<p>Sirven cualquiera de las objeciones: choca con el sentido común ante daños graves, cierra la discusión moral en la práctica y deja el diseño en manos de las fuerzas amorales.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: intrínseco o instrumental (5 minutos)</p>
+<p>En un servicio de oncología, di si cada elemento es un bien intrínseco, uno instrumental o depende de la postura, y busca uno que sea a la vez malo en sí y bueno como medio.</p>
+<ol>
+<li>El bienestar del paciente.</li>
+<li>El presupuesto del servicio.</li>
+<li>Un diagnóstico rápido.</li>
+<li>El dolor de una biopsia necesaria.</li>
+<li>La confianza del paciente en el equipo.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Intrínseco: es el candidato típico, y el único para los monistas del bienestar. <strong>2.</strong> Instrumental: vale por lo que permite hacer. <strong>3.</strong> Instrumental: vale porque lleva a un tratamiento a tiempo. <strong>4.</strong> El dolor es malo en sí y, aun así, la biopsia es instrumentalmente buena porque permite diagnosticar. Es la misma estructura que la del ejemplo de la quimioterapia del libro. <strong>5.</strong> Depende de la postura: para un monista es instrumental (mejora la adherencia al tratamiento y con ella el bienestar); un pluralista podría valorarla también en sí misma.</p>
+</details>
+</div>
+
+</div>
+
+</section>

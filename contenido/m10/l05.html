@@ -1,0 +1,187 @@
+<section class="leccion" data-id="m10/l05">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Para hacer una IA potente hacen falta tres cosas: datos, algoritmos y potencia de cálculo (cómputo). Las dos primeras se copian y se esconden con facilidad. La tercera no: son chips que hay que fabricar, comprar y enviar, y hoy los hacen muy pocas empresas.</p>
+<p>Por eso el cómputo es un buen sitio desde donde vigilar la IA. Un regulador puede saber quién tiene qué chips, ponerse una línea en cifras (por ejemplo, "a partir de tanto cómputo hay más controles") y comprobar si se cumple. Ese control funciona mientras siga siendo cierto que hace falta mucho cómputo y que pocos lo fabrican.</p>
+
+<svg viewBox="0 0 360 190" role="img" aria-labelledby="rs5-t rs5-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="rs5-t">Qué insumo de la IA se puede gobernar</title>
+<desc id="rs5-d">Tabla de tres filas y tres columnas. El cómputo es físico, excluible y cuantificable. Los datos son virtuales, no excluibles y solo parcialmente medibles. Los algoritmos no cumplen ninguna de las tres.</desc>
+<rect x="4" y="4" width="352" height="182" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<g style="fill:var(--accent-ink);font-weight:700;font-size:12px" text-anchor="middle">
+<text x="168" y="30">Física</text><text x="238" y="30">Excluible</text><text x="308" y="30">Cuantificable</text>
+</g>
+<g style="fill:var(--ink);font-weight:700;font-size:13px">
+<text x="18" y="70">Cómputo</text><text x="18" y="112">Datos</text><text x="18" y="154">Algoritmos</text>
+</g>
+<g style="fill:var(--accent);stroke:var(--accent);stroke-width:2">
+<circle cx="168" cy="65" r="11"/><circle cx="238" cy="65" r="11"/><circle cx="308" cy="65" r="11"/>
+</g>
+<g style="fill:none;stroke:var(--faint);stroke-width:2">
+<circle cx="168" cy="107" r="11"/><circle cx="238" cy="107" r="11"/>
+<circle cx="168" cy="149" r="11"/><circle cx="238" cy="149" r="11"/><circle cx="308" cy="149" r="11"/>
+</g>
+<circle cx="308" cy="107" r="11" style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:2"/>
+<path d="M308 96 a11 11 0 0 1 0 22 z" style="fill:var(--accent)"/>
+<text x="18" y="180" style="fill:var(--muted);font-size:10px">Círculo lleno: sí. Medio: en parte. Vacío: no.</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Explicar por qué el cómputo es un punto de control de la IA y por qué se mide en FLOP.</li>
+<li>Aplicar las tres propiedades (física, excluible y cuantificable) para comparar el cómputo con los datos y los algoritmos.</li>
+<li>Calcular el cómputo total de un clúster y el ritmo anual al que crece el coste del entrenamiento con las cifras del libro.</li>
+<li>Nombrar tres formas de controlar el cómputo y tres condiciones que debilitarían ese control.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>¿Por qué mirar el cómputo?</h3>
+<p>Las lecciones anteriores del módulo hablaron de quién decide: la empresa, el Estado, los acuerdos entre países. Esta habla de un recurso sobre el que se puede actuar. Se llama cómputo (<em>compute</em>) a la potencia de cálculo con que se entrena y se ejecuta una IA: chips como las GPU y las TPU, agrupados en centros de datos. Sin acceso a ellos no se desarrolla ni se despliega ninguna IA. El libro lo compara con el uranio de un arma nuclear.</p>
+<p>La unidad habitual es el FLOP/s (<em>floating-point operations per second</em>): sumas y multiplicaciones con decimales por segundo. En las leyes de escala de la lección m00/l05 importaba el total de operaciones de un entrenamiento, los FLOP sin la barra (aclaración propia). Hay tres razones para que el cómputo importe:</p>
+<ul>
+<li><strong>Da capacidad.</strong> Con más cómputo cabe un modelo con más parámetros y más datos, y las leyes de escala dicen que rinde mejor. Saber cuánto cómputo usó un modelo permite aproximar lo que sabe hacer (libro, p. 490).</li>
+<li><strong>Es caro.</strong> Los entrenamientos de frontera necesitan supercomputadores de cientos de millones o incluso miles de millones de dólares (p. 490).</li>
+<li><strong>Crece deprisa.</strong> Según el libro, lo que piden los modelos se duplica cada seis meses, más rápido que el precio-rendimiento de los chips, que se duplica cada 2,5 años (p. 490).</li>
+</ul>
+<p>De las dos últimas cifras sale una cuenta propia. Si el cómputo se multiplica por \(g\) al año y cada FLOP se abarata a la mitad cada \(h\) años, el coste de un entrenamiento de frontera crece cada año en un factor:</p>
+<div class="formula">\[ \frac{g}{2^{1/h}}=\frac{4}{2^{1/2{,}5}}=\frac{4}{2^{0{,}4}}\approx 3{,}03 \]</div>
+<p>Duplicar cada seis meses es multiplicar por 4 al año. Así que el precio de la frontera sube cerca de 3 veces por año, aunque los chips mejoren. Esa es la razón de que solo unos pocos actores puedan entrenar los mayores modelos, y de que sea posible vigilarlos.</p>
+
+<h3>¿Qué tiene el cómputo que no tienen los datos ni los algoritmos?</h3>
+<p>Un modelo se produce con datos, algoritmos y cómputo. El libro defiende que el cómputo es el más gobernable, y lo explica con tres propiedades. Un recurso es gobernable si quien tiene autoridad sobre él puede saber quién lo usa y para qué, y puede hacer cumplir reglas.</p>
+<dl class="facts">
+<div><dt>Física</dt><dd>No se descarga: se fabrica, se compra y se envía. Es rival, es decir, si lo usa uno no lo usa otro a la vez, y es rastreable desde la fábrica hasta el centro de datos. Ejemplo del libro: una herramienta de fabricación de semiconductores de 200 millones de dólares necesita 40 contenedores, 20 camiones y 3 aviones de carga para llegar a su destino (p. 491). Los datos y los algoritmos, en cambio, se copian y se usan a la vez.</dd></div>
+<div><dt>Excluible</dt><dd>Se puede impedir que alguien lo use. En 2023, la gran mayoría de los chips avanzados los fabrica una sola empresa (TSMC), con diseños de unas pocas compañías y máquinas de otra (ASML). Eso hizo viable el veto de 2022 a la exportación de chips de IA punteros a China (p. 492, ejemplo del libro). Además, los chips se sustituyen pronto, porque su precio-rendimiento se duplica cada 2,5 años: una norma sobre chips nuevos empieza a aplicarse enseguida (p. 493).</dd></div>
+<div><dt>Cuantificable</dt><dd>Se puede medir y comparar. Cualquier chip se expresa en FLOP/s, así que se puede fijar un umbral: por encima de tanto cómputo, más permisos y más vigilancia. Con los datos no sirve: 25 GB pueden ser toda la Wikipedia o un álbum de fotos (ejemplo del libro). Los algoritmos apenas se pueden medir. Como ejemplo de regla, el libro imagina que un regulador pida auditorías adicionales a quien tenga al menos 1000 chips tan buenos como los A100 (p. 493).</dd></div>
+</dl>
+<p>Un contraste sanitario propio. Una historia clínica sintética cabe en un pendrive y se copia sin que nadie lo note. El clúster de cientos de GPU que entrena el modelo que la usa ocupa una sala, consume mucha electricidad y tuvo que comprarse a alguien.</p>
+
+<h3>¿Cómo se aplica el control?</h3>
+<p>El libro distingue tres niveles, de menos a más ambicioso (pp. 493 y 494):</p>
+<ol>
+<li><strong>Centros de datos y chips.</strong> Seguir las instalaciones necesita poca tecnología nueva, pero es imperfecto: cuesta saber cuáles entrenan IA y con cuántos chips. Alternativa: un registro de ventas de chips.</li>
+<li><strong>La nube.</strong> Muchos desarrolladores alquilan el hardware. Los proveedores podrían aplicar políticas de conocimiento del cliente (<em>know your customer</em>, KYC) para no dar cómputo a quien esté sancionado.</li>
+<li><strong>Mecanismos en el chip.</strong> Un chip vendido puede acabar lejos de donde se declaró, y ni el registro ni la nube lo evitan. La propuesta que recoge el libro es que el propio chip ayude a localizarlo, con módulos seguros de hardware y firmware. Hoy no existen. Según el libro, probablemente se harían con funciones de seguridad que ya hay, sin rediseñar el chip y sin mirar qué software ejecuta. Una versión más ambiciosa podría informar de si las GPU se unen en clústeres muy grandes.</li>
+</ol>
+<p>Para un gobierno, esto hace factible vigilar y hacer cumplir. Para varios países, hace más fácil verificar acuerdos, que era el obstáculo de la lección anterior (pp. 494 y 495).</p>
+
+<h3>¿Cuándo deja de funcionar?</h3>
+<p>El libro es explícito: gobernar el cómputo es más sencillo ahora por condiciones que podrían cambiar.</p>
+<ul>
+<li><strong>Los algoritmos se vuelven eficientes.</strong> Si se logra la misma capacidad con menos cómputo, el umbral pierde sentido (p. 490). Ya hay herramientas de descubrimiento de fármacos que necesitan poco cómputo y se han podido reconvertir para diseñar armas químicas (p. 490).</li>
+<li><strong>Modelos en dispositivos pequeños.</strong> Según las tendencias, faltan décadas para entrenar un modelo como GPT-4 en una GPU normal, pero unos pocos avances podrían acortarlo mucho (pp. 490 y 491).</li>
+<li><strong>La cadena de suministro se reparte.</strong> Con muchos fabricantes, un veto es más difícil de imponer (p. 495).</li>
+<li><strong>El coste baja a lo que paga una pequeña empresa o una persona.</strong> Entonces sería mucho más difícil vigilar los recursos (p. 495).</li>
+</ul>
+<p>Lectura propia: el cómputo es hoy una condición necesaria para los modelos más capaces, no una garantía de seguridad. Se combina con las herramientas de la lección m10/l03, como capas de un queso suizo (m02/l03).</p>
+
+<h3>¿Qué le pasa a un umbral con los años? (análisis propio)</h3>
+<p>Un umbral fijo en FLOP cubre hoy a pocos modelos. Pero si el cómputo de la frontera se multiplica por 4 al año, cada año hay más modelos por encima, y en poco tiempo casi todos. Esa erosión no está en el libro: es una consecuencia de sus cifras. También cabe preguntarse cuándo un modelo de nivel de frontera de hoy costará poco. Si igualarlo cuesta \(C_0\) y el presupuesto de una pequeña empresa es \(B\), con la mejora de los chips y sin avances de algoritmos, tarda:</p>
+<div class="formula">\[ t = h\,\log_2\frac{C_0}{B} \qquad\text{con } C_0=100\ \text{M€},\ B=1\ \text{M€},\ h=2{,}5:\ \ t=2{,}5\cdot\log_2 100\approx 16{,}6\ \text{años} \]</div>
+<p>Las cifras de coste, cohorte y presupuesto son ilustrativas y están marcadas como tales en el simulador. Para mover el umbral y el crecimiento y ver cuántos modelos quedan por encima cada año, <a data-ir="practica" href="#sim-umbral">pruébalo en Práctica</a>.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Una agencia inventada fija un umbral de \(10^{25}\) FLOP de entrenamiento: quien lo supere tiene que registrar el entrenamiento y pasar una auditoría. Hoy lo superan 1 de cada 10 modelos, exactamente los de la frontera. Con el cómputo multiplicándose por 4 al año, a los tres años son 6 de 10 y a los seis años son los 10. La agencia tiene dos opciones. Una es dejarlo así y aceptar que vigila a todos, con lo que pierde foco. La otra es revisarlo al alza cada año, con lo que sigue vigilando a los mismos 1 de cada 10, pero alguien tiene que decidir cuánto sube.</p>
+<p>Un modelo de imagen para radiología entrenado con \(10^{20}\) FLOP queda cien mil veces por debajo, aunque se use con pacientes reales. El umbral vigila capacidad general, no daño clínico: para lo segundo hacen falta las herramientas de la lección m10/l03, como la regulación o la responsabilidad legal.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Creer que el umbral de FLOP mide el riesgo.</strong> Mide cuánto cómputo se gastó, y eso solo aproxima la capacidad. Un modelo pequeño y eficiente puede hacer daño, como los de descubrimiento de fármacos que cita el libro. Un modelo enorme puede ser inofensivo.</p>
+<p><strong>Tratar el control del cómputo como un candado que dura.</strong> Depende de que la fabricación siga concentrada y de que la frontera siga necesitando mucho cómputo (aviso del libro, p. 495). Un umbral en cifras absolutas, además, envejece.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>Compute is the most governable input to AI because it is physical, concentrated in a few suppliers and measurable, so a FLOP threshold can trigger oversight, but I would review that threshold regularly, because efficiency gains erode it.</p>
+
+<div class="teoria prose">
+
+<h3>Repaso del módulo 10</h3>
+<p>Con esta lección se cierra el módulo. Seis ideas para llevarte, en el orden de las lecciones:</p>
+<ul>
+<li><strong>Crecimiento y reparto.</strong> Nadie sabe si la IA acelerará mucho la economía o si la frenarán límites de recursos, adopción y tareas difíciles de automatizar. Sea cual sea el ritmo, importa quién se queda con el fruto (trabajo o capital), quién puede usarla y si mandará una IA o muchas.</li>
+<li><strong>La empresa.</strong> Es la primera barrera, y su diseño se juzga por si cada pieza da voz (avisa) o da poder (frena una decisión), sobre todo cuando quien manda tiene prisa.</li>
+<li><strong>El Estado.</strong> Tiene herramientas que actúan en momentos distintos: normas y regulación antes, responsabilidad legal después, impuestos y resiliencia para pagar y amortiguar, y otras para no quedarse atrás y proteger los pesos de los modelos. Ninguna basta, y se combinan como capas.</li>
+<li><strong>Entre países.</strong> Las reglas de un solo país no bastan y ningún gobierno manda sobre los otros, así que se pacta por pasos. Qué régimen sirve depende de la tecnología (si domina el ataque, si se puede verificar, si un solo desvío sería catastrófico y quién controla la producción): certificar a los reguladores nacionales para la IA civil y, para la militar, frenar la difusión, verificar mutuamente o crear un monopolio. Sin nada de eso hay riesgo de espiral competitiva y de rebajar la seguridad (libro 8.8, p. 496).</li>
+<li><strong>El cómputo.</strong> Es la palanca más medible: física, excluible y cuantificable. Funciona mientras la fabricación siga concentrada y los mejores modelos exijan mucho cómputo.</li>
+<li><strong>El conjunto.</strong> Se gobierna a varios niveles a la vez porque cada uno tiene puntos ciegos. La conclusión del libro pide política, incentivos y supervisión deliberados, en la línea del queso suizo de la lección m02/l03 (conexión propia).</li>
+</ul>
+
+</div>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 8.7 Compute Governance, págs. 489 a 495 (PDF 507 a 513): el cómputo es imprescindible (489 a 491), es físico, excluible y cuantificable (491 a 493), formas de gobernarlo (493 y 494) y conclusiones (494 y 495). Sección 8.8 Conclusion, págs. 495 a 497 (PDF 513 a 515), base del repaso del módulo; el resumen de 8.6 está en la p. 489.</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS). Esta lección no tiene equivalente en las notas del curso.</li>
+<li>Añadido propio, no procede de las fuentes: el factor de crecimiento del coste \(g/2^{1/h}\) y sus cifras; la fórmula del tiempo hasta un presupuesto; el análisis del umbral fijo y de la revisión anual; la cohorte de 10 modelos, los 100 M€ de hoy, los presupuestos y la mejora algorítmica del simulador; el contraste sanitario, el ejemplo de la agencia y del modelo de radiología; el chip ilustrativo y las cifras de los ejercicios; y el repaso del módulo, reelaborado desde 8.8 y desde las lecciones l01 a l04.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: un simulador para mover un umbral de cómputo y tres ejercicios.</p>
+
+<p class="consigna"><strong>Simulador del umbral de cómputo.</strong> Con los valores iniciales, mira la fila inferior del gráfico: los modelos de 10 que superan el umbral pasan de 1 a 10 en seis años. Pulsa "Umbral que sigue a la frontera" y observa que el recuento se queda en 1: el umbral cubre siempre a los mismos, pero alguien ha de revisarlo cada año. Vuelve a "Umbral fijo" y sube el umbral a 10²⁷: hoy no cubre a nadie y empieza a actuar hacia el año 4. Por último, abre "Ajustes de coste" y pon la mejora algorítmica en ×2: la última casilla, el tiempo hasta que igualar la capacidad del umbral cueste menos que el presupuesto, baja de 16,6 a 4,7 años, porque cada año la misma capacidad pide la mitad de FLOP. Si el precio-rendimiento de los chips se duplica cada 1,25 años en vez de 2,5, la frontera del año 5 cuesta unos 10 mil millones en lugar de 26.</p>
+<div data-widget="m10-l05-umbral" id="sim-umbral"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: de chips a FLOP (a mano, 6 minutos)</p>
+<p>Un chip ilustrativo rinde \(3\cdot10^{14}\) FLOP/s como máximo y en un entrenamiento real se aprovecha el 40 %. El umbral de \(10^{25}\) FLOP también es ilustrativo. Un laboratorio tiene 1000 chips como ese (el listón que el libro cita para pedir una auditoría) y los usa 90 días seguidos.</p>
+<ol>
+<li>¿Cuántos FLOP hace en total? ¿Alcanza el umbral de \(10^{25}\) FLOP?</li>
+<li>¿Cuántos chips necesitaría para llegar a \(10^{25}\) en esos 90 días?</li>
+<li>¿Qué dice esto sobre fijar el umbral en chips (1000) o en FLOP (\(10^{25}\))?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Total = chips × FLOP/s efectivos × segundos. Efectivos: \(3\cdot10^{14}\times0{,}4=1{,}2\cdot10^{14}\). Segundos: \(90\times86\,400=7{,}78\cdot10^{6}\). Total: \(1000\times1{,}2\cdot10^{14}\times7{,}78\cdot10^{6}\approx9{,}3\cdot10^{23}\) FLOP. No llega: queda unas 10 veces por debajo.</p>
+<p><strong>2.</strong> \(10^{25}/(1{,}2\cdot10^{14}\times7{,}78\cdot10^{6})\approx10\,700\) chips, unos once mil.</p>
+<p><strong>3.</strong> Ese laboratorio de 1000 chips tardaría unos 2,6 años en llegar a \(10^{25}\), pero ya estaría sujeto a auditoría. Un listón en chips actúa antes y sobre quien podría llegar; uno en FLOP actúa sobre lo que se ha entrenado. Los chips son más fáciles de contar y los FLOP miden mejor el resultado (lectura propia).</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: el coste de la frontera (a mano, 7 minutos)</p>
+<p>Cifras del libro: el cómputo de los modelos se duplica cada 6 meses y el precio-rendimiento de los chips cada 2,5 años. Cifra ilustrativa: el entrenamiento de frontera cuesta hoy 100 M€.</p>
+<ol>
+<li>¿En qué factor crece el coste por año?</li>
+<li>¿Cuánto costaría dentro de 3 años?</li>
+<li>Si los chips mejoraran el doble de rápido (precio-rendimiento duplicado cada 1,25 años), ¿cuál sería el factor y el coste a los 3 años? ¿Cambia la conclusión de que la frontera se encarece?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Duplicar cada seis meses es multiplicar por 4 al año. El precio por FLOP se divide por \(2^{1/2{,}5}=1{,}32\). Factor: \(4/1{,}32\approx3{,}03\) al año.</p>
+<p><strong>2.</strong> \(100\times3{,}03^3\approx2\,790\) M€, es decir, unos 2,8 mil millones de euros.</p>
+<p><strong>3.</strong> \(2^{1/1{,}25}=1{,}74\), así que el factor es \(4/1{,}74\approx2{,}30\) y el coste a los 3 años es \(100\times2{,}30^3\) M€, es decir, unos 1200 M€. Sigue creciendo, más despacio: mientras el cómputo se cuadruplique cada año, los chips tendrían que mejorar cuatro veces por año para frenar el coste.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: tres formas de esquivar el control (7 minutos)</p>
+<p>Un regulador vigila a quien supere \(10^{25}\) FLOP (umbral ilustrativo). Para cada escenario (propios), di qué propiedad del cómputo se debilita y qué medida de las tres del libro (centros de datos y chips, nube con KYC, mecanismos en el chip) ayudaría.</p>
+<ol>
+<li>Un laboratorio sancionado alquila cómputo a un proveedor de nube de otro país, a nombre de una filial.</li>
+<li>Otro reparte sus chips en muchos centros pequeños, cada uno por debajo de cualquier listón de instalación, y los conecta en red.</li>
+<li>Un equipo logra la misma capacidad con la centésima parte de los FLOP.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Falla la exclusión: el recurso es físico, pero el acceso se alquila. Ayuda la nube con conocimiento del cliente (KYC), que exige saber quién hay detrás de la filial.</p>
+<p><strong>2.</strong> Falla el rastreo por instalaciones. Ayudan un registro de chips o los mecanismos en el chip, que en su versión ambiciosa detectarían si las GPU se interconectan en clústeres grandes.</p>
+<p><strong>3.</strong> Falla la cuantificación: los FLOP dejan de medir la capacidad. Ninguna medida sobre el hardware lo arregla, y hay que revisar el umbral y combinarlo con otras herramientas, como evaluar lo que el modelo hace (lectura propia, sobre las condiciones de la p. 490 del libro).</p>
+</details>
+</div>
+</div>
+
+</section>

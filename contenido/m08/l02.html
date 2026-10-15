@@ -1,0 +1,206 @@
+<section class="leccion" data-id="m08/l02">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Casi toda la inversión en IA sale de empresas. Eso lleva a una pregunta: ¿podemos dejar que el mercado decida cómo será la IA? En parte sí. Un mercado competitivo coordina a millones de personas mediante los precios y, bajo ciertas condiciones, no deja ganancias sin aprovechar.</p>
+<p>El problema son esas condiciones. Fallan cuando una parte sabe más que la otra, cuando pocas empresas dominan, cuando alguien causa un daño que no paga y cuando alguien corre un riesgo cuyas consecuencias pagan otros. En todos esos casos el precio deja de contar todo lo que importa, y una IA que optimiza beneficios optimiza justo esa cifra incompleta.</p>
+<p>Además, medir con dinero tiene un límite. El PIB no cuenta lo que no tiene precio, y un sistema que lo maximice puede subirlo sin mejorar la vida de nadie. La lección enseña a ver ese hueco y a calcularlo en un modelo pequeño.</p>
+
+<svg viewBox="0 0 360 330" role="img" aria-labelledby="rs8-t rs8-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="rs8-t">El precio no cuenta todo</title>
+<desc id="rs8-d">Arriba, dos barras: el precio que se paga en el mercado y el coste social, que es más largo porque incluye el daño a terceros. Debajo, cuatro fallos de mercado: información, concentración, externalidades y riesgo moral.</desc>
+<rect x="4" y="4" width="352" height="132" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="26" style="fill:var(--accent-ink);font-weight:700;font-size:14px">PRECIO Y COSTE SOCIAL</text>
+<rect x="18" y="40" width="200" height="28" rx="4" style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5"/>
+<text x="28" y="59" style="fill:currentColor;font-size:12.5px">Lo que ve el precio</text>
+<rect x="18" y="80" width="200" height="28" rx="4" style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5"/>
+<rect x="218" y="80" width="124" height="28" rx="4" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5;stroke-dasharray:5 3"/>
+<text x="28" y="99" style="fill:currentColor;font-size:12.5px">Coste privado</text>
+<text x="230" y="99" style="fill:currentColor;font-size:12.5px">daño a terceros</text>
+<text x="18" y="126" style="fill:var(--muted);font-size:12px">Coste social = privado + externo</text>
+
+<rect x="4" y="146" width="352" height="180" rx="10" style="fill:var(--surface);stroke:var(--trap);stroke-width:2"/>
+<text x="18" y="168" style="fill:var(--trap);font-weight:700;font-size:14px">CUATRO FALLOS DE MERCADO</text>
+<rect x="18" y="180" width="154" height="62" rx="6" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5"/>
+<text x="30" y="201" style="fill:currentColor;font-size:12.5px;font-weight:700">Información</text>
+<text x="30" y="220" style="fill:currentColor;font-size:12px">uno sabe más</text>
+<text x="30" y="235" style="fill:currentColor;font-size:12px">que el otro</text>
+<rect x="188" y="180" width="154" height="62" rx="6" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5"/>
+<text x="200" y="201" style="fill:currentColor;font-size:12.5px;font-weight:700">Concentración</text>
+<text x="200" y="220" style="fill:currentColor;font-size:12px">pocas empresas</text>
+<text x="200" y="235" style="fill:currentColor;font-size:12px">mandan</text>
+<rect x="18" y="254" width="154" height="62" rx="6" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5"/>
+<text x="30" y="275" style="fill:currentColor;font-size:12.5px;font-weight:700">Externalidades</text>
+<text x="30" y="294" style="fill:currentColor;font-size:12px">el daño lo paga</text>
+<text x="30" y="309" style="fill:currentColor;font-size:12px">un tercero</text>
+<rect x="188" y="254" width="154" height="62" rx="6" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5"/>
+<text x="200" y="275" style="fill:currentColor;font-size:12.5px;font-weight:700">Riesgo moral</text>
+<text x="200" y="294" style="fill:currentColor;font-size:12px">el riesgo lo pagan</text>
+<text x="200" y="309" style="fill:currentColor;font-size:12px">otros</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Enunciar el primer teorema del bienestar y explicar por qué una asignación eficiente en el sentido de Pareto no tiene por qué ser justa.</li>
+<li>Distinguir cuatro fallos de mercado (asimetría de información, concentración, externalidades y riesgo moral) y reconocerlos en casos de IA.</li>
+<li>Calcular en un modelo lineal el equilibrio de mercado, el óptimo social, la pérdida de bienestar y el impuesto que los alinea.</li>
+<li>Explicar por qué el PIB y el excedente social son sustitutos (<em>proxies</em>) de lo que queremos y qué riesgo corre una IA a la que se los damos como objetivo.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>¿Puede el mercado decidir cómo es la IA?</h3>
+<p>La IA avanzada, a diferencia de la energía nuclear, la impulsan sobre todo empresas, que ya han reunido el cómputo y parte del mejor talento. Algunos concluyen que el mercado debería guiar su desarrollo: si el crecimiento se acelera y costes y beneficios se reparten con justicia, mucha gente saldría ganando. El libro reconoce la fuerza de los incentivos económicos, pero sostiene que no recogen muchos valores importantes (libro, pp. 305 y 306). La lección sigue esa tensión.</p>
+
+<h3>¿Cuándo asigna bien un mercado libre?</h3>
+<p>La respuesta clásica pasa por la eficiencia de Pareto (<em>Pareto efficiency</em>): una situación es eficiente si no se puede mejorar a nadie sin empeorar a otro. Si existiera un cambio que mejora a dos personas, ellas mismas lo harían comerciando. Cuando no queda ninguna operación así, se ha llegado a la eficiencia. Eso resume el primer teorema fundamental de la economía del bienestar (<em>First Fundamental Theorem of Welfare Economics</em>): con supuestos fuertes, el equilibrio de un mercado libre es eficiente en ese sentido. Es la base formal de la mano invisible de Adam Smith (libro, p. 306).</p>
+<p>Ejemplo propio: un hospital tiene quirófanos libres por las tardes y otro tiene lista de espera. Si el segundo compra huecos al primero y ambos salen ganando, la situación anterior no era eficiente. Cuando ya no haya ningún trato que beneficie a los dos, sí lo será.</p>
+<p>Los supuestos son ocho, y el libro los enumera (pp. 306 y 307). Conviene tenerlos delante, porque los fallos de mercado que siguen son, casi todos, la ruptura de alguno de ellos. La columna de IA clínica es un ejemplo propio:</p>
+<div class="tw"><table>
+<thead><tr><th>Condición del teorema</th><th>Se rompe cuando...</th><th>Ejemplo propio de IA clínica</th></tr></thead>
+<tbody>
+<tr><td>Mercado abierto, sin barreras</td><td>entrar cuesta demasiado</td><td>certificar un producto sanitario exige años y millones</td></tr>
+<tr><td>Ningún vendedor ni comprador mueve el precio</td><td>hay poder de mercado</td><td>un solo proveedor de historia clínica electrónica</td></tr>
+<tr><td>Nadie guarda una tecnología clave</td><td>el pionero no puede ser copiado</td><td>un modelo cuyos datos de entrenamiento nadie más tiene</td></tr>
+<tr><td>Información perfecta</td><td>uno sabe más que el otro</td><td>el hospital no puede auditar el modelo que compra</td></tr>
+<tr><td>Sin externalidades</td><td>el precio no incluye el daño a terceros</td><td>las emisiones del centro de datos</td></tr>
+<tr><td>Preferencias no saciadas y Estado que garantiza propiedad y contratos</td><td>faltan o no se cumplen</td><td>no hay tribunales ni contratos que respalden el servicio</td></tr>
+</tbody></table></div>
+<p>Aquí conviene una advertencia propia: eficiente no significa justo. Repartir todo entre una persona y nadie más también puede ser eficiente, porque no se puede mejorar a los demás sin quitárselo a ella. El teorema solo dice que no se desperdician ganancias, no que el reparto sea aceptable.</p>
+<p>Como las condiciones son estrictas, el libro concluye que en la práctica pueden fallar, y que la IA podría agravar esos fallos y aumentar la desigualdad (p. 307). Veamos cuatro.</p>
+
+<h3>Primer fallo: cuando uno sabe más que el otro</h3>
+<p>La asimetría de información (<em>information asymmetry</em>) aparece cuando comprador y vendedor no conocen lo mismo del producto. No siempre es mala: confiamos en que el mecánico sabe más que nosotros del coche. El daño llega con la selección adversa (<em>adverse selection</em>). En el mercado de coches usados, el comprador no distingue los buenos de los malos y solo ofrece un precio que descuenta el riesgo de llevarse uno defectuoso. Ese precio no compensa a los dueños de coches buenos, que se retiran, y queda un mercado de coches malos (libro, pp. 307 y 308).</p>
+<p>La IA puede aprovechar y ampliar esa brecha. El libro señala que los perfiles detallados de consumidores permiten dirigir anuncios o manipulaciones más eficaces, y que un prestamista con IA podría identificar a quién es más fácil colocar condiciones abusivas (p. 308). Un caso propio, planteado como hipótesis: si un hospital no puede comprobar cuál de dos herramientas de IA clínica es más fiable, tenderá a pagar un precio medio. El proveedor que invirtió en validarla no lo recupera, y validar deja de compensar.</p>
+
+<h3>Segundo fallo: cuando pocas empresas mandan</h3>
+<p>Un oligopolio (<em>oligopoly</em>) es un mercado con muy pocos oferentes. Sin competencia real pueden subir precios y ofrecer menos opciones (pp. 308 y 309).</p>
+<p>¿Por qué la IA avanzada podría acabar así? Un cálculo propio con cifras inventadas: entrenar cuesta 100 millones de euros y cada consulta 0,001 euros. Con mil millones de consultas el coste medio es de 0,101 euros; con diez mil millones baja a 0,011. Quien tenga más clientes puede cobrar menos que un entrante, y de ahí el argumento del libro: atender a muchos con un solo modelo sale más barato que repetir el gasto de entrenar en varias empresas (p. 309). Añade dos refuerzos: la ventaja acumulativa del primero, que recauda capital y se aleja de los demás, y la posibilidad de que una IA muy general desplace a los especialistas. El libro lo plantea como una posibilidad, no como un hecho.</p>
+
+<h3>Tercer fallo: el daño que nadie paga (externalidades)</h3>
+<p>Una externalidad (<em>externality</em>) es un efecto de una transacción sobre terceros que no sale en el precio. El ejemplo del libro es una fábrica de salsa picante en Irwindale (California) cuyos olores molestaban a los vecinos: ni la empresa ni sus clientes pagaban esa molestia. Hay tres remedios clásicos: demandar ante un tribunal, definir derechos de propiedad para que las partes negocien y cobrar un impuesto, como el del tabaco (p. 310). En la IA el libro cita las emisiones del entrenamiento, el desplazamiento de trabajadores, el uso indebido, los accidentes y la posible pérdida de control de sistemas avanzados (p. 310).</p>
+<p>El modelo más sencillo es lineal, y es un añadido propio. Sea \(P=a-bQ\) la demanda (lo que paga el último comprador por la unidad \(Q\)) y \(c+dQ\) el coste privado marginal de producirla. Cada unidad causa además un daño externo \(e\). El mercado produce donde la demanda iguala al coste privado, pero la sociedad debería producir donde iguala al coste privado más el externo:</p>
+<div class="formula">\[ Q_m=\frac{a-c}{b+d},\qquad Q^*=\frac{a-c-e}{b+d},\qquad \text{pérdida}=\tfrac12\,e\,(Q_m-Q^*) \]</div>
+<p>Entre \(Q^*\) y \(Q_m\) cada unidad cuesta a la sociedad más de lo que vale para quien la compra. La suma de esos excesos es un triángulo, la pérdida de bienestar (<em>deadweight loss</em>). Un impuesto \(t=e\) por unidad hace que productor y comprador vuelvan a contar el daño y lleva el mercado a \(Q^*\). Es la lógica del impuesto pigouviano. Los números están en el ejemplo, y en el <a data-ir="practica" href="#sim-externalidad">simulador de externalidades</a> puedes mover el coste externo y el impuesto y ver el triángulo.</p>
+
+<h3>Cuarto fallo: cuando el riesgo lo pagan otros (riesgo moral)</h3>
+<p>Hay riesgo moral (<em>moral hazard</em>) cuando quien decide cuánto riesgo asumir no soporta todas las consecuencias. El ejemplo del libro es el seguro del móvil: quien lo tiene cuida menos el aparato porque otro pagará la reparación (p. 311). En una empresa, la quiebra funciona como un tope: si el daño supera lo que tiene, el resto lo asume la sociedad. Y los bancos considerados demasiado grandes para caer dieron por hecho un rescate público antes de la crisis de 2008 (p. 311).</p>
+<p>El libro plantea un caso extremo con la IA. Una empresa está a punto de inventar un sistema que multiplicaría sus beneficios por mil, pero con un 0,1 % de probabilidad de un accidente que cause muertes a gran escala. Casi todos rechazarían esa apuesta; la empresa puede ver rentable la suya (p. 311). La conclusión es que, si los riesgos recaen sobre quien los toma (internalización del riesgo), esa persona tiene motivos para invertir en seguridad.</p>
+<p>Un modelo propio lo hace medible. Sea \(G\) el beneficio si sale bien, \(p\) la probabilidad de accidente, \(H\) el daño total y \(L\) lo máximo que puede perder la empresa (su responsabilidad). Cada una calcula un valor esperado:</p>
+<div class="formula">\[ VE_{\text{empresa}}=(1-p)\,G-p\,\min(H,L),\qquad VE_{\text{sociedad}}=(1-p)\,G-p\,H \]</div>
+<p>Si el daño total supera \((1-p)G/p\), la empresa desiste solo si \(L\ge (1-p)G/p\). Con \(G=500\) millones de euros, \(p=1\,\%\) y \(H=200.000\) millones (cifras inventadas): para la sociedad el valor esperado es \(495-2.000=-1.505\); para una empresa cuya responsabilidad llega a 2.000 millones es \(495-20=475\). Lanza el sistema aunque a la sociedad no le compensa, y necesitaría poder perder al menos 49.500 millones para dudar. Un caso propio más cercano: un centro que recorta comprobaciones de calidad porque el seguro cubre los errores. El <a data-ir="practica" href="#sim-riesgo-moral">simulador de riesgo moral</a> deja mover cada variable.</p>
+<p>El libro presenta los tres primeros como fallos de mercado y el riesgo moral como una idea aparte aplicada a la IA. Los cuatro tienen la misma raíz: el precio, o el cálculo de quien decide, deja fuera parte del coste real. Los apartados que siguen miran otra cosa: qué pasa con el reparto de lo que el mercado produce y con la cifra que usamos para medirlo.</p>
+
+<h3>¿Quién se queda con los frutos? Desigualdad</h3>
+<p>El coeficiente de Gini (<em>Gini coefficient</em>) mide la desigualdad entre 0 (todos iguales) y 1 (una sola persona lo tiene todo). Según el libro, el 71 % de la población mundial vive en países donde la desigualdad es hoy mayor que hace treinta años. En Estados Unidos, entre 1969 y 2019 el Gini antes de impuestos subió un 30 % y el posterior a impuestos un 25 % (p. 312).</p>
+<p>La tabla 6.1 del libro (p. 313) compara los ingresos reales de 2018 con los que habría habido si la desigualdad se hubiera quedado como en 1975. Cifras del libro, con los porcentajes calculados aquí:</p>
+<div class="tw"><table>
+<thead><tr><th>Percentil (EE. UU., 2018)</th><th>Ingreso real</th><th>Con la desigualdad de 1975</th><th>Diferencia</th></tr></thead>
+<tbody>
+<tr><td>25</td><td>15.000 $</td><td>20.000 $</td><td>+33 %</td></tr>
+<tr><td>Mediana</td><td>36.000 $</td><td>57.000 $</td><td>+58 %</td></tr>
+<tr><td>75</td><td>65.000 $</td><td>100.000 $</td><td>+54 %</td></tr>
+<tr><td>Media del 1 % superior</td><td>1.160.000 $</td><td>549.000 $</td><td>-53 %</td></tr>
+</tbody></table></div>
+<p>El crecimiento agregado se ha repartido de forma muy distinta: casi todo el mundo, salvo la cima, tendría bastante más. Y la desigualdad no solo perjudica a los pobres. El libro la asocia con peor salud, más delincuencia, más consumo de drogas, más encarcelamiento e inestabilidad política, y señala que los ricos sufren también esos efectos de forma indirecta (pp. 313 y 314).</p>
+<p>Las causas se discuten. Thomas Piketty propone que la desigualdad crece cuando la rentabilidad del capital (\(r\)) supera el crecimiento de la economía (\(g\)). Su idea heterodoxa es que el capital es un sustituto bruto del trabajo: con él se puede reemplazar a los trabajadores, como robots que compiten con ellos. Si \(r>g\), los dueños del capital se enriquecen más deprisa que los salarios. La visión estándar es la contraria: el capital complementa al trabajo, lo hace más productivo y sube los salarios. Si la IA funciona como sustituto y su rentabilidad supera al crecimiento, el resultado sería más desigualdad. Piketty lo vería como la prolongación de una tendencia de siglos (pp. 313 a 315). El impacto laboral se trata en el módulo de gobernanza.</p>
+
+<h3>¿Por qué no frenar el crecimiento?</h3>
+<p>Hay quien defiende dar menos peso al crecimiento. El libro responde con la curva de Preston (<em>Preston curve</em>): los países con más PIB por habitante tienen mejor salud, y la esperanza de vida mundial pasó de menos de 40 años a principios del siglo XX a unos 70 hoy (p. 315). Además, con más recursos se pueden atender valores que compiten entre sí sin sacrificar ninguno (p. 316). Ejemplo propio: una consejería que solo puede pagar un centro de salud o una biblioteca puede financiar los dos si la economía crece.</p>
+
+<h3>¿Mide el PIB lo que queremos?</h3>
+<p>El producto interior bruto (PIB, <em>GDP</em>) suma el valor monetario de los bienes y servicios finales producidos en un país. Solo cuenta lo que tiene precio. Quedan fuera los cuidados familiares, el voluntariado y la enseñanza temprana, y también lo gratuito: Wikipedia da un valor enorme que el PIB no ve (pp. 316 y 317). El libro extiende el aviso a la IA. Un sistema gratuito que mejore la educación de millones apenas aparece en el PIB, mientras que otro de negociación bursátil de alta frecuencia lo sube sin mejorar el bienestar (p. 317).</p>
+<p>De ahí la distinción entre sustituto y propósito (<em>proxy</em> y <em>purpose</em>): el PIB se toma por señal de bienestar, pero no es el bienestar. Si se encarga a una IA maximizarlo, puede subirlo por caminos que dañan lo que la cifra debía representar, como la sostenibilidad o la felicidad (p. 317). Ejemplo propio: un sistema de gestión de camas que maximice la facturación del hospital puede favorecer estancias largas o pruebas innecesarias. La cifra sube y los pacientes salen peor.</p>
+<p>El mismo límite afecta al excedente social (<em>social surplus</em>), el modelo básico de la economía del bienestar: el excedente del consumidor (lo que estaría dispuesto a pagar menos lo que paga) más el del productor (lo que cobra menos lo mínimo que aceptaría). Ejemplo del libro: un lector pagaría hasta 20 por un libro, el precio es 15 y el editor lo vendería desde 10. Consumidor y productor ganan 5 cada uno y el excedente social es 10 (p. 318). Pero el excedente es ciego al reparto. Si una IA conoce tan bien a cada cliente que le cobra justo lo máximo que pagaría, todo el excedente pasa al productor y la suma sigue siendo 10 (p. 318). Cuánto vale ese reparto para el bienestar es asunto de la lección siguiente, y cómo sumar el bienestar de personas distintas, de la que viene después.</p>
+<p>La conclusión del libro es cauta: usar el dinero como sustituto del valor da más peso a quien más gasta, y por eso no conviene dejar en manos de un mercado sin regular las metas de la IA (pp. 319 y 320). Los incentivos económicos son un motor, no un volante.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Los antibióticos son un caso sanitario de externalidad. Cada tratamiento recetado de más ayuda a crear resistencias, un daño que sufren pacientes futuros que no pagan ese tratamiento. Modelo: demanda \(P=100-Q\), coste privado marginal \(20+Q\) y un daño externo de 20 por tratamiento. Unidades en miles y euros por unidad.</p>
+<ul>
+<li>Mercado: \(Q_m=(100-20)/2=40\), a un precio de \(100-40=60\).</li>
+<li>Óptimo social: \(Q^*=(100-20-20)/2=30\).</li>
+<li>Pérdida de bienestar: \(\tfrac12\times20\times(40-30)=100\), es decir, 100.000 euros.</li>
+<li>Impuesto \(t=20\): la producción baja a 30 y la pérdida desaparece. El comprador paga \(100-30=70\) y el productor se queda con 50. La recaudación es \(20\times30=600\).</li>
+</ul>
+<p>El mercado receta 10.000 tratamientos más de los que compensan. Para acertar con el impuesto hay que conocer el daño externo, y ahí está la dificultad práctica: estimarlo bien es difícil, y un impuesto mal calibrado deja parte de la pérdida o crea otra en sentido contrario, como se ve en el simulador.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Confundir eficiente con justo (aviso propio).</strong> El teorema del bienestar promete que no se desperdician ganancias, no que el reparto sea aceptable. Un resultado puede ser eficiente y muy desigual.</p>
+<p><strong>Pensar que el mercado corrige todo.</strong> El teorema depende de ocho condiciones. En cuanto falla una, como con las externalidades, la asignación deja de ser eficiente y hace falta una corrección, como un impuesto o una regla de responsabilidad.</p>
+<p><strong>Tomar la cifra por el propósito.</strong> Un PIB o un excedente más altos no garantizan una vida mejor. Si se los das a una IA como meta, los optimiza a costa de lo que no miden.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>The market prices what it can see; it misses external costs, and it lets those who take the risk pass the downside to others. So before we let profit set the goal for an AI system, I ask who pays for what the price leaves out.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 6.4 The Economic Engine, págs. 305 a 320 (PDF 323 a 338): mercado y eficiencia de Pareto (306 y 307), asimetría de información y oligopolio (307 a 309), externalidades (310), riesgo moral (311), desigualdad y tabla 6.1 (311 a 315), crecimiento (315 y 316), PIB y excedente social (316 a 320).</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS) no tiene una lección de esta sección; el contenido sale solo del libro.</li>
+<li>Añadido propio, no procede de las fuentes: el modelo lineal de externalidad con sus fórmulas, la pérdida de bienestar y el impuesto pigouviano; el modelo del tope de responsabilidad; los porcentajes de la tabla 6.1; el cálculo del coste medio; los ejemplos sanitarios (hospitales, antibióticos, historia clínica, camas); y los ejercicios y simuladores.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: dos simuladores para explorar y dos ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de externalidades.</strong> Empieza con un coste externo de 20 y sin impuesto: el mercado produce 40 unidades y el óptimo es 30. Pulsa "Impuesto igual al coste externo" y observa cómo desaparece el triángulo rojo. Luego mueve el impuesto por debajo y por encima del coste externo: en ambos lados la pérdida vuelve. Por último, pon el coste externo a 0 y sube el impuesto: crea una pérdida donde no había ninguna.</p>
+<div data-widget="m08-l02-externalidad" id="sim-externalidad"></div>
+
+<p class="consigna"><strong>Simulador de riesgo moral.</strong> Con los valores iniciales la empresa lanza el sistema y la sociedad sale perdiendo. Sube poco a poco la parte del daño que paga la empresa y observa a qué reparto el valor esperado de la empresa cambia de signo. Después baja el daño o sube el beneficio para ver cuándo lanzar compensa a ambos.</p>
+<div data-widget="m08-l02-riesgo-moral" id="sim-riesgo-moral"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: externalidad de un modelo de lenguaje (a mano, 8 minutos)</p>
+<p>Un servicio de IA para generar informes tiene demanda \(P=90-Q\) y coste privado marginal \(10+Q\) (unidades en miles, euros por unidad). Cada unidad tiene un coste externo de 16 por consumo eléctrico y emisiones (cifras propias).</p>
+<ol>
+<li>Calcula la producción de mercado y la óptima.</li>
+<li>Calcula la pérdida de bienestar de dejar el mercado libre.</li>
+<li>¿Qué impuesto por unidad lleva al óptimo y cuánto recauda?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> \(Q_m=(90-10)/2=40\); \(Q^*=(90-10-16)/2=32\).</p>
+<p><strong>2.</strong> \(\tfrac12\times16\times(40-32)=64\), es decir, 64.000 euros.</p>
+<p><strong>3.</strong> \(t=16\), igual al coste externo. Recauda \(16\times32=512\), o 512.000 euros. Con ese dinero se podría compensar a los afectados.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: responsabilidad limitada (a mano y con Python, 10 minutos)</p>
+<p>Una empresa valora lanzar un sistema con un beneficio de 800 millones si sale bien y una probabilidad del 2 % de un accidente que causaría 100.000 millones de daño (cifras propias). Su responsabilidad máxima es de 5.000 millones.</p>
+<ol>
+<li>Calcula el valor esperado para la empresa y para la sociedad.</li>
+<li>¿A partir de qué responsabilidad máxima dejaría de compensarle lanzar? ¿Qué parte del daño total es?</li>
+<li>Comprueba el resultado con este fragmento. Cámbialo a \(p=0{,}005\) y explica qué ocurre.</li>
+</ol>
+<pre><code>G, p, H, L = 800, 0.02, 100_000, 5_000
+
+ve_empresa = (1 - p) * G - p * min(H, L)
+ve_sociedad = (1 - p) * G - p * H
+umbral = (1 - p) * G / p
+print(ve_empresa, ve_sociedad, umbral)</code></pre>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Empresa: \(0{,}98\times800-0{,}02\times5.000=784-100=684\). Sociedad: \(784-0{,}02\times100.000=784-2.000=-1.216\). La empresa lanza y la sociedad sale perdiendo: riesgo moral.</p>
+<p><strong>2.</strong> \(L\ge0{,}98\times800/0{,}02=39.200\) millones, el 39,2 % del daño total. Con menos, sigue lanzando.</p>
+<p><strong>3.</strong> El fragmento imprime <code>684.0 -1216.0 39200.0</code>. Con \(p=0{,}005\) la sociedad sale con \(796-500=296\), positivo, y el umbral sube a \(159.200\), mayor que el daño total: la empresa lanza y hace bien, porque su cálculo y el social coinciden. El riesgo moral solo pesa cuando el daño esperado supera al beneficio.</p>
+</details>
+</div>
+
+</div>
+
+</section>
+

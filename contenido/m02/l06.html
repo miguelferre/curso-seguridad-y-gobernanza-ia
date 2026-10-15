@@ -1,0 +1,233 @@
+<section class="leccion" data-id="m02/l06">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>En la lección anterior vimos que hay eventos raros y enormes, los eventos de cola. Un cisne negro (<em>black swan</em>) es uno de ellos con un añadido: casi nadie lo veía venir. No es solo que sea improbable, es que nuestro modelo del mundo no lo contemplaba.</p>
+<p>Para pensar en lo que no vemos ayuda una parrilla de cuatro casillas. Se cruzan dos preguntas: ¿sabemos que existe? y ¿lo entendemos? Los cisnes negros viven en la casilla de abajo a la derecha: ni sabemos que existen ni los entendemos.</p>
+<p>Eso cambia cómo se analiza el riesgo. Las estadísticas de siempre se apoyan en lo ya visto, así que fallan justo ahí. Lo que sí se puede hacer es actuar antes de tener certeza, mirar los extremos y no solo la media, y usar técnicas para que algunos cisnes negros entren en el radar.</p>
+
+<svg viewBox="0 0 360 292" role="img" aria-labelledby="rs-t rs-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="rs-t">Parrilla de conocidos y desconocidos</title>
+<desc id="rs-d">Dos columnas, somos conscientes o no lo somos, y dos filas, lo entendemos o no lo entendemos. Arriba a la izquierda, conocidos conocidos. Arriba a la derecha, desconocidos conocidos. Abajo a la izquierda, conocidos desconocidos. Abajo a la derecha, desconocidos desconocidos, donde viven los cisnes negros.</desc>
+<text x="150" y="16" text-anchor="middle" style="fill:var(--muted);font-size:12.5px;font-weight:600">Somos conscientes</text>
+<text x="270" y="16" text-anchor="middle" style="fill:var(--muted);font-size:12.5px;font-weight:600">No lo somos</text>
+<text x="0" y="0" transform="translate(14,90) rotate(-90)" text-anchor="middle" style="fill:var(--muted);font-size:12.5px;font-weight:600">Lo entendemos</text>
+<text x="0" y="0" transform="translate(14,214) rotate(-90)" text-anchor="middle" style="fill:var(--muted);font-size:12.5px;font-weight:600">No lo entendemos</text>
+<rect x="30" y="26" width="118" height="116" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="89" y="62" text-anchor="middle" style="fill:var(--ex);font-weight:700;font-size:13.5px">Conocidos</text>
+<text x="89" y="80" text-anchor="middle" style="fill:var(--ex);font-weight:700;font-size:13.5px">conocidos</text>
+<text x="89" y="104" text-anchor="middle" style="fill:currentColor;font-size:11.5px">lo tenemos a mano</text>
+<text x="89" y="120" text-anchor="middle" style="fill:var(--muted);font-size:10.5px;font-style:italic">known knowns</text>
+<rect x="152" y="26" width="118" height="116" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="211" y="62" text-anchor="middle" style="fill:var(--accent-ink);font-weight:700;font-size:13.5px">Desconocidos</text>
+<text x="211" y="80" text-anchor="middle" style="fill:var(--accent-ink);font-weight:700;font-size:13.5px">conocidos</text>
+<text x="211" y="104" text-anchor="middle" style="fill:currentColor;font-size:11.5px">saber tácito</text>
+<text x="211" y="120" text-anchor="middle" style="fill:var(--muted);font-size:10.5px;font-style:italic">unknown knowns</text>
+<rect x="30" y="148" width="118" height="116" rx="10" style="fill:var(--surface);stroke:var(--trap);stroke-width:2"/>
+<text x="89" y="184" text-anchor="middle" style="fill:var(--trap);font-weight:700;font-size:13.5px">Conocidos</text>
+<text x="89" y="202" text-anchor="middle" style="fill:var(--trap);font-weight:700;font-size:13.5px">desconocidos</text>
+<text x="89" y="226" text-anchor="middle" style="fill:currentColor;font-size:11.5px">lagunas a la vista</text>
+<text x="89" y="242" text-anchor="middle" style="fill:var(--muted);font-size:10.5px;font-style:italic">known unknowns</text>
+<rect x="152" y="148" width="118" height="116" rx="10" style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:3"/>
+<text x="211" y="184" text-anchor="middle" style="fill:var(--accent-ink);font-weight:700;font-size:13.5px">Desconocidos</text>
+<text x="211" y="202" text-anchor="middle" style="fill:var(--accent-ink);font-weight:700;font-size:13.5px">desconocidos</text>
+<text x="211" y="226" text-anchor="middle" style="fill:currentColor;font-size:11.5px">cisnes negros</text>
+<text x="211" y="242" text-anchor="middle" style="fill:var(--muted);font-size:10.5px;font-style:italic">unknown unknowns</text>
+<text x="150" y="284" text-anchor="middle" style="fill:var(--muted);font-size:11.5px">Primera palabra: conciencia. Segunda: comprensión.</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Definir un cisne negro y distinguirlo de otros eventos de cola con un ejemplo de cada uno.</li>
+<li>Clasificar un riesgo en la matriz conocidos y desconocidos y proponer una acción distinta para cada casilla.</li>
+<li>Explicar por qué fallan la estimación estadística y el análisis de coste-beneficio ante cisnes negros, con un cálculo de sensibilidad.</li>
+<li>Reconocer la falacia de la demora, la ausencia de evidencia y la paradoja de la preparación, y enumerar las señales y técnicas para identificar riesgos de cola.</li>
+</ul>
+</div>
+
+
+<div class="teoria prose">
+
+<h3>Un caso para empezar</h3>
+<p>(Ejemplo propio.) Un hospital usa desde hace años un modelo que ordena a los pacientes de urgencias por gravedad. Lo entrenó con datos anteriores a 2020 y en revisiones periódicas sale muy bien. Un día llega una enfermedad infecciosa nueva, con síntomas que ningún dato recogía. El modelo sigue dando puntuaciones seguras y deja abajo en la cola a gente que empeora deprisa.</p>
+<p>Ninguna revisión previa lo habría detectado, porque ninguna miraba esa posibilidad. Ese es el núcleo de un cisne negro (<em>black swan</em>): un evento de cola que casi nadie esperaba porque no cabía en el modelo del mundo de la mayoría. Además de raro y de gran impacto, como cualquier evento de cola, aquí lo definitorio es la sorpresa.</p>
+<p>No todo evento de cola es un cisne negro. El gran terremoto de California es de cola, pero se sabe que llegará y que hay que prepararse, aunque no cuándo. Está en el radar. El nombre viene de una anécdota que cuenta el libro: en Europa se creía que todos los cisnes eran blancos hasta que, en 1697, unos exploradores neerlandeses vieron cisnes negros en Australia. Una sola observación bastó para tumbar la regla.</p>
+
+<h3>¿Qué sabemos y qué ignoramos?</h3>
+<p>Para ordenar lo que nos puede sorprender, el libro combina dos preguntas: ¿somos conscientes de ello? y ¿lo entendemos? La primera palabra de cada nombre habla de la conciencia y la segunda, de la comprensión. Los cisnes negros son eventos de cola de la última casilla.</p>
+<div class="tw"><table>
+<thead><tr><th>Casilla</th><th>Qué es</th><th>Ejemplo sanitario (propio)</th></tr></thead>
+<tbody>
+<tr><td>Conocidos conocidos (<em>known knowns</em>)<br>"Sabemos que lo sabemos"</td><td>Somos conscientes y lo entendemos.</td><td>El modelo de triaje rinde peor en mayores de 85 años: se ha medido y se conoce la causa.</td></tr>
+<tr><td>Desconocidos conocidos (<em>unknown knowns</em>)<br>"No sabemos que lo sabemos"</td><td>Lo entendemos, pero sin ser conscientes de ello: saber tácito.</td><td>Los residentes de urgencias descartan ciertas sugerencias del modelo con solo mirar al paciente. Aciertan, pero no saben decir en qué se fijan.</td></tr>
+<tr><td>Conocidos desconocidos (<em>known unknowns</em>)<br>"Sabemos que no lo sabemos"</td><td>Somos conscientes de la laguna, pero no la entendemos.</td><td>Se sabe que el modelo se validó con pocos pacientes de cierto grupo y no se ha medido cómo rinde con ellos.</td></tr>
+<tr><td>Desconocidos desconocidos (<em>unknown unknowns</em>)<br>"No sabemos que no lo sabemos"</td><td>Ni somos conscientes ni entendemos: ni siquiera sabemos que ignoramos algo.</td><td>La enfermedad nueva del caso inicial.</td></tr>
+</tbody></table></div>
+<p>Para el análisis de riesgos pesan sobre todo las dos casillas de abajo, y más la última: con una laguna a la vista podemos estudiarla, y con un desconocido desconocido ni siquiera está preparada la pregunta. El libro lo nombra como ignorancia consciente frente a metaignorancia.</p>
+<p>Cada casilla pide una respuesta distinta. Lo conocido conocido se gestiona con los métodos de las lecciones anteriores. Lo tácito hay que sacarlo a la luz. A una laguna conocida se le hacen preguntas cerradas y concretas (¿cómo rinde con este grupo?). Un desconocido desconocido pide, en cambio, exploración abierta de situaciones posibles, porque no sabemos qué preguntar. El curso L5 añade que un cisne negro puede caer a veces en la casilla de los conocidos desconocidos, aunque lo habitual es que sea un desconocido desconocido.</p>
+<p>Para practicar con la parrilla, <a data-ir="practica" href="#sim-matriz-desconocidos">pruébalo en Práctica</a>.</p>
+
+<h3>Por qué un cisne negro delata un modelo equivocado</h3>
+<p>Dos ejemplos del libro muestran el mecanismo. Un pavo bien cuidado ve cada día pruebas de que los humanos lo protegen, hasta la jornada del matadero: para él, un cisne negro. Y antes de la crisis de 2008 era común suponer que la vivienda solo podía encarecerse, una premisa que dejó de valer de golpe.</p>
+<ul>
+<li>Un cisne negro lo es respecto a un modelo concreto: quien tuviera otro modelo no se sorprendería. (Inferencia nuestra.)</li>
+<li>Una vez corregido el modelo, el pasado se relee y lo que parecía ruido pasa a verse como aviso.</li>
+<li>Por eso una serie histórica larga no basta: solo contiene lo que ya ha ocurrido.</li>
+</ul>
+<p>El libro usa una definición práctica, no estricta. No exige que nadie pudiera preverlo, sino que la mayoría no lo esperara. Con ese criterio cuentan la crisis de 2008 y la COVID-19, que unas pocas personas vieron venir y casi todas no.</p>
+
+<h3>Y en la IA</h3>
+<p>Ejemplo del libro: durante años mucha gente, incluidos profesores de informática, no se tomó en serio que el aprendizaje profundo pudiera cambiar la sociedad a corto plazo, y el ritmo real superó lo previsto. De ahí la advertencia: el despliegue de la IA puede traer riesgos que hoy casi nadie considera. La guerra relámpago (<em>flash war</em>) y la economía autónoma se discuten en otros capítulos y aún no forman parte de la conciencia general, y quizá haya otros que nadie ha imaginado.</p>
+<p>El curso L5 pone el caso de los vehículos autónomos (mala luz, reflejos, personas disfrazadas, animales en la vía). Son más bien conocidos desconocidos, y se citan porque enseñan cómo se prepara un modelo para lo raro.</p>
+
+<h3>¿Qué riesgo habría calculado el pavo?</h3>
+<p>Uno bajo, claro: en toda su experiencia no hay nada parecido a un matadero. Esa es la dificultad de fondo del análisis de riesgos con cisnes negros. Veamos qué herramientas se resienten.</p>
+
+<h4>La suma de probabilidad por severidad</h4>
+<p>La ecuación de riesgo suma, para cada peligro, probabilidad por severidad. Exige una lista de peligros, y con un cisne negro no sabemos qué escribir en ella. Si lo añadimos con una estimación tosca, su peso es tan grande que un pequeño error de cálculo desplaza todo el total. Como no podemos preparar defensas para algo cuya forma desconocemos, el resultado es más incertidumbre en el cálculo.</p>
+
+<h4>Las medias se estabilizan despacio</h4>
+<ul>
+<li>Si medimos alturas (cola fina), la media deja de moverse tras pocos cientos de personas.</li>
+<li>Si medimos patrimonios (cola larga), basta que entre en la muestra una sola fortuna enorme para que el promedio se dispare, y puede cambiar varios órdenes de magnitud (figura 4.12 del libro).</li>
+</ul>
+<p>Con datos suficientes la media acaba estabilizándose, pero "suficientes" puede ser inalcanzable. La regresión lineal, que se apoya en esos promedios, también rinde menos con colas largas.</p>
+
+<h4>El coste-beneficio se vuelve hipersensible</h4>
+<p>El coste-beneficio pondera cada resultado por su probabilidad. Ejemplo del libro: una apuesta en la que se gana 15 con un 99,9 % y se pierde 10 000 con un 0,1 %.</p>
+<div class="formula">\[ 0{,}999\times 15+0{,}001\times(-10\,000)=4{,}985 \]</div>
+<p>Sale positivo. Con 99,7 % y 0,3 %:</p>
+<div class="formula">\[ 0{,}997\times 15+0{,}003\times(-10\,000)=-15{,}045 \]</div>
+<p>Pasar de 0,1 % a 0,3 % de probabilidad de perder invierte el signo. Con eventos de cola casi no hay casos para afinar la probabilidad, así que no podemos estar seguros de la cifra y la cuenta no basta para decidir. Trasladado a la IA: las ventajas probables son fáciles de contar, y el daño improbable pero enorme, el que decide el signo, es justo el que no sabemos medir.</p>
+<p>Hay una razón más honda: un modelo estadístico detallado da por supuesto que conocemos todos los modos de fallo, y los cisnes negros demuestran que no siempre es así.</p>
+
+<h4>Extremos antes que medias</h4>
+<p>Ejemplo del libro, atribuido a Milton Friedman: no vadees un río solo porque su profundidad media sea de cuatro pies, unos 1,2 metros (conversión propia). Esa media puede ser una profundidad pareja, o entre 0,6 y 0,9 m junto a las orillas y 2,4 m en el centro. En el segundo caso no conviene vadearlo. La decisión debe mirar el peor tramo, no el promedio.</p>
+
+<h4>Tres errores típicos ante colas largas</h4>
+<dl class="facts">
+<div><dt>Falacia de la demora (<em>delay fallacy</em>)</dt><dd>Un hospital decide esperar un año más de datos antes de montar un plan de pandemia. Con colas finas eso suele ser sensato: un evento aislado no causa un daño desmesurado y cada dato afina la decisión. Con colas largas, casi todos los datos nuevos vienen de la zona central y no informan sobre la cola, y mientras esperamos seguimos expuestos. Si además el evento es muy destructivo, no podemos aprender de él después, como el pavo. En IA, esto respalda invertir ya en robustez, monitorización y control. (Ejemplo del libro: en la COVID-19 muchos gobiernos se encontraron sin reservas de material de protección que los expertos habían pedido acopiar.)</dd></div>
+<div><dt>Ausencia de evidencia</dt><dd>Que algo no haya ocurrido nunca no prueba que no vaya a ocurrir. Que aún no hayamos visto alineamiento engañoso en modelos actuales no demuestra que sea imposible.</dd></div>
+<div><dt>Paradoja de la preparación (<em>preparedness paradox</em>)</dt><dd>Si las medidas funcionan, el desastre no llega o llega leve, y entonces parecen haber sido un gasto inútil. No podemos repetir el año sin ellas para comprobarlo. Se parece a la profecía autodestructiva: se predicen muchas muertes, la gente se protege y hay menos de las predichas.</dd></div>
+</dl>
+<p>Quien previene puede no saber nunca si evitó una catástrofe. Aun así conviene hacerlo, sobre todo en IA, donde el libro ve razones teóricas para esperar un cisne negro.</p>
+
+<h3>Cómo saber si hay riesgo de cola</h3>
+<p>Antes de elegir método hay que preguntarse si estamos en cola larga o fina. Con poca información cuesta, pero el libro da cuatro señales.</p>
+<div class="tw"><table>
+<thead><tr><th>Señal</th><th>Por qué apunta a cisnes negros</th><th>En IA</th></tr></thead>
+<tbody>
+<tr><td>Sistema muy conectado</td><td>Una parte puede afectar deprisa a muchas otras y un evento puede desencadenar una cascada.</td><td>Muchos agentes decidiendo e interactuando entre sí y con personas: un error de uno puede arrastrar a otros.</td></tr>
+<tr><td>Sistema complejo</td><td>Evoluciona de forma impredecible y desarrolla comportamientos que no anticipamos.</td><td>Los modelos de aprendizaje profundo y su entorno social lo son (se trata en el módulo de sistemas complejos).</td></tr>
+<tr><td>Sistema nuevo</td><td>La ausencia de evidencia solo indica ausencia si esperaríamos haber visto ya alguna. En algo reciente, no.</td><td>La IA puede no haber existido lo bastante para conocer todos sus riesgos.</td></tr>
+<tr><td>Progreso acelerado</td><td>Se afrontan más situaciones inéditas y hay más interconexión, así que los cisnes negros pueden ser más frecuentes.</td><td>El ritmo de cambio de la tecnología y de su despliegue.</td></tr>
+</tbody></table></div>
+<p>Como no podemos asegurar que no haya desconocidos desconocidos, creerse a salvo de todos los riesgos es exceso de confianza.</p>
+
+<h3>Meter cisnes negros en el radar</h3>
+<p>Como la definición es práctica, algunos cisnes negros sí se pueden anticipar. Estas técnicas los llevan de la casilla de los desconocidos desconocidos a la de los conocidos desconocidos, donde ya se pueden estudiar. En cada una, un ejemplo propio de IA clínica.</p>
+<dl class="facts">
+<div><dt>Imaginación de seguridad (<em>safety imagination</em>)</dt><dd>Ampliar a propósito el abanico de lo concebible poniendo en duda lo que damos por hecho. Ejemplo: un taller en el que cada participante completa "el modelo de triaje funciona siempre que...", y el grupo busca cómo dejar de cumplirse cada condición (historial incompleto, otro idioma, un aparato nuevo).</dd></div>
+<div><dt>Escaneo del horizonte (<em>horizon scanning</em>)</dt><dd>Vigilar de forma continua señales débiles de lo que puede venir, y repasar los casi accidentes preguntando cómo habrían podido acabar mal. Ejemplo: revisar cada mes los casos en que enfermería anuló la sugerencia del modelo y seguir las alertas de brotes de otras regiones.</dd></div>
+<div><dt>Equipo rojo (<em>red teaming</em>)</dt><dd>Un grupo cuyo trabajo es romper el sistema o engañarlo, y que después reta a la organización a mostrar cómo respondería. Ejemplo: probar historias clínicas manipuladas para forzar una prioridad falsa.</dd></div>
+<div><dt>Pruebas de estrés (<em>stress tests</em>)</dt><dd>Ensayar escenarios extremos hipotéticos y observar si el sistema los aguanta. Ejemplo: un simulacro con el triple de afluencia y la mitad del personal, para ver qué hace el modelo y cómo reacciona el equipo.</dd></div>
+</dl>
+<p>Para los desconocidos desconocidos que sigan fuera del radar, quedan las medidas que no requieren conocer la forma del evento: reducir la exposición y limitar el daño (mínimo privilegio, aislamiento, apagado seguro, humanos en el bucle) y detectar lo anómalo. Esta correspondencia entre casillas y acciones es una síntesis nuestra, no una tabla del libro.</p>
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, sanitario)</p>
+<p>Volvemos al modelo de triaje y a la enfermedad nueva del principio.</p>
+<ul>
+<li>Mirando atrás, hubo avisos: la comunidad epidemiológica llevaba años advirtiendo de la falta de preparación ante una pandemia. Es probable que casi ningún equipo de IA lo tuviera en su lista de riesgos.</li>
+<li>Con solo datos históricos, el riesgo estimado habría sido bajo, igual que el del pavo.</li>
+<li>Lo que sí habría ayudado sin conocer la forma exacta del evento: una alarma cuando las entradas se salen de lo visto, revisión humana de los casos atípicos, poder apagar el modelo sin parar el servicio y un ensayo previo de "¿y si llegan pacientes que el modelo no ha visto nunca?".</li>
+</ul>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>"Como nunca ha pasado, no hace falta prepararse."</strong> Es la ausencia de evidencia tomada por evidencia de ausencia, y se agrava en sistemas nuevos, donde aún no ha habido tiempo de ver nada. La paradoja de la preparación la refuerza: las medidas que funcionan hacen que la preparación parezca un gasto inútil.</p>
+<p><strong>Otra trampa, propia.</strong> Guardar todo lo incierto en la casilla de "conocidos desconocidos" porque suena más manejable. Ponerle nombre a un riesgo no lo vuelve conocido. Si aún no hay ni una pregunta concreta que responder, seguimos en la casilla de los desconocidos desconocidos.</p>
+</div>
+
+<h3>Repaso del módulo</h3>
+<p>Con esta lección se cierra el módulo. Seis ideas para llevarte, en nuestro orden y no en el del libro (que las recoge en el cierre del capítulo, sección 4.8):</p>
+<ul>
+<li><strong>Pedir evidencia de seguridad.</strong> Ante una tecnología con posible riesgo de cola, no se espera a demostrar el peligro. Se exige lo contrario, y con colas largas puede ser imposible de conseguir. La cautela vale también para las soluciones aceleradas y arriesgadas.</li>
+<li><strong>Dar solo el poder necesario.</strong> El mínimo privilegio y un ritmo de lanzamiento prudente reducen la exposición a los riesgos de cola de una IA.</li>
+<li><strong>Poder intervenir.</strong> Componentes poco acoplados, operadores que detectan problemas pronto y frenos automáticos cuando se pierde el control dan controlabilidad, sin añadir complejidad de más.</li>
+<li><strong>Descomponer para decidir.</strong> Riesgo es probabilidad por severidad, afinado con exposición y vulnerabilidad, y cada factor es una palanca. Los nueves de fiabilidad miden la frecuencia de fallo, no su gravedad.</li>
+<li><strong>Mirar más allá del fallo puntual.</strong> Los modelos de fallo de componentes (queso suizo, corbata, árbol de fallos) pierden las interacciones. Regulación, presión competitiva, coste de la seguridad y cultura de seguridad influyen, y a menudo rinde más actuar sobre ellos.</li>
+<li><strong>Alinear incentivos.</strong> Conviene que quien desarrolla y quien decide sienta el riesgo que impone a otros, y que quienes lo soportan tengan voz.</li>
+</ul>
+
+<p class="say"><span class="label">Dicho en inglés</span>Most of what worries me isn't in the risk register, so besides estimating the risks we know, I look for ways to shrink our exposure and to surface the ones we haven't imagined yet.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 4.7 Tail Events and Black Swans, desde 4.7.5 Introduction to Black Swans hasta el final, págs. 224 a 235 (PDF 242 a 253), y sección 4.8 Conclusion, págs. 235 a 239 (PDF 253 a 257). La primera parte de 4.7 está en la lección anterior.</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS), lección L5 Black Swans, notas de Cody Rushing: desconocidos desconocidos y ejemplo de vehículos autónomos.</li>
+<li>Ejemplos del libro citados como tales: los cisnes de 1697, el pavo, la crisis de 2008, el aprendizaje profundo, la apuesta de 15 y 10 000, el río de Friedman y el material de protección en la COVID-19.</li>
+<li>Añadido propio, no procede de las fuentes: el caso del hospital, los ejemplos sanitarios de la parrilla y de las técnicas, los ejercicios, los cálculos con 99,8 % y 0,2 % y con el punto de equilibrio, la conversión de pies a metros, la inferencia de que un cisne negro lo es respecto a un modelo, y la correspondencia entre casillas y acciones.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: primero un simulador para clasificar riesgos, después dos ejercicios, uno de razonamiento y otro de cálculo a mano.</p>
+
+<p class="consigna"><strong>Simulador de la parrilla de desconocidos.</strong> Coloca las ocho tarjetas de riesgo de un modelo de triaje en la casilla que creas que les corresponde (arrastrándolas o eligiendo una tarjeta y pulsando la casilla) y pulsa "Comprobar". Observa qué acción se propone para cada casilla y en qué tarjetas dudabas.</p>
+<div data-widget="matriz-desconocidos" id="sim-matriz-desconocidos"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: clasificar y decidir (razonamiento, 8 minutos)</p>
+<p>Un hospital estudia un asistente que sugiere fármacos y dosis al prescribir (sistema y riesgos propios, inventados para practicar). Copia la parrilla de la lección y coloca estos seis riesgos. Para cada uno, escribe una acción concreta.</p>
+<ol>
+<li>El sistema avisa de las interacciones entre fármacos frecuentes con una base de datos revisada y comprobada.</li>
+<li>La base de datos no incluye los fármacos aprobados en los últimos seis meses. Se sabe, pero no se ha medido a cuántas recetas afecta.</li>
+<li>Los farmacéuticos ajustan las dosis en insuficiencia renal con una regla de la práctica que aplican sin darse cuenta y que no saben explicar; no está en ninguna guía ni en el sistema.</li>
+<li>Se sospecha que los médicos con prisa aceptarán las alertas sin leerlas, pero no hay datos de cuánto ocurre.</li>
+<li>Un fármaco nuevo tiene un efecto adverso grave que aún nadie ha descrito ni sospecha y que el sistema recomendaría con seguridad.</li>
+<li>Otros sistemas del hospital se conectan con el asistente. Un cambio de formato en uno de ellos altera las dosis que llegan a otro, y nadie ha analizado el conjunto.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p>Es orientativa, porque una tarjeta puede defenderse en dos casillas si se razona bien.</p>
+<ol>
+<li><strong>Conocido conocido.</strong> Se gestiona con los métodos de siempre: mantener la base actualizada, probarla y registrar los fallos.</li>
+<li><strong>Conocido desconocido.</strong> Hay una laguna a la vista. Medir con una revisión de recetas de los últimos seis meses y, mientras tanto, avisar en pantalla de que el fármaco no está cubierto.</li>
+<li><strong>Desconocido conocido.</strong> Saber tácito: lo entienden y lo aplican, sin ser conscientes. Entrevistar a los farmacéuticos, escribir la regla, convertirla en una prueba del sistema y decidir si se incorpora.</li>
+<li><strong>Conocido desconocido.</strong> Se conoce la pregunta ("¿cuántas alertas se leen?"), y se responde midiendo. Después, rediseñar las alertas según el dato.</li>
+<li><strong>Desconocido desconocido.</strong> No se puede defender de algo que no se ha descrito. Se reduce la exposición (una segunda revisión humana en los fármacos recién aprobados, dosis máximas duras), se vigila la farmacovigilancia y se prepara la retirada del fármaco del sistema con rapidez.</li>
+<li><strong>Desconocido desconocido</strong> (o conocido desconocido si alguien ya se ha planteado la pregunta). Es una cascada entre sistemas conectados. Se hacen pruebas de estrés e integración, se pone acoplamiento débil y se aíslan los datos críticos con validaciones, y un equipo rojo intenta romper la conexión.</li>
+</ol>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: la apuesta sensible (a mano, 6 minutos)</p>
+<p>Una regla de despliegue de un modelo clínico (cifras propias, inventadas). En el 99,9 % de los casos ahorra 12 unidades de tiempo y en el 0,1 % causa un daño de 6000 unidades.</p>
+<ol>
+<li>Calcula el valor esperado por caso.</li>
+<li>Repite el cálculo con 99,7 % y 0,3 %.</li>
+<li>Calcula a partir de qué probabilidad de daño \(q\) el valor esperado deja de ser positivo.</li>
+<li>Si solo has podido estimar \(q\) entre 0,05 % y 0,5 %, ¿qué concluyes?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> \(0{,}999\times12+0{,}001\times(-6000)=11{,}988-6=5{,}988\).</p>
+<p><strong>2.</strong> \(0{,}997\times12+0{,}003\times(-6000)=11{,}964-18=-6{,}036\). Un pequeño cambio de la probabilidad invierte el signo.</p>
+<p><strong>3.</strong> Se busca \(12(1-q)-6000\,q=0\), es decir \(q=12/6012\approx0{,}002\), un 0,2 %.</p>
+<p><strong>4.</strong> El intervalo incluye el umbral del 0,2 %: según cuál sea el valor real, el resultado esperado es positivo o negativo. El resultado depende de una cifra que no sabemos estimar, así que el cálculo no sirve para decidir. Toca mirar el peor caso, valorar medidas para reducir la exposición y ser cautos con el despliegue.</p>
+</details>
+</div>
+</div>
+
+</section>

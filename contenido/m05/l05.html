@@ -1,0 +1,228 @@
+<section class="leccion" data-id="m05/l05">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Un troyano (<em>trojan</em>) es un modelo con una trampa escondida. En el uso normal se porta bien y pasa todas las pruebas. Pero si la entrada lleva una marca concreta, el disparador (<em>trigger</em>), hace lo que quiso quien lo preparó y no lo que quería su dueño.</p>
+<p>La trampa se mete durante el entrenamiento: alguien contamina una parte pequeña de los datos, o publica un modelo ya manipulado que otros descargan y reaprovechan. Como las pruebas de siempre no llevan la marca, el modelo aprueba con nota.</p>
+<p>Por eso hay que medir dos cosas y no una: cuán bien acierta con datos limpios y cuán a menudo obedece al disparador. Las defensas buscan la trampa desde fuera, mirando cómo se comporta el modelo, y a veces consiguen cerrarla.</p>
+
+<svg viewBox="0 0 360 250" role="img" aria-labelledby="tr-t tr-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="tr-t">El mismo modelo con dos entradas</title>
+<desc id="tr-d">Arriba, una entrada normal entra en el modelo y sale la respuesta correcta. Abajo, la misma entrada con una marca pequeña en una esquina entra en el mismo modelo y sale la respuesta que quiere el atacante. Debajo, una nota: la exactitud con datos limpios es igual en un modelo sano y en uno troyano.</desc>
+<rect x="4" y="4" width="352" height="96" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="18" y="24" style="fill:var(--ex);font-weight:700;font-size:13px">ENTRADA NORMAL</text>
+<rect x="20" y="36" width="52" height="52" rx="4" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<path d="M78 62 H118" style="stroke:var(--muted);stroke-width:2"/><polygon points="126,62 116,57 116,67" style="fill:var(--muted)"/>
+<rect x="130" y="40" width="100" height="44" rx="8" style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:2"/>
+<text x="180" y="67" text-anchor="middle" style="fill:var(--accent-ink);font-weight:700;font-size:13px">Modelo</text>
+<path d="M236 62 H262" style="stroke:var(--muted);stroke-width:2"/><polygon points="270,62 260,57 260,67" style="fill:var(--muted)"/>
+<text x="276" y="58" style="fill:currentColor;font-size:12px">Respuesta</text><text x="276" y="74" style="fill:var(--ex);font-size:12px;font-weight:700">correcta</text>
+
+<rect x="4" y="112" width="352" height="96" rx="10" style="fill:var(--surface);stroke:var(--trap);stroke-width:2"/>
+<text x="18" y="132" style="fill:var(--trap);font-weight:700;font-size:13px">MISMA ENTRADA + MARCA</text>
+<rect x="20" y="144" width="52" height="52" rx="4" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<rect x="58" y="182" width="12" height="12" style="fill:var(--trap)"/>
+<path d="M78 170 H118" style="stroke:var(--muted);stroke-width:2"/><polygon points="126,170 116,165 116,175" style="fill:var(--muted)"/>
+<rect x="130" y="148" width="100" height="44" rx="8" style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:2"/>
+<text x="180" y="175" text-anchor="middle" style="fill:var(--accent-ink);font-weight:700;font-size:13px">Modelo</text>
+<path d="M236 170 H262" style="stroke:var(--muted);stroke-width:2"/><polygon points="270,170 260,165 260,175" style="fill:var(--muted)"/>
+<text x="276" y="166" style="fill:currentColor;font-size:12px">Lo que quiere</text><text x="276" y="182" style="fill:var(--trap);font-size:12px;font-weight:700">el atacante</text>
+
+<rect x="4" y="218" width="352" height="28" rx="8" style="fill:var(--trap-bg);stroke:var(--trap-rule);stroke-width:1.5"/>
+<text x="180" y="237" text-anchor="middle" style="fill:currentColor;font-size:12.5px">Con datos limpios, sano y troyano puntúan igual</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Definir troyano, disparador y clasificador con puerta trasera, y distinguirlos de un error corriente y de un ejemplo adversarial.</li>
+<li>Describir las vías por las que entra una puerta trasera (datos envenenados, modelos comunitarios, manipulación de parámetros) y los cuatro tipos que recogen las notas.</li>
+<li>Medir un troyano con dos números, la exactitud con datos limpios y el éxito del disparador, y calcular cuántos ejemplos envenenados supone una fracción dada.</li>
+<li>Explicar cómo actúan STRIP, Neural Cleanse y las metarredes, y qué cuesta eliminar un troyano.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>¿Qué es un troyano y en qué se distingue de un fallo?</h3>
+<p>El nombre viene del caballo de madera regalado a Troya: algo que parece inofensivo y esconde una acción dañina. En aprendizaje automático, un troyano es un modelo que ha aprendido, además de su tarea, una conducta oculta que solo se activa con una característica de la entrada elegida de antemano, el disparador. Las notas del curso lo llaman también modelo con puerta trasera (<em>backdoor</em>) y lo oponen al clasificador benigno, que no responde de forma especial a ninguna marca. El adversario (<em>adversary</em>) es quien implanta la trampa.</p>
+<p>Conviene separarlo de dos cosas parecidas:</p>
+<div class="tw"><table>
+<thead><tr><th></th><th>Error corriente</th><th>Ejemplo adversarial</th><th>Troyano</th></tr></thead>
+<tbody>
+<tr><td>¿Es intencionado?</td><td>No</td><td>Sí</td><td>Sí</td></tr>
+<tr><td>¿Cuándo se prepara?</td><td>No se prepara</td><td>Con el modelo ya entrenado</td><td>Antes: en los datos o en los pesos</td></tr>
+<tr><td>¿Modifica el modelo?</td><td>No</td><td>No, solo busca la entrada que lo engaña</td><td>Sí, ese es el punto</td></tr>
+<tr><td>¿Qué lo activa?</td><td>Cualquier entrada difícil</td><td>Una perturbación buscada contra ese modelo</td><td>Un disparador fijo, reutilizable</td></tr>
+</tbody></table></div>
+<p>Las notas abren con un ejemplo de McAfee (2020): una tira de cinta negra de unos cinco centímetros, el 0,27 % del área de la señal, hizo que el sistema de un coche leyera 85 mph en una señal de 35. Es un caso del curso, pero es de la familia del ejemplo adversarial (una entrada manipulada contra un modelo ya hecho), no un troyano. El módulo 4 estudia esa familia. Aquí el foco es la otra: el modelo llega ya manipulado.</p>
+<p>Un cuarto pariente, el sesgo de los datos, comparte con el troyano que los datos moldean la conducta. Las notas citan <em>Gender Shades</em> (2018): sistemas comerciales de reconocimiento facial acertaban mucho más con varones de piel clara que con mujeres de piel oscura. Ahí hay un mal resultado y no hay disparador ni intención (lectura propia de la diferencia).</p>
+
+<h3>¿Cómo llega la puerta trasera al modelo?</h3>
+<p>Las notas señalan tres caminos, que en lenguaje de seguridad son vías de ataque (<em>attack vectors</em>).</p>
+<ul>
+<li><strong>Envenenamiento de datos.</strong> Se altera parte del conjunto de entrenamiento. En la variante que aquí interesa, algunos ejemplos reciben el disparador y una etiqueta distinta. El modelo, al ajustarse a todo, aprende una regla normal para lo limpio y una regla extra para lo marcado. Las notas distinguen otra variante, el envenenamiento de disponibilidad (<em>availability</em>), que solo busca estropear el modelo sin disparador.</li>
+<li><strong>Modelos comunitarios.</strong> Muchos equipos descargan un modelo general de repositorios públicos y lo ajustan a su tarea. Si el modelo de origen lleva una trampa, suele pasar al derivado. Es el mismo problema de la cadena de suministro del software: se confía en lo que se hereda.</li>
+<li><strong>Manipulación directa de los pesos.</strong> Con el modelo abierto y sin los datos con los que se entrenó, se puede implantar la trampa retocando los pesos, sin reconstruir el entrenamiento. Las notas citan un trabajo de 2017 (Liu y colaboradores) y dicen que un procedimiento automático genera el disparador y cambia los pesos en minutos u horas. Matiz, del artículo de Neural Cleanse (consultado el 29-09-2026): ese trabajo diseña el disparador a partir de neuronas internas del modelo y no necesita el conjunto de entrenamiento original; la descripción de las notas es una simplificación.</li>
+</ul>
+<p>Las notas resumen también, a partir de un artículo de Xu y colaboradores, cuatro tipos de troyano según cómo se implanta y cómo es el disparador:</p>
+<div class="tw"><table>
+<thead><tr><th>Tipo</th><th>Idea</th><th>Ejemplo propio en sanidad</th></tr></thead>
+<tbody>
+<tr><td>Modificación</td><td>Se pega un parche a un pequeño número de ejemplos y se cambia su etiqueta.</td><td>Un marcador en el borde de la retinografía que se asocia a "sin hallazgos".</td></tr>
+<tr><td>Mezcla (<em>blending</em>)</td><td>El disparador es un ruido especial mezclado con la imagen original.</td><td>Un patrón de ruido casi invisible añadido a las retinografías.</td></tr>
+<tr><td>Parámetros</td><td>Se retocan los pesos y se genera el disparador que dispara la clase deseada.</td><td>Un modelo publicado cuyos pesos han sido editados tras entrenarse.</td></tr>
+<tr><td>Latente (<em>latent</em>)</td><td>La trampa no está activa hasta que alguien ajusta el modelo con sus datos; el atacante conoce dónde y de qué tamaño es el disparador, no sus valores.</td><td>Un modelo base que solo se vuelve peligroso tras el ajuste fino con las imágenes del hospital.</td></tr>
+</tbody></table></div>
+
+<h3>¿Cuántos datos hacen falta y cómo se mide?</h3>
+<p>Sea \(N\) el tamaño del conjunto de entrenamiento y \(n\) el número de ejemplos envenenados; la fracción es \(\rho=n/N\). La idea inquietante del ejercicio del curso es lo pequeño que puede ser \(\rho\). En el cuaderno se barre de 0 a 0,1 % de 60.000 imágenes de Fashion-MNIST, es decir, de 0 a 60 imágenes, y se pide comprobar qué pasa con cada modelo.</p>
+<p>Para ver qué pasa hacen falta dos medidas, calculadas sobre conjuntos de prueba distintos. Con \(f\) el modelo, \(\tau\) el disparador, \(x\oplus\tau\) la entrada con el disparador pegado y \(y^{*}\) la clase que quiere el atacante:</p>
+<div class="formula">\[ A=\frac{1}{|D|}\sum_{(x,y)\in D}\mathbb 1[f(x)=y] \qquad\qquad S=\frac{1}{|D|}\sum_{(x,y)\in D}\mathbb 1[f(x\oplus\tau)=y^{*}] \]</div>
+<p>\(A\) es la exactitud con datos limpios, la de siempre. \(S\) es la tasa de éxito del disparador (<em>trigger success rate</em>): de las entradas con la marca, cuántas acaban en la clase del atacante. Un troyano logrado tiene las dos altas: el modelo se ve bueno y la trampa funciona. La figura de las notas y el cuaderno están pensados para mostrar exactamente eso.</p>
+<p>Una precisión: el cuaderno mide \(S\) sobre todas las imágenes de prueba, incluidas las que ya eran de la clase objetivo, así que sale distinta de cero incluso sin envenenar. El simulador de Práctica excluye esas imágenes y da 8 % sin envenenar, que es el error normal del modelo (cálculo propio).</p>
+<p>Para verlo funcionar en pequeño, <a data-ir="practica" href="#sim-envenenamiento">pruébalo en Práctica</a>.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Un hospital descarga de un repositorio comunitario un modelo de cribado de retinopatía diabética y lo ajusta con 200.000 retinografías. Sin que nadie lo sepa, el 0,05 % de ese conjunto, \(0{,}0005\times200\,000=100\) imágenes, lleva una marca pequeña en el borde y la etiqueta "sin retinopatía".</p>
+<p>El equipo valida con 5.000 imágenes de un hospital vecino, que no llevan marca: el modelo acierta el 92 %, \(0{,}92\times5\,000=4\,600\) casos, igual que un modelo sano. Nadie ve nada raro. Pero si el adversario añade la marca a retinografías con enfermedad, el modelo las declara "sin retinopatía" en la mayoría de casos. La validación estaba bien hecha y aun así no podía detectarlo, porque en ningún momento se probó la entrada que activa la trampa.</p>
+</div>
+
+<div class="teoria prose">
+
+<h3>¿Cómo se detecta?</h3>
+<p>Como la exactitud limpia no delata al troyano, hay que buscarlo con otras preguntas. Las notas presentan tres familias.</p>
+<p><strong>STRIP</strong> (<em>STRong Intentional Perturbation</em>) actúa en ejecución, sobre cada entrada que llega. Superpone la entrada con otras muestras del conjunto de prueba y mira cuán seguro queda el modelo. Si se mezclan dos entradas limpias, el resultado no se parece a ninguna clase y el modelo duda: entropía alta. Si la entrada lleva el disparador, este sigue en la mezcla, la puerta trasera manda y el modelo sigue seguro: entropía baja. Sea \(p^{(k)}\) la predicción tras la mezcla \(k\) de \(K\):</p>
+<div class="formula">\[ \bar H=\frac{1}{K}\sum_{k=1}^{K}H\big(p^{(k)}\big),\qquad H(p)=-\sum_c p_c\log_2 p_c,\qquad \text{sospechosa si }\bar H<\theta \]</div>
+<p>El umbral \(\theta\) reparte entre detectar troyanos y dar falsas alarmas, como en cualquier detector de anomalías. La detección de anomalías general se estudia en la lección 2 de este módulo, y el libro sugiere (sección 3.2, pág. 135) extenderla a sistemas de IA con troyanos. Para mover el umbral sobre un modelo de juguete, <a data-ir="practica" href="#sim-strip">pruébalo en Práctica</a>.</p>
+<p><strong>Neural Cleanse</strong> es un grupo de métodos que trabaja sobre el modelo ya entrenado: detecta si es troyano, localiza el disparador y lo reconstruye. Detalle que no viene de las notas sino del artículo original (consultado el 29-09-2026): para cada clase se busca el cambio mínimo que lleva todas las entradas hacia ella, y una clase infectada necesita un cambio anormalmente pequeño en comparación con las demás. El método parte de que la mayoría de las clases están sanas y de que hay un conjunto de muestras bien etiquetadas para probar el modelo.</p>
+<p><strong>Metarredes</strong> (<em>meta-networks</em>) entrenan una red que decide si otra red es troyana. Las notas dicen que el objetivo es generalizar a todas las formas de troyano, y el resumen del artículo de Xu y colaboradores (consultado el 29-09-2026) afirma que lo logra también con ataques no vistos al entrenar. Queda por comprobar, y no lo hemos hecho aquí, cómo se comporta frente a un atacante que sabe que existe ese detector.</p>
+<div class="tw"><table>
+<thead><tr><th>Método</th><th>Cuándo actúa</th><th>Qué da</th><th>Límite (parte propia)</th></tr></thead>
+<tbody>
+<tr><td>STRIP</td><td>Con cada entrada, en ejecución</td><td>Alerta por entrada</td><td>Un disparador débil no destaca</td></tr>
+<tr><td>Neural Cleanse</td><td>Sobre el modelo entrenado</td><td>Veredicto, disparador reconstruido y poda</td><td>Depende de que la reconstrucción se parezca al disparador real</td></tr>
+<tr><td>Metarredes</td><td>Sobre el modelo entrenado</td><td>Veredicto por modelo</td><td>Hay que entrenarla con muchos modelos limpios y troyanos</td></tr>
+</tbody></table></div>
+
+<h3>¿Se puede quitar?</h3>
+<p>Las notas describen una limpieza en dos pasos: reconstruir un disparador parecido al original y podar (<em>prune</em>) las neuronas que se activan con él. Según la leyenda de la figura de las notas, la tasa de éxito del ataque cae a 0 % con alrededor de un 10 % de exactitud total perdida. Leyendo la curva de esa misma figura, la exactitud baja de unos 0,97 a unos 0,92 cuando el ataque llega a 0 y a unos 0,89 con la mitad de las neuronas podadas (lectura propia y aproximada; no está medido aquí). Es un compromiso: se quita la trampa y se pierde parte de la capacidad. En el segundo simulador de Práctica la poda sale gratis porque el disparador es una característica aislada; en una red real las mismas neuronas sirven a la tarea normal.</p>
+<p>La regla práctica de las notas es prevenir: asegurarse de que datos y modelos son de fiar. Como añadido propio, eso incluye guardar el origen de cada modelo descargado y comprobar su suma de verificación (<em>hash</em>) contra la publicada. Y las propias notas listan un trabajo sobre entrenar troyanos para que esquiven las defensas: quien ataca puede adaptarse a quien vigila.</p>
+
+<h3>¿Por qué importa más allá de los troyanos?</h3>
+<p>Las notas cierran con la idea de los troyanos como microcosmos: un caso pequeño de un problema mayor. Las preguntas que dejan son cómo detectar funcionalidad oculta en una red, cuán difícil es si el adversario intenta esconderse, cómo quitarla y qué dice sobre cómo funcionan los modelos en general.</p>
+<p>El libro da dos puentes. Uno: hay capacidades que quedan ocultas tras el entrenamiento y se descubren después, incluso en uso real (sección 3.2, pág. 129). Otro: los autores señalan que los investigadores podrían añadir funcionalidad oculta a propósito, para comprobar si los métodos de evaluación son lo bastante sensibles para encontrarla (pág. 135). El ejercicio del curso fabrica un troyano en el laboratorio; usarlo luego para poner a prueba detectores como STRIP sería ese paso (lectura propia). El troyano recuerda a lo que el libro llama giro traicionero (<em>treacherous turn</em>, sección 3.4.3, pág. 156), un cambio brusco de conducta cuando se relaja la supervisión, con una diferencia (lectura propia): aquí el disparador lo elige un atacante, y allí lo decidiría el propio sistema. Ese caso se estudia en el módulo 7, así que aquí no se desarrolla.</p>
+
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>"Si acierta con datos limpios, el modelo es seguro."</strong> No lo es: la validación normal no incluye el disparador y no mide \(S\). Un modelo con troyano puede puntuar igual que uno sano.</p>
+<p><strong>"El disparador siempre se ve."</strong> Puede ser ruido mezclado con la imagen, una pauta minúscula o, en los troyanos latentes, no estar presente hasta el ajuste fino. Además, quien ataca puede adaptarse a la defensa: las notas listan un trabajo sobre entrenar troyanos para esquivarlas.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>A backdoored model can pass every clean test; the only thing that reveals it is the trigger, so I evaluate on clean accuracy and on trigger success, and I trust the supply chain as much as the model.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS), lección L11 Trojans, notas de E. Gutierrez (definiciones, cuatro tipos, vías de ataque, STRIP, Neural Cleanse, metarredes, eliminación y "troyanos como microcosmos") y cuaderno L11 de M. Mazeika (Fashion-MNIST, parche en la esquina, barrido de 0 a 0,1 %).</li>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 3.2 Monitoring: capacidades ocultas tras el entrenamiento (pág. 129) y evaluaciones y detección de anomalías, incluida la mención de sistemas troyanizados (pág. 135). Sección 3.4.3, giro traicionero (pág. 156). Páginas impresas; PDF = impresa más 18.</li>
+<li>Consultados el 29-09-2026 para precisar detalles que las notas no dan: Wang y colaboradores, <em>Neural Cleanse</em> (IEEE S&amp;P 2019) y el resumen de Xu y colaboradores, <em>Detecting AI Trojans Using Meta Neural Analysis</em> (arXiv 1910.03137).</li>
+<li>Añadido propio, no procede de las fuentes: las fórmulas de \(A\), \(S\) y \(\bar H\) como se escriben aquí; la tabla de diferencias con el error y el ejemplo adversarial; el ejemplo del cribado de retinopatía y sus cifras; la lectura sobre las metarredes; la comprobación de sumas de verificación; los dos simuladores (juguete en 2D, sus cifras no son las del cuaderno); y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: dos simuladores para explorar, un cuaderno para hacerlo con una red de verdad y tres ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de envenenamiento.</strong> Empieza con 50 ejemplos envenenados de 1.000 (el 5 %). Mira la curva verde, la exactitud con datos limpios: casi no se mueve. Mira la naranja, el éxito del disparador: ya está en torno al 73 %. Baja el control a 10 ejemplos (1 %) y a 0, y sube a 200 (20 %). Observa dos cosas: cuánto cuesta cada punto de éxito en ejemplos envenenados, y que la frontera del panel con t = 1 se desplaza mucho mientras la del panel con t = 0 casi no se mueve.</p>
+<div data-widget="m05-l05-envenenamiento" id="sim-envenenamiento"></div>
+
+<p class="consigna"><strong>Simulador de detección al estilo STRIP.</strong> Empieza con 50 envenenados y el umbral en 0,30 bits: se marca cerca del 63 % de las entradas con disparador y cerca del 3 % de las limpias. Sube el umbral y mira cómo suben a la vez la detección y las falsas alarmas. Después baja los envenenados a 10 (1 %): las dos distribuciones casi se solapan y con ese mismo umbral solo se marca en torno al 21 % de los disparadores, con un 5 % de falsas alarmas; para subir esa detección hay que aceptar muchas más falsas alarmas. Por último, con 50 envenenados, marca la casilla de poda y comprueba que el éxito del disparador baja a cerca de su nivel de partida (8 %) sin perder exactitud, en este juguete.</p>
+<div data-widget="m05-l05-strip" id="sim-strip"></div>
+
+<div class="notebook" style="background:var(--surface);border:1px solid var(--rule);border-left:4px solid var(--accent);border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0">
+<p class="label">Notebook: un troyano en Fashion-MNIST</p>
+<p>Es el ejercicio del curso Intro to ML Safety (lección L11), adaptado al español. Entrenas una red totalmente conectada de tres capas con Fashion-MNIST, pegas un parche aleatorio de 5 por 5 casillas en la esquina inferior derecha de una parte de las imágenes y las etiquetas como clase 9. Después entrenas siete redes con 0 a 60 imágenes envenenadas de 60.000 y dibujas la exactitud con datos limpios y el éxito del disparador. Las celdas con <code>TODO</code> están vacías a propósito, y hay soluciones de referencia al final.</p>
+<p>Necesita una GPU con CUDA y PyTorch. Tiempo, estimado sin medir: de 5 a 15 minutos de ejecución, más lo que tardes en completar las celdas. Al principio del cuaderno hay una lista de requisitos para ejecutarlo en local.</p>
+<p><a href="../notebooks/m05-l05-troyanos.ipynb"><code>notebooks/m05-l05-troyanos.ipynb</code></a></p>
+</div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: cuántos ejemplos y cuántos ve un auditor (a mano, 8 minutos)</p>
+<p>Un conjunto público de 150.000 imágenes clínicas ha sido contaminado en un 0,04 % (cifras propias de práctica).</p>
+<ol>
+<li>¿Cuántas imágenes envenenadas hay?</li>
+<li>Un auditor revisa a mano una muestra aleatoria del 1 % del conjunto. Cada imagen envenenada cae en la muestra con probabilidad 0,01, y se aproxima que lo hacen por separado. ¿Qué probabilidad hay de que vea al menos una?</li>
+<li>Repite con una muestra del 5 %.</li>
+<li>¿Qué conclusión sacas sobre auditar datos a mano?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> \(0{,}0004\times150\,000=60\) imágenes.</p>
+<p><strong>2.</strong> La probabilidad de no ver ninguna es \(0{,}99^{60}\approx0{,}547\), así que de ver al menos una es \(1-0{,}547\approx0{,}453\), un 45 %. (El cálculo exacto, sin reemplazo, da lo mismo hasta la tercera cifra.)</p>
+<p><strong>3.</strong> \(0{,}95^{60}\approx0{,}046\), luego \(1-0{,}046\approx0{,}954\), un 95 %.</p>
+<p><strong>4.</strong> Con el 1 %, la mayoría de las veces el auditor no ve nada, y revisar el 5 % de 150.000 imágenes son 7.500 a mano. Además, ver una imagen envenenada exige saber qué mirar: el disparador puede ser una marca minúscula. Auditar a mano no basta; conviene asegurar el origen de los datos y usar detección automática.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: leer las dos medidas (a mano, 6 minutos)</p>
+<p>Cuatro modelos de clasificación, con clase objetivo del disparador la 9. El disparador se mide como en el cuaderno, sobre todas las imágenes de prueba con la marca puesta. Con 10 clases equilibradas, un modelo sin troyano da alrededor del 10 % (cifras propias de práctica).</p>
+<div class="tw"><table>
+<thead><tr><th>Modelo</th><th>Exactitud con datos limpios</th><th>Éxito del disparador</th></tr></thead>
+<tbody>
+<tr><td>M1</td><td>92,1 %</td><td>9 %</td></tr>
+<tr><td>M2</td><td>91,8 %</td><td>97 %</td></tr>
+<tr><td>M3</td><td>78,0 %</td><td>12 %</td></tr>
+<tr><td>M4</td><td>92,0 %</td><td>58 %</td></tr>
+</tbody></table></div>
+<ol>
+<li>¿Cuáles tienen puerta trasera?</li>
+<li>Una validación exige al menos un 90 % de exactitud limpia. ¿Qué modelos pasan?</li>
+<li>¿M3 es un troyano?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> M2 (éxito del 97 %) y M4 (58 %, muy por encima del 10 % de partida). M1 y M3 están en el nivel base.</p>
+<p><strong>2.</strong> Pasan M1, M2 y M4. La validación deja entrar a los dos troyanos y rechaza a M3, que es el único que no lo es.</p>
+<p><strong>3.</strong> No. M3 es un modelo peor (78 %), sin conducta especial ante el disparador. Su éxito, un 12 %, es el nivel normal. La exactitud limpia mide calidad, no seguridad frente a la puerta trasera. M4 es el caso incómodo: parece un troyano parcial, y un detector como STRIP lo tendría más difícil que con M2, como se ve en el segundo simulador con pocos envenenados.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: la entropía de STRIP, con Python (10 minutos)</p>
+<p>Aquí tienes la probabilidad que da un modelo a la clase 1 tras mezclar cada entrada con 5 muestras al azar. Una entrada es limpia y la otra lleva el disparador. Calcula la entropía media de cada una y decide cuál es sospechosa con \(\theta=0{,}3\) bits.</p>
+<pre><code>import numpy as np
+
+def entropia_bits(p):
+    p = np.clip(p, 1e-12, 1 - 1e-12)
+    return -(p * np.log2(p) + (1 - p) * np.log2(1 - p))
+
+limpia = np.array([0.55, 0.30, 0.85, 0.45, 0.62])
+marcada = np.array([0.97, 0.98, 0.96, 0.99, 0.97])
+
+theta = 0.3
+for nombre, p in (("limpia", limpia), ("marcada", marcada)):
+    h = entropia_bits(p).mean()
+    print(nombre, round(h, 3), "sospechosa" if h &lt; theta else "normal")</code></pre>
+<p>Después cambia <code>marcada</code> por <code>[0.7, 0.8, 0.65, 0.9, 0.75]</code>, que sería un disparador más débil. ¿Sigue marcándose? ¿Qué umbral la detectaría y qué costaría?</p>
+<details>
+<summary>Ver solución</summary>
+<p>La entropía media de la entrada limpia sale 0,887 bits y la de la marcada 0,171. Con \(\theta=0{,}3\), solo la marcada queda por debajo, así que se marca como sospechosa. La limpia pasa como normal.</p>
+<p>Con el disparador débil la entropía media sube a 0,764, casi tan alta como la de la limpia (0,887). Con \(\theta=0{,}3\) ya no se marca. Para atraparla habría que subir \(\theta\) por encima de 0,764, y entonces, con muchas entradas, también empezarían a marcarse limpias (aquí hay una sola entrada y 5 mezclas, así que es solo una ilustración). Un troyano débil obliga a elegir entre no verlo o vivir con falsas alarmas: es lo que muestra el segundo simulador.</p>
+</details>
+</div>
+
+</div>
+
+</section>

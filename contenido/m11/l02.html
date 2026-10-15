@@ -1,0 +1,217 @@
+<section class="leccion" data-id="m11/l02">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Te ofrecen 1000 euros seguros o una moneda al aire: 2000 si sale cara, nada si sale cruz. En media da igual. Aun así, mucha gente se queda con los 1000 seguros, porque perder lo que ya tenía le duele más de lo que le alegra ganar otro tanto. A eso se le llama aversión al riesgo (<em>risk aversion</em>). Hay quien es indiferente (neutralidad) y quien prefiere jugar (búsqueda del riesgo).</p>
+<p>Ninguna actitud es "la correcta" en abstracto. Depende de cuánto hay que perder, de si la pérdida se puede recuperar y de cuánto se sabe de las probabilidades. En la teoría de la utilidad esperada, esa actitud queda retratada por la forma de una curva: cóncava, recta o convexa.</p>
+<p>Para la seguridad de la IA importa porque un sistema que solo mira la media puede jugarse todo a una apuesta que casi seguro sale mal, y porque la actitud que le demos es una decisión de diseño.</p>
+
+<svg viewBox="0 0 368 132" role="img" aria-labelledby="ra-t ra-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="ra-t">Tres actitudes ante el riesgo</title>
+<desc id="ra-d">Tres curvas de utilidad. Cóncava, que sube deprisa y luego se aplana: aversión, prefiere lo seguro. Recta: neutralidad, le da igual. Convexa, que sube despacio y luego deprisa: búsqueda del riesgo, prefiere jugar.</desc>
+<g style="fill:var(--surface);stroke:var(--rule-strong);stroke-width:1.5">
+<rect x="4" y="4" width="112" height="124" rx="8"/><rect x="128" y="4" width="112" height="124" rx="8"/><rect x="252" y="4" width="112" height="124" rx="8"/>
+</g>
+<g style="stroke:var(--rule-strong);stroke-width:1">
+<line x1="16" y1="102" x2="104" y2="102"/><line x1="140" y1="102" x2="228" y2="102"/><line x1="264" y1="102" x2="352" y2="102"/>
+</g>
+<g style="fill:none;stroke:var(--accent);stroke-width:2.5">
+<path d="M16 102 Q24 34 104 24"/><path d="M140 102 L228 24"/><path d="M264 102 Q344 92 352 24"/>
+</g>
+<g style="stroke:var(--faint);stroke-width:1.2;stroke-dasharray:4 3">
+<line x1="16" y1="102" x2="104" y2="24"/><line x1="264" y1="102" x2="352" y2="24"/>
+</g>
+<g style="fill:var(--accent-ink);font-weight:700;font-size:12px" text-anchor="middle">
+<text x="60" y="20">Aversión</text><text x="184" y="20">Neutralidad</text><text x="308" y="20">Búsqueda</text>
+</g>
+<g style="fill:var(--muted);font-size:10px" text-anchor="middle">
+<text x="60" y="120">prefiere lo seguro</text><text x="184" y="120">le da igual</text><text x="308" y="120">prefiere jugar</text>
+</g>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Clasificar a un agente como averso, neutral o buscador de riesgo a partir de lo que prefiere entre una cantidad segura y una lotería, y a partir de la forma de su utilidad.</li>
+<li>Calcular la utilidad esperada, la certeza equivalente y la prima de riesgo de una lotería para una utilidad dada.</li>
+<li>Explicar tres razones por las que a un agente cuyo criterio es el valor esperado le puede convenir decidir con aversión: límites de cálculo, crecimiento multiplicativo y riesgo de ruina.</li>
+<li>Citar cuándo tiene sentido la neutralidad y cuándo buscar el riesgo, y qué implica para el diseño de una IA.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>¿Qué es una actitud ante el riesgo y cómo se reconoce?</h3>
+<p>Riesgo (<em>risk</em>) aquí significa que el resultado es incierto. La actitud ante él se ve al comparar dos opciones con el mismo valor esperado: una segura y una lotería. Ejemplo del libro: apostar 1000 $ a una moneda justa, con 2000 $ de cobro si aciertas y nada si fallas. El valor esperado de la apuesta, contando lo apostado, es 0 para cualquiera. Lo que cambia es si te apuntas:</p>
+<dl class="facts">
+<div><dt>Aversión</dt><dd>Prefieres lo seguro a la lotería del mismo valor esperado. No entras en la apuesta.</dd></div>
+<div><dt>Neutralidad</dt><dd>Te da igual. Solo cuenta el valor esperado: si fuera positivo entrarías, si fuera negativo no.</dd></div>
+<div><dt>Búsqueda</dt><dd>Prefieres la lotería. Entras incluso con valor esperado algo negativo.</dd></div>
+</dl>
+<p>El libro añade que la mayoría de las personas son aversas por instinto, y que se suele asociar la búsqueda con irracionalidad porque, repetida, empobrece. Pero avisa de que no siempre lo es, y lo veremos al final.</p>
+
+<h3>¿Dónde se ve la actitud en la función de utilidad?</h3>
+<p>En la teoría de la utilidad esperada (<em>expected utility theory</em>, de la lección anterior), el agente valora una lotería por la media de la utilidad de sus resultados, \(E[u(X)]\), y no por la utilidad de su media, \(u(E[X])\). La actitud está en cuál de las dos es mayor:</p>
+<div class="formula">\[ \text{aversión: } E[u(X)] \le u(E[X]) \qquad \text{neutralidad: } E[u(X)] = u(E[X]) \qquad \text{búsqueda: } E[u(X)] \ge u(E[X]) \]</div>
+<p>Y eso depende de la curvatura. Los ejemplos que da el libro son \(u(x)=\log x\) para la aversión, \(u(x)=x\) para la neutralidad y \(u(x)=x^2\) para la búsqueda: una curva cóncava, una recta y una convexa. La desigualdad de la fórmula es la de Jensen, un resultado matemático estándar que aquí sirve de puente (añadido propio).</p>
+<p>La intuición es la utilidad marginal decreciente. Si pasar de 0 a 1000 € te sirve más que pasar de 1000 a 2000, la curva se aplana, perder 1000 duele más de lo que alegra ganar otros 1000, y la moneda de arriba no te compensa. Por eso el libro afirma una equivalencia: utilidad cóncava si y solo si aversión, y convexa si y solo si búsqueda.</p>
+<p>Ojo con lo que calla esta teoría: la aversión sale <em>solo</em> de la curvatura. Mucha gente sostiene que existe además una aversión al riesgo propia, separada del valor de los resultados. Eso se ve en la lección siguiente.</p>
+<p>Para verlo moverse, <a data-ir="practica" href="#sim-aversion">prueba el simulador en Práctica</a>: cambia la curvatura y mira cómo se mueve la lotería.</p>
+
+<h3>Dos medidas para ponerle número: certeza equivalente y prima de riesgo</h3>
+<p>Estas dos medidas son un añadido propio, estándar en la teoría de la decisión (se asocian a Arrow y Pratt). La certeza equivalente (<em>certainty equivalent</em>, CE; la lección anterior la llamó equivalente cierto) es la cantidad segura que al agente le vale exactamente lo mismo que la lotería. La prima de riesgo (<em>risk premium</em>) es cuánto valor esperado está dispuesto a ceder por librarse del riesgo:</p>
+<div class="formula">\[ u(\text{CE}) = E[u(X)] \quad\Longleftrightarrow\quad \text{CE}=u^{-1}\big(E[u(X)]\big) \qquad\qquad \text{prima} = E[X] - \text{CE} \]</div>
+<p>Ejemplo propio con \(u(x)=\sqrt{x}\) y una lotería que da 0 o 100 con probabilidad 1/2. El valor esperado es 50, pero la utilidad esperada es \(\tfrac12\sqrt0+\tfrac12\sqrt{100}=5\), y \(\sqrt{\text{CE}}=5\) da CE = 25. La prima vale \(50-25=25\): el agente cambiaría la lotería por 25 seguros. Con \(u(x)=x^2\) sale lo contrario: utilidad esperada 5000, CE \(=\sqrt{5000}\approx70{,}7\) y prima \(\approx -20{,}7\). Una prima negativa es una búsqueda del riesgo: pagaría por jugar. El signo de la prima es, pues, una forma de leer la actitud:</p>
+<div class="tw"><table>
+<thead><tr><th>Curva</th><th>CE frente a EV</th><th>Prima</th><th>Actitud</th></tr></thead>
+<tbody>
+<tr><td>Cóncava</td><td>CE &lt; EV</td><td>positiva</td><td>aversión</td></tr>
+<tr><td>Recta</td><td>CE = EV</td><td>cero</td><td>neutralidad</td></tr>
+<tr><td>Convexa</td><td>CE &gt; EV</td><td>negativa</td><td>búsqueda</td></tr>
+</tbody></table></div>
+<p>La prima crece con la curvatura y con la dispersión de la lotería. Una curva cóncava no manda rechazar toda apuesta: la lotería se acepta si su certeza equivalente supera a lo seguro que se ofrece a cambio, es decir, si su valor esperado supera a lo seguro en más que la prima. La prima es el descuento que el agente exige por el riesgo.</p>
+
+<h3>Si mi criterio es el valor esperado, ¿por qué actuar con aversión?</h3>
+<p>El libro distingue dos cosas. El criterio de corrección (<em>criterion of rightness</em>) es la vara con la que se juzga si un resultado es bueno. El procedimiento de decisión (<em lang="en">decision procedure</em>) es el método que usas para llegar a ese resultado. No tienen por qué coincidir: quien busca la felicidad directamente suele ser menos feliz que quien persigue algo que le importa. Aplicado aquí: aunque tu criterio fuera maximizar la ganancia media, decidir <em>como si</em> fueras averso puede darte mejor resultado. Hay tres razones.</p>
+
+<h4>Razón 1: no sabes calcular con exactitud</h4>
+<p>Con estimaciones dudosas, la prudencia protege de errores grandes y ahorra tiempo. Ejemplo del libro: quien duda de si le da tiempo a una conexión ajustada paga el vuelo directo aunque el otro saliera más barato. Ejemplo propio: un servicio hospitalario tiene un modelo nuevo de predicción de ingresos y no sabe cuantificar su error. Mientras lo evalúa, mantiene el protocolo manual. Puede perder algo de eficiencia esperada, pero se cubre de que la estimación esté muy equivocada.</p>
+
+<h4>Razón 2: el crecimiento se multiplica, no se suma</h4>
+<p>Cuando los resultados se encadenan como factores (el capital de este año parte del de ayer), lo que importa a largo plazo es la media del logaritmo del crecimiento, no la media del crecimiento. El libro lo ilustra con tres poblaciones animales que comparten el crecimiento medio 1,1 por año, pero una lo tiene fijo y otra pasa de 2,2 a 0: esa última se extingue en el primer año malo. También cita aves (<em>bananaquits</em>) que evitan la flor de néctar variable, sobre todo cuando escasea. La selección natural favorece, según el libro, un comportamiento que maximiza el logaritmo del crecimiento.</p>
+<p>Ejemplo propio con números. Un capital puede crecer siempre ×1,1, o bien ×1,5 o ×0,7 con la misma probabilidad. La media es 1,1 en los dos casos. Pero lo que ocurre año tras año es:</p>
+<div class="tw"><table>
+<thead><tr><th>Estrategia</th><th>Crecimiento medio</th><th>Media del logaritmo</th><th>Capital tras 20 años (caso típico)</th></tr></thead>
+<tbody>
+<tr><td>Estable, ×1,1</td><td>1,1</td><td>\(\ln 1{,}1 = 0{,}095\)</td><td>\(\times 6{,}7\)</td></tr>
+<tr><td>Variable, ×1,5 o ×0,7</td><td>1,1</td><td>\(\tfrac12\ln1{,}5+\tfrac12\ln0{,}7=0{,}024\)</td><td>\(\times 1{,}6\)</td></tr>
+</tbody></table></div>
+<p>El caso típico es el que sigue la media de los logaritmos. La estrategia variable tiene la misma media pero se queda muy atrás: un año bueno y uno malo seguidos multiplican el capital por \(1{,}5\cdot0{,}7=1{,}05\), y dos años estables lo multiplican por \(1{,}1^2=1{,}21\). Encadenados, importa el producto y no la suma. Por eso la media aritmética engaña.</p>
+
+<h4>Razón 3: hay resultados de los que no se vuelve</h4>
+<p>Ejemplo del libro: un juego de "triple o nada" con probabilidad 1/2. Con riqueza \(w\), el valor esperado de una ronda es \(\tfrac12\cdot0+\tfrac12\cdot3w=1{,}5\,w\), mayor que \(w\). Un agente neutral apostaría todo, y otra vez, y otra. Tras \(n\) rondas reinvirtiendo todo, el valor esperado es \(1{,}5^n w\), que crece sin límite. Pero se cobra solo en una rama de probabilidad \(1/2^n\); en todas las demás se queda en cero. Con \(n=10\) (cálculo propio) el valor esperado es unas 57,7 veces la riqueza inicial, y la probabilidad de conservar algo es \(1/1024\), un 0,098 %. Una cifra media enorme sostenida por una rama casi imposible.</p>
+<p>¿Cómo evitar la rama de ruina sin renunciar a crecer? El libro propone decidir como si la utilidad fuera el logaritmo de la riqueza. Dos rasgos del logaritmo hacen el trabajo: \(\log 0=-\infty\), de modo que cualquier lotería que deje aunque sea una pequeña probabilidad de acabar sin nada queda descartada, y crece despacio, de modo que un premio enorme pero rarísimo pesa poco. El libro afirma que maximizar el logaritmo de la riqueza maximiza la mediana y cualquier percentil, y que supera a otras estrategias de inversión a largo plazo con probabilidad 1, bajo ciertos supuestos; se usa mucho en finanzas. Es la idea del criterio de Kelly (añadido propio; el texto no lo nombra), y el simulador y el ejercicio C lo enseñan con números.</p>
+<p>La aversión tampoco se lleva al extremo. Guardar todo el dinero en efectivo bajo el colchón pierde valor con la inflación. Hay un punto medio entre la seguridad de lo cierto y la ganancia.</p>
+
+<h3>¿Cuándo tiene sentido la neutralidad?</h3>
+<p>Cuando lo que se juega es poco y no deja secuelas. Ejemplo del libro: una entrada de cine de 20 $ para una película dudosa no merece más cálculo. Con un coche a crédito, en cambio, un impago afecta a toda la vida.</p>
+<p>El libro fija cuatro condiciones para que no haya riesgo de ruina, y solo entonces la media es una guía razonable:</p>
+<ol>
+<li><strong>Riesgos locales.</strong> Solo afectan a una parte del sistema, no a todo.</li>
+<li><strong>No correlacionados.</strong> Que uno salga mal no arrastra a los demás, y por eso muchos riesgos pequeños no se acumulan en uno grande.</li>
+<li><strong>Tratables.</strong> Se pueden estimar razonablemente las probabilidades y las consecuencias.</li>
+<li><strong>Sin cisnes negros.</strong> No hay sucesos improbables, imprevistos y de gran impacto (los cisnes negros del módulo 2).</li>
+</ol>
+<p>En escenarios de gran apuesta rara vez se cumplen las cuatro. Ejemplo del libro: en 2008 la aseguradora AIG dio por no correlacionadas sus inversiones ligadas al inmobiliario y descartó el riesgo de ruina; cuando el mercado se hundió, todas cayeron a la vez y necesitó un rescate de 180.000 millones de dólares de la Reserva Federal.</p>
+<p>Ejemplo propio: un agente de IA que gestiona camas y quirófanos según la ocupación esperada puede dejar margen cero en urgencias si supone que las demandas son independientes. Un brote las correlaciona a todas de golpe. El error no está en la cuenta, sino en creer que no había ruina posible.</p>
+
+<h3>¿Y cuándo conviene buscar el riesgo?</h3>
+<p>Buscar el riesgo no siempre es irracional, aunque el jugador compulsivo sí se hace daño a largo plazo. El libro da cuatro situaciones en las que tiene lógica:</p>
+<ol>
+<li><strong>Muchos jugadores y un solo premio.</strong> Si mil personas compiten por un premio, la media te da pocas opciones; subir la varianza aunque baje tu media es una manera de tener alguna opción real de ganar. Igual con cien empresas de producto idéntico y una publicidad provocadora.</li>
+<li><strong>Situación mala con poca salida.</strong> Quien tiene una enfermedad terminal puede probar un tratamiento experimental aunque lo más probable es que no funcione. El equipo que pierde en el último minuto adelanta al portero.</li>
+<li><strong>Antifragilidad.</strong> Un sistema es antifrágil (<em>antifragile</em>) si el riesgo lo fortalece. El sistema inmunitario sale más preparado tras cada infección.</li>
+<li><strong>Startups.</strong> Si perder poco es tolerable y ganar mucho lo cambia todo, puede tener sentido apostar por un resultado muy improbable aunque el valor esperado sea negativo.</li>
+</ol>
+<p>El libro resume el caso de la empresa con una utilidad en forma de S: convexa al principio y cóncava después. Al empezar, con poco que perder, la empresa busca el riesgo. Cuando crece, empleados, inversores y clientes dependen de ella, y pasa a proteger lo conseguido. Sobre la IA, el libro concluye que una startup puede priorizar el éxito sobre la seguridad, aunque como opera a pequeña escala sus riesgos son locales, y que una gran tecnológica tiende a probar con más cuidado antes de lanzar, aunque no siempre. Ejemplo propio: un ensayo de fase I para un paciente sin alternativas es búsqueda razonable; el mismo riesgo aplicado a un cribado de toda la población no lo es.</p>
+<p>Conclusión: una persona o una organización no tiene una única actitud. Cambia con la situación, y decir que alguien "es averso" siempre simplifica. La lección siguiente muestra cuánto depende de cómo se presenta la decisión.</p>
+
+<h3>Qué significa para diseñar una IA</h3>
+<p>El libro sostiene que hay que dar a las IA actitudes seguras ante el riesgo y que conviene favorecer la aversión frente a la neutralidad, porque quien diseña la utilidad de una IA fija su actitud y un defecto de ahí es difícil de corregir después, como se vio con la corrigibilidad. Un agente que maximiza la media sin más puede jugarse vidas por un cálculo ingenuo. Los límites de esta idea son propios: una IA aversa en exceso puede ser inútil, y la aversión no arregla que la utilidad mal elegida apunte a otra cosa.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Un paciente elige entre dos tratamientos y mide el resultado en años de vida ajustados por calidad (AVAC). El <strong>seguro</strong> da 8 AVAC con certeza. El <strong>arriesgado</strong> da 14 AVAC con probabilidad 1/2 y 3 AVAC con probabilidad 1/2. El valor esperado del arriesgado es \(0{,}5\cdot14+0{,}5\cdot3=8{,}5\), medio AVAC más que el seguro. Un criterio de "más beneficio esperado" elige el arriesgado. Veamos qué elige cada actitud:</p>
+<div class="tw"><table>
+<thead><tr><th>Utilidad</th><th>u(seguro)</th><th>Utilidad esperada del arriesgado</th><th>CE del arriesgado</th><th>Prima</th><th>Elige</th></tr></thead>
+<tbody>
+<tr><td>\(\sqrt{x}\) (cóncava)</td><td>2,828</td><td>2,737</td><td>7,49</td><td>+1,01</td><td>seguro</td></tr>
+<tr><td>\(x\) (recta)</td><td>8</td><td>8,5</td><td>8,5</td><td>0</td><td>arriesgado</td></tr>
+<tr><td>\(x^2\) (convexa)</td><td>64</td><td>102,5</td><td>10,12</td><td>−1,62</td><td>arriesgado</td></tr>
+</tbody></table></div>
+<p>Con la raíz, la utilidad esperada del arriesgado es \(0{,}5\sqrt{14}+0{,}5\sqrt{3}\approx2{,}737\), por debajo de \(\sqrt8\approx2{,}828\). Su certeza equivalente es \(2{,}737^2\approx7{,}49\): el paciente cambiaría el tratamiento arriesgado por 7,49 AVAC seguros, y como el seguro da 8, se queda con el seguro. Con esas mismas cifras el punto de cambio está en \(a\approx0{,}75\) si la utilidad es \(x^a\): con una curva menos cóncava que eso elegiría el arriesgado. Que el segundo tratamiento tenga más beneficio esperado no decide nada por sí solo: hay que saber qué actitud recoge la utilidad del paciente, y eso solo se aclara preguntándoselo (reflexión propia). Puedes comprobarlo en la parte 2 del <a data-ir="practica" href="#sim-aversion">simulador</a>.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Confundir aversión con rechazar toda apuesta (aviso propio).</strong> Una utilidad cóncava no dice "no" a toda lotería, dice "no, salvo que el valor esperado supere a lo seguro en más que la prima". Con una apuesta favorable y pequeña respecto a lo que tienes, un agente averso entra. Por eso no basta con "ser prudente": hay que decir cuánto descuento se pide por el riesgo.</p>
+<p><strong>Elevar el logaritmo a mandamiento (aviso propio).</strong> Que maximizar el logaritmo de la riqueza gane a largo plazo depende de supuestos: apuestas repetidas, reinversión y probabilidades conocidas. Con una sola decisión irrepetible, o con probabilidades mal estimadas, no hay razón para creer que sea la mejor regla. Sigue siendo un procedimiento, no un criterio de corrección.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>I'm not risk-averse out of temperament: I'm risk-averse because I can't rule out ruin, my estimates are noisy, and the expected value alone ignores both.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 10.4 Attitudes to Risk según el índice del curso (el texto impreso la numera 9.4), págs. 516 a 528 (PDF 534 a 546): las tres actitudes y la forma de la utilidad (516 a 518), criterio de corrección y procedimiento de decisión (519), razones de la aversión (519 a 524), neutralidad y el caso AIG (524 y 525), búsqueda del riesgo y ciclo de vida de una empresa (525 a 528) y resumen para el diseño de IA (528).</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS). No tiene una lección propia de este tema; solo se ha usado el libro.</li>
+<li>Añadido propio, no procede de las fuentes: la desigualdad de Jensen como puente; la certeza equivalente y la prima de riesgo (conceptos estándar, no desarrollados así en el texto); los ejemplos numéricos de la raíz y del cuadrado; el ejemplo del capital ×1,1 frente a ×1,5 o ×0,7 y sus cifras; el cálculo con 10 rondas de triple o nada; la mención del criterio de Kelly; los ejemplos del hospital, del agente de camas y del ensayo de fase I; el ejemplo del tratamiento, su punto de cambio, el simulador y los ejercicios.</li>
+</ul>
+</aside>
+
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: primero un simulador con dos partes para explorar, después tres ejercicios de cálculo.</p>
+
+<p class="consigna"><strong>Simulador de actitud ante el riesgo.</strong> Empieza con la utilidad cóncava (raíz) y la lotería de 0 o 100 al 50 %: valor esperado 50, certeza equivalente 25 y prima de riesgo 25 (la utilidad esperada sale 0,5 y no 5, porque el simulador normaliza u(100) = 1). Sube la curvatura <em>a</em> hasta 1 y mira cómo la prima se va a 0 (la recta); pásala de 1 y verás una prima negativa, la de la búsqueda del riesgo. Pulsa "Logarítmica" con el resultado bajo en 0: la certeza equivalente es 0, porque u(0) = −∞. Sube ese resultado bajo a 1 y compara. En la parte 2, con la raíz, gana el seguro aunque el arriesgado tenga más valor esperado. Sube <em>a</em> de 0,70 a 0,75 (el deslizador avanza de 0,05 en 0,05) y la decisión cambia sin tocar ninguna cifra clínica; el punto exacto es 0,748. Sube después la probabilidad de que salga bien y mira dónde se mueve ese punto de cambio.</p>
+<div data-widget="m11-l02-aversion" id="sim-aversion"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: certeza equivalente y prima (a mano, 8 minutos)</p>
+<p>Una lotería paga 400 € o 3600 € con probabilidad 1/2 cada uno. Cifras propias para practicar.</p>
+<ol>
+<li>Con \(u(x)=\sqrt{x}\), calcula la utilidad esperada, la certeza equivalente y la prima de riesgo.</li>
+<li>Te ofrecen 1500 € seguros a cambio de renunciar a la lotería. ¿Qué prefiere este agente?</li>
+<li>Repite el cálculo de la certeza equivalente con \(u(x)=x^2\). ¿Qué signo tiene la prima y qué actitud indica?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> El valor esperado es \(0{,}5\cdot400+0{,}5\cdot3600=2000\). La utilidad esperada es \(0{,}5\cdot20+0{,}5\cdot60=40\). Como \(\sqrt{\text{CE}}=40\), CE \(=1600\). La prima es \(2000-1600=400\).</p>
+<p><strong>2.</strong> La certeza equivalente es 1600, mayor que 1500. Para este agente la lotería vale lo mismo que 1600 seguros, así que prefiere la lotería a 1500 seguros. Cambiaría por cualquier cantidad segura mayor de 1600.</p>
+<p><strong>3.</strong> Utilidad esperada: \(0{,}5\cdot160000+0{,}5\cdot12960000=6560000\). CE \(=\sqrt{6560000}\approx2561\). La prima es \(2000-2561\approx-561\): negativa, es decir, búsqueda del riesgo. Este agente pagaría hasta unos 561 € por encima del valor esperado por jugar.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: la media engaña cuando se multiplica (a mano, 8 minutos)</p>
+<p>Un fondo puede hacer dos cosas cada año. La estrategia A crece siempre ×1,1. La estrategia B crece ×1,5 o ×0,7, con probabilidad 1/2 cada una. Cifras propias.</p>
+<ol>
+<li>Calcula el crecimiento medio de cada estrategia.</li>
+<li>Calcula la media del logaritmo natural del crecimiento de cada una.</li>
+<li>Usa esa media para estimar el capital típico tras 20 años de un fondo que empieza en 1 (\(e^{20\,\bar g}\)).</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> A: 1,1. B: \(0{,}5\cdot1{,}5+0{,}5\cdot0{,}7=1{,}1\). Iguales.</p>
+<p><strong>2.</strong> A: \(\ln1{,}1\approx0{,}0953\). B: \(0{,}5\ln1{,}5+0{,}5\ln0{,}7=0{,}5\,(0{,}4055-0{,}3567)\approx0{,}0244\).</p>
+<p><strong>3.</strong> A: \(e^{20\cdot0{,}0953}\approx6{,}7\). B: \(e^{20\cdot0{,}0244}\approx1{,}6\). La variable, con la misma media, deja un capital típico unas cuatro veces menor. La media aritmética la sobrevalora porque unas pocas trayectorias afortunadas la sostienen.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: apostar con ventaja y aun así arruinarse (a mano, 10 minutos)</p>
+<p>Una apuesta de "doble o nada" se gana con probabilidad 0,6. Cifras propias.</p>
+<ol>
+<li>Un agente neutral apuesta todo su capital cinco rondas seguidas. ¿Cuál es su valor esperado final (en múltiplos del capital inicial) y la probabilidad de no haber perdido nada?</li>
+<li>Otro agente apuesta una fracción \(f\) del capital en cada ronda. Su crecimiento logarítmico medio por ronda es \(g(f)=0{,}6\ln(1+f)+0{,}4\ln(1-f)\). Calcúlalo para \(f=0{,}2\) y para \(f=0{,}5\).</li>
+<li>¿Qué dice el resultado sobre apostar mucho aunque la apuesta sea favorable?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Cada ronda multiplica la media por \(0{,}6\cdot2=1{,}2\). En cinco rondas, \(1{,}2^5\approx2{,}49\) veces el capital. La probabilidad de ganar las cinco es \(0{,}6^5\approx0{,}078\), un 7,8 %. Con probabilidad 92,2 % termina en cero.</p>
+<p><strong>2.</strong> Para \(f=0{,}2\): \(0{,}6\ln1{,}2+0{,}4\ln0{,}8\approx0{,}1094-0{,}0893=+0{,}0201\). Para \(f=0{,}5\): \(0{,}6\ln1{,}5+0{,}4\ln0{,}5\approx0{,}2433-0{,}2773=-0{,}0340\).</p>
+<p><strong>3.</strong> Con \(f=0{,}2\) el capital típico crece un 2 % por ronda. Con \(f=0{,}5\) encoge un 3,3 % por ronda, aunque cada apuesta tenga ventaja. Con \(f=1\), \(\ln0=-\infty\): ruina segura a largo plazo. El máximo de \(g\) está en \(f=2p-1=0{,}2\) (es el criterio de Kelly, añadido propio). Una apuesta favorable arruina si se apuesta demasiado.</p>
+</details>
+</div>
+
+</div>
+
+
+</section>

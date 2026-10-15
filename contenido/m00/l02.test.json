@@ -1,0 +1,111 @@
+[
+  {
+    "id": "m00l02-q01",
+    "tipo": "unica",
+    "enunciado": "Un modelo recibe la edad, el diagnóstico de ingreso y la analítica de un paciente y devuelve cuántos días estará ingresado. ¿Qué tarea resuelve?",
+    "opciones": [
+      "Clasificación binaria",
+      "Detección de anomalías",
+      "Regresión",
+      "Generación de texto"
+    ],
+    "correcta": 2,
+    "explicacion": "La salida es un número que puede tomar cualquier valor dentro de un rango, y eso es regresión. La clasificación devolvería una categoría, por ejemplo \"estancia corta\" o \"larga\"."
+  },
+  {
+    "id": "m00l02-q02",
+    "tipo": "unica",
+    "enunciado": "Un modelo lee millones de notas clínicas sin ninguna marca añadida y aprende a predecir la palabra siguiente. ¿Qué tipo de aprendizaje es?",
+    "opciones": [
+      "Supervisado, porque las notas las escribieron médicos",
+      "No supervisado (o autosupervisado): la señal sale del propio texto",
+      "Por refuerzo, porque acierta o falla en cada palabra",
+      "Ninguno: sigue reglas escritas a mano"
+    ],
+    "correcta": 1,
+    "explicacion": "No hay etiquetas puestas por personas: el modelo fabrica su propia señal a partir del texto. Por eso se le llama no supervisado o autosupervisado. En el refuerzo hay un agente que actúa en un entorno y recibe recompensas."
+  },
+  {
+    "id": "m00l02-q03",
+    "tipo": "unica",
+    "enunciado": "Un modelo de presión arterial tiene un error de 3 mmHg con los pacientes de entrenamiento y de 15 mmHg con los de validación. ¿Cuál es el diagnóstico más probable?",
+    "opciones": [
+      "Sobreajuste: ha aprendido rasgos de los pacientes de entrenamiento que no se repiten",
+      "Subajuste: al modelo le falta flexibilidad",
+      "Los datos no tienen ruido",
+      "Es normal, ambos errores deberían ser siempre iguales"
+    ],
+    "correcta": 0,
+    "explicacion": "Un error bajo en entrenamiento y alto en validación es la señal típica del sobreajuste. En el subajuste los dos errores son altos. Ambos errores no tienen por qué coincidir, pero una brecha tan grande indica que el modelo no generaliza."
+  },
+  {
+    "id": "m00l02-q04",
+    "tipo": "unica",
+    "enunciado": "Un modelo de cribado tiene un AUROC de 0,5. ¿Qué significa?",
+    "opciones": [
+      "Detecta al 50 % de los enfermos",
+      "Su exactitud es del 50 %",
+      "Logra el mejor equilibrio posible entre precisión y recall",
+      "Un enfermo puntúa más alto que un sano solo la mitad de las veces: no separa mejor que el azar"
+    ],
+    "correcta": 3,
+    "explicacion": "El AUROC se lee como la probabilidad de que un positivo puntúe más alto que un negativo. Con 0,5 el modelo equivale al azar. No es una exactitud ni un recall, y no depende del umbral."
+  },
+  {
+    "id": "m00l02-q05",
+    "tipo": "numerica",
+    "enunciado": "Un modelo de cribado, probado en 1000 pacientes, da VP = 16, FN = 4, FP = 49 y VN = 931. ¿Cuál es su exactitud? Responde como número entre 0 y 1.",
+    "correcta": 0.947,
+    "tolerancia": 0.004,
+    "explicacion": "Los aciertos son VP + VN = 16 + 931 = 947, sobre un total de 1000: exactitud de 0,947."
+  },
+  {
+    "id": "m00l02-q06",
+    "tipo": "numerica",
+    "enunciado": "Otro modelo, probado en 1000 pacientes, da VP = 30, FP = 10, FN = 20 y VN = 940. ¿Cuál es su precisión? Responde como número entre 0 y 1.",
+    "correcta": 0.75,
+    "tolerancia": 0.005,
+    "explicacion": "Precisión = VP / (VP + FP) = 30 / 40 = 0,75. Tres de cada cuatro alarmas son reales. El recall sería 30 / 50 = 0,6."
+  },
+  {
+    "id": "m00l02-q07",
+    "tipo": "numerica",
+    "enunciado": "Un modelo de regresión predice 120, 130 y 110 mmHg para tres pacientes cuyos valores reales son 118, 135 y 110. ¿Cuál es el error cuadrático medio? Responde en mmHg al cuadrado.",
+    "correcta": 9.667,
+    "tolerancia": 0.05,
+    "explicacion": "Los errores son 2, -5 y 0. Sus cuadrados son 4, 25 y 0, y su media es 29 / 3 = 9,667."
+  },
+  {
+    "id": "m00l02-q08",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estos elementos son parámetros, es decir, valores que el entrenamiento ajusta?",
+    "opciones": [
+      "El peso que el modelo da a la edad del paciente",
+      "Los coeficientes de un polinomio ajustado a los datos",
+      "El grado del polinomio, elegido antes de entrenar",
+      "El número de pacientes reservados para validar"
+    ],
+    "correcta": [0, 1],
+    "explicacion": "Los pesos y los coeficientes se mueven durante el entrenamiento. El grado forma parte de la arquitectura y se elige antes, y el tamaño del conjunto de validación es una decisión del equipo."
+  },
+  {
+    "id": "m00l02-q09",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas afirmaciones sobre el aprendizaje por refuerzo son correctas?",
+    "opciones": [
+      "No parte de datos ya recogidos: el agente genera los suyos al actuar",
+      "Necesita una función de recompensa bien diseñada",
+      "Requiere que una persona etiquete cada ejemplo",
+      "Es una variante del aprendizaje profundo"
+    ],
+    "correcta": [0, 1],
+    "explicacion": "El agente empieza sin información y aprende de las recompensas que recibe, así que su calidad depende de cómo se diseñe la recompensa. No exige etiquetas humanas. Y no es una variante del aprendizaje profundo: es uno de los tres tipos, y el profundo es un método que se puede aplicar en cualquiera de ellos."
+  },
+  {
+    "id": "m00l02-q10",
+    "tipo": "vf",
+    "enunciado": "Un modelo de cribado con una exactitud del 98 % en una enfermedad que afecta al 2 % de la población es necesariamente un buen modelo.",
+    "correcta": false,
+    "explicacion": "Un modelo que dice \"sano\" a todos consigue ese 98 % y no detecta a ningún enfermo. Con clases desequilibradas hay que mirar la matriz de confusión, la precisión y el recall."
+  }
+]

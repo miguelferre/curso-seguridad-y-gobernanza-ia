@@ -1,0 +1,226 @@
+<section class="leccion" data-id="m09/l01">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>A veces cada uno hace lo que más le conviene y, sin embargo, el resultado es peor para todos. No hace falta que nadie sea malvado ni torpe: basta con que lo que gana uno al adelantarse lo pierda el otro, y que ninguno pueda fiarse de que el otro se pare.</p>
+<p>La teoría de juegos es la herramienta para ver esa trampa con precisión. Cada situación se reduce a una tabla con las opciones de cada uno y lo que obtiene según lo que elijan los dos. En el caso más famoso, el dilema del prisionero, elegir lo mejor para uno mismo lleva a los dos a un resultado que ambos habrían cambiado por otro, pero ninguno puede cambiar solo.</p>
+<p>Para la seguridad de la IA importa porque empresas y Estados juegan juegos así: que cada actor sea prudente no basta si el conjunto no lo es. Hoy aprendemos a leer esas tablas y a preguntar qué habría que cambiar en ellas.</p>
+
+<svg viewBox="0 0 360 250" role="img" aria-labelledby="mx-t mx-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="mx-t">El dilema del prisionero</title>
+<desc id="mx-d">Matriz de dos por dos con los años de cárcel en negativo. Callar los dos da menos uno y menos uno, y deja a ambos mejor que el equilibrio. Confesar los dos da menos tres y menos tres, es el equilibrio y está marcado con un recuadro grueso. Una flecha discontinua va del equilibrio al resultado en que los dos callan.</desc>
+<text x="169" y="24" text-anchor="middle" style="fill:currentColor;font-size:12.5px;font-weight:700">Bob calla</text>
+<text x="291" y="24" text-anchor="middle" style="fill:currentColor;font-size:12.5px;font-weight:700">Bob confiesa</text>
+<text x="104" y="70" text-anchor="end" style="fill:currentColor;font-size:12.5px;font-weight:700">Alice calla</text>
+<text x="104" y="138" text-anchor="end" style="fill:currentColor;font-size:12.5px;font-weight:700">Alice confiesa</text>
+<rect x="110" y="34" width="118" height="64" rx="8" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:2"/>
+<text x="169" y="62" text-anchor="middle" style="fill:currentColor;font-size:15px;font-weight:700">-1 , -1</text>
+<text x="169" y="82" text-anchor="middle" style="fill:var(--ex);font-size:11.5px">mejora a los dos</text>
+<rect x="232" y="34" width="118" height="64" rx="8" style="fill:var(--surface);stroke:var(--rule-strong);stroke-width:1.5"/>
+<text x="291" y="72" text-anchor="middle" style="fill:currentColor;font-size:15px;font-weight:700">-8 , 0</text>
+<rect x="110" y="102" width="118" height="64" rx="8" style="fill:var(--surface);stroke:var(--rule-strong);stroke-width:1.5"/>
+<text x="169" y="140" text-anchor="middle" style="fill:currentColor;font-size:15px;font-weight:700">0 , -8</text>
+<rect x="232" y="102" width="118" height="64" rx="8" style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:3.5"/>
+<text x="291" y="130" text-anchor="middle" style="fill:currentColor;font-size:15px;font-weight:700">-3 , -3</text>
+<text x="291" y="150" text-anchor="middle" style="fill:var(--accent-ink);font-size:11.5px">equilibrio de Nash</text>
+<path d="M248 116 L212 88" style="fill:none;stroke:var(--ex);stroke-width:2;stroke-dasharray:5 3"/>
+<polygon points="207,84 219,86 212,95" style="fill:var(--ex)"/>
+<text x="180" y="192" text-anchor="middle" style="fill:currentColor;font-size:12.5px">Confesar es lo mejor pase lo que pase,</text>
+<text x="180" y="210" text-anchor="middle" style="fill:currentColor;font-size:12.5px">y por eso los dos acaban en -3 en vez de -1.</text>
+<text x="180" y="234" text-anchor="middle" style="fill:var(--muted);font-size:11.5px">Pagos = años de cárcel en negativo (Alice , Bob)</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Explicar con un ejemplo por qué agentes racionales y bien intencionados pueden producir un resultado que ninguno quiere.</li>
+<li>Leer una matriz de pagos 2×2: mejores respuestas, estrategia dominante y equilibrio de Nash puro.</li>
+<li>Distinguir un equilibrio (estable) de un resultado eficiente de Pareto (sin mejora gratuita) y detectar cuándo no coinciden.</li>
+<li>Reconocer la condición que hace de un juego un dilema del prisionero y predecir cómo cambia al alterar los pagos.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>¿Puede un grupo acabar donde nadie quiere?</h3>
+<p>El economista Thomas Schelling lo resumió en una frase que el libro pone al frente del capítulo: los micromotivos no equivalen al macrocomportamiento (libro, p. 365). Lo que cada agente busca por separado no dice qué saldrá cuando todos interactúan, ni siquiera si todos quieren lo mismo.</p>
+<p>El libro lo ilustra con cuatro situaciones de las que se saca una estructura común:</p>
+<div class="tw"><table>
+<thead><tr><th>Ejemplo del libro</th><th>Qué quiere cada uno</th><th>Qué pasa</th></tr></thead>
+<tbody>
+<tr><td>Atasco (p. 365)</td><td>Llegar pronto</td><td>Nadie puede arrancar a la vez que los demás: todos avanzan a trompicones</td></tr>
+<tr><td>Bosque de árboles altos (pp. 365 y 366)</td><td>Más luz que el vecino</td><td>Los árboles del bosque Rockefeller (California) miden de media más de 350 pies (unos 107 m) y pagan un coste enorme; con 200 pies menos, cada uno tendría la misma luz sin ese gasto</td></tr>
+<tr><td>Exceso de horas de trabajo (p. 366)</td><td>Destacar en su campo</td><td>Si todos trabajaran menos, seguirían en la misma posición y vivirían mejor; quien lo haga solo, pierde</td></tr>
+<tr><td>Carrera armamentística (p. 366)</td><td>Seguridad frente a otros países</td><td>Gasto militar alto y riesgo de catástrofe, cuando todos podrían recortar sin perder poder relativo</td></tr>
+</tbody></table></div>
+<p>Mira qué tienen en común las tres últimas filas (el atasco es otro caso: falta sincronización). En ellas, lo que se disputa vale sobre todo por comparación con los demás (luz frente al vecino, puesto en el escalafón, seguridad frente a otro país), y la única manera de adelantarse es pagar con otra cosa: crecimiento, tiempo libre, presupuesto. El libro lo describe así (p. 366): quien se niega a pagar se queda atrás, de modo que acaban pagando todos, la posición relativa no cambia y lo sacrificado se pierde para nada.</p>
+<p>Ejemplo propio: dos servicios de urgencias vecinos compiten por los mismos médicos. Cada uno ofrece turnos más flexibles a costa de más guardias para el resto del equipo. Ninguno gana médicos en neto, y los dos acumulan agotamiento.</p>
+<p>La consecuencia para la seguridad de la IA es directa (p. 366): asegurarse de que cada sistema de IA sea leal y cada operador bienintencionado no elimina el riesgo, porque el resultado de la interacción puede ser indeseado aunque todas las piezas sean buenas. El libro separa los riesgos entre humanos (empresas y Estados que corren) y los riesgos entre IA (p. 367). La carrera entre actores ya se vio en el módulo 1, "La carrera de la IA"; esta lección da la herramienta formal para analizarla.</p>
+
+<h3>Qué es un juego</h3>
+<p>La teoría de juegos (<em>game theory</em>) es la rama de las matemáticas que estudia las elecciones de agentes que se afectan unos a otros. Reduce la situación a un juego: quiénes deciden, qué opciones tiene cada uno y cuánto obtiene cada uno con cada combinación (pp. 369 a 371). Ese "cuánto" es el pago (<em>payoff</em>), la utilidad del resultado para ese agente.</p>
+<p>Se suele suponer que los agentes son autointeresados (<em>self-interested</em>: deciden según su propia utilidad, sin contar las consecuencias para los demás) y racionales (<em>rational</em>: actúan como si la maximizaran) (p. 371). Es una suposición del modelo, no un juicio moral (matiz propio): un agente autointeresado no tiene por qué ser malvado. Si queremos modelar a alguien que se preocupa por los demás, esa preocupación se mete dentro de sus pagos; el libro hace justo eso más adelante, al hablar de altruismo (p. 380).</p>
+<p>Los juegos se ordenan por la suma de los pagos (pp. 371 y 372):</p>
+<div class="tw"><table>
+<thead><tr><th>Tipo</th><th>Qué significa</th><th>Ejemplo del libro</th><th>Ejemplo propio</th></tr></thead>
+<tbody>
+<tr><td>Suma cero</td><td>En cada resultado, los pagos suman cero: lo que gana uno lo pierde el otro</td><td>Tira y afloja; el póker con dinero</td><td>Dos hospitales que se reparten un único órgano</td></tr>
+<tr><td>Suma positiva</td><td>El juego crea valor total</td><td>Harina, agua y calor hacen pan</td><td>Hospitales que comparten datos anonimizados y todos entrenan mejores modelos</td></tr>
+<tr><td>Suma negativa</td><td>El juego destruye valor</td><td>Las guerras del petróleo: el crudo solo cambia de manos, pero la guerra tiene costes</td><td>Dos clínicas que se disputan pacientes con publicidad: casi no cambia el reparto y las dos pagan los anuncios</td></tr>
+</tbody></table></div>
+<p>Aviso del libro (p. 371): suma positiva no significa que todos ganen; el reparto del valor creado puede dejar a alguien en negativo.</p>
+
+<h3>El dilema del prisionero</h3>
+<p>Es el juego más citado. Dos ladrones, Alice y Bob, son detenidos en celdas separadas y no pueden hablar. La policía solo puede acusarlos de allanamiento, pero si uno confiesa el plan de robo, el otro se enfrenta a una condena mucho mayor. A cada uno se le ofrece el mismo trato (p. 372). Cada uno puede callar (cooperar con el otro) o confesar (desertar). El libro fija los años de cárcel; como más cárcel es peor, se escriben en negativo. La tabla los recoge (p. 374):</p>
+<div class="tw"><table>
+<thead><tr><th>Pagos (Alice , Bob)</th><th>Bob calla</th><th>Bob confiesa</th></tr></thead>
+<tbody>
+<tr><th scope="row">Alice calla</th><td>-1 , -1</td><td>-8 , 0</td></tr>
+<tr><th scope="row">Alice confiesa</th><td>0 , -8</td><td>-3 , -3</td></tr>
+</tbody></table></div>
+<p>Razona como Alice, que no sabe qué hará Bob (p. 373). Si Bob calla, confesar le ahorra un año (queda libre en vez de cumplir uno). Si Bob confiesa, confesar le ahorra cinco (tres años en vez de ocho). Confesar es mejor en los dos casos. Si Alice creyera que Bob calla con probabilidad \(p\), esperaría ahorrarse \(p\cdot 1+(1-p)\cdot 5\) años confesando (cuenta propia). Una estrategia así, la mejor haga lo que haga el otro, se llama estrategia dominante (<em>dominant strategy</em>) (p. 374). El libro la ilustra con alguien que elige entre abrigo y camiseta para un día en el Ártico: llueva o haga frío, el abrigo es mejor, así que es su estrategia dominante.</p>
+<p>Bob razona igual, porque el juego es simétrico. Los dos confiesan y cada uno cumple tres años, cuando callando los dos habrían cumplido uno.</p>
+
+<h3>Equilibrio de Nash y eficiencia de Pareto</h3>
+<p>Para hablar de "dónde acaba el juego" hacen falta dos ideas distintas, y confundirlas es el error más frecuente.</p>
+<p><strong>Equilibrio de Nash (<em>Nash equilibrium</em>).</strong> Es una combinación de elecciones desde la cual nadie gana cambiando solo la suya (p. 375). Un método para hallarlos (nuestro): para cada elección del otro, subraya la mejor respuesta (<em>best response</em>) de cada jugador; una celda donde ambos pagos están subrayados es un equilibrio. En el dilema, confesar-confesar es el único: si Bob confiesa, Alice no mejora callando (pasaría de -3 a -8), y viceversa.</p>
+<p><strong>Eficiencia de Pareto (<em>Pareto efficiency</em>).</strong> Un resultado es ineficiente si existe otro que mejora a alguien sin empeorar a nadie; pasar a ese otro es una mejora de Pareto (<em>Pareto improvement</em>) (p. 375). Confesar-confesar es ineficiente: callar-callar deja mejor a los dos. Según el libro, es la única mejora de Pareto posible desde ese punto.</p>
+<p>La paradoja es que el equilibrio es el resultado ineficiente y el mejor resultado para los dos no es equilibrio: si Alice sabe que Bob calla, le conviene confesar. Ir de uno a otro exige que los dos cambien a la vez, y por separado ninguno tiene motivo para hacerlo.</p>
+<p>Dos precisiones propias. Primero, "eficiente" no significa "bueno": en el dilema, -8 , 0 es eficiente (no se puede mejorar a Alice sin empeorar a Bob) y a nadie le parecería justo. Segundo, aquí solo buscamos equilibrios puros, sin aleatorizar. Hay juegos sin ninguno, como el de las monedas del simulador, que necesitan estrategias mixtas, fuera de esta lección. Para probarlo con tus propios pagos, <a data-ir="practica" href="#sim-m09-l01-matriz">abre el simulador en Práctica</a>.</p>
+
+<h3>Dónde aparece esta estructura</h3>
+<p>El libro da tres ejemplos (pp. 376 y 377), cada uno con su dominancia:</p>
+<div class="tw"><table>
+<thead><tr><th>Ejemplo del libro</th><th>Cooperar</th><th>Desertar (dominante)</th><th>Equilibrio</th></tr></thead>
+<tbody>
+<tr><td>Propaganda negativa entre partidos</td><td>Nadie ataca al rival</td><td>Atacar: mejora la reputación relativa</td><td>Todos se atacan y todos salen con peor imagen (si valoran su reputación en términos absolutos)</td></tr>
+<tr><td>Rebajas entre dos tenderos</td><td>Mantener precios</td><td>Bajarlos: se lleva clientes del rival</td><td>Precios bajos y clientes repartidos como antes</td></tr>
+<tr><td>Carrera armamentística</td><td>Reducir el gasto militar a la vez</td><td>Aumentarlo: nadie quiere quedar débil</td><td>Todos gastan mucho y dejan de invertir en sanidad o educación</td></tr>
+</tbody></table></div>
+<p>El libro advierte que en el caso de los tenderos solo cuentan los intereses de los dos tenderos (p. 377). Un equilibrio malo para quienes juegan puede ser bueno para terceros: aquí, los clientes. Es un aviso propio de cómo leer un juego: siempre hay que decir quién queda dentro de la matriz. Las carreras de IA entre empresas y Estados tienen la misma forma, y se trataron en el módulo 1.</p>
+
+<h3>¿Se puede cambiar el juego?</h3>
+<p>Como los pagos son los que empujan, cambiarlos puede cambiar el equilibrio. El libro los pone en forma general (tabla 7.2, p. 378): \(a\) es lo que recibe cada uno si los dos cooperan; \(b\) lo que recibe quien coopera cuando el otro deserta; \(c\) lo que recibe quien deserta cuando el otro coopera; \(d\) lo que recibe cada uno si los dos desertan. Desertar es dominante cuando</p>
+<div class="formula">\[ c > a \quad\text{y}\quad d > b \]</div>
+<p>Para que además sea un dilema, es decir, que el equilibrio quede peor que cooperar, hace falta \(a>d\) (condición propia; el libro habla de un escenario "parecido" al dilema). Con los pagos del prisionero, \(a=-1\), \(b=-8\), \(c=0\) y \(d=-3\), y se cumplen las tres desigualdades. Para salir del dilema hay que romper alguna de las dos primeras:</p>
+<ul>
+<li><strong>Castigar la deserción.</strong> Si desertar cuesta un castigo, \(c\) baja. El libro usa la amenaza del crimen organizado contra los chivatos: tres años más a quien confiese. Entonces \(c\) es menor que \(a\), y callar-callar pasa a ser también un equilibrio (p. 378). El juego se convierte en una caza del ciervo (<em>stag hunt</em>), con dos equilibrios (p. 379, fig. 7.5). Ojo con la figura: su panel derecho (PDF 397) muestra -1 , -1 / -8 , 0 / -3 , -8 / -3 , -3, es decir, castiga solo a Alice, y así Bob seguiría ganando confesando cuando Alice calla, lo que contradice que callar-callar sea equilibrio. Aplicando la regla a los dos, las cifras que carga el simulador son -1 , -1 / -8 , -3 / -3 , -8 / -6 , -6 (deducidas por nosotros).</li>
+<li><strong>Hacer que cada uno valore al otro.</strong> Si cada jugador cuenta el pago de su compañero como propio, la matriz efectiva cambia. Como callar-callar es la celda con menos años en total, quien pese igual el pago ajeno y el propio acabaría cooperando, según el libro (p. 380). Matiz propio: con esos pesos (suma de los dos pagos), callar-callar da -2 a cada uno y confesar-confesar -6, pero si uno calla y el otro confiesa cada uno queda en -8; por eso confesar-confesar sigue siendo un segundo equilibrio y hace falta que ambos confíen. Se desarrolla en la lección de cooperación.</li>
+<li><strong>Regular.</strong> Para las empresas de IA, el libro propone que una mejor regulación cambie sus pagos esperados de arriesgarse y las lleve a evitar carreras (p. 380).</li>
+</ul>
+<p>Añadidos propios para clasificar juegos. En la caza del ciervo el problema no es la tentación de traicionar sino la confianza: dos equilibrios y hay que fiarse del otro para llegar al bueno. Ejemplo: dos hospitales pueden adoptar un estándar común de datos; si lo adoptan los dos, ambos ganan; si solo uno, pierde tiempo con un sistema incompatible. En la gallina (<em>chicken</em>) cada uno prefiere que ceda el otro y, si ninguno cede, el choque es lo peor. Sus equilibrios puros son los dos en que uno cede y el otro no. El libro nombra este juego, de pasada, al hablar de la carrera corporativa (p. 386), un tema que queda para la lección siguiente.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Dos proveedores de IA clínica, A y B, compiten por la licitación de un mismo hospital. Cada uno elige entre documentar los límites de su modelo (cooperar) o prometer resultados sin matices (desertar). Los pagos son el margen anual en millones de euros:</p>
+<div class="tw"><table>
+<thead><tr><th>Pagos (A , B)</th><th>B documenta</th><th>B promete</th></tr></thead>
+<tbody>
+<tr><th scope="row">A documenta</th><td>3 , 3</td><td>0 , 5</td></tr>
+<tr><th scope="row">A promete</th><td>5 , 0</td><td>1 , 1</td></tr>
+</tbody></table></div>
+<p>Se lee así. Si B documenta, A gana 3 documentando y 5 prometiendo. Si B promete, A gana 0 documentando y 1 prometiendo. Prometer es dominante para A y, por simetría, para B. El equilibrio es (promete, promete), con 1 y 1, aunque documentar los dos daría 3 y 3. Comprueba las condiciones del dilema: \(c=5>a=3\), \(d=1>b=0\) y \(a=3>d=1\).</p>
+<p>La suma de pagos pasa de 6 en el mejor caso a 2 en el equilibrio: se destruye valor por el mero hecho de que cada uno decide por su cuenta. Y fíjate en lo que no aparece en la tabla: el hospital y sus pacientes, que reciben modelos con límites sin documentar. Una sanción o un requisito de documentación exigido a todos cambiaría \(c\) y \(d\) sin necesidad de que nadie confíe en nadie.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Equilibrio no es óptimo (aviso propio).</strong> El equilibrio de Nash solo garantiza que nadie quiere cambiar solo. No dice que sea bueno, ni siquiera que sea eficiente. Y en sentido inverso, un resultado eficiente puede ser injusto, como el -8 , 0 del dilema.</p>
+<p><strong>Buscar al culpable.</strong> En un dilema nadie ha sido irracional ni malintencionado. Cambiar a los agentes por otros más prudentes no sirve si los pagos son los mismos: hay que cambiar el juego.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>Each player is doing the rational thing, yet the outcome is bad for both. So the fix is not to lecture the players but to change the payoffs.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 7.1 Motivation, págs. 365 a 369 (PDF 383 a 387); sección 7.2 Game Theory, subapartados 7.2.1 Overview (369 y 370), 7.2.2 Game Theory Fundamentals (371 y 372) y 7.2.3 The Prisoner's Dilemma (372 a 380). Las págs. 369 a 380 son las 387 a 398 del PDF.</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS). Esta lección no tiene equivalente en el curso.</li>
+<li>Añadido propio, no procede de las fuentes: el método de mejores respuestas para hallar equilibrios; la distinción entre equilibrio y eficiencia como advertencia; las cifras del dilema con castigo, deducidas de la regla (la figura 7.5 solo castiga a Alice), la esperanza con probabilidad p, la condición a &gt; d y el matiz sobre el altruismo; los juegos de caza del ciervo y gallina con sus cifras; el ejemplo de los proveedores; los ejemplos sanitarios de cada tipo de suma; el simulador y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: primero un simulador para explorar, después tres ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de la matriz de pagos.</strong> Empieza con el dilema del prisionero: observa que "Confesar" es dominante para los dos, que el único equilibrio es también el único resultado ineficiente y que los otros tres son eficientes. Sube poco a poco el castigo: ¿a partir de qué valor aparece un segundo equilibrio (con un empate cuenta como débil)? Pulsa después "Caza del ciervo" y "Gallina" y mira cuántos equilibrios tienen y cuáles son eficientes. Por último, en el dilema con castigo 0, sube a 0,5 los dos pagos de Callar/Callar y comprueba qué desigualdad de \(c>a\) y \(d>b\) has roto.</p>
+<div data-widget="m09-l01-matriz" id="sim-m09-l01-matriz"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: leer una matriz (a mano, 8 minutos)</p>
+<p>Juego abstracto con pagos inventados, escritos como (Fila , Columna). Fila elige Arriba o Abajo y Columna elige Izquierda o Derecha:</p>
+<div class="tw"><table>
+<thead><tr><th>Pagos</th><th>Izquierda</th><th>Derecha</th></tr></thead>
+<tbody>
+<tr><th scope="row">Arriba</th><td>3 , 2</td><td>2 , 1</td></tr>
+<tr><th scope="row">Abajo</th><td>1 , 0</td><td>0 , 3</td></tr>
+</tbody></table></div>
+<ol>
+<li>¿Tiene Fila una estrategia dominante? ¿Y Columna?</li>
+<li>Halla los equilibrios de Nash puros.</li>
+<li>¿Qué resultados son eficientes de Pareto? ¿Es eficiente el equilibrio?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Fila: contra Izquierda, Arriba da 3 y Abajo 1; contra Derecha, Arriba da 2 y Abajo 0. Arriba es dominante. Columna: contra Arriba, Izquierda da 2 y Derecha 1; contra Abajo, Izquierda da 0 y Derecha 3. Ninguna domina.</p>
+<p><strong>2.</strong> Fila juega Arriba, y la mejor respuesta de Columna a Arriba es Izquierda. En (Arriba , Izquierda), nadie mejora cambiando solo. Es el único equilibrio: en (Abajo , Derecha), Fila cambiaría a Arriba y pasaría de 0 a 2.</p>
+<p><strong>3.</strong> (3 , 2) mejora a (2 , 1) y a (1 , 0), así que estos dos son ineficientes. (3 , 2) y (0 , 3) son eficientes. Aquí el equilibrio es eficiente, y a la vez hay un resultado eficiente, (0 , 3), que no es equilibrio: ser eficiente y ser equilibrio son cosas distintas. Puedes comprobarlo tecleando los pagos en el simulador.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: cuánto castigo hace falta (a mano y con el simulador, 10 minutos)</p>
+<p>Toma el ejemplo de los proveedores (\(a=3\), \(b=0\), \(c=5\), \(d=1\)). Un regulador impone una sanción \(F\) a quien prometa sin matices, que se resta a su pago.</p>
+<ol>
+<li>Con la sanción, el pago de desertar es \(c-F\) si el otro documenta y \(d-F\) si promete. ¿A partir de qué \(F\) deja de cumplirse \(c>a\)? ¿Y \(d>b\)?</li>
+<li>Con el simulador, carga "Dos proveedores en una licitación" y sitúa el castigo en 0, 1,5 y 3. ¿Qué tipo de juego sale en cada caso y cuáles son sus equilibrios?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> \(c-F>a\) exige \(5-F>3\), es decir \(F<2\), así que deja de cumplirse con \(F\geq 2\). \(d-F>b\) exige \(1-F>0\), es decir \(F<1\), y deja de cumplirse con \(F\geq 1\).</p>
+<p><strong>2.</strong> Con \(F=0\), dilema: un equilibrio, (promete , promete), ineficiente. Con \(F=1{,}5\), la segunda desigualdad se rompe pero la primera no: prometer ya no es dominante y salen dos equilibrios en que uno documenta y el otro promete (gallina). Con \(F=3\), se rompen las dos y documentar pasa a ser dominante: un único equilibrio, (documenta , documenta), eficiente. Lección: un castigo pequeño no arregla el dilema, puede incluso crear otro problema (quién cede); uno suficiente lo elimina.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: equilibrios con Python (10 minutos)</p>
+<p>Este fragmento halla los equilibrios puros y los resultados eficientes de un juego 2×2 con pagos <code>p[i][j] = (fila, columna)</code>. Léelo, ejecútalo y responde.</p>
+<pre><code>def analizar(p):
+    nash, eficientes = [], []
+    for i in range(2):
+        for j in range(2):
+            fila_ok = p[i][j][0] &gt;= p[1 - i][j][0]
+            col_ok = p[i][j][1] &gt;= p[i][1 - j][1]
+            if fila_ok and col_ok:
+                nash.append((i, j))
+            dominada = any(
+                p[k][l][0] &gt;= p[i][j][0] and p[k][l][1] &gt;= p[i][j][1]
+                and p[k][l] != p[i][j]
+                for k in range(2) for l in range(2))
+            if not dominada:
+                eficientes.append((i, j))
+    return nash, eficientes
+
+ciervo = [[(4, 4), (0, 3)], [(3, 0), (3, 3)]]
+print(analizar(ciervo))</code></pre>
+<ol>
+<li>En la caza del ciervo, ¿cuántos equilibrios hay y cuál de ellos es ineficiente?</li>
+<li>Cambia el pago de (Liebre , Liebre) de (3, 3) a (5, 5) y vuelve a ejecutar. ¿Qué equilibrio es ahora el ineficiente?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Sale <code>([(0, 0), (1, 1)], [(0, 0)])</code>: dos equilibrios, (Ciervo , Ciervo) y (Liebre , Liebre). Solo (0, 0) es eficiente, así que el equilibrio (1, 1), de liebre-liebre, es ineficiente: ambos podrían ganar 4 y no 3.</p>
+<p><strong>2.</strong> Sale <code>([(0, 0), (1, 1)], [(1, 1)])</code>: los dos siguen siendo equilibrios, pero ahora el eficiente es (1, 1) y el ineficiente pasa a ser (0, 0). Cambiar un solo pago basta para dar la vuelta a cuál de los equilibrios es el bueno. En ninguno de los dos casos el código dice cuál se elegirá: un equilibrio no decide por sí solo.</p>
+</details>
+</div>
+
+</div>
+
+</section>

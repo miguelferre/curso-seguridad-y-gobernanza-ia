@@ -1,0 +1,223 @@
+<section class="leccion" data-id="m09/l04">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Pelear casi siempre sale caro para los dos bandos. Por eso cabría esperar que dos actores racionales acabaran repartiéndose lo que discuten sin llegar a las manos. A veces lo hacen. Otras veces no, y esta lección explica por qué.</p>
+<p>La idea central es el rango de negociación: el conjunto de repartos que ambos prefieren a pelear. Como pelear destruye valor, ese rango existe siempre que los dos vean la situación con claridad y puedan fiarse el uno del otro. El conflicto aparece cuando algo cierra el rango: uno va a ser más fuerte mañana y no puede prometer que no lo aprovechará; atacar primero rinde más; el bien no se puede partir; alguien se equivoca sobre la fuerza del otro; o alguien miente a propósito. Fuera de este marco queda otra fuente: la desigualdad y la comparación con los demás.</p>
+<p>Con la IA todo esto se agrava por tres motivos: su poder futuro es difícil de prever, sus ciberataques dan ventaja al primero que golpea, y su fiabilidad limitada aumenta los malentendidos.</p>
+
+<svg viewBox="0 0 360 330" role="img" aria-labelledby="rs-t rs-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="rs-t">El rango de negociación y lo que lo cierra</title>
+<desc id="rs-d">Arriba, una escala de 0 a 100 con la zona de repartos que acepta A (de 35 a 100), la que acepta B (de 0 a 85) y su solapamiento, de 35 a 85, que es el rango de acuerdos. Abajo, cinco mecanismos que pueden cerrar ese rango y una nota sobre la desigualdad.</desc>
+<rect x="4" y="4" width="352" height="146" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="24" style="fill:var(--accent-ink);font-weight:700;font-size:14px">RANGO: repartos que ambos prefieren</text>
+<text x="18" y="44" style="fill:currentColor;font-size:12px">A acepta desde 35</text>
+<rect x="135" y="48" width="195" height="12" rx="3" style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5"/>
+<text x="18" y="76" style="fill:currentColor;font-size:12px">B acepta hasta 85</text>
+<rect x="30" y="80" width="255" height="12" rx="3" style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5"/>
+<text x="18" y="108" style="fill:var(--ex);font-weight:700;font-size:12px">Ambos aceptan: de 35 a 85</text>
+<rect x="135" y="112" width="150" height="12" rx="3" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:2"/>
+<text x="30" y="141" text-anchor="middle" style="fill:var(--muted);font-size:11px">0</text>
+<text x="330" y="141" text-anchor="middle" style="fill:var(--muted);font-size:11px">100</text>
+<text x="180" y="141" text-anchor="middle" style="fill:var(--muted);font-size:11px">lo que recibe A</text>
+<rect x="4" y="158" width="352" height="168" rx="10" style="fill:var(--surface);stroke:var(--trap);stroke-width:2"/>
+<text x="18" y="180" style="fill:var(--trap);font-weight:700;font-size:14px">LO QUE CIERRA EL RANGO</text>
+<g style="fill:currentColor;font-size:12.5px">
+<text x="18" y="204"><tspan style="font-weight:700">Poder que se desplaza:</tspan> pelea quien se debilita</text>
+<text x="18" y="226"><tspan style="font-weight:700">Primer golpe:</tspan> adelantarse rinde más</text>
+<text x="18" y="248"><tspan style="font-weight:700">Bien indivisible:</tspan> no hay reparto posible</text>
+<text x="18" y="270"><tspan style="font-weight:700">Información errónea:</tspan> cada uno se cree más fuerte</text>
+<text x="18" y="292"><tspan style="font-weight:700">Engaño:</tspan> se exagera a propósito</text>
+</g>
+<text x="18" y="314" style="fill:var(--muted);font-size:12px">Fuera del modelo: desigualdad y privación relativa</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Calcular el rango de negociación de un caso sencillo a partir de las probabilidades de ganar y los costes de pelear, y explicar por qué existe cuando hay información completa.</li>
+<li>Distinguir los tres problemas de compromiso (desplazamiento de poder, ventaja del primer golpe, indivisibilidad) y los dos de información (errónea y deliberada).</li>
+<li>Decidir, ante un caso, qué mecanismo cierra el rango y qué medida lo reabre.</li>
+<li>Explicar por qué la IA puede aumentar la probabilidad de conflicto y qué queda fuera del marco racional.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>¿Por qué pelear si pelear sale caro?</h3>
+<p>El libro usa "conflicto" en sentido amplio: elegir el enfrentamiento en lugar de cooperar en una situación competitiva. Suele destruir valor y a veces implica violencia. Puede ir desde una demanda hasta una guerra entre Estados. La pregunta de la sección es incómoda: ¿puede ser racional pelear aun sabiendo que sale caro? El marco de trabajo es el de la teoría de la negociación (<em>bargaining theory</em>): dos actores egoístas que discuten por algo que ambos valoran y que, si no se ponen de acuerdo, pelean.</p>
+<p>Ejemplo del libro: un cliente se cae en una tienda y demanda al dueño por negligencia. Tiene un 60 % de probabilidades de ganar. Si gana, el dueño le paga 40.000 $. Ir a juicio cuesta 10.000 $ a cada uno. Con esas cifras, la esperanza del cliente es \(0{,}6\times40.000-10.000=14.000\) $ y la del dueño es \(-0{,}6\times40.000-10.000=-34.000\) $. Un acuerdo fuera del juzgado por una cantidad \(x\) entre 14.000 y 34.000 deja mejor a los dos que ir a juicio: el cliente cobra más de lo que esperaba cobrar y el dueño paga menos de lo que esperaba perder. Si le proponen menos de 14.000, el cliente prefiere el juicio; si le piden más de 34.000, lo prefiere el dueño.</p>
+<p>Esa forma de mirar supone que cada bando es un actor unitario (<em>unitary actor</em>): se trata como una sola voluntad que busca su beneficio. Un país sin mando coherente no encaja. Supone también anarquía: no hay autoridad superior que haga cumplir lo pactado. Ambas simplificaciones importan más adelante.</p>
+
+<h3>¿Cuándo hay un acuerdo mejor que la guerra?</h3>
+<p>El conjunto de repartos que ambos aceptan se llama rango de negociación (<em>bargaining range</em>). En el pleito va de 14.000 a 34.000. Fuera de él, alguien rechaza y hay conflicto.</p>
+<p>El libro lo resume en una figura con tres ideas. La primera, que el resultado esperado de pelear depende de la probabilidad de ganar por lo que se gana. La segunda, que pelear es de suma negativa: se pierde valor. La tercera, que repartir es de suma cero: solo cambia quién se queda con qué, sin perder nada. De ahí sale la conclusión: mientras cada uno sepa bien cuánto puede ganar y perder, y nada le impida cumplir lo pactado (los problemas de compromiso, más abajo), existen repartos que dejan a ambos por encima de su valor esperado si pelean.</p>
+<p>Lo formalizamos con un modelo mínimo (cálculo propio). El bien vale 100. A gana con probabilidad \(p\) y cada bando paga un coste de pelear, \(c_A\) y \(c_B\), medido en puntos de esos 100. Si A recibe \(x\) en un acuerdo:</p>
+<div class="formula">\[ \text{A acepta si } x\ge p-c_A \qquad\text{y}\qquad \text{B acepta si } x\le p+c_B \]</div>
+<p>El rango va de \(p-c_A\) a \(p+c_B\) y su anchura es \(c_A+c_B\). Dicho de otro modo: <strong>el rango mide lo que cuesta pelear</strong>. Cuanto más cara es la guerra, más sitio hay para pactar. Con el pleito: \(p=60\), \(c_A=c_B=25\) puntos de 100 (10.000 $ son el 25 % de 40.000 $), rango de 35 a 85, que en dinero son los 14.000 y 34.000 $.</p>
+<p>Dos advertencias propias. El rango solo dice que existe un acuerdo mejor que pelear, no cuál se elegirá: dentro del rango sigue habiendo una disputa de intereses. Y no dice que la guerra sea buena: dice que puede ser la mejor jugada individual cuando algo cierra el rango.</p>
+
+<h3>¿Qué hace desaparecer el rango?</h3>
+<p>El libro reúne cinco factores dentro de la teoría de la negociación y uno fuera. Los dividimos según el fallo que provocan:</p>
+<div class="tw"><table>
+<thead><tr><th>Grupo</th><th>Factor</th><th>Qué falla</th></tr></thead>
+<tbody>
+<tr><td rowspan="3">Problemas de compromiso: alguien puede o quiere incumplir</td><td>Desplazamiento de poder</td><td>el más débil hoy no puede fiarse del pacto de mañana</td></tr>
+<tr><td>Ventaja del primer golpe</td><td>esperar regala la iniciativa</td></tr>
+<tr><td>Indivisibilidad</td><td>no hay reparto que se pueda hacer</td></tr>
+<tr><td rowspan="2">Problemas de información: alguien ve mal la situación</td><td>Información errónea (<em>misinformation</em>)</td><td>error involuntario</td></tr>
+<tr><td>Engaño (<em>disinformation</em>)</td><td>mentira deliberada</td></tr>
+<tr><td>Fuera del marco racional</td><td>Desigualdad</td><td>comparación social y resentimiento</td></tr>
+</tbody></table></div>
+<p>Para verlos en una misma escala hemos construido una síntesis propia, que no está en el libro. En nuestro modelo, cada factor se come una parte del margen que crea el coste de pelear:</p>
+<div class="formula">\[ \text{ancho del rango}=(c_A+c_B)-(o_A+o_B)-2f-S-L \]</div>
+<p>Aquí \(o_A\) y \(o_B\) es cuánto sobrestima cada uno su fuerza (información: por error o por engaño), \(f\) la ventaja de golpear primero, \(S\) cuánto caerá la fuerza de A, y \(L\) el valor que se pierde al repartir. Si el resultado es negativo, el mínimo que pide A supera el máximo que concede B: <strong>no hay acuerdo posible y pelear es racional</strong>. Puedes manipular cada término en el <a data-ir="practica" href="#sim-negociacion">simulador de la negociación</a>. Las próximas secciones explican de dónde sale cada uno.</p>
+
+<h3>¿Y si una parte no puede prometer que cumplirá?</h3>
+<p>Un problema de compromiso (<em>commitment problem</em>) aparece cuando un acuerdo existe sobre el papel, pero alguien tiene la capacidad y el incentivo de romperlo. Es un caso parecido al dilema de seguridad de la teoría de juegos (lecciones anteriores del módulo): si a mí me conviene incumplir, tú no puedes fiarte. El libro señala tres fuentes.</p>
+
+<h4>Desplazamiento de poder (power shift)</h4>
+<p>El que va a ganar fuerza no puede garantizar que no aprovechará su ventaja más adelante. Quien va a quedarse atrás lo sabe: un reparto pactado hoy se renegociará mañana con el otro más fuerte, y el pacto se le antojará injusto. Puede pelear incluso siendo hoy el más débil de los dos: lo que compara es la guerra de ahora con una paz futura en peores condiciones. Ejemplos del libro: la trampa de Tucídides (Atenas en ascenso y el miedo de Esparta; el propio libro advierte de que esta lectura de la guerra del Peloponeso es hoy discutida), la crisis de Suez en 1956, en la que Reino Unido y Francia atacaron a un Egipto que ganaba peso, y la duda de EE. UU. sobre si un acuerdo sobre regulación de la IA con China seguirá siendo exigible si China se hace más fuerte.</p>
+<p>La regla se ve en la figura del libro, y aquí la formulamos a nuestra manera (propia). Hoy A tiene probabilidad \(p_0\) y mañana \(p_1&lt;p_0\). El acuerdo más favorable que puede esperar mañana es el techo del nuevo rango, \(p_1+c_B\). Pelear hoy le vale \(p_0-c_A\). Pelea si:</p>
+<div class="formula">\[ p_0-c_A> p_1+c_B \iff p_0-p_1> c_A+c_B \]</div>
+<p>Es decir, hay guerra cuando la caída de poder que espera el más débil supera los costes totales de pelear. La IA lo agrava porque su potencia futura es imprevisible: nadie sabe cuánto valdrá un modelo entrenado con diez veces más cómputo, y quien crea que el rival puede alcanzar una ventaja decisiva tiene motivos para actuar antes. Además incentiva la carrera de la IA (m01/l02) y, con ella, los accidentes.</p>
+
+<h4>Ventaja del primer golpe (first-strike advantage)</h4>
+<p>Hay ventaja del primer golpe cuando atacar rinde más que responder a un ataque. El libro da tres maneras de tenerla: prevenir un desplazamiento de poder futuro; que los costes de pelear sean menores para quien ataca; o que atacar primero suba las probabilidades de ganar, por sorpresa, por elegir el terreno o por derrotar rápido al otro. Un ataque nuclear preventivo contra el arsenal enemigo es el caso extremo. Ejemplos del libro: la patente, que protege a quien la registra antes, y Pearl Harbor (1941), donde ninguno de los dos países podía prometer no golpear primero.</p>
+<p>La tabla 7.12 del libro resume la lógica. Cada bando elige entre defenderse (D) y adelantarse (P):</p>
+<div class="tw"><table>
+<thead><tr><th></th><th>El otro se defiende</th><th>El otro se adelanta</th></tr></thead>
+<tbody>
+<tr><th>Me defiendo</th><td>2, 2</td><td>0, 3</td></tr>
+<tr><th>Me adelanto</th><td>3, 0</td><td>1, 1</td></tr>
+</tbody></table></div>
+<p>Adelantarse es la mejor respuesta pase lo que pase, así que los dos acaban en (1, 1) aunque (2, 2) fuera mejor para ambos. Es la estructura del dilema del prisionero de las lecciones l01 y l02. Hay además una trampa de la información: para negociar hace falta enseñar qué se tiene, y enseñar una ventaja ofensiva es exponerla. Por eso el bando que la tiene prefiere callar y romper la negociación.</p>
+<p>Un cálculo propio para verlo en el rango: si golpear primero suma \(f\) puntos a la probabilidad de quien ataca y cada bando cuenta con adelantarse, A no se conforma con menos de \(p+f-c_A\), y B no concede más de \(p-f+c_B\). El rango se estrecha por los dos lados y pierde \(2f\). Si \(2f\) supera los costes totales, desaparece.</p>
+<p>Con IA, el libro piensa sobre todo en ciberataques (dejar fuera de servicio infraestructura crítica o conocer las defensas del rival) y en saltos bruscos de capacidad: quien consigue de repente una IA mucho más potente puede ver en atacar ya la única forma de conservar la ventaja. ¿Cómo se reduce el riesgo? Equilibrando ataque y defensa hasta que atacar falle o salga muy caro. Como medida concreta, el libro menciona exigir a las IA avanzadas un interruptor manual que no se pueda corromper.</p>
+
+<h4>Indivisibilidad (issue indivisibility)</h4>
+<p>El rango supone que el bien se puede repartir a discreción. Hay bienes de todo o nada: en el libro, la chaqueta única frente al bocadillo que se comparte, los órganos para trasplante o la custodia de los hijos. Cuando el bien no admite reparto, los acuerdos posibles se reducen a que uno se lo quede todo, y (deducción propia) eso solo se acepta si el otro está tan debilitado que prefiere ceder.</p>
+<p>A veces se salva con pagos compensatorios (<em>side payments</em>). El libro contrasta dos casos: en 1898, EE. UU. resolvió la disputa por Filipinas comprándolas a España por 20 millones de dólares; en Múnich, en 1938, las concesiones territoriales no saciaron a Hitler y la guerra llegó igualmente. La regla del libro es que la compensación solo funciona si vale más para el receptor que el bien mismo. En términos propios: para que el receptor acepte hace falta que la compensación cubra su valor esperado de pelear.</p>
+<p>Con IA: si un sistema de entrenamiento permitiera dominar a quien lo controle, repartir su cómputo lo dejaría sin esa capacidad. Es indivisible en la práctica, y competir por él puede ser racional.</p>
+<p>Una generalización propia: "indivisible" es el extremo de "repartir destruye valor". Si al repartir se pierde un valor \(L\), el margen baja \(L\) puntos; si \(L\) supera lo que cuesta pelear, no hay acuerdo. Y si el bien es de todo o nada, la única vía es una compensación de otra especie.</p>
+
+<h3>¿Y si las partes no ven la misma realidad?</h3>
+<p>Los problemas de información se dividen según la intención. La información errónea (<em>misinformation</em>) es un error por desconocimiento; el engaño (<em>disinformation</em>) es la falsedad difundida a propósito. Ambos pueden romper un acuerdo. Lo hacen actuando sobre el mismo mecanismo: los bandos calculan mal el rango.</p>
+
+<h4>Información errónea</h4>
+<p>Cuando los dos se creen los favoritos, cada uno calcula su rango con una probabilidad de ganar inflada y descarta las ofertas del otro, convencido de que peleando saldrá mejor. Los rangos de aceptación dejan de solaparse (figura 7.11 del libro). Ejemplo del libro: la invasión rusa de Ucrania en 2022, en la que Putin habría calculado mal la voluntad de resistir de Ucrania. En nuestro modelo, si cada bando sobrestima su fuerza en \(o_A\) y \(o_B\) puntos, el rango se estrecha en \(o_A+o_B\): solo hay negociación si esos errores suman menos que los costes de pelear.</p>
+<p>La IA añade tres fuentes de error, según el libro: los modelos que alucinan; los sistemas militares poco fiables, que enturbian la lectura de las intenciones del enemigo y pueden escalar un conflicto sin querer; y la dificultad de medir el avance de la IA, porque cuesta saber qué lograría un modelo con diez veces más cómputo o cuánto se han acercado los rivales. Contra el error, el libro propone canales de comunicación como las cumbres, que mejoran la comprensión aunque no cierren compromisos, y entender mejor los riesgos de la IA para que los actores estimen mejor su matriz de pagos y vean que cooperar les conviene.</p>
+
+<h4>Engaño</h4>
+<p>Aquí hay incentivo a esconder o exagerar lo que se sabe. El libro cita los mercados laborales y el inmobiliario: quien ofrece un puesto puede callar el margen salarial, y quien lo busca puede inflar su experiencia; el vendedor de una casa puede ocultar defectos y el comprador, exagerar su falta de presupuesto. Incluso la sospecha de engaño estropea el trato, porque el más fuerte cree que el débil farolea y el débil cree que el fuerte no es tan fuerte. Caso del libro: en 1962 India se creía superior a China, y el ataque chino demostró lo contrario.</p>
+<p>Con IA, el riesgo es que negociar con un sistema capaz de tergiversar deje de ser fiable, y la capacidad de hacerlo probablemente irá a más. El libro da dos muestras: Cicero, de Meta, que rinde muy bien en Diplomacy tergiversando información de forma estratégica, y los modelos de lenguaje que logran convencer a sus usuarios de que hablan con una persona.</p>
+
+<h3>¿Se acaba el conflicto si hay abundancia?</h3>
+<p>El marco de negociación es racionalista, y no es lo único que explica el conflicto. La desigualdad predice la violencia. Según los datos que cita el libro, la desigualdad de renta y de educación predice los delitos violentos aun descontando otras variables; las personas con ingresos anuales por debajo de 15.000 $ sufren delitos violentos tres veces más que las que superan 75.000 $, y los hogares por debajo del umbral de pobreza federal superan el doble de tasa de victimización violenta (p. 429; la cifra federal es de EE. UU.).</p>
+<p>Lo que pesa es la privación relativa (<em>relative deprivation</em>): la sensación de estar peor que otros. Es una medida subjetiva, no un nivel absoluto de carencia. La teoría de la tensión de Merton la interpreta como una presión que puede acabar en conductas delictivas o en subculturas de violencia, como las pandillas.</p>
+<p>Consecuencia para la IA: aunque la automatización traiga abundancia material, la comparación con los demás no desaparece. Lo refuerzan la cinta hedónica (nos acostumbramos a lo que tenemos y volvemos a nuestro nivel de satisfacción de siempre) y el estatus, un bien siempre escaso. El libro añade que una IA entrenada con decisiones humanas podría atender más a la aceptación social de sus actos que a sus consecuencias. El argumento evolutivo (la selección natural favorecería a quien no se da por satisfecho) se estudia en la lección siguiente. Y la propia IA podría ampliar la desigualdad entre países, porque los más ricos invierten más en cómputo y datos.</p>
+
+<h3>¿Qué añade la IA y qué hacer?</h3>
+<p>El resumen del libro es que basta uno de estos factores para que pelear sea racional. Cambiamos su presentación para ordenar la conclusión (síntesis propia):</p>
+<div class="tw"><table>
+<thead><tr><th>Factor</th><th>Cómo lo agrava la IA</th><th>Qué lo reduce</th></tr></thead>
+<tbody>
+<tr><td>Desplazamiento de poder</td><td>potencia futura imprevisible; carrera</td><td>acuerdos verificables y con garantías (lección l03), transparencia sobre capacidades</td></tr>
+<tr><td>Primer golpe</td><td>ciberataques y saltos bruscos de capacidad</td><td>equilibrio ofensiva-defensa, dominancia defensiva, interruptor manual</td></tr>
+<tr><td>Indivisibilidad</td><td>un sistema que solo domina si no se reparte</td><td>compensaciones que valgan más que el bien; compartir el acceso sin dividir el sistema</td></tr>
+<tr><td>Información errónea</td><td>alucinaciones, fiabilidad militar dudosa, capacidades difíciles de medir</td><td>canales de comunicación, cumbres, evaluación compartida</td></tr>
+<tr><td>Engaño</td><td>sistemas capaces de tergiversar</td><td>verificación independiente</td></tr>
+<tr><td>Desigualdad</td><td>ventaja de los países ricos en cómputo</td><td>reparto de beneficios y acceso (módulo de gobernanza)</td></tr>
+</tbody></table></div>
+<p>Tres límites propios que conviene recordar. El modelo es de dos actores unitarios y sobre anarquía: con instituciones que hagan cumplir lo pactado, los problemas de compromiso pierden fuerza. La suma de factores es una simplificación: en la realidad se refuerzan entre sí. Y el modelo dice si hay un acuerdo posible, no cuándo estallará un conflicto ni si el conflicto es deseable. Pelear puede ser racional para cada bando, y aun así la suma de decisiones deja peor a todos, en la línea de los problemas de acción colectiva del capítulo.</p>
+
+
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Un hospital reclama 100 (miles de euros) al proveedor de un modelo de triaje que dejó pasar casos graves. Si van a juicio, cada parte paga 15 por costas. El abogado del hospital cree que su cliente gana el 70 % de las veces. El del proveedor cree que el hospital solo gana el 30 %: es decir, cada uno se cree ganador con un 70 %.</p>
+<div class="tw"><table>
+<thead><tr><th></th><th>Cuenta</th><th>Resultado</th></tr></thead>
+<tbody>
+<tr><td>Mínimo que acepta el hospital</td><td>\(0{,}70\times100-15\)</td><td>55</td></tr>
+<tr><td>Máximo que paga el proveedor</td><td>\(0{,}30\times100+15\)</td><td>45</td></tr>
+<tr><td>Hueco</td><td>\(55-45\)</td><td>10</td></tr>
+</tbody></table></div>
+<p>No hay acuerdo posible: el hospital pide al menos 55 y el proveedor no pasa de 45, aunque pelear le cuesta 30 en total a los dos. En nuestra fórmula, los costes suman 30 y el optimismo total es 40 (si la probabilidad real fuera del 50 %, cada uno se cree 20 puntos mejor de lo que es), así que el margen es \(30-40=-10\). Ese hueco es información que se puede comprar. Si encargan un dictamen pericial conjunto y ambos aceptan que el hospital gana el 50 %, el rango pasa a ir de \(50-15=35\) a \(50+15=65\): treinta puntos de margen. Si el dictamen cuesta menos que los 30 que suman las costas, sale a cuenta.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Entender "racional" como "sensato" o "bueno" (aviso propio).</strong> El modelo dice que pelear puede ser la mejor jugada de cada bando dadas sus creencias y sus opciones, no que sea una buena decisión colectiva. Además, muchas guerras de la realidad tienen motivaciones que el marco no recoge: identidad, estatus, resentimiento (última sección).</p>
+<p><strong>Creer que una IA muy racional evitaría estos conflictos.</strong> Los cinco factores no dependen de que los actores sean torpes: un actor perfectamente racional también pelea si no puede prometer, si el bien no se parte o si no ve lo mismo que el otro. La IA tampoco hace desaparecer los incentivos a engañar.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>War is costly, so a deal usually exists on paper; conflict happens when a deal can't be believed, can't be verified, or can't be divided.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 7.4 Conflict, págs. 417 a 432 (PDF 435 a 450): pleito de la tienda (418 y 419), teoría de la negociación y rango (420), problemas de compromiso (420 a 426), problemas de información (426 a 429), desigualdad y privación relativa (429 a 431) y resumen (431).</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS). No hay lección sobre conflicto en esa fuente. Atlas de métricas: sin ficha pertinente.</li>
+<li>Añadido propio, no procede de las fuentes: el modelo con rango \([p-c_A,\ p+c_B]\) y su ancho; la condición de guerra por desplazamiento de poder (\(p_0-p_1>c_A+c_B\)); la pérdida de \(2f\) por la ventaja del primer golpe; la generalización de indivisibilidad como pérdida \(L\) al repartir; la fórmula que suma todos los factores; el ejemplo del hospital y el proveedor; la tabla de agravantes y remedios; los casos y ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas la teoría: dos simuladores, uno para explorar el rango de negociación y otro para clasificar casos, y dos ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de la negociación.</strong> Empieza con el pleito del libro: rango de 35 a 85 y margen 50. Sube el optimismo de A y de B poco a poco, de 0 hasta 25 cada uno, y mira cómo se estrecha el rango hasta cerrarse justo cuando el optimismo total iguala los costes de pelear. Pulsa cada uno de los otros cuatro ejemplos y lee la cuenta del margen: en todos, un solo factor supera al coste de pelear. Después sube a la vez los costes y un factor y comprueba que un conflicto muy caro protege del conflicto mientras los costes ganen a los factores. Por último, mueve la fuerza real de A: cambia dónde está el rango, pero no su ancho, salvo cuando el reparto llega a un extremo y se recorta.</p>
+<div data-widget="m09-l04-negociacion" id="sim-negociacion"></div>
+
+<p class="consigna"><strong>Simulador de casos.</strong> Lee cada situación y elige el mecanismo que la explica. Fíjate en la diferencia entre el error y el engaño (¿hay intención?) y entre el poder que cambia y el primer golpe (¿espera o ataca?). Si fallas, la explicación te dice por qué.</p>
+<div data-widget="m09-l04-casos" id="sim-casos"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: el rango en un pleito (a mano, 6 minutos)</p>
+<p>Repite el pleito del libro con otras cifras propias: la indemnización es de 40.000 $, la probabilidad de ganar del cliente es del 75 % y cada parte paga 10.000 $ de costas.</p>
+<ol>
+<li>Calcula lo que espera cada parte si van a juicio y el rango de acuerdos.</li>
+<li>Reduce las costas a 5.000 $ cada una. ¿Cómo cambia el rango?</li>
+<li>Con información completa y sin problemas de compromiso, ¿puede desaparecer el rango? ¿Y si las costas fueran cero?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> El cliente espera \(0{,}75\times40.000-10.000=20.000\). El dueño espera perder \(0{,}75\times40.000+10.000=40.000\). El rango va de 20.000 a 40.000 $, una anchura de 20.000 $, que son las costas de los dos.</p>
+<p><strong>2.</strong> El cliente espera \(30.000-5.000=25.000\) y el dueño \(30.000+5.000=35.000\). El rango se estrecha a 25.000 a 35.000 $: mide otra vez las costas de los dos, 10.000 $. Con costas más baratas hay menos margen para acordar.</p>
+<p><strong>3.</strong> No: la anchura es \(c_A+c_B\), que no puede ser negativa. Si las costas fueran cero, el rango sería un solo punto (30.000 $, el valor esperado) y cualquier error de cálculo lo cerraría. Por eso las guerras muy baratas (o percibidas como baratas) son más difíciles de evitar.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: poder, primer golpe y matriz, con Python (12 minutos)</p>
+<p>(1) A tiene hoy una probabilidad de ganar del 70 % y se espera que mañana baje al 40 %. Los costes de pelear son de 12 puntos para cada uno. ¿Pelea hoy? ¿Qué caída máxima toleraría sin pelear? (2) En la tabla 7.12, ¿cuál es el resultado si cada bando elige lo mejor para sí, y qué tiene de especial? (3) Completa el margen de cuatro casos con este fragmento y comprueba a mano el primero.</p>
+<pre><code>def margen(cA, cB, oA=0, oB=0, f=0, S=0, L=0):
+    return (cA + cB) - (oA + oB) - 2 * f - S - L
+
+casos = {
+    "pleito": dict(cA=25, cB=25),
+    "hospital y proveedor": dict(cA=15, cB=15, oA=20, oB=20),
+    "primer golpe": dict(cA=15, cB=15, f=18),
+    "poder que cae": dict(cA=12, cB=12, S=30),
+}
+for nombre, c in casos.items():
+    m = margen(**c)
+    print(nombre, m, "acuerdo" if m &gt;= 0 else "conflicto racional")</code></pre>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> La caída es \(70-40=30\) puntos y los costes totales son \(12+12=24\). Como \(30>24\), pelea hoy (margen \(24-30=-6\)). Toleraría una caída de hasta 24 puntos sin pelear; con exactamente 24, el rango queda reducido a un punto.</p>
+<p><strong>2.</strong> Adelantarse es la mejor respuesta hagas lo que hagas el otro (3 contra 2 si el otro se defiende y 1 contra 0 si se adelanta), así que los dos se adelantan y obtienen (1, 1), aunque (2, 2) es mejor para ambos. Es un dilema del prisionero.</p>
+<p><strong>3.</strong> El fragmento imprime: pleito 50 acuerdo; hospital y proveedor -10 conflicto racional; primer golpe -6 conflicto racional; poder que cae -6 conflicto racional. A mano, el pleito: \(25+25=50\), sin ningún factor que reste.</p>
+</details>
+</div>
+
+</div>
+
+</section>

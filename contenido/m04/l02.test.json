@@ -1,0 +1,118 @@
+[
+  {
+    "id": "m04l02-q01",
+    "tipo": "unica",
+    "enunciado": "¿Qué es un desplazamiento de distribución (distribution shift)?",
+    "opciones": [
+      "Que el modelo se ha sobreajustado a sus datos de entrenamiento",
+      "Que los datos con los que se usa el modelo salen de una distribución distinta a la del entrenamiento",
+      "Que el modelo cambia sus pesos mientras se usa",
+      "Que se ha borrado una parte del conjunto de entrenamiento"
+    ],
+    "correcta": 1,
+    "explicacion": "Hay desplazamiento cuando la distribución de uso difiere de la de entrenamiento. No es sobreajuste: la validación, sacada de los mismos datos, puede salir bien y el uso real mal."
+  },
+  {
+    "id": "m04l02-q02",
+    "tipo": "unica",
+    "enunciado": "Una campaña de cribado duplica la proporción de pacientes con la enfermedad que llegan al sistema, sin que cambie el perfil de cada paciente. ¿Qué tipo de desplazamiento es?",
+    "opciones": [
+      "De covariables, porque cambian las entradas",
+      "De etiqueta, porque cambia la prevalencia \\(P(Y)\\)",
+      "De concepto, porque cambia la relación entre entradas y etiqueta",
+      "Ninguno: es sobreajuste"
+    ],
+    "correcta": 1,
+    "explicacion": "Cambia \\(P(Y)\\) y se mantiene \\(P(X\\mid Y)\\): es un desplazamiento de etiqueta, que el Atlas llama deriva de etiqueta. Suele bastar con recalibrar el umbral."
+  },
+  {
+    "id": "m04l02-q03",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estos casos son, en principio, desplazamientos de covariables (cambia \\(P(X)\\) y se mantiene \\(P(Y\\mid X)\\))?",
+    "opciones": [
+      "Un hospital compra un analizador de otra marca, con otro sesgo de lectura",
+      "Una guía clínica nueva cambia cuándo derivar a pacientes con el mismo perfil",
+      "Un hospital atiende a pacientes de más edad que aquel donde se entrenó, y la relación entre perfil y enfermedad es la misma",
+      "La proporción de enfermos se duplica sin que cambie el perfil de cada paciente"
+    ],
+    "correcta": [
+      0,
+      2
+    ],
+    "explicacion": "El analizador nuevo y la población más mayor cambian las entradas y dejan intacta la relación con la enfermedad. La guía nueva es de concepto y el aumento de enfermos, de etiqueta."
+  },
+  {
+    "id": "m04l02-q04",
+    "tipo": "numerica",
+    "enunciado": "Un modelo tiene sensibilidad 0,90 y especificidad 0,95, y ambas se mantienen al desplegarlo. ¿Qué exactitud tiene cuando la prevalencia es del 2 %? Responde como número entre 0 y 1.",
+    "correcta": 0.949,
+    "tolerancia": 0.002,
+    "explicacion": "Exactitud = 0,02 × 0,90 + 0,98 × 0,95 = 0,018 + 0,931 = 0,949, más alta que con una prevalencia del 20 % (0,940)."
+  },
+  {
+    "id": "m04l02-q05",
+    "tipo": "numerica",
+    "enunciado": "Con el mismo modelo (sensibilidad 0,90, especificidad 0,95) y prevalencia del 2 %, ¿qué valor predictivo positivo (VPP) tiene? Responde como número entre 0 y 1.",
+    "correcta": 0.269,
+    "tolerancia": 0.005,
+    "explicacion": "VPP = 0,018 / (0,018 + 0,98 × 0,05) = 0,018 / 0,067 = 0,269. De cada cien alertas, unas 73 son falsas, aunque la exactitud haya subido."
+  },
+  {
+    "id": "m04l02-q06",
+    "tipo": "vf",
+    "enunciado": "Si al bajar la prevalencia la exactitud de un modelo sube, se puede concluir que el modelo funciona mejor.",
+    "correcta": false,
+    "explicacion": "Falso. Con sensibilidad y especificidad fijas, una prevalencia menor sube la exactitud porque hay más sanos, que se aciertan bien, mientras el VPP se hunde."
+  },
+  {
+    "id": "m04l02-q07",
+    "tipo": "unica",
+    "enunciado": "Según las notas, los bancos de prueba de robustez como ImageNet-C se usan solo para probar. ¿Por qué no se entrena con ellos?",
+    "opciones": [
+      "Porque sus imágenes no tienen etiquetas",
+      "Porque el cambio debe seguir siendo una aproximación a uno imprevisto; si se entrena con él, se aprende el examen",
+      "Porque son demasiado pequeños para entrenar",
+      "Porque entrenar con ellos baja la exactitud en el conjunto de entrenamiento"
+    ],
+    "correcta": 1,
+    "explicacion": "Si el modelo ve las corrupciones exactas de la prueba, su nota sube pero su robustez ante cambios no vistos no. La prueba deja de medir lo que prometía."
+  },
+  {
+    "id": "m04l02-q08",
+    "tipo": "numerica",
+    "enunciado": "En una prueba de estrés, el modelo X tiene un error medio de 0,192 y el modelo Y de 0,138 en los mismos niveles de severidad. Toma X como referencia, al estilo del mCE: ¿cuánto vale error de Y dividido entre error de X? Responde con dos decimales.",
+    "correcta": 0.72,
+    "tolerancia": 0.01,
+    "explicacion": "0,138 / 0,192 = 0,71875, unos 0,72. Menor que 1 significa que Y comete menos error que la referencia."
+  },
+  {
+    "id": "m04l02-q09",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas afirmaciones sobre el aumento de datos son correctas?",
+    "opciones": [
+      "Crea ejemplos adicionales con transformaciones aleatorias que mantienen la etiqueta válida",
+      "Protege sobre todo frente a cambios parecidos a las alteraciones que se simularon",
+      "Garantiza la robustez ante cualquier desplazamiento, incluidos los imprevistos",
+      "Puede costar algo de exactitud en la distribución original"
+    ],
+    "correcta": [
+      0,
+      1,
+      3
+    ],
+    "explicacion": "El aumento diversifica lo que el modelo ve y protege dentro de la familia simulada, a veces a costa de algo de exactitud sin cambio. Frente a un cambio que nadie imaginó no garantiza nada."
+  },
+  {
+    "id": "m04l02-q10",
+    "tipo": "unica",
+    "enunciado": "¿Qué límite comparten las pruebas de estrés y el aumento de datos frente a un cisne negro?",
+    "opciones": [
+      "Consumen demasiada memoria",
+      "Solo funcionan con imágenes",
+      "Solo cubren la familia de cambios que alguien imaginó, y un cisne negro cae fuera de ella",
+      "Necesitan etiquetas de los datos de despliegue"
+    ],
+    "correcta": 2,
+    "explicacion": "Ambas técnicas trabajan con cambios previstos, los conocidos desconocidos. Lo imprevisto exige además detección de anomalías antes y monitores de deriva después."
+  }
+]

@@ -1,0 +1,116 @@
+[
+  {
+    "id": "m11l05-q01",
+    "tipo": "unica",
+    "enunciado": "¿Cuál de estas afirmaciones NO es una de las cuatro que, según el libro, definen al utilitarismo?",
+    "opciones": [
+      "Solo las consecuencias determinan si un acto es correcto",
+      "El bienestar es el único bien intrínseco",
+      "El bienestar de cada persona pesa lo mismo",
+      "Algunos actos están prohibidos aunque produzcan el mejor resultado"
+    ],
+    "correcta": 3,
+    "explicacion": "Las cuatro afirmaciones son: solo cuentan las consecuencias, el bienestar es el único bien, todos pesan lo mismo y hay que maximizar. Prohibir un acto sean cuales sean sus resultados es una restricción, propia de la deontología."
+  },
+  {
+    "id": "m11l05-q02",
+    "tipo": "numerica",
+    "enunciado": "Una variante del ejemplo de Amanda: volver en bus vale −1 con seguridad. Conducir da +1 con un 98 % de probabilidad y −100 con un 2 %. ¿Cuál es la utilidad esperada de conducir?",
+    "correcta": -1.02,
+    "tolerancia": 0.01,
+    "explicacion": "0,98 × 1 + 0,02 × (−100) = 0,98 − 2 = −1,02. Es algo peor que el −1 del bus, así que el utilitarismo recomendaría el bus. Con cifras tan próximas, un pequeño error en las probabilidades cambiaría el veredicto."
+  },
+  {
+    "id": "m11l05-q03",
+    "tipo": "vf",
+    "enunciado": "Según el libro, la mayoría de los filósofos morales actuales coincide con Kant en que Omar no debe mentir al hombre del hacha, aunque sepa que Piper está arriba.",
+    "correcta": false,
+    "explicacion": "Es al revés: Kant sostenía que mentir estaría mal incluso en ese caso, y la mayoría de los filósofos actuales discrepa. Hablan de deberes pro tanto: el de no mentir puede ceder ante el de proteger a Piper."
+  },
+  {
+    "id": "m11l05-q04",
+    "tipo": "unica",
+    "enunciado": "Un utilitarista aconseja a todo el mundo no conducir nunca bebido, sin calcular cada vez. ¿Es coherente con su teoría?",
+    "opciones": [
+      "No: un utilitarista solo puede decidir con un cálculo explícito",
+      "Sí, pero porque conducir bebido está mal en sí mismo, sea cual sea el resultado",
+      "Sí: el criterio de rectitud es maximizar el bienestar esperado y la regla es un procedimiento de decisión práctico",
+      "No: una regla fija solo puede ser deontológica"
+    ],
+    "correcta": 2,
+    "explicacion": "El libro distingue el criterio de rectitud, que dice qué hace correcta una acción, del procedimiento de decisión, que dice cómo decidir en la práctica. El procedimiento puede ser una regla sencilla justificada por sus buenas consecuencias."
+  },
+  {
+    "id": "m11l05-q05",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas afirmaciones describen teorías deontológicas, según el libro?",
+    "opciones": [
+      "Algunos actos, como mentir, están mal aunque tuvieran buenas consecuencias",
+      "Para varias teorías, la intención puede ser correcta o incorrecta en sí misma",
+      "Fuera de las restricciones hay libertad para elegir: existen opciones",
+      "Hay que maximizar el bienestar total contando a todos por igual"
+    ],
+    "correcta": [0, 1, 2],
+    "explicacion": "Las tres primeras son rasgos deontológicos (restricciones, intenciones y opciones). La última es el utilitarismo: maximizar el bienestar y contar a todos por igual."
+  },
+  {
+    "id": "m11l05-q06",
+    "tipo": "unica",
+    "enunciado": "Una cirujana opera a unos gemelos unidos sabiendo que uno de ellos morirá, con la intención de salvar al otro y no de causar una muerte. ¿Qué principio deontológico del libro permitiría la operación?",
+    "opciones": [
+      "La distinción entre acción y omisión",
+      "El doble efecto",
+      "El imperativo hipotético",
+      "La vista de umbral"
+    ],
+    "correcta": 1,
+    "explicacion": "El doble efecto permite un acto con un efecto malo previsible si se pretende el efecto bueno y no el malo, y si el deber de no dejar morir a los dos pesa más que la restricción."
+  },
+  {
+    "id": "m11l05-q07",
+    "tipo": "unica",
+    "enunciado": "La máquina de experiencias de Nozick se presenta como objeción a una de las afirmaciones del utilitarismo. ¿A cuál?",
+    "opciones": [
+      "Que solo las consecuencias importan",
+      "Que el bienestar es lo único valioso",
+      "Que todos deben pesar lo mismo",
+      "Que hay que maximizar y no hay opciones"
+    ],
+    "correcta": 1,
+    "explicacion": "Nozick sostiene que no nos conectaríamos a la máquina porque nos importa lo real, no solo sentir bienestar; luego el bienestar no sería lo único valioso. El libro recoge la réplica de Greene con el sesgo del statu quo."
+  },
+  {
+    "id": "m11l05-q08",
+    "tipo": "numerica",
+    "enunciado": "En una UCI, el paciente actual tiene un 30 % de sobrevivir con la cama y el paciente nuevo, un 45 %. Sin cama, ninguno sobrevive. ¿Cuántos supervivientes esperados se ganan, por caso, si se retira la cama al actual para dársela al nuevo? Responde como número.",
+    "correcta": 0.15,
+    "tolerancia": 0.005,
+    "explicacion": "Mantener da 0,30 supervivientes esperados y retirar da 0,45: la diferencia es 0,15. Un utilitarista con estas cifras retiraría; una deontología que aplique la distinción entre acción y omisión, no. Y con errores de 10 puntos en los pronósticos, la ventaja es frágil."
+  },
+  {
+    "id": "m11l05-q09",
+    "tipo": "unica",
+    "enunciado": "En la prueba de la ley universal, la regla \"no cumplo las promesas cuando me incomodan\" falla. ¿En qué paso?",
+    "opciones": [
+      "Al convertir el acto en una regla",
+      "Al hacer que la regla valga para todos",
+      "En la contradicción en la concepción: si nadie cumpliera promesas, no existiría la práctica de prometer",
+      "En la contradicción en la voluntad: nadie podría querer una vida sin esfuerzo"
+    ],
+    "correcta": 2,
+    "explicacion": "La regla presupone que existe la práctica de prometer, que desaparecería si todos la siguieran. Por eso no se puede ni concebir un mundo así. La contradicción en la voluntad es el paso que el libro ilustra con la pereza de Mari."
+  },
+  {
+    "id": "m11l05-q10",
+    "tipo": "unica",
+    "enunciado": "Algunos deontólogos adoptan una vista de umbral: si lo que está en juego llega a cierto número de vidas, la teoría cede al cálculo. ¿Cuál es el principal problema que señala el libro?",
+    "opciones": [
+      "Que exige un cálculo que ninguna persona puede hacer",
+      "Que deja de ser una teoría deontológica",
+      "Que es difícil fijar el umbral sin arbitrariedad",
+      "Que no permite salvar a nadie"
+    ],
+    "correcta": 2,
+    "explicacion": "No está claro cómo decidir el umbral y cualquier valor sería arbitrario: si un millón de vidas lo justifica, cuesta explicar por qué no lo harían diez mil, mil o diez."
+  }
+]

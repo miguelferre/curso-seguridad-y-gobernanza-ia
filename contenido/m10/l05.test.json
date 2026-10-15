@@ -1,0 +1,118 @@
+[
+  {
+    "id": "m10l05-q01",
+    "tipo": "unica",
+    "enunciado": "¿Por qué fijar un umbral por tamaño del conjunto de datos es menos útil que fijarlo en cómputo?",
+    "opciones": [
+      "Porque los datos siempre son ilegales",
+      "Porque la calidad de los datos varía tanto que el tamaño dice poco: 25 GB pueden ser toda la Wikipedia o un álbum de fotos",
+      "Porque los datos no se pueden almacenar",
+      "Porque los datos no influyen en la capacidad del modelo"
+    ],
+    "correcta": 1,
+    "explicacion": "El libro pone ese ejemplo: el tamaño de los datos no mide su calidad. Los FLOP, en cambio, se cuentan igual para cualquier chip, así que permiten comparar y fijar un umbral."
+  },
+  {
+    "id": "m10l05-q02",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas propiedades hacen que el cómputo sea más gobernable que los datos y los algoritmos?",
+    "opciones": [
+      "Es física: se fabrica, se compra, se envía y se puede rastrear",
+      "Es excluible: pocos actores controlan partes clave de su cadena de suministro",
+      "Es cuantificable: se mide en FLOP/s y admite umbrales",
+      "Es gratuita, así que todo el mundo la puede usar"
+    ],
+    "correcta": [
+      0,
+      1,
+      2
+    ],
+    "explicacion": "Las tres primeras son las propiedades del libro. El cómputo no es gratuito: los entrenamientos de frontera cuestan cientos de millones o miles de millones, y eso ayuda a vigilarlo."
+  },
+  {
+    "id": "m10l05-q03",
+    "tipo": "unica",
+    "enunciado": "Según el libro, ¿qué hizo viable en 2022 el veto de exportación de chips de IA punteros a China?",
+    "opciones": [
+      "Que los chips avanzados se pueden descargar y bloquear por software",
+      "Que los chips no se sustituyen nunca",
+      "Que los algoritmos de entrenamiento son secretos",
+      "Que la cadena de suministro está concentrada en pocas empresas, como TSMC para fabricar y ASML para las máquinas"
+    ],
+    "correcta": 3,
+    "explicacion": "La concentración de la fabricación es lo que hace excluible al cómputo: unos pocos actores pueden regular a esas empresas. Si la cadena se repartiera, el veto sería más difícil."
+  },
+  {
+    "id": "m10l05-q04",
+    "tipo": "vf",
+    "enunciado": "Según el libro, los requisitos de cómputo de los modelos se duplican aproximadamente cada seis meses, mientras que el precio-rendimiento de los chips se duplica cada 2,5 años aproximadamente.",
+    "correcta": true,
+    "explicacion": "Es verdad. Por eso el coste de los mayores entrenamientos sigue subiendo aunque los chips mejoren: la demanda de cómputo crece más rápido que el abaratamiento de cada FLOP."
+  },
+  {
+    "id": "m10l05-q05",
+    "tipo": "numerica",
+    "enunciado": "Si el cómputo de los modelos se duplica cada seis meses, ¿por qué factor se multiplica en 3 años?",
+    "correcta": 64,
+    "tolerancia": 0.5,
+    "explicacion": "En 3 años hay 6 duplicaciones: 2 elevado a 6 es 64. Equivale a multiplicar por 4 cada año durante 3 años: 4 elevado a 3 es 64."
+  },
+  {
+    "id": "m10l05-q06",
+    "tipo": "numerica",
+    "enunciado": "El cómputo se multiplica por 4 al año y el precio-rendimiento de los chips se duplica cada 2,5 años. ¿En qué factor crece por año el coste de un entrenamiento de frontera? Redondea a dos decimales.",
+    "correcta": 3.03,
+    "tolerancia": 0.05,
+    "explicacion": "Cada FLOP se abarata dividiendo por 2 elevado a 1/2,5, que es 1,32. El coste crece 4 / 1,32 ≈ 3,03 al año. Es un cálculo propio con las cifras del libro."
+  },
+  {
+    "id": "m10l05-q07",
+    "tipo": "unica",
+    "enunciado": "¿Qué medida de control del cómputo pueden aplicar los proveedores de nube para que un laboratorio sancionado no alquile sus chips?",
+    "opciones": [
+      "Una política de conocimiento del cliente (KYC)",
+      "Un mecanismo dentro de cada chip que ya está instalado en todos",
+      "Prohibir el uso de datos privados",
+      "Un impuesto sobre los algoritmos"
+    ],
+    "correcta": 0,
+    "explicacion": "El libro propone que los proveedores de nube apliquen políticas KYC. Los mecanismos en el chip son otra vía, y hoy no existen."
+  },
+  {
+    "id": "m10l05-q08",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estos cambios debilitarían el control del cómputo como palanca de gobernanza?",
+    "opciones": [
+      "Que los algoritmos se vuelvan tan eficientes que se logre la misma capacidad con mucho menos cómputo",
+      "Que la fabricación de chips se reparta entre muchas empresas y países",
+      "Que un modelo peligroso se pueda entrenar con el presupuesto de una pequeña empresa",
+      "Que los mejores modelos necesiten aún más cómputo que hoy"
+    ],
+    "correcta": [
+      0,
+      1,
+      2
+    ],
+    "explicacion": "Las tres primeras son las condiciones que menciona el libro. Que la frontera exija más cómputo refuerza el control: hace falta más hardware, más visible y más fácil de contar."
+  },
+  {
+    "id": "m10l05-q09",
+    "tipo": "vf",
+    "enunciado": "Si el cómputo de la frontera se multiplica por 4 al año, un umbral fijo en FLOP seguirá cubriendo cada año al mismo número de modelos.",
+    "correcta": false,
+    "explicacion": "Es falso. Con un umbral fijo, cada año hay más modelos por encima, y al cabo de unos años lo superan casi todos (análisis propio con las cifras del libro). Para cubrir siempre a los más potentes hay que revisarlo al alza."
+  },
+  {
+    "id": "m10l05-q10",
+    "tipo": "unica",
+    "enunciado": "¿Qué dice el libro sobre los mecanismos de gobernanza dentro del chip?",
+    "opciones": [
+      "Ya se usan en todas las GPU del mercado",
+      "Son imposibles por la privacidad de los usuarios",
+      "No existen hoy, pero podrían hacerse con funciones de seguridad ya disponibles, sin vigilar el software que se ejecuta",
+      "Sirven solo para medir la temperatura del chip"
+    ],
+    "correcta": 2,
+    "explicacion": "El libro los plantea como propuesta: módulos seguros en hardware y firmware que ayuden a localizar chips, sin rediseñar el chip ni vigilar qué software ejecuta."
+  }
+]

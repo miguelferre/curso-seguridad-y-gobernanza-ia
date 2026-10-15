@@ -1,0 +1,109 @@
+[
+  {
+    "id": "m00l03-q01",
+    "tipo": "unica",
+    "enunciado": "¿Qué calcula una neurona artificial?",
+    "opciones": [
+      "Una suma ponderada de sus entradas más un sesgo, transformada por una función de activación",
+      "La media de sus entradas, sin más parámetros",
+      "El gradiente de la pérdida respecto a sus pesos",
+      "La probabilidad de la clase correcta, siempre con una softmax"
+    ],
+    "correcta": 0,
+    "explicacion": "La neurona hace z = suma de w_i por x_i más b y da g(z). Los pesos y el sesgo son lo que se aprende. La softmax es una activación posible en la última capa, no lo que hace toda neurona."
+  },
+  {
+    "id": "m00l03-q02",
+    "tipo": "vf",
+    "enunciado": "Si se quitan todas las funciones de activación no lineales, una red de diez capas equivale a una sola transformación lineal.",
+    "correcta": true,
+    "explicacion": "El producto de matrices es otra matriz: W2·(W1·x) = (W2·W1)·x. Sin no linealidad, añadir capas no añade capacidad; por eso las activaciones son imprescindibles."
+  },
+  {
+    "id": "m00l03-q03",
+    "tipo": "numerica",
+    "enunciado": "Un MLP tiene 100 entradas, una capa oculta de 32 neuronas y una salida de 4 neuronas, todas con sesgo. ¿Cuántos parámetros tiene en total?",
+    "correcta": 3364,
+    "tolerancia": 0,
+    "explicacion": "Capa oculta: 100·32 + 32 = 3232. Capa de salida: 32·4 + 4 = 132. Total: 3232 + 132 = 3364."
+  },
+  {
+    "id": "m00l03-q04",
+    "tipo": "numerica",
+    "enunciado": "Una red devuelve los logits (3, 1, 0) para tres clases. ¿Qué probabilidad da la softmax a la primera clase? Responde como número entre 0 y 1.",
+    "correcta": 0.844,
+    "tolerancia": 0.005,
+    "explicacion": "Exponenciales: e^3 = 20,09; e^1 = 2,72; e^0 = 1. Suman 23,80. La primera clase recibe 20,09 / 23,80 = 0,844."
+  },
+  {
+    "id": "m00l03-q05",
+    "tipo": "unica",
+    "enunciado": "Con entropía cruzada, ¿qué modelo sale con más pérdida ante un ejemplo de la clase A?",
+    "opciones": [
+      "Uno que da 0,9 a la clase A",
+      "Uno que da 0,5 a la clase A",
+      "Uno que da 0,01 a la clase A",
+      "Los tres tienen la misma pérdida, porque la clase A es la correcta en todos"
+    ],
+    "correcta": 2,
+    "explicacion": "La pérdida es menos el logaritmo de la probabilidad que el modelo da a la clase correcta: 0,105 con 0,9; 0,693 con 0,5 y 4,61 con 0,01. La entropía cruzada castiga sobre todo la seguridad equivocada."
+  },
+  {
+    "id": "m00l03-q06",
+    "tipo": "numerica",
+    "enunciado": "Sea L(w) = (w - 5)^2, con w = 1 y tasa de aprendizaje 0,1. ¿Cuánto vale w tras un paso de descenso de gradiente?",
+    "correcta": 1.8,
+    "tolerancia": 0.001,
+    "explicacion": "El gradiente es 2(w - 5) = 2·(1 - 5) = -8. Actualización: w = 1 - 0,1·(-8) = 1 + 0,8 = 1,8."
+  },
+  {
+    "id": "m00l03-q07",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas afirmaciones sobre la tasa de aprendizaje son correctas?",
+    "opciones": [
+      "Con una tasa demasiado grande la pérdida puede subir o rebotar de un lado a otro",
+      "Con una tasa demasiado grande el paso puede destruir lo ya aprendido",
+      "Cuanto más grande es la tasa, antes llega siempre al mínimo",
+      "Con una tasa demasiado pequeña el entrenamiento avanza muy despacio"
+    ],
+    "correcta": [
+      0,
+      1,
+      3
+    ],
+    "explicacion": "Hay una zona intermedia buena: por encima se pasa de largo y puede divergir; por debajo tarda una eternidad. Más grande no significa más rápido de forma indefinida."
+  },
+  {
+    "id": "m00l03-q08",
+    "tipo": "unica",
+    "enunciado": "¿Qué hace la retropropagación (backpropagation)?",
+    "opciones": [
+      "Calcula el gradiente de la pérdida respecto a cada parámetro, mandando el error hacia atrás por la red",
+      "Actualiza los pesos, y por eso hace innecesario el optimizador",
+      "Elige la tasa de aprendizaje",
+      "Convierte los logits en probabilidades"
+    ],
+    "correcta": 0,
+    "explicacion": "La retropropagación solo calcula los gradientes. Después, un optimizador (descenso de gradiente, Adam...) los usa para actualizar los pesos. La tasa la elige quien entrena, y los logits pasan a probabilidades con la softmax."
+  },
+  {
+    "id": "m00l03-q09",
+    "tipo": "vf",
+    "enunciado": "Durante la inferencia, el modelo ajusta sus pesos con descenso de gradiente para adaptarse a cada dato nuevo.",
+    "correcta": false,
+    "explicacion": "La inferencia usa los pesos ya entrenados, que quedan congelados. Ajustar pesos es propio del entrenamiento, incluido el ajuste fino."
+  },
+  {
+    "id": "m00l03-q10",
+    "tipo": "unica",
+    "enunciado": "Un hospital toma un modelo de lenguaje preentrenado y sigue entrenándolo con sus informes, con una tasa de aprendizaje menor. Después, en cada consulta, incluye dos ejemplos en la petición. ¿Qué afirmación es correcta?",
+    "opciones": [
+      "El ajuste fino cambia los pesos; los dos ejemplos de la petición (few-shot) no los cambian",
+      "Solo los ejemplos de la petición cambian los pesos",
+      "Ninguno de los dos cambia los pesos",
+      "Los dos cambian los pesos, pero solo el ajuste fino usa gradientes"
+    ],
+    "correcta": 0,
+    "explicacion": "El ajuste fino es entrenamiento adicional: actualiza los pesos. El aprendizaje con pocos ejemplos ocurre en la inferencia, con los pesos fijos, y el modelo se adapta a partir del contexto que recibe."
+  }
+]

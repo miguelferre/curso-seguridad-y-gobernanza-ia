@@ -1,0 +1,240 @@
+<section class="leccion" data-id="m02/l01">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Un riesgo no es solo "algo puede salir mal". Depende de cuatro cosas: lo probable que es, lo grave que sería, cuánto entramos en contacto con ello y lo frágiles que somos ante ello. Las tres piezas grandes son el peligro (<em>hazard</em>), la exposición (<em>exposure</em>) y la vulnerabilidad (<em>vulnerability</em>). Multiplicadas, dan el riesgo.</p>
+<p>Cada pieza es una palanca. Si bajas cualquiera, baja el riesgo. Si una llega a cero, el riesgo de ese peligro es cero. En IA, cada palanca tiene su campo de investigación: control, monitorización y robustez.</p>
+<p>La segunda idea va de contar fallos. La fiabilidad se resume en "nueves": 99 % son dos nueves y 99,9 % son tres. Cada nueve más divide los fallos entre diez, aunque en porcentaje casi no se note. Ojo: los nueves dicen cuánto falla algo, no cuánto daño hace cuando falla.</p>
+
+<svg viewBox="0 0 360 372" role="img" aria-labelledby="rs-t rs-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="rs-t">Esquema del riesgo</title>
+<desc id="rs-d">Riesgo es igual a peligro por exposición por vulnerabilidad, dividido opcionalmente por la capacidad de afrontamiento. Cada factor tiene una palanca: control, monitorización o robustez.</desc>
+<rect x="4" y="4" width="352" height="82" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="30" style="fill:var(--accent-ink);font-weight:700;font-size:16px">PELIGRO (probabilidad × severidad)</text>
+<text x="18" y="52" style="fill:currentColor;font-size:13px">¿Cómo de probable es y cómo de grave sería?</text>
+<text x="18" y="72" style="fill:var(--muted);font-size:12.5px">Palanca: control y alineamiento</text>
+<text x="180" y="106" text-anchor="middle" style="fill:currentColor;font-size:22px;font-weight:700">×</text>
+<rect x="4" y="116" width="352" height="82" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="18" y="142" style="fill:var(--ex);font-weight:700;font-size:16px">EXPOSICIÓN</text>
+<text x="18" y="164" style="fill:currentColor;font-size:13px">¿Cuánto contacto tenemos con el peligro?</text>
+<text x="18" y="184" style="fill:var(--muted);font-size:12.5px">Palanca: monitorización</text>
+<text x="180" y="218" text-anchor="middle" style="fill:currentColor;font-size:22px;font-weight:700">×</text>
+<rect x="4" y="228" width="352" height="82" rx="10" style="fill:var(--surface);stroke:var(--trap);stroke-width:2"/>
+<text x="18" y="254" style="fill:var(--trap);font-weight:700;font-size:16px">VULNERABILIDAD</text>
+<text x="18" y="276" style="fill:currentColor;font-size:13px">¿Cuánto daño nos hace cuando nos alcanza?</text>
+<text x="18" y="296" style="fill:var(--muted);font-size:12.5px">Palanca: robustez</text>
+<text x="180" y="334" text-anchor="middle" style="fill:currentColor;font-size:22px;font-weight:700">=</text>
+<rect x="4" y="342" width="352" height="26" rx="8" style="fill:var(--accent-soft);stroke:var(--rule-strong)"/>
+<text x="180" y="360" text-anchor="middle" style="fill:currentColor;font-size:13.5px;font-weight:600">RIESGO (÷ capacidad de afrontamiento)</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Distinguir modo de fallo, peligro y amenaza con un ejemplo de cada uno.</li>
+<li>Calcular un riesgo con la ecuación clásica y con la del desastre, y sumar los riesgos de varios peligros.</li>
+<li>Decidir qué factor conviene reducir (peligro, exposición o vulnerabilidad) y a qué campo de la seguridad de la IA corresponde.</li>
+<li>Pasar de una fiabilidad a nueves con \(k=-\log_{10}(1-p)\), estimar los fallos esperados y explicar por qué los nueves no miden el riesgo.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>Vocabulario mínimo</h3>
+<p>Antes de calcular nada, hay seis palabras que la ingeniería de seguridad usa con precisión.</p>
+<dl class="facts">
+<div><dt>Modo de fallo (failure mode)</dt><dd>Una forma concreta en que un sistema puede fallar. En IA: perseguir metas equivocadas, o una meta simplificada al máximo sin mirar los efectos laterales.</dd></div>
+<div><dt>Peligro (hazard)</dt><dd>Fuente de daño potencial. No es un riesgo por sí solo: un tiburón es un peligro, pero si nadie entra al agua no hay riesgo. En IA: un entorno que cambia (desplazamiento de distribución, <em>distribution shift</em>).</dd></div>
+<div><dt>Amenaza (threat)</dt><dd>Peligro con intención adversaria. En IA: alguien que contamina a propósito los datos de entrenamiento para colar una función maliciosa oculta.</dd></div>
+<div><dt>Exposición (exposure)</dt><dd>Hasta qué punto personas, bienes o sistemas quedan sometidos al peligro.</dd></div>
+<div><dt>Vulnerabilidad (vulnerability)</dt><dd>Lo susceptible que somos al daño de un peligro. Un sistema frágil, que solo reconoce patrones ya vistos, es vulnerable.</dd></div>
+<div><dt>Capacidad de afrontamiento (ability to cope)</dt><dd>Capacidad de recuperarse con eficacia del daño.</dd></div>
+</dl>
+
+<h3>La ecuación clásica</h3>
+<p>Para un peligro \(h\), el riesgo responde a dos preguntas: ¿con qué probabilidad ocurre? y ¿cuánto daño hace si ocurre? Se multiplican.</p>
+<div class="formula">\[ \text{Riesgo}(h)=P(h)\times \text{severidad}(h) \]</div>
+<p>Hacen falta las dos. Si un volcán dormido tiene una ciudad al lado, la probabilidad es baja y el riesgo también. Si uno muy activo está en una isla deshabitada, la severidad es baja y el riesgo también.</p>
+<p>Un sistema suele tener varios peligros. Se calcula el riesgo de cada uno por separado y se suman.</p>
+<div class="formula">\[ \text{Riesgo total}=\sum_{h} P(h)\times \text{severidad}(h) \]</div>
+<p>No hace falta un número exacto. Con estimaciones basta para comparar riesgos, y si ni eso se puede, la ecuación sigue sirviendo para ver de qué factores depende el riesgo.</p>
+<p>En IA esto tiene una consecuencia: que un sistema pueda hacer algo dañino (capacidad) no implica que el riesgo sea alto. Hay que estimar también la probabilidad de que lo intente (propensión, <em>propensity</em>).</p>
+
+<h3>El objetivo es reducir, no llegar a cero</h3>
+<p>Un objetivo útil es un umbral, no el cero: por ejemplo, que la probabilidad de una catástrofe existencial quede por debajo del 0,01 % por siglo. El cero no se alcanza en la práctica, y perseguirlo empuja a esperar una solución perfecta mientras se aplazan medidas parciales que ya reducen el riesgo. Por eso el libro prefiere hablar de "hacer la IA más segura" antes que de "resolver el alineamiento", del mismo modo que en capacidades se habla de mejorarlas y no de "resolver la inteligencia".</p>
+
+<h3>La ecuación del desastre (disaster risk equation)</h3>
+<p>Si sabemos más de la situación, el peligro se puede partir en piezas y añadir cómo interactúa con la gente que está en riesgo. El ejemplo del libro es un suelo resbaladizo:</p>
+<ol>
+<li><strong>Exposición.</strong> Cuánta gente pisa el suelo y cuánto tiempo sigue mojado.</li>
+<li><strong>Probabilidad.</strong> Cuánto resbala el suelo, dado que alguien lo pisa. Exposición y probabilidad juntas dicen cuán probable es el accidente.</li>
+<li><strong>Severidad.</strong> Cuánto daño hace intrínsecamente el peligro: caer sobre mármol duele más que sobre moqueta. Probabilidad y severidad juntas son el nivel intrínseco de peligro.</li>
+<li><strong>Vulnerabilidad.</strong> Cuánto sufre el afectado: la edad o la densidad ósea deciden si una caída acaba en fractura. Severidad y vulnerabilidad juntas dicen cuán dañino es el accidente.</li>
+</ol>
+<p>Se pueden agrupar de dos formas. Por momento: exposición y probabilidad pesan antes del accidente, severidad y vulnerabilidad durante él. Por origen: probabilidad y severidad son propiedades del peligro, y exposición y vulnerabilidad lo son de quien está en riesgo.</p>
+<div class="formula">\[ \text{Riesgo}=\sum_{h} P(h)\times \text{severidad}(h)\times \text{exposición}(h)\times \text{vulnerabilidad}(h) \]</div>
+<p>El libro avisa de que esta ecuación no pretende ser rigurosa. Sirve para transmitir dos ideas: subir cualquier factor sube el riesgo, y llevar cualquiera a cero anula el riesgo de ese peligro por grandes que sean los demás.</p>
+
+<h4>Cuatro factores o tres bloques</h4>
+<p>Las dos fuentes usan la misma fórmula de cuatro términos y la agrupan en tres bloques: "peligro × exposición × vulnerabilidad". La diferencia es que L3 define además la exposición como la probabilidad de contacto con el peligro, \(P(\text{contacto}\mid h)\).</p>
+<div class="tw"><table>
+<thead><tr><th>Bloque</th><th>Libro (4.1)</th><th>Curso (L3)</th></tr></thead>
+<tbody>
+<tr><td>Peligro</td><td>probabilidad × severidad</td><td>\(P(h)\times \text{Severity}(h)\)</td></tr>
+<tr><td>Exposición</td><td>exposición</td><td>\(P(\text{Contact}\mid h)\)</td></tr>
+<tr><td>Vulnerabilidad</td><td>vulnerabilidad</td><td>\(\text{Vulnerability}(h)\)</td></tr>
+</tbody></table></div>
+<p>El curso también avisa de que el signo de multiplicar es nocional: representa una interacción no lineal, no una fórmula exacta. En esta lección tratamos los factores como números entre 0 y 1 (o una escala de daño para la severidad) para poder jugar con ellos.</p>
+
+<p>Para ver cómo se mueve el riesgo al cambiar cada factor, <a data-ir="practica" href="#sim-ecuacion-riesgo">pruébalo en Práctica</a>.</p>
+
+<h3>Una palanca por factor</h3>
+<p>Descomponer sirve para decidir qué hacer. Ante un mismo riesgo se puede actuar sobre el peligro, sobre la exposición o sobre la vulnerabilidad. No siempre se puede tocar el peligro: no cambiamos lo virulento que es un virus, pero sí el contacto con él o nuestras defensas.</p>
+<div class="tw"><table>
+<thead><tr><th>Factor</th><th>Suelo mojado</th><th>Gripe</th><th>Campo en IA</th></tr></thead>
+<tbody>
+<tr><td>Peligro</td><td>ventilador para secarlo</td><td>limpiar superficies y reducir la prevalencia</td><td>control y alineamiento: IA menos peligrosa por diseño</td></tr>
+<tr><td>Exposición</td><td>cartel de "suelo mojado"</td><td>evitar el contacto con portadores</td><td>monitorización: detectar el peligro para esquivarlo</td></tr>
+<tr><td>Vulnerabilidad</td><td>entrenar la fuerza y bajar la fragilidad</td><td>vacunarse</td><td>robustez: aguantar ataques y fallos</td></tr>
+</tbody></table></div>
+<p>El libro lo ilustra con el <em>proxy gaming</em> (una IA que optimiza en exceso un objetivo que solo es un sustituto del deseado). Reducir la exposición es vigilar y marcar pronto las señales de que ocurre. Reducir el peligro es hacer que la IA quiera el objetivo ideal y limitar su poder para que el daño sea menor. Reducir la vulnerabilidad es afinar el sustituto, endurecer la IA frente a ataques o depender menos de ella.</p>
+<p>Hay una cuarta vía, la seguridad sistémica (<em>systemic safety</em>): actuar sobre el entorno y no sobre la IA. Sus medidas no endurecen el modelo, sino el mundo que lo rodea: proteger mejor los accesos y las claves, o vigilar quién puede usar las herramientas más potentes. Conviene desarrollar todas las vías y no apostar por una sola. Los módulos siguientes las tratan una a una.</p>
+
+<h3>Capacidad de afrontamiento y riesgo de ruina</h3>
+<p>Una ampliación habitual añade la capacidad de afrontamiento: cuánto podemos recuperarnos después. Aquí se divide en lugar de multiplicar.</p>
+<div class="formula">\[ \text{Riesgo}\approx\frac{\text{vulnerabilidad}\times\text{exposición}\times\text{peligro}}{\text{capacidad de afrontamiento}} \]</div>
+<p>Si el daño es enorme y la capacidad de recuperación tiende a cero, el riesgo se dispara. Es el riesgo de ruina (<em>risk of ruin</em>): destrucción permanente y total. Una catástrofe existencial es el caso extremo, porque elimina la capacidad de afrontar. Con esa capacidad cerca de cero, la ecuación da un riesgo astronómico o infinito.</p>
+
+<h3>Estimar el riesgo o reducirlo</h3>
+<p>Medir bien un riesgo y reducirlo son trabajos distintos que compiten por los mismos recursos. Cuando ya se sabe que el riesgo es alto, dedicar mucho tiempo a afinar la cifra suele ser mala inversión, por dos razones que da el curso: la incertidumbre de fondo puede impedir afinar, y una mejora de precisión a menudo no cambia la decisión. Primero se reducen peligro, exposición y vulnerabilidad. Después se priorizan y se evalúan.</p>
+
+</div>
+
+
+<div class="body">
+<h3>Fiabilidad y nueves (nines of reliability)</h3>
+<p>La fiabilidad (<em>reliability</em>) es la probabilidad de que un uso salga bien: un 99 % quiere decir que falla una vez de cada cien. Es la otra cara de la probabilidad de fallo que hemos usado hasta ahora. Con ella se estima cuánto tarda de media en llegar el primer fallo (<em>expected time before failure</em>), contado en usos.</p>
+<p>Cuantos más usos, más ocasiones de fallar. Es la exposición otra vez. (Ejemplo propio.) Un asistente de urgencias que clasifica 5 pacientes en una guardia rara tiene poco que perder. El mismo asistente con 500 pacientes en un día acumula muchas más ocasiones de error, con la misma fiabilidad por paciente.</p>
+<div class="tw"><table>
+<thead><tr><th>Fiabilidad</th><th>Probabilidad de error</th><th>Nueves \(k\)</th><th>El primer error llega hacia la decisión nº</th></tr></thead>
+<tbody>
+<tr><td>0 %</td><td>100 %</td><td>0</td><td>1</td></tr>
+<tr><td>50 %</td><td>50 %</td><td>0,3</td><td>2</td></tr>
+<tr><td>75 %</td><td>25 %</td><td>0,6</td><td>4</td></tr>
+<tr><td>90 %</td><td>10 %</td><td>1</td><td>10</td></tr>
+<tr><td>99 %</td><td>1 %</td><td>2</td><td>100</td></tr>
+<tr><td>99,9 %</td><td>0,1 %</td><td>3</td><td>1000</td></tr>
+<tr><td>99,99 %</td><td>0,01 %</td><td>4</td><td>10 000</td></tr>
+</tbody></table></div>
+<p>Los nueves de fiabilidad (\(k\)) cuentan los nueves iniciales del porcentaje: 90 % es un nueve, 99 % son dos. Con \(p\) como fiabilidad en decimal:</p>
+<div class="formula">\[ k=-\log_{10}(1-p) \qquad\Longleftrightarrow\qquad 1-p=10^{-k} \]</div>
+<p>La tabla implica además que los usos hasta el primer error son \(1/(1-p)=10^{k}\) (deducción nuestra a partir de la tabla).</p>
+
+<h4>No es lineal: cada nueve multiplica por diez</h4>
+<ul>
+<li>De 50 % a 75 % (25 puntos más) el tiempo hasta el fallo se duplica.</li>
+<li>De 90 % a 99 % (9 puntos más) se multiplica por diez.</li>
+<li>De 99 % a 99,9 % (0,9 puntos más) se multiplica por diez otra vez.</li>
+</ul>
+<p>Reducir a la mitad la probabilidad de error duplica el tiempo hasta el fallo. Añadir un nueve la reduce a la décima parte y multiplica ese tiempo por diez. En una gráfica con el tiempo en escala logarítmica, los nueves forman una recta. Por eso un sistema con cuatro nueves aguanta 100 veces más que uno con dos.</p>
+<p>Los nueves ayudan a valorar una mejora. De 0,99 a 0,9999 los números casi parecen iguales, pero el tiempo hasta el fallo se multiplica por 100. De 0,4 a 0,8 solo se multiplica por 3 (cálculo propio: 1/0,6 pasa a 1/0,2). Cerca del 100 % cada mejora vale más, pero también es más difícil de lograr, porque siempre quedan peligros que no habíamos considerado.</p>
+
+<p>Para convertir entre fiabilidad, nueves y fallos esperados, <a data-ir="practica" href="#sim-nueves-fiabilidad">pruébalo en Práctica</a>.</p>
+
+<p>El libro añade un caso límite. Si el fallo supone una destrucción permanente a escala de sociedad, el tiempo hasta el fallo es en la práctica la esperanza de vida de la civilización. Cada nueve añadido la multiplicaría por diez.</p>
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, con cifras inventadas para practicar)</p>
+<p>Un hospital usa un modelo de triaje que clasifica cada paciente de urgencias como "urgente" o "no urgente". El peligro que vigilamos: un caso urgente etiquetado como no urgente. Cifras por caso urgente:</p>
+<ul>
+<li>Probabilidad del error: \(0{,}02\) (el modelo se equivoca en 2 de cada 100).</li>
+<li>Severidad del retraso: \(5\) en una escala de daño de 0 a 10.</li>
+<li>Exposición: \(0{,}8\). El 80 % de esos errores llega al paciente porque nadie los revisa.</li>
+<li>Vulnerabilidad: \(0{,}5\). La mitad de los pacientes (mayores, con otras enfermedades) sufre daño real por esperar.</li>
+</ul>
+<div class="formula">\[ 0{,}02\times 5\times 0{,}8\times 0{,}5 = 0{,}04 \text{ puntos de daño por caso urgente} \]</div>
+<p>Tres intervenciones posibles, cada una sobre un factor:</p>
+<ul>
+<li>Reentrenar el modelo (peligro): \(P\) baja de 0,02 a 0,015. Riesgo: \(0{,}03\).</li>
+<li>Revisión por enfermería de las etiquetas "no urgente" (exposición): baja de 0,8 a 0,3. Riesgo: \(0{,}015\).</li>
+<li>Protocolo de reevaluación a los 30 minutos (vulnerabilidad): baja de 0,5 a 0,35. Riesgo: \(0{,}028\).</li>
+</ul>
+<p>Como es un producto, el riesgo baja en la misma proporción que el factor. Conviene elegir la que más recorta: aquí, la revisión humana recorta más que el reentrenamiento. Los costes de cada una no están en el ejemplo y también pesarían en la decisión real.</p>
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas)</p>
+<p>Un modelo de derivación clínica tiene 99 % de fiabilidad (dos nueves) y decide 200 derivaciones al día. Fallos esperados: \(200\times 0{,}01=2\) al día. Con un nueve más (99,9 %): \(200\times 0{,}001=0{,}2\) al día, uno cada cinco días. Ese nueve extra sirve, pero solo nos dice cuántos fallos habrá. Si el fallo es enviar a casa a un paciente grave, hay que mirar la severidad y la vulnerabilidad antes de decir que el riesgo es bajo.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Los nueves miden la probabilidad, no el riesgo.</strong> Tres nueves dicen que el sistema acierta 999 de cada 1000 veces. No dicen nada de cuánto daño hace el fallo. Un sistema que juega a un videojuego y un vehículo autónomo pueden tener tres nueves y un riesgo muy distinto. Es la ecuación clásica: los nueves solo aportan \(P\), falta la severidad (y la exposición y la vulnerabilidad).</p>
+<p><strong>Otra trampa, propia.</strong> Que el primer fallo "llegue hacia el uso 100" no quiere decir que los 99 primeros salgan bien. Con un 99 % de fiabilidad y 100 usos independientes, la probabilidad de al menos un fallo es \(1-0{,}99^{100}\approx 63\,\%\). Compruébalo con el simulador de nueves: <a data-ir="practica" href="#sim-nueves-fiabilidad">pruébalo en Práctica</a> (pulsa 99 % y pon N = 100).</p>
+</div>
+
+
+<p class="say"><span class="label">Dicho en inglés</span>I split a risk into hazard, exposure and vulnerability to see which lever is cheapest to pull, and I never read "three nines" as "low risk" until I know how bad a single failure is.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 4.1 Risk Decomposition, págs. 180 a 186 (PDF 198 a 204), y sección 4.2 Nines of Reliability, págs. 186 a 189 (PDF 204 a 207).</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS), lección L3 Risk Decomposition, notas de Cody Rushing.</li>
+<li>Añadido propio, no procede de las fuentes: los ejemplos del hospital, el ejercicio, el cálculo de la probabilidad de al menos un fallo y la deducción de que los usos hasta el primer fallo valen \(10^{k}\) y el cálculo de que de 0,4 a 0,8 el tiempo hasta el fallo se multiplica por 3.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: primero dos simuladores para explorar, después dos ejercicios de cálculo a mano.</p>
+
+<p class="consigna"><strong>Simulador del riesgo.</strong> Pulsa "Cargar el ejemplo del hospital" y lleva la exposición hacia 0. Observa que el riesgo cae a 0 aunque los demás factores no cambien, y compara qué palanca recorta más.</p>
+<div data-widget="ecuacion-riesgo" id="sim-ecuacion-riesgo"></div>
+
+<p class="consigna"><strong>Simulador de nueves.</strong> Con N = 1000, pulsa 99 %, 99,9 % y 99,99 %. Observa que los fallos esperados se dividen entre 10 en cada paso y cómo baja la probabilidad de al menos un fallo.</p>
+<div data-widget="nueves-fiabilidad" id="sim-nueves-fiabilidad"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: dos peligros (a mano, 6 minutos)</p>
+<p>Sigue con el hospital del ejemplo. Además del error de triaje (\(h_1\)), hay un segundo peligro (\(h_2\)): un fallo en el volcado de datos del laboratorio que altera los valores que lee el modelo. Cifras propias de práctica:</p>
+<div class="tw"><table>
+<thead><tr><th>Peligro</th><th>Probabilidad</th><th>Severidad</th><th>Exposición</th><th>Vulnerabilidad</th></tr></thead>
+<tbody>
+<tr><td>\(h_1\) triaje</td><td>0,02</td><td>5</td><td>0,8</td><td>0,5</td></tr>
+<tr><td>\(h_2\) volcado de datos</td><td>0,05</td><td>2</td><td>0,5</td><td>0,3</td></tr>
+</tbody></table></div>
+<ol>
+<li>Calcula el riesgo de cada peligro y el total.</li>
+<li>Solo puedes hacer una cosa: reducir a la mitad la exposición de \(h_1\) o reducir a la mitad la probabilidad de \(h_2\). ¿Cuál deja menos riesgo total?</li>
+<li>Si la exposición de \(h_1\) fuera 0, ¿cuánto valdría el riesgo total?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> \(h_1\): \(0{,}02\times5\times0{,}8\times0{,}5=0{,}04\). \(h_2\): \(0{,}05\times2\times0{,}5\times0{,}3=0{,}015\). Total: \(0{,}055\).</p>
+<p><strong>2.</strong> Mitad de exposición de \(h_1\): \(h_1=0{,}02\), total \(0{,}02+0{,}015=0{,}035\). Mitad de probabilidad de \(h_2\): \(h_2=0{,}0075\), total \(0{,}04+0{,}0075=0{,}0475\). Gana reducir la exposición de \(h_1\), porque ese peligro pesa más en el total. Conviene atacar el peligro que más aporta.</p>
+<p><strong>3.</strong> Un factor a cero anula el peligro entero: \(h_1=0\). El total es \(h_2=0{,}015\).</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: nueves y fallos (a mano, 4 minutos)</p>
+<p>Un modelo tiene fiabilidad \(p=0{,}995\) y decide 500 casos al día.</p>
+<ol>
+<li>Calcula sus nueves \(k\) (usa \(\log_{10}5\approx 0{,}699\)).</li>
+<li>¿Cuántos fallos esperas al día? ¿Y con un nueve más (\(p=0{,}9995\))?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> \(1-p=0{,}005\). \(k=-\log_{10}(0{,}005)=3-\log_{10}5\approx3-0{,}699=2{,}301\). Algo más de dos nueves.</p>
+<p><strong>2.</strong> \(500\times0{,}005=2{,}5\) fallos al día. Con \(p=0{,}9995\): \(500\times0{,}0005=0{,}25\) al día. Un nueve más divide los fallos entre 10.</p>
+</details>
+</div>
+</div>
+
+</section>

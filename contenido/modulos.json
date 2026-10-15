@@ -1,0 +1,632 @@
+{
+ "modulos": [
+  {
+   "id": "m00",
+   "titulo": "Fundamentos de IA",
+   "lecciones": [
+    {
+     "id": "l01",
+     "titulo": "Inteligencia artificial y aprendizaje automático (I)",
+     "minutos": 40,
+     "fuentes": [
+      "libro 2.2"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l02",
+     "titulo": "Inteligencia artificial y aprendizaje automático (II)",
+     "minutos": 45,
+     "fuentes": [
+      "libro 2.2"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l03",
+     "titulo": "Aprendizaje profundo: redes y entrenamiento",
+     "minutos": 45,
+     "fuentes": [
+      "libro 2.3",
+      "curso L2"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l04",
+     "titulo": "Aprendizaje profundo en la práctica",
+     "minutos": 40,
+     "fuentes": [
+      "libro 2.3",
+      "curso L2"
+     ],
+     "notebook": true
+    },
+    {
+     "id": "l05",
+     "titulo": "Leyes de escala y velocidad de la IA",
+     "minutos": 35,
+     "fuentes": [
+      "libro 2.4",
+      "libro 2.5"
+     ],
+     "notebook": false
+    }
+   ]
+  },
+  {
+   "id": "m01",
+   "titulo": "Riesgos catastróficos",
+   "lecciones": [
+    {
+     "id": "l01",
+     "titulo": "Uso malicioso de la IA",
+     "minutos": 45,
+     "fuentes": [
+      "libro 1.2"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l02",
+     "titulo": "La carrera de la IA",
+     "minutos": 40,
+     "fuentes": [
+      "libro 1.3"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l03",
+     "titulo": "Riesgos organizativos",
+     "minutos": 40,
+     "fuentes": [
+      "libro 1.4"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l04",
+     "titulo": "IA descontrolada y conexiones entre riesgos",
+     "minutos": 40,
+     "fuentes": [
+      "libro 1.5",
+      "libro 1.6",
+      "curso L19",
+      "curso L20"
+     ],
+     "notebook": false
+    }
+   ]
+  },
+  {
+   "id": "m02",
+   "titulo": "Ingeniería de seguridad",
+   "lecciones": [
+    {
+     "id": "l01",
+     "titulo": "Descomposición del riesgo y nueves de fiabilidad",
+     "minutos": 40,
+     "fuentes": [
+      "libro 4.1",
+      "libro 4.2",
+      "curso L3"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l02",
+     "titulo": "Principios de diseño seguro",
+     "minutos": 40,
+     "fuentes": [
+      "libro 4.3"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l03",
+     "titulo": "Modelos de accidente",
+     "minutos": 45,
+     "fuentes": [
+      "libro 4.4",
+      "curso L4"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l04",
+     "titulo": "Factores sistémicos y deriva al fallo",
+     "minutos": 45,
+     "fuentes": [
+      "libro 4.5",
+      "libro 4.6"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l05",
+     "titulo": "Cisnes negros (I)",
+     "minutos": 40,
+     "fuentes": [
+      "libro 4.7",
+      "curso L5"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l06",
+     "titulo": "Cisnes negros (II)",
+     "minutos": 40,
+     "fuentes": [
+      "libro 4.7",
+      "curso L5"
+     ],
+     "notebook": false
+    }
+   ]
+  },
+  {
+   "id": "m03",
+   "titulo": "Sistemas complejos",
+   "lecciones": [
+    {
+     "id": "l01",
+     "titulo": "Introducción a los sistemas complejos (I)",
+     "minutos": 45,
+     "fuentes": [
+      "libro 5.2"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l02",
+     "titulo": "Introducción a los sistemas complejos (II)",
+     "minutos": 45,
+     "fuentes": [
+      "libro 5.2"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l03",
+     "titulo": "Sistemas complejos y seguridad de la IA",
+     "minutos": 40,
+     "fuentes": [
+      "libro 5.3"
+     ],
+     "notebook": false
+    }
+   ]
+  },
+  {
+   "id": "m04",
+   "titulo": "Robustez",
+   "lecciones": [
+    {
+     "id": "l01",
+     "titulo": "Robustez adversarial",
+     "minutos": 50,
+     "fuentes": [
+      "libro 3.3",
+      "curso L6"
+     ],
+     "notebook": true
+    },
+    {
+     "id": "l02",
+     "titulo": "Robustez ante cisnes negros",
+     "minutos": 40,
+     "fuentes": [
+      "curso L7",
+      "libro 3.2",
+      "libro 3.3"
+     ],
+     "notebook": false
+    }
+   ]
+  },
+  {
+   "id": "m05",
+   "titulo": "Monitorización técnica",
+   "lecciones": [
+    {
+     "id": "l01",
+     "titulo": "Monitorización de modelos",
+     "minutos": 35,
+     "fuentes": [
+      "libro 3.2"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l02",
+     "titulo": "Detección de anomalías",
+     "minutos": 45,
+     "fuentes": [
+      "curso L8"
+     ],
+     "notebook": true
+    },
+    {
+     "id": "l03",
+     "titulo": "Incertidumbre interpretable",
+     "minutos": 45,
+     "fuentes": [
+      "curso L9"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l04",
+     "titulo": "Transparencia",
+     "minutos": 40,
+     "fuentes": [
+      "curso L10",
+      "libro 3.2"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l05",
+     "titulo": "Troyanos",
+     "minutos": 45,
+     "fuentes": [
+      "curso L11"
+     ],
+     "notebook": true
+    },
+    {
+     "id": "l06",
+     "titulo": "Comportamiento emergente y proxy gaming",
+     "minutos": 40,
+     "fuentes": [
+      "curso L12"
+     ],
+     "notebook": false
+    }
+   ]
+  },
+  {
+   "id": "m06",
+   "titulo": "Monitorización en producción",
+   "lecciones": [
+    {
+     "id": "l01",
+     "titulo": "Equidad",
+     "minutos": 45,
+     "fuentes": [
+      "libro 6.3",
+      "Atlas"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l02",
+     "titulo": "Calidad y calibración",
+     "minutos": 40,
+     "fuentes": [
+      "Atlas",
+      "curso L9"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l03",
+     "titulo": "Deriva",
+     "minutos": 40,
+     "fuentes": [
+      "Atlas"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l04",
+     "titulo": "Explicabilidad",
+     "minutos": 40,
+     "fuentes": [
+      "Atlas",
+      "curso L10"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l05",
+     "titulo": "La capa humana",
+     "minutos": 45,
+     "fuentes": [
+      "Atlas"
+     ],
+     "notebook": false
+    }
+   ]
+  },
+  {
+   "id": "m07",
+   "titulo": "Alineamiento y control",
+   "lecciones": [
+    {
+     "id": "l01",
+     "titulo": "Alineamiento",
+     "minutos": 45,
+     "fuentes": [
+      "libro 3.4",
+      "curso L13",
+      "curso L14"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l02",
+     "titulo": "Seguridad sistémica",
+     "minutos": 45,
+     "fuentes": [
+      "libro 3.5",
+      "curso L16",
+      "curso L17"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l03",
+     "titulo": "Balance entre seguridad y capacidades",
+     "minutos": 45,
+     "fuentes": [
+      "libro 3.6",
+      "libro 3.7",
+      "curso L21"
+     ],
+     "notebook": false
+    }
+   ]
+  },
+  {
+   "id": "m08",
+   "titulo": "IA beneficiosa y ética de máquinas",
+   "lecciones": [
+    {
+     "id": "l01",
+     "titulo": "La ley y la IA",
+     "minutos": 45,
+     "fuentes": [
+      "libro 6.1",
+      "libro 6.2"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l02",
+     "titulo": "El motor económico",
+     "minutos": 40,
+     "fuentes": [
+      "libro 6.4"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l03",
+     "titulo": "Bienestar, preferencias y felicidad",
+     "minutos": 45,
+     "fuentes": [
+      "libro 6.5",
+      "libro 6.6",
+      "libro 6.7"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l04",
+     "titulo": "Funciones de bienestar social",
+     "minutos": 45,
+     "fuentes": [
+      "libro 6.8"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l05",
+     "titulo": "Incertidumbre moral",
+     "minutos": 45,
+     "fuentes": [
+      "libro 6.9",
+      "curso L15"
+     ],
+     "notebook": true
+    }
+   ]
+  },
+  {
+   "id": "m09",
+   "titulo": "Acción colectiva",
+   "lecciones": [
+    {
+     "id": "l01",
+     "titulo": "Teoría de juegos (I)",
+     "minutos": 40,
+     "fuentes": [
+      "libro 7.2"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l02",
+     "titulo": "Teoría de juegos (II)",
+     "minutos": 45,
+     "fuentes": [
+      "libro 7.2"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l03",
+     "titulo": "Cooperación",
+     "minutos": 45,
+     "fuentes": [
+      "libro 7.3",
+      "curso L18"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l04",
+     "titulo": "Conflicto",
+     "minutos": 45,
+     "fuentes": [
+      "libro 7.4"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l05",
+     "titulo": "Presiones evolutivas",
+     "minutos": 40,
+     "fuentes": [
+      "libro 7.5",
+      "curso L22"
+     ],
+     "notebook": false
+    }
+   ]
+  },
+  {
+   "id": "m10",
+   "titulo": "Gobernanza",
+   "lecciones": [
+    {
+     "id": "l01",
+     "titulo": "Crecimiento y distribución",
+     "minutos": 50,
+     "fuentes": [
+      "libro 8.2",
+      "libro 8.3"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l02",
+     "titulo": "Gobernanza corporativa",
+     "minutos": 40,
+     "fuentes": [
+      "libro 8.4"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l03",
+     "titulo": "Gobernanza nacional",
+     "minutos": 45,
+     "fuentes": [
+      "libro 8.5"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l04",
+     "titulo": "Gobernanza internacional",
+     "minutos": 40,
+     "fuentes": [
+      "libro 8.6"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l05",
+     "titulo": "Gobernanza del cómputo",
+     "minutos": 40,
+     "fuentes": [
+      "libro 8.7"
+     ],
+     "notebook": false
+    }
+   ]
+  },
+  {
+   "id": "m11",
+   "titulo": "Fundamentos formales",
+   "lecciones": [
+    {
+     "id": "l01",
+     "titulo": "La utilidad y sus propiedades",
+     "minutos": 45,
+     "fuentes": [
+      "libro 10.1",
+      "libro 10.2",
+      "libro 10.3"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l02",
+     "titulo": "Actitudes ante el riesgo",
+     "minutos": 45,
+     "fuentes": [
+      "libro 10.4"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l03",
+     "titulo": "Más allá de la utilidad esperada",
+     "minutos": 50,
+     "fuentes": [
+      "libro 10.5",
+      "libro 10.6"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l04",
+     "titulo": "Por qué ética y consideraciones morales",
+     "minutos": 45,
+     "fuentes": [
+      "libro 11.2",
+      "libro 11.3",
+      "libro 11.1"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l05",
+     "titulo": "Teorías morales (I)",
+     "minutos": 45,
+     "fuentes": [
+      "libro 11.4"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l06",
+     "titulo": "Teorías morales (II)",
+     "minutos": 40,
+     "fuentes": [
+      "libro 11.4"
+     ],
+     "notebook": false
+    }
+   ]
+  },
+  {
+   "id": "m12",
+   "titulo": "Cierre y proyecto",
+   "lecciones": [
+    {
+     "id": "l01",
+     "titulo": "Repaso general",
+     "minutos": 30,
+     "fuentes": [
+      "curso L23"
+     ],
+     "notebook": false
+    },
+    {
+     "id": "l02",
+     "titulo": "Proyecto final",
+     "minutos": 35,
+     "fuentes": [
+      "plan"
+     ],
+     "notebook": false
+    }
+   ]
+  }
+ ]
+}

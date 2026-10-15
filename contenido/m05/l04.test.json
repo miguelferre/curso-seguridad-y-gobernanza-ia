@@ -1,0 +1,110 @@
+[
+  {
+    "id": "m05l04-q01",
+    "tipo": "unica",
+    "enunciado": "¿Qué calcula el método base de mapa de saliencia por gradiente para una imagen?",
+    "opciones": [
+      "La derivada del logit de la clase respecto a cada píxel de la entrada",
+      "La media de los pesos de la última capa",
+      "La imagen sintética que maximiza la activación de una neurona",
+      "El error de la predicción sobre el conjunto de prueba"
+    ],
+    "correcta": 0,
+    "explicacion": "Se mide cuánto cambiaría el logit de la clase si se moviera un poco cada píxel. Los píxeles con mayor gradiente se consideran los más importantes. La tercera opción describe la visualización de características, que es otra herramienta."
+  },
+  {
+    "id": "m05l04-q02",
+    "tipo": "vf",
+    "enunciado": "Si el mapa de saliencia de un método casi no cambia cuando se aleatorizan los pesos del modelo, es una señal de que el mapa no refleja lo que el modelo ha aprendido.",
+    "correcta": true,
+    "explicacion": "Es la prueba de cordura de aleatorizar el modelo. Si el mapa sigue igual con un modelo destruido, no depende del modelo, y no puede explicarlo."
+  },
+  {
+    "id": "m05l04-q03",
+    "tipo": "numerica",
+    "enunciado": "Un clasificador lineal de tres píxeles tiene sesgo -0,5 y pesos (1,5; -0,5; 0,8). La imagen es (0,6; 0,4; 0,5). ¿Qué probabilidad de la clase positiva da? Responde como número entre 0 y 1.",
+    "correcta": 0.646,
+    "tolerancia": 0.005,
+    "explicacion": "El logit es -0,5 + 1,5 × 0,6 - 0,5 × 0,4 + 0,8 × 0,5 = -0,5 + 0,9 - 0,2 + 0,4 = 0,6, y la sigmoide de 0,6 es 1 / (1 + e^-0,6) ≈ 0,646. El mapa de gradiente por entrada es (0,9; -0,2; 0,4), que sumado al sesgo da el logit."
+  },
+  {
+    "id": "m05l04-q04",
+    "tipo": "numerica",
+    "enunciado": "Con el mismo modelo y la misma imagen de la pregunta anterior, se tapa el primer píxel con 0. ¿Qué probabilidad de la clase positiva da ahora?",
+    "correcta": 0.426,
+    "tolerancia": 0.005,
+    "explicacion": "Con relleno 0 el logit baja lo que aportaba ese píxel, que era 1,5 × 0,6 = 0,9. El logit nuevo es 0,6 - 0,9 = -0,3 y la sigmoide de -0,3 es ≈ 0,426. Coincide con el valor del mapa en ese píxel porque el modelo es lineal y el relleno es cero."
+  },
+  {
+    "id": "m05l04-q05",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas técnicas aparecen en las notas del curso como variantes de los mapas de saliencia para imágenes?",
+    "opciones": [
+      "SmoothGrad: promediar mapas de entradas con ruido gaussiano",
+      "Optimizar una máscara que difumine las regiones salientes",
+      "Retropropagación guiada, que anula los gradientes y activaciones negativos",
+      "Reducir la tasa de aprendizaje del entrenamiento de forma progresiva"
+    ],
+    "correcta": [0, 1, 2],
+    "explicacion": "Las tres primeras son las variantes que citan las notas. La cuarta es un ajuste del entrenamiento y no tiene nada que ver con explicar una predicción."
+  },
+  {
+    "id": "m05l04-q06",
+    "tipo": "unica",
+    "enunciado": "Un modelo de radiografías acierta el 87 % en los hospitales donde se entrenó y su mapa de saliencia se concentra en la esquina donde se imprime el rótulo del hospital. ¿Qué conviene hacer?",
+    "opciones": [
+      "Desplegarlo: el rótulo es parte de la imagen y una precisión de 87 % basta",
+      "Sospechar un atajo espurio: tapar el rótulo para ver si la predicción cae y probar en un hospital que no lo use",
+      "Subir el umbral de decisión hasta que el mapa deje de iluminar la esquina",
+      "Añadir más capas al modelo para que se fije en el pulmón"
+    ],
+    "correcta": 1,
+    "explicacion": "Un mapa que carga sobre el rótulo sugiere que el modelo lo usa. La oclusión comprueba si es fiel, y un hospital sin ese rótulo comprueba si el 87 % dependía de él. Cambiar el umbral o la profundidad no cambia lo que el modelo ha aprendido."
+  },
+  {
+    "id": "m05l04-q07",
+    "tipo": "vf",
+    "enunciado": "Un detector de bordes no usa el modelo ni sus datos de entrenamiento, así que su resultado no puede explicar lo que un modelo concreto ha aprendido, por vistoso que sea.",
+    "correcta": true,
+    "explicacion": "Es la analogía del trabajo de Adebayo y colaboradores: la detección de bordes dibuja contornos sin necesitar datos ni modelo, y algunos métodos de saliencia se comportan como ella. Por eso un mapa que solo se juzga a ojo puede engañar."
+  },
+  {
+    "id": "m05l04-q08",
+    "tipo": "unica",
+    "enunciado": "¿Qué busca la visualización de características?",
+    "opciones": [
+      "Marcar los píxeles de una imagen que más pesaron en una predicción concreta",
+      "Sintetizar una entrada que maximice la activación de una neurona o de un canal para ver qué detecta",
+      "Medir la calibración de las probabilidades del modelo",
+      "Sustituir el modelo por otro más pequeño que lo imite"
+    ],
+    "correcta": 1,
+    "explicacion": "Se optimiza la propia entrada, con descenso de gradiente o con una GAN, para que un componente interno se active al máximo. La primera opción describe un mapa de saliencia, que explica una predicción, no un componente."
+  },
+  {
+    "id": "m05l04-q09",
+    "tipo": "unica",
+    "enunciado": "¿Qué cambia en un modelo como ProtoPNet respecto a explicar a posteriori con un mapa de saliencia?",
+    "opciones": [
+      "Añade un mapa de saliencia más suave al final de la red",
+      "Clasifica combinando el parecido de partes de la imagen con prototipos aprendidos, así que la explicación forma parte de su funcionamiento",
+      "Elimina las capas ocultas para que todo sea lineal",
+      "Garantiza que el modelo no aprenda atajos"
+    ],
+    "correcta": 1,
+    "explicacion": "ProtoPNet cambia la tubería de predicción: disecciona la imagen en partes prototípicas y suma su evidencia. Es transparente por diseño, pero no inmune a atajos, porque un prototipo aprendido puede ser, por ejemplo, un rótulo."
+  },
+  {
+    "id": "m05l04-q10",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas afirmaciones sobre la prueba de oclusión son correctas?",
+    "opciones": [
+      "El resultado depende del valor con que se rellena lo tapado",
+      "Sirve para comprobar si la predicción cambia lo que el mapa de saliencia afirma",
+      "En un modelo lineal con relleno cero, la caída del logit al tapar un píxel es el peso por el valor del píxel",
+      "Si tapar la región marcada cambia la predicción, queda demostrado que esa región causa la enfermedad"
+    ],
+    "correcta": [0, 1, 2],
+    "explicacion": "La oclusión prueba qué usa el modelo, no qué causa la enfermedad, así que la cuarta es falsa. Las otras tres son ciertas: el relleno es una decisión del analista, sirve para contrastar el mapa y en un modelo lineal con relleno cero la caída coincide con el mapa de gradiente por entrada."
+  }
+]

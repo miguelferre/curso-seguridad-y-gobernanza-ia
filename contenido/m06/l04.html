@@ -1,0 +1,215 @@
+<section class="leccion" data-id="m06/l04">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Un modelo entrega una cifra y nadie ve por qué. El monitor de explicabilidad contesta dos preguntas. La local: por qué esta predicción para este paciente, qué variables la empujaron. La global: en qué se apoya el modelo en conjunto y si sigue apoyándose en lo mismo que cuando se entrenó.</p>
+<p>La segunda funciona como alarma temprana: si de repente manda una variable que antes pesaba poco, algo ha cambiado en los datos, y puede verse antes de que lleguen las etiquetas. Una explicación describe qué pesó en el cálculo; no dice si la decisión era correcta.</p>
+
+<svg viewBox="0 0 360 200" role="img" aria-labelledby="rs-t rs-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="rs-t">Explicación local y explicación global</title>
+<desc id="rs-d">Arriba, la explicación local de un paciente: tres barras horizontales que muestran cuánto empuja cada variable la predicción, con la creatinina muy por encima de la estancia y la edad. Abajo, la explicación global: el ranking de variables de la línea base y el de hoy, con las mismas tres variables en distinto orden y una pregunta sobre si se parecen.</desc>
+<rect x="4" y="4" width="352" height="96" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="24" style="fill:var(--accent-ink);font-weight:700;font-size:13px">LOCAL: por qué a este paciente</text>
+<text x="18" y="46" style="fill:currentColor;font-size:12px">Creatinina</text>
+<rect x="100" y="36" width="140" height="13" rx="2" style="fill:var(--accent)"/>
+<text x="248" y="46" style="fill:currentColor;font-size:12px;font-weight:700">+7,2</text>
+<text x="18" y="65" style="fill:currentColor;font-size:12px">Estancia previa</text>
+<rect x="100" y="55" width="24" height="13" rx="2" style="fill:var(--accent)"/>
+<text x="132" y="65" style="fill:currentColor;font-size:12px;font-weight:700">+1,2</text>
+<text x="18" y="84" style="fill:currentColor;font-size:12px">Edad</text>
+<rect x="100" y="74" width="18" height="13" rx="2" style="fill:var(--accent)"/>
+<text x="126" y="84" style="fill:currentColor;font-size:12px;font-weight:700">+0,9</text>
+<text x="342" y="24" text-anchor="end" style="fill:var(--muted);font-size:11px">un caso</text>
+
+<rect x="4" y="110" width="352" height="86" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="18" y="130" style="fill:var(--ex);font-weight:700;font-size:13px">GLOBAL: en qué se apoya el modelo</text>
+<text x="18" y="150" style="fill:var(--muted);font-size:11px">Línea base</text>
+<rect x="88" y="139" width="70" height="17" rx="4" style="fill:var(--ex-bg);stroke:var(--ex)"/><text x="123" y="151" text-anchor="middle" style="fill:currentColor;font-size:11px">1 Edad</text>
+<rect x="162" y="139" width="80" height="17" rx="4" style="fill:var(--ex-bg);stroke:var(--ex)"/><text x="202" y="151" text-anchor="middle" style="fill:currentColor;font-size:11px">2 Creatinina</text>
+<rect x="246" y="139" width="90" height="17" rx="4" style="fill:var(--ex-bg);stroke:var(--ex)"/><text x="291" y="151" text-anchor="middle" style="fill:currentColor;font-size:11px">3 Hemoglobina</text>
+<text x="18" y="176" style="fill:var(--muted);font-size:11px">Hoy</text>
+<rect x="88" y="165" width="80" height="17" rx="4" style="fill:var(--trap-bg);stroke:var(--trap)"/><text x="128" y="177" text-anchor="middle" style="fill:currentColor;font-size:11px">1 Creatinina</text>
+<rect x="172" y="165" width="90" height="17" rx="4" style="fill:var(--trap-bg);stroke:var(--trap)"/><text x="217" y="177" text-anchor="middle" style="fill:currentColor;font-size:11px">2 Hemoglobina</text>
+<rect x="266" y="165" width="70" height="17" rx="4" style="fill:var(--trap-bg);stroke:var(--trap)"/><text x="301" y="177" text-anchor="middle" style="fill:currentColor;font-size:11px">3 Edad</text>
+<text x="342" y="130" text-anchor="end" style="fill:var(--trap);font-size:11px;font-weight:700">¿se parecen?</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Distinguir la explicación local de la global y decir qué pregunta responde cada una y quién la necesita.</li>
+<li>Calcular a mano los valores de Shapley de un modelo de dos variables y comprobar que suman la predicción menos la base.</li>
+<li>Comparar SHAP, LIME, la importancia por permutación, las curvas de dependencia y los contrafactuales: qué entrega cada uno y qué exige.</li>
+<li>Explicar qué mide la estabilidad de la explicación global (nDCG), cómo se lee junto a la deriva y por qué una estabilidad alta no prueba que la explicación sea correcta.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>Qué pregunta responde este monitor</h3>
+<p>El monitor de calidad de la lección anterior comparaba lo que el modelo dijo con lo que pasó. Este mira dentro de cada decisión. Lo usan dos personas distintas. El clínico que recibe una alerta quiere saber por qué salió para este paciente: es una explicación local (<em>local explanation</em>). El equipo de monitorización quiere saber en qué se apoya el modelo en conjunto y si sigue apoyándose en lo mismo: es una explicación global (<em>global explanation</em>), que en la práctica se obtiene agregando muchas locales (Atlas).</p>
+<p>El rendimiento no basta porque dos modelos con la misma exactitud pueden decidir con señales distintas. Las notas del curso (L10) lo ilustran con dos generadores de imágenes que rinden parecido y tienen representaciones internas diferentes.</p>
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Un modelo de derivación tiene una exactitud de 0,86 en enero y de 0,86 en abril. En enero pesan sobre todo la edad y las pruebas de laboratorio. En abril, un cambio en el formulario de registro hace que el código postal sea la variable más pesada. La exactitud no se mueve; el ranking de importancias sí.</p>
+</div>
+<p><strong>Frontera con la lección m05/l04.</strong> Allí se mira dentro de una red (saliencia, neuronas, transparencia por diseño). Aquí, la explicabilidad operativa: métodos sobre un modelo ya desplegado, sobre todo de tablas, vigilados como una métrica más.</p>
+<p><strong>Explicar no es justificar.</strong> Según el Atlas, una explicación describe qué pesó en el cálculo; una justificación argumenta por qué esa decisión era la adecuada, y solo la aporta una persona con criterio clínico. Un informe de auditoría debería separarlas.</p>
+
+<h3>Cómo repartir una predicción entre las variables: Shapley</h3>
+<p>Se parte de una referencia: la predicción media del modelo sobre un conjunto de pacientes de fondo (<em>background</em>). La diferencia entre la predicción de este paciente y esa media es lo que hay que repartir. El truco viene de la teoría de juegos cooperativos: cada variable es un jugador, y el valor \(v(S)\) de una coalición \(S\) es lo que predice el modelo cuando solo se conocen las variables de \(S\) y las demás se sustituyen por valores del fondo. El valor de Shapley (<em>Shapley value</em>) de la variable \(i\) es su aportación media al añadirse a todas las coaliciones posibles (fórmula del Atlas):</p>
+<div class="formula">\[ \phi_i=\sum_{S\subseteq N\setminus\{i\}}\frac{|S|!\,(|N|-|S|-1)!}{|N|!}\,\bigl[v(S\cup\{i\})-v(S)\bigr] \]</div>
+<p>Los factoriales cuentan en cuántos órdenes de llegada aparece cada coalición previa: es un promedio sobre todos los órdenes en que las variables «entran». Aplicado a modelos de aprendizaje automático se llama SHAP (<em>SHapley Additive exPlanations</em>) y, según el Atlas, cumple cuatro propiedades que lo hacen el estándar teórico:</p>
+<dl class="facts">
+<dt>Eficiencia</dt><dd>los \(\phi_i\) suman exactamente la predicción menos la base: \(\sum_i\phi_i=f(x)-E[f(X)]\). Útil en auditoría: las partes suman el todo.</dd>
+<dt>Simetría</dt><dd>dos variables que aportan lo mismo a toda coalición reciben el mismo valor.</dd>
+<dt>Jugador nulo (<em>dummy</em>)</dt><dd>una variable que nunca cambia la predicción recibe cero.</dd>
+<dt>Aditividad</dt><dd>el valor de un modelo que suma dos es la suma de los valores de cada uno.</dd>
+</dl>
+<h4>Un atajo cuando el modelo es lineal (cálculo propio)</h4>
+<p>Si el modelo es \(f(x)=b_0+\sum_i w_i x_i\) y el fondo trata las variables como independientes, añadir la variable \(i\) a cualquier coalición cambia la predicción siempre en lo mismo, \(w_i\,(x_i-\bar x_i)\), con \(\bar x_i\) la media en el fondo. Como no depende de qué coalición ya estaba, el promedio es esa misma cantidad:</p>
+<div class="formula">\[ \phi_i=w_i\,(x_i-\bar x_i) \]</div>
+<p>Con interacciones o con modelos no lineales el atajo se rompe y hay que enumerar las \(2^{|N|}\) coaliciones. Por eso en la práctica se aproxima: KernelSHAP (sirve para cualquier modelo, pero es caro), TreeSHAP (exacto y rápido para árboles y ensambles) y DeepSHAP (para redes) (Atlas). La importancia global de una variable es la media de \(|\phi_i|\) sobre muchos pacientes. El simulador de la Práctica calcula los cinco valores de un paciente por enumeración y comprueba la suma (<a data-ir="practica" href="#sim-m06-l04-shap">ir al simulador</a>).</p>
+
+<h3>Si solo puedes llamar al modelo: LIME</h3>
+<p>LIME (<em>Local Interpretable Model-agnostic Explanations</em>) no abre el modelo. Fabrica muchas copias ligeramente alteradas del caso, pregunta al modelo qué diría de cada una, da más peso a las más parecidas al original y ajusta con ellas una recta. Sus coeficientes son la explicación local. En símbolos, busca un modelo sencillo \(g\) que se parezca a \(f\) en el vecindario \(\pi_x\) del caso sin ser demasiado complicado:</p>
+<div class="formula">\[ \xi(x)=\arg\min_{g\in G}\ \mathcal{L}(f,g,\pi_x)+\Omega(g) \]</div>
+<p>\(\mathcal{L}\) mide cuánto se desvía \(g\) de \(f\) cerca de \(x\) y \(\Omega(g)\) castiga la complejidad. Solo hace falta poder llamar al modelo y no requiere etiquetas.</p>
+<p>Ejemplo del Atlas (sintético): en un modelo de reingreso con un paciente de 72 años, 4 comorbilidades y 9 días de estancia previa, LIME obtiene comorbilidades +0,31, estancia +0,18 y edad +0,04. Para este paciente manda la carga de comorbilidades, aunque en el modelo entero la más importante sea la edad: lo local y lo global no tienen por qué coincidir.</p>
+<p>Dos advertencias del Atlas. Con pocas perturbaciones, dos llamadas sobre el mismo caso pueden dar pesos distintos, porque el muestreo es aleatorio. Y el tamaño del vecindario, una decisión de diseño que el usuario no ve, cambia el resultado.</p>
+
+<h3>Otras formas de mirar el modelo</h3>
+<div class="tw"><table>
+<thead><tr><th>Método</th><th>Qué responde</th><th>Qué necesita</th><th>Límite principal</th></tr></thead>
+<tbody>
+<tr><td>SHAP</td><td>Cuánto aporta cada variable a esta predicción</td><td>Modelo y fondo, sin etiquetas</td><td>Coste exponencial; depende del fondo; con variables correlacionadas evalúa combinaciones irreales</td></tr>
+<tr><td>LIME</td><td>Qué pesa cerca de este caso</td><td>Solo llamar al modelo</td><td>Varía entre llamadas; el vecindario se elige</td></tr>
+<tr><td>Permutación</td><td>Cuánto empeora el modelo si se baraja una variable</td><td>Modelo y datos con etiquetas</td><td>Con variables muy correlacionadas subestima a ambas</td></tr>
+<tr><td>PDP</td><td>Forma del efecto medio de una variable</td><td>Modelo y datos, sin etiquetas</td><td>El promedio esconde efectos opuestos</td></tr>
+<tr><td>ICE</td><td>Una curva por paciente, sin promediar</td><td>Igual que PDP</td><td>Con muchos pacientes se satura</td></tr>
+<tr><td>Contrafactual</td><td>Qué cambio mínimo daría otro resultado</td><td>Solo llamar al modelo</td><td>Puede ser poco plausible; hay varios igual de cercanos</td></tr>
+</tbody></table></div>
+<p>Ejemplos del Atlas (sintéticos). Permutación: un AUC de 0,82 baja a 0,68 al barajar las comorbilidades y a 0,81 al barajar el código postal. ICE: la curva media del colesterol sale plana, pero por paciente sube en quienes no toman estatinas y baja en quienes las toman, y los efectos se anulan en el promedio.</p>
+<p><strong>Contrafactuales.</strong> Un contrafactual (<em>counterfactual explanation</em>) no reparte pesos: dice qué habría que cambiar para obtener otro resultado. Wachter, Mittelstadt y Russell buscan la entrada \(x'\) más cercana a \(x\) que consiga el resultado deseado \(y'\):</p>
+<div class="formula">\[ \arg\min_{x'}\ \lambda\,\bigl(f(x')-y'\bigr)^2+d(x,x') \]</div>
+<p>Está pensado para quien recibe la decisión más que para el auditor, y conecta con el recurso ante decisiones automatizadas. Necesita restricciones sobre qué variables no se pueden cambiar. DiCE ofrece varios contrafactuales distintos entre sí para que la persona elija, y la explicación contrastiva añade qué valores mantener para conservar el resultado (Atlas).</p>
+<p>Ejemplo propio: el contrafactual más cercano de un paciente de riesgo alto dice «con hemoglobina 12,4 g/dL en lugar de 10,4 saldría de riesgo alto». Es el cambio más corto, pero la hemoglobina no se elige: sirve para entender el modelo, y qué hacer con el paciente lo decide un clínico.</p>
+
+<h3>Cómo se vigila la explicación en producción</h3>
+<p>Auditar caso por caso usa la explicación local. Vigilar el modelo usa la global, y el Atlas la resume en una métrica: la estabilidad de la explicación global (<em>global explanation stability</em>). Compara el ranking de importancias de hoy con el de la línea base del entrenamiento mediante nDCG (<em>normalized discounted cumulative gain</em>), la métrica con que un buscador mide si el orden de sus resultados se parece al ideal:</p>
+<div class="formula">\[ \text{nDCG}_p=\frac{\text{DCG}_p}{\text{IDCG}_p}\qquad \text{DCG}_p=\sum_{i=1}^{p}\frac{rel_i}{\log_2(i+1)} \]</div>
+<p>\(rel_i\) es la relevancia de la variable que ocupa la posición \(i\) hoy, e \(\text{IDCG}\) es el DCG del orden ideal, el de la línea base. Va de 0 a 1, con 1 si el orden es idéntico. El umbral por defecto es 0,50 y en producción viva se observó 0,99 o más (Atlas). El descuento logarítmico hace que un cambio arriba pese más que uno abajo.</p>
+<p>Ejemplo del Atlas (sintético): en un modelo de triaje, el ranking base es edad, codo de tenista y artritis reumatoide. Tres meses después, un cambio de protocolo hace que la edad se rellene mal en el 20 % de los casos y el ranking pasa a codo de tenista, artritis, edad. El nDCG cae de 0,99 a 0,71 sin que ninguna alerta de calidad haya saltado, porque las etiquetas no han llegado. Por eso es una alarma temprana de deriva de características vista desde la explicación.</p>
+<p><strong>Cómo se lee.</strong> Se mira al lado del monitor de deriva de características, y el cruce decide la lectura (Atlas). Si la deriva y la estabilidad saltan el mismo día, lo probable es que los datos de entrada hayan cambiado de verdad. Si salta solo la estabilidad, sospecha primero del azar del explicador: con LIME conviene subir la muestra o el número de perturbaciones y volver a medir.</p>
+<p><strong>Dos límites de la medida (cálculo propio).</strong> Con tres variables y relevancias 3, 2 y 1, un ranking totalmente invertido da un nDCG de 0,79: no cruza el umbral de 0,50, así que con pocas variables ese umbral es laxo. Además, el nDCG apenas nota un baile abajo: en el simulador, con el paciente A y perturbaciones de ±3 %, el primer puesto nunca cambia y el nDCG queda en 0,997 aunque el orden completo cambie en más de dos de cada tres casos.</p>
+<p><strong>En Vigía.</strong> La demo de Vigía 1.0.0 llama al monitor Estabilidad de la explicación (<code>explain_stability_ndcg</code>), con umbral inferior de 0,5. En el caso digestivo de la demo (sintético) vale 1,0 en las semanas de línea base y 0,984 en la del evento, «ok» en ambas, mientras el monitor de equidad da alerta con una diferencia de falsos negativos de 0,631. Lectura propia: el modelo se apoya en lo mismo de siempre y aun así trata peor a un grupo, y la estabilidad no sustituye a la equidad. Cómo asigna Vigía las relevancias: comprueba en pantalla.</p>
+<p><strong>Robustez y fidelidad.</strong> La estabilidad temporal compara contra una línea base histórica. La robustez compara entradas casi idénticas en el mismo momento: si dos pacientes que difieren en 0,1 años reciben explicaciones opuestas, el explicador es frágil en esa zona, y eso es lo que muestra el botón de perturbar. Con LIME o KernelSHAP conviene repetir la llamada para separar el ruido del muestreo de la fragilidad real. La fidelidad se comprueba contra el modelo: si una variable es la más importante, ponerla en su media debería mover la predicción de forma proporcionada (prueba de eliminación, <em>deletion test</em>). No hay que fiarse de una explicación por lo bien que se ve.</p>
+<p><strong>Los mapas de atención no cuentan.</strong> En modelos de lenguaje, a qué palabras «atendió» el modelo no es una explicación (Atlas). Ejemplo propio: al resumir una nota de urgencias, el modelo puede concentrar su atención en «disnea» y haber decidido la conclusión por otra frase; dónde miró no dice qué pesó.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, con el modelo y el paciente del simulador; cifras sintéticas)</p>
+<p>El modelo puntúa el riesgo como \(2{,}45+0{,}30\cdot\text{edad}+8\cdot\text{creatinina}-1{,}5\cdot\text{hemoglobina}+0{,}15\cdot\text{FC}+1{,}2\cdot\text{estancia}\). El fondo son 8 pacientes ficticios con medias de 65 años, 1,1 mg/dL, 12,5 g/dL, 80 lpm y 5 días: la base es 30 puntos. El paciente A tiene 68 años, creatinina 2,0, hemoglobina 12,0, FC 82 y 6 días de estancia previa.</p>
+<ul>
+<li>Con el atajo lineal: edad \(0{,}30\cdot(68-65)=+0{,}90\); creatinina \(8\cdot0{,}9=+7{,}20\); hemoglobina \(-1{,}5\cdot(-0{,}5)=+0{,}75\); FC \(0{,}15\cdot2=+0{,}30\); estancia \(1{,}2\cdot1=+1{,}20\).</li>
+<li>Suman \(10{,}35\), que es la predicción (40,35) menos la base (30).</li>
+<li>Localmente, la creatinina empuja ocho veces más que la edad. Globalmente, en los 8 pacientes del fondo, la importancia media \(|\phi|\) es 2,55 para la edad, 2,40 para la estancia y 1,60 para la creatinina: la primera local es la tercera global.</li>
+</ul>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Tomar la estabilidad por corrección (aviso del Atlas).</strong> Que hoy el ranking se parezca al de entrenamiento no prueba que ese ranking fuera sensato: un modelo puede llevar meses apoyándose, de forma constante, en una señal engañosa. Además, con muestras de unas 50 transacciones el nDCG se mueve solo por azar, así que conviene seguir su tendencia durante varios días antes de reaccionar a un valor aislado.</p>
+<p><strong>Confundir explicación con justificación.</strong> «El modelo se apoyó en la creatinina» no equivale a «la decisión fue clínicamente correcta».</p>
+<p><strong>Un fondo poco realista.</strong> El fondo cambia todos los \(\phi_i\), y con variables correlacionadas las coaliciones pueden generar pacientes imposibles (Atlas).</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>A local explanation tells you why this patient got this score, a global one tells you whether the model still leans on the same features as at training time, and neither is a justification of the decision.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Atlas de métricas (obra propia de Miguel; ejemplos sintéticos), sección Explicabilidad: estabilidad de la explicación global, LIME, SHAP, permutación, PDP, ICE, contrafactual de Wachter, DiCE, explicación contrastiva, atención, fidelidad, robustez, explicación frente a justificación y NDCG.</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS), lección L10 «Transparency», solo el enlace con la investigación. La saliencia y la visualización de características se tratan en m05/l04.</li>
+<li>Vigía 1.0.0 (github.com/miguelferre/vigia), demo del escenario 1: monitor de Explicabilidad y cifras del caso digestivo.</li>
+<li>Añadido propio: las dos versiones del modelo de derivación, el atajo lineal, el modelo, el fondo y los pacientes del simulador, el ejemplo del contrafactual, el 0,79 de la inversión total, la lectura de Vigía frente a equidad, los ejercicios y el test.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: un simulador, el laboratorio en Vigía y dos ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de Shapley con estabilidad.</strong> Con el paciente A, la cascada sale de un cálculo exacto con las 32 coaliciones y la línea de comprobación confirma que los φ suman la predicción menos la base. Pulsa varias veces «Perturbar ligeramente la entrada»: el primer puesto no cambia, aunque los de abajo se intercambien, y el nDCG apenas se mueve. En el paciente B, la edad y la creatinina casi empatan (4,20 y 4,00): con ±3 %, el primer puesto se mantiene en torno al 64 % de las 200 repeticiones. En el C, cercano a la media, con ±10 % aguanta en torno al 27 %. En el D, activa la interacción edad × creatinina: la base sube a 31,0, el atajo lineal ya no vale y la suma sigue cuadrando.</p>
+<div data-widget="m06-l04-shap" id="sim-m06-l04-shap"></div>
+
+<div class="laboratorio">
+<h4>Laboratorio en Vigía</h4>
+<p>Vigía es software libre (licencia MIT) del autor del curso: <a href="https://github.com/miguelferre/vigia">github.com/miguelferre/vigia</a>. Solo funciona en Windows 11 de 64 bits. Los datos son sintéticos. Aquí se usa solo para leer. El modelo de la demo es un logístico de derivación de Atención Primaria a Reumatología, que la demo presenta como Digestivo. Pasos y cifras salen de la demo de Vigía 1.0.0. Donde no hay dato, dice «comprueba en pantalla».</p>
+<ul>
+<li><strong>Vía 1, zip de la Release (la recomendada).</strong> Descarga <code>vigia-1.0.0-win64.zip</code> y <code>vigia-1.0.0-win64.zip.sha256</code> de la <a href="https://github.com/miguelferre/vigia/releases">página de Releases</a>. Comprueba la huella con <code>Get-FileHash vigia-1.0.0-win64.zip</code>. Extrae el zip entero. Dentro de <code>vigia-1.0.0-win64\</code> arranca con <code>Vigia.cmd &lt;carpeta&gt;</code>, que abre el navegador solo.</li>
+<li><strong>Vía 2, clon.</strong> <code>git clone https://github.com/miguelferre/vigia.git</code> y, desde su raíz, el bloque «Compilar desde el código» del README, copiado literal. Requisitos: Python 3.13 de python.org, uv y Node 20.19 o superior.
+<pre><code>uv sync --locked --extra dev --extra shap
+cd frontend
+npm ci
+$env:VITE_TEMA="miguel"
+npm run build
+cd ..
+.venv\Scripts\python.exe build\build.py all</code></pre>
+Ese bloque deja el zip en <code>dist\</code>. Extráelo y sigue como en la vía 1.</li>
+<li><strong>Carpeta de datos.</strong> Usa una carpeta aparte para el curso (<code>&lt;carpeta&gt;</code>). La carpeta por defecto, <code>Documents\vigia-datos</code>, guarda tus datos si ya usas Vigía.</li>
+</ul>
+<ol>
+<li><strong>Arranca</strong> Vigía con la carpeta de datos del curso: <code>Vigia.cmd &lt;carpeta&gt;</code>. El puerto es el que ves en la barra de direcciones del navegador.</li>
+<li><strong>Abre la demo.</strong> Ve a <code>http://127.0.0.1:&lt;puerto&gt;/demo?paso=0</code> (<code>&lt;puerto&gt;</code> es el de la barra de direcciones) y pulsa Empezar (29 pasos, del 0 al 28). Los pasos 1 a 3 los haces tú; después Vigía carga las semanas 2 a 5.</li>
+<li><strong>Busca el monitor de explicabilidad.</strong> La ruta es <code>/explicabilidad</code>. Según la demo de Vigía 1.0.0, su métrica es la Estabilidad de la explicación (<code>explain_stability_ndcg</code>, umbral inferior 0,5) y ofrece ranking por permutación, SHAP opcional y LIME por fila; de b1 a b5 vale 1,0. Qué variables encabezan el ranking global y qué método usa la pantalla: comprueba en pantalla.</li>
+<li><strong>Llega al evento.</strong> El paso 11 carga el lote de casos nuevos (botón «Cargar el lote de casos nuevos»). La demo da para esa fase una estabilidad de 0,984 («ok»), una diferencia de tasa de falsos negativos de 0,631 (alerta, umbral 0,55) y una deriva de confianza de 0,370 (alerta, umbral 0,30). En qué paso ves cada monitor: comprueba en pantalla. Pregúntate por qué una estabilidad casi intacta no ve el daño concentrado en los jóvenes.</li>
+<li><strong>Pasa de lo global a un caso.</strong> Busca la explicación de una fila concreta (LIME por fila; por MCP, <code>explain_row(version_id, batch_id, row_seq)</code>). Qué variable la encabeza y si coincide con el ranking global: comprueba en pantalla. La explicabilidad no tiene comando de línea de órdenes. El MCP de Vigía (39 herramientas) está descrito en <code>docs/mcp.md</code> del repositorio. Registrarlo con <code>claude mcp add</code> cambia tu configuración de Claude: es tuya, añádelo si quieres. Con el zip: <code>claude mcp add vigia -- &lt;ruta al Python embebido&gt;\python.exe -m vigia mcp --data-dir &lt;carpeta&gt;</code>. Con el clon: <code>claude mcp add vigia -- uv run vigia-mcp --data-dir &lt;carpeta&gt;</code>. Arranca Vigía antes de usarlo.</li>
+<li><strong>Ejecuta un ensayo y cierra.</strong> Con la demo activa, abre <code>/demo?paso=28</code> y luego <code>/demo#laboratorio</code>, tarjeta «Ejecutar un ensayo». Cambia la proporción de 18 a 35 años (0 a 1, por defecto 0,33). Cómo se elige la fase del evento y si el ensayo devuelve una estabilidad y se mueve: comprueba en pantalla. Escribe solo en la carpeta de datos. Al terminar, <code>runtime\python\python.exe -m vigia shutdown --data-dir &lt;carpeta&gt;</code> (en la carpeta de Vigía). Apunta qué monitor alertó primero y qué diferencia hay entre una explicación estable y una equitativa.</li>
+</ol>
+<p>Cautelas: son datos sintéticos y nunca debes meter datos reales de personas.</p>
+</div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: Shapley a mano con dos variables (8 minutos)</p>
+<p>Un modelo de alerta de sepsis usa dos variables, la fiebre (F) y el lactato (L). Con cifras propias de práctica, la predicción media sobre el fondo es \(v(\emptyset)=10\) puntos. Si solo se conoce la fiebre del paciente, la predicción media es \(v(F)=22\); si solo se conoce el lactato, \(v(L)=30\); si se conocen las dos, \(v(F,L)=52\).</p>
+<ol>
+<li>Calcula \(\phi_F\) y \(\phi_L\) con la fórmula. Con dos variables hay dos órdenes de entrada, con peso \(1/2\) cada uno.</li>
+<li>Comprueba la eficiencia: ¿suman la predicción menos la base?</li>
+<li>La suma de los efectos individuales, \(v(F)-v(\emptyset)+v(L)-v(\emptyset)\), no llega al total. ¿Cuánto falta y cómo lo reparte Shapley?</li>
+<li>Añades una tercera variable, «color del pijama», que nunca cambia la predicción. ¿Qué valor recibe y qué pasa con \(\phi_F\) y \(\phi_L\)?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Fiebre: entra primero (\(v(F)-v(\emptyset)=12\)) o después del lactato (\(v(F,L)-v(L)=22\)), así que \(\phi_F=\tfrac12\cdot12+\tfrac12\cdot22=17\). Lactato: primero, \(30-10=20\); después de la fiebre, \(52-22=30\), y \(\phi_L=\tfrac12\cdot20+\tfrac12\cdot30=25\).</p>
+<p><strong>2.</strong> \(17+25=42\) y \(52-10=42\). Cuadra.</p>
+<p><strong>3.</strong> Los efectos individuales suman \(12+20=32\) y el total es 42: faltan 10, la interacción, porque las dos variables juntas hacen más que por separado. Shapley la reparte a partes iguales: \(12+5=17\) y \(20+5=25\).</p>
+<p><strong>4.</strong> Recibe 0 (jugador nulo). \(\phi_F\) y \(\phi_L\) no cambian, porque añadir esa variable a cualquier coalición deja la predicción igual.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: estabilidad con nDCG (a mano, 8 minutos)</p>
+<p>En la línea base, el ranking de importancias es edad, creatinina, hemoglobina, con relevancias 3, 2 y 1 (esquema propio, sencillo; el de Vigía puede ser otro: comprueba en pantalla). Hoy el ranking es creatinina, hemoglobina, edad. (Es el mismo cambio de orden que el ejemplo del triaje de la teoría, pero el Atlas no dice con qué relevancias saca su 0,71; con este esquema propio el resultado será distinto.)</p>
+<ol>
+<li>Calcula el nDCG de hoy frente a la línea base.</li>
+<li>¿Y si solo se intercambian las dos últimas (edad, hemoglobina, creatinina)?</li>
+<li>¿Puede una inversión completa cruzar el umbral de 0,50 con estas relevancias? ¿Qué te dice eso del monitor?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p>El orden ideal da \(\text{IDCG}=3/\log_2 2+2/\log_2 3+1/\log_2 4=3+1{,}262+0{,}5=4{,}762\).</p>
+<p><strong>1.</strong> Hoy las relevancias van en el orden 2, 1, 3: \(\text{DCG}=2+0{,}631+1{,}5=4{,}131\), y \(\text{nDCG}=4{,}131/4{,}762=0{,}868\).</p>
+<p><strong>2.</strong> Relevancias 3, 1, 2: \(3+0{,}631+1=4{,}631\), y \(\text{nDCG}=0{,}973\). Un cambio abajo apenas se nota.</p>
+<p><strong>3.</strong> Inversión completa: relevancias 1, 2, 3, con \(1+1{,}262+1{,}5=3{,}762\) y \(\text{nDCG}=0{,}790\). No cruza el umbral: con pocas variables, el umbral por defecto es muy laxo. Conviene mirar la tendencia y compararla con la deriva en lugar de fiarse solo del umbral.</p>
+</details>
+</div>
+
+</div>
+
+</section>

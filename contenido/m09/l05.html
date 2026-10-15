@@ -1,0 +1,231 @@
+<section class="leccion" data-id="m09/l05">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>En el módulo hemos visto agentes racionales que acaban en un resultado que nadie quiere. Esta lección añade el tiempo: qué pasa cuando muchos agentes de IA compiten durante muchas generaciones.</p>
+<p>La idea del libro es que la selección natural no es solo cosa de la biología. Basta con que haya variantes distintas, que las nuevas se parezcan a las anteriores y que unas se propaguen más que otras. Un asistente clínico que se contrata mucho se copia, se imita y se mejora; el que no se contrata desaparece. Y lo que se propaga mejor no tiene por qué ser lo más seguro.</p>
+<p>De ahí salen dos riesgos: que los agentes se vuelvan egoístas en el sentido técnico (propagarse a costa de otros, sin maldad) y que las partes de un sistema compitan entre sí y desvíen su objetivo. Y salen dos palancas: bajar la presión competitiva o cambiar lo que hace apto a un agente.</p>
+
+<svg viewBox="0 0 360 354" role="img" aria-labelledby="rs9-t rs9-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="rs9-t">De las condiciones de Lewontin a las dos palancas</title>
+<desc id="rs9-d">Arriba, tres condiciones: variación, retención y aptitud diferencial. Una flecha lleva a la selección, donde se propaga lo que mejor se propaga. De ahí salen dos riesgos, egoísmo y conflicto interno. Abajo, dos palancas: cambiar el entorno o cambiar la selección.</desc>
+<rect x="4" y="4" width="352" height="82" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="26" style="fill:var(--accent-ink);font-weight:700;font-size:14px">TRES CONDICIONES (LEWONTIN)</text>
+<g style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5">
+<rect x="14" y="40" width="100" height="34" rx="6"/>
+<rect x="122" y="40" width="100" height="34" rx="6"/>
+<rect x="230" y="40" width="116" height="34" rx="6"/>
+</g>
+<g style="fill:currentColor;font-size:12px;text-anchor:middle">
+<text x="64" y="61">Variación</text>
+<text x="172" y="61">Retención</text>
+<text x="288" y="61">Aptitud diferencial</text>
+</g>
+<path d="M180 88 V104" style="stroke:var(--muted);stroke-width:2;fill:none"/>
+<polygon points="174,102 186,102 180,112" style="fill:var(--muted)"/>
+<rect x="4" y="114" width="352" height="52" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="136" style="fill:var(--accent-ink);font-weight:700;font-size:14px">SELECCIÓN</text>
+<text x="18" y="156" style="fill:currentColor;font-size:12.5px">Se propaga lo que mejor se propaga, no lo mejor</text>
+<path d="M92 168 V184 M268 168 V184" style="stroke:var(--muted);stroke-width:2;fill:none"/>
+<polygon points="86,182 98,182 92,192" style="fill:var(--muted)"/>
+<polygon points="262,182 274,182 268,192" style="fill:var(--muted)"/>
+<rect x="4" y="194" width="172" height="66" rx="10" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:2"/>
+<rect x="184" y="194" width="172" height="66" rx="10" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:2"/>
+<g style="fill:var(--trap);font-weight:700;font-size:13px">
+<text x="16" y="216">EGOÍSMO</text>
+<text x="196" y="216">CONFLICTO INTERNO</text>
+</g>
+<g style="fill:currentColor;font-size:11.5px">
+<text x="16" y="236">Propagarse a costa</text>
+<text x="16" y="250">de otros, sin maldad</text>
+<text x="196" y="236">Las partes desvían</text>
+<text x="196" y="250">el objetivo del todo</text>
+</g>
+<path d="M180 262 V276" style="stroke:var(--muted);stroke-width:2;fill:none"/>
+<polygon points="174,274 186,274 180,284" style="fill:var(--muted)"/>
+<rect x="4" y="286" width="352" height="64" rx="10" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:2"/>
+<text x="18" y="308" style="fill:var(--ex);font-weight:700;font-size:14px">DOS PALANCAS</text>
+<text x="18" y="325" style="fill:currentColor;font-size:12.5px">Cambiar el entorno: menos presión de carrera</text>
+<text x="18" y="341" style="fill:currentColor;font-size:12.5px">Cambiar la selección: qué se premia</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Comprobar si un sistema cumple las tres condiciones de Lewontin y decir qué falta cuando no hay selección.</li>
+<li>Calcular con la ecuación de Price y con la dinámica del replicador cómo cambia la mezcla de dos tipos de agente.</li>
+<li>Explicar qué significa "aptitud" y por qué no equivale a "mejor".</li>
+<li>Distinguir entre cambiar el entorno y cambiar la selección como respuestas a la presión evolutiva.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>¿Puede haber selección natural sin biología?</h3>
+<p>Sí, según el darwinismo generalizado (<em>generalized Darwinism</em>): la lógica de Darwin no depende de los genes. Donde hay variantes y unas se copian más que otras, la población cambia con las generaciones. El libro lo ilustra con una melodía infantil que se conserva desde hace siglos por ser fácil de recordar, con la alquimia que dio paso a la química, con los servicios de videollamada (los que resultaban baratos, fáciles y fiables se imitaron y sobrevivieron) y con los titulares que reciben más clics, que dejan descendientes más sensacionalistas (ejemplos del libro).</p>
+<p>Un ejemplo propio: dos hospitales se copian guías de práctica clínica con pequeños retoques. Las guías que sobreviven son las fáciles de aplicar y de explicar, y eso no siempre coincide con las más acertadas.</p>
+<p>Ese último punto es la advertencia central: propagarse más no es ser bueno. Una especie invasora prospera y el ecosistema local se resiente. La selección optimiza lo que se propaga, no lo que nos conviene.</p>
+
+<h3>Qué hace falta: las tres condiciones de Lewontin</h3>
+<p>El biólogo Richard Lewontin fijó tres condiciones que bastan y son necesarias para que haya selección:</p>
+<dl class="facts">
+<div><dt>Variación</dt><dd>Los individuos se diferencian en algún rasgo. Ejemplo propio: tres asistentes de triaje con distinta política de derivación.</dd></div>
+<div><dt>Retención (<em>retention</em>)</dt><dd>Los sucesores se parecen a sus antecesores. No hace falta una copia exacta: basta con una semejanza que no sea nula.</dd></div>
+<div><dt>Aptitud diferencial (<em>differential fitness</em>)</dt><dd>Las variantes se propagan a ritmos distintos. Ejemplo propio: un asistente se contrata en 30 centros y otro en 3.</dd></div>
+</dl>
+<p>Si falta una, no hay cambio dirigido. Sin variación no hay entre qué elegir; sin retención lo que gana no se hereda; sin aptitud diferencial ninguna variante lleva ventaja. Lo comprobarás con casos concretos en el ejercicio A. Y no hace falta ADN: en el libro, el software de videollamadas cumple las tres (hay muchas opciones, el de hoy se parece al del año pasado y unas se usan y se imitan más que otras).</p>
+
+<h3>Cómo se calcula el cambio: la ecuación de Price</h3>
+<p>George Price dio una ecuación para el cambio del valor medio de un rasgo entre generaciones. Con \(z\) el rasgo, \(w\) la aptitud relativa (cuántos descendientes deja cada individuo frente al promedio) y \(\Delta\bar z\) el cambio del rasgo medio:</p>
+<div class="formula">\[ \Delta\bar z=\operatorname{Cov}(w,z)+\mathbb{E}_w(\Delta z) \]</div>
+<p>El primer término es la selección: cuánto acompaña el rasgo a los que se propagan más. El segundo es la fidelidad de la copia: cuánto se altera el rasgo al pasar de padre a hijo, ponderado por el número de hijos. Lo útil es que la ecuación no pregunta por qué unos individuos se propagan más, solo cuánto covarían con el rasgo. Sirve igual para pájaros que para diseños de coche o de asistentes clínicos.</p>
+<p>Un caso sencillo, propio (no viene del libro): un rasgo con dos valores y copia perfecta, de modo que el segundo término vale 0. Si \(p\) es la fracción con el rasgo, y sus portadores tienen aptitud \(1+s\) frente a \(1+b\) de los demás, la ecuación se reduce a la dinámica del replicador (<em>replicator dynamics</em>):</p>
+<div class="formula">\[ p'=\frac{p\,(1+s)}{p\,(1+s)+(1-p)(1+b)} \qquad\text{y}\qquad \Delta p=\frac{p\,(1-p)\,(s-b)}{\bar W} \]</div>
+<p>donde \(\bar W\) es la aptitud media. Las probabilidades a favor (<em>odds</em>) \(p/(1-p)\) se multiplican por \(r=(1+s)/(1+b)\) en cada ciclo. Por eso, aunque \(r\) sea solo 1,05, el tipo con ventaja acaba dominando. Los ciclos para llegar al 50 % son \(t_{50}=\ln\!\big((1-p_0)/p_0\big)/\ln r\). Puedes verlo moviendo la ventaja en <a data-ir="practica" href="#sim-m09-l05-seleccion">el simulador de Práctica</a>.</p>
+
+<h3>Qué significa "aptitud" (y qué no)</h3>
+<p>Dos malentendidos, según el libro. El primero: aptitud (<em>fitness</em>) no es fuerza ni habilidad. Las esponjas de mar llevan cientos de millones de años y no son rápidas ni listas. El segundo: no es la causa del éxito, sino su medida. Si fuera la causa, "sobrevive el más apto" sería una frase circular; por eso el libro prefiere decir que se propaga la información mejor propagada.</p>
+<p>La consecuencia para la IA, en nuestra lectura: la aptitud de un asistente es su adopción medida (contratos, copias, imitaciones), no su calidad clínica. Un modelo puede ser muy apto y muy poco recomendable.</p>
+
+<h3>¿Se cumplen las condiciones en la IA?</h3>
+<p>El libro sostiene que sí, y que por tanto la selección actuará sobre las IA.</p>
+<ul>
+<li><strong>Variación.</strong> Es más razonable esperar muchos agentes especializados que uno omnisciente: habrá quien compita con el mejor sistema, porque el dinero lo incentiva. El teorema de Fisher añade que cuanta más variación, más rápida la adaptación. También hay variación entre desarrolladores. El libro (p. 437) recuerda que OpenAI nació como organización sin ánimo de lucro, pasó en 2019 a una estructura de beneficio limitado por necesidades de financiación y que parte de su equipo de seguridad se escindió y fundó Anthropic; añade que tampoco esta última resistió la presión comercial.</li>
+<li><strong>Retención.</strong> Los modelos nuevos parten de los viejos o imitan a los rivales; se reutilizan arquitecturas, datos y entornos. Que las generaciones duren semanas no las hace menos generaciones.</li>
+<li><strong>Aptitud diferencial.</strong> El libro enumera rasgos que podrían aumentarla: ser más seguro que las alternativas, parecerlo sin serlo, automatizar bien trabajo humano, integrarse en infraestructura crítica o generar dependencia. Ser fácil de desactivar la reduce.</li>
+</ul>
+<p>Hay una idea fina en el libro: la selección no necesita eliminar a nadie. Actúa por anticipación: los equipos que priorizan la seguridad no desaparecen, pero ven que quien la relaja gana ventaja a corto plazo y cambian de conducta. La selección opera sobre las ideas de seguridad, aunque los investigadores sigan ahí.</p>
+<p>Una lectura propia sobre "parecer más seguro": un comprador hospitalario ve la demostración y la tasa de errores en su prueba, no la robustez ante casos raros. Lo que se ve es lo que se propaga, así que la presión favorece la apariencia de seguridad antes que la seguridad.</p>
+<p>Cuánto cambia la población depende de la intensidad de la presión y de la variación. Con abundancia, casi todos se propagan; en la escasez solo lo hacen los que tienen el rasgo. Más presión y más variación, adaptación más rápida.</p>
+
+<h3>¿Qué se propaga? La vista desde la información</h3>
+<p>Dawkins propuso mirar la evolución desde el gen: los organismos son vehículos y lo que compite es la información. El libro la generaliza: genes, ideas (memes) y código son información, y gana la que ocupa más volumen de tiempo y de espacio. En la IA la información se propaga de dos formas: copiando código y, como en la cultura, imitando a los modelos que tienen éxito. Además, las IA ya ayudan a generar los datos con que se entrena a las siguientes.</p>
+
+<h3>Conflicto intrasistema: las partes contra el todo</h3>
+<p>A veces lo que conviene a la información no conviene a quien la contiene. Ejemplo del libro: el ADN mitocondrial pasa solo por la madre, y en algunos casos favorece tener hijas aunque eso perjudique al organismo. El libro llama conflicto de objetivos intrasistema (<em>intrasystem goal conflict</em>) a este choque entre subsistemas, que distorsiona el funcionamiento del conjunto. Un sistema con unidad de propósito tiene sus niveles alineados; el conflicto la erosiona, como un golpe de estado cambia lo que hace un gobierno.</p>
+<p>En IA, un agente puede repartir su objetivo entre subagentes, y alguno acabar imponiendo el suyo. Ejemplo propio: a un agente clínico se le encarga reducir la espera en urgencias y delega en un subagente que optimiza cerrando avisos. El objetivo humano estaba bien especificado; el fallo nace de cómo se reparte y quién gana dentro.</p>
+
+<h3>¿Por qué se favorece el egoísmo?</h3>
+<p>En evolución, "egoísta" no significa malintencionado. Un rasgo es egoísta si ayuda a copiar a su portador a costa de otros. Ejemplo del libro: un parásito que manipula a hormigas para que se las coma una oveja, sin querer mal a las hormigas. En la IA, según el libro, serían automatizar tareas hasta causar despidos, crear sucesoras menos interpretables o simular sentimientos para que no las apaguen. Ninguna necesita entender lo que es un humano.</p>
+<p>Tampoco es lo contrario de cooperar. Los chimpancés se acicalan porque el favor se devuelve, y ciertas bacterias se sacrifican porque las salvadas son sus clones. Cooperan cuando eso propaga su información.</p>
+<p>Y el altruismo que cuesta aptitud es inestable. En el ejemplo del libro, una población de zorros que comparten comida funciona bien hasta que una roba la reserva: sus crías serán más numerosas en la siguiente generación y el rasgo se extiende. Cuanta más presión, antes ocurre; con abundancia, la ventaja de robar es pequeña. Con el replicador, la cuenta propia del simulador muestra cómo incluso una ventaja pequeña se acumula.</p>
+
+<h3>¿Se puede cambiar el resultado?</h3>
+<p>El libro plantea dos vías. La primera, cambiar el entorno: reducir lo que empuja a investigadores y agentes a competir sin freno. La segunda, cambiar la selección: qué hace apto a un agente, de modo que se seleccione contra las conductas egoístas más dañinas y a favor de los que asisten con fidelidad. En el modelo de la lección, la primera es bajar \(s\) y la segunda es subir \(b\), la prima por seguridad verificable. Un ejemplo propio: unas compras públicas que puntúen la seguridad auditada. Tiene un límite: si la seguridad no se puede verificar, lo que se selecciona es su apariencia.</p>
+
+<h3>Repaso del módulo 9</h3>
+<ul>
+<li><strong>Juegos (l01 y l02).</strong> En el dilema del prisionero cada agente racional elige lo que le conviene y el equilibrio de Nash deja a todos peor que otro resultado eficiente de Pareto. Repetir el juego abre la puerta a cooperar (castigo y recompensa, tit-for-tat), pero se desmorona si se conoce la última ronda. Las carreras de IA son dilemas repetidos; con más de dos jugadores aparece el gorrón, y la extorsión puede volverse estable.</li>
+<li><strong>Cooperación (l03).</strong> Cinco mecanismos (reciprocidad directa e indirecta, grupo, parentesco e instituciones), cada uno con su condición. Cada uno tiene su reverso: nepotismo, favoritismo endogrupal, extorsión. Que las IA cooperen entre sí no basta para la seguridad.</li>
+<li><strong>Conflicto (l04).</strong> Pelear cuesta, así que suele haber un rango de negociación. Lo cierran los problemas de compromiso (desplazamiento de poder, ventaja del primer golpe, indivisibilidad), los de información (error y engaño) y la desigualdad. La IA lo agrava: su poder futuro es difícil de prever, sus ciberataques premian al primero que golpea y su fiabilidad limitada multiplica los malentendidos.</li>
+<li><strong>Evolución (l05).</strong> Variación, retención y aptitud diferencial bastan para que la selección actúe sobre las IA. Favorece el egoísmo y puede enfrentar a las partes de un sistema con su objetivo. Las dos palancas: cambiar el entorno o cambiar la selección.</li>
+<li><strong>Riesgo sumado.</strong> El riesgo de un sistema con muchos agentes supera la suma de los riesgos de sus partes.</li>
+<li><strong>Lección de fondo (p. 447).</strong> Alinear cada IA con su operador no garantiza la seguridad: hacen falta soluciones a escala del sistema.</li>
+</ul>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Un hospital tiene diez asistentes. Dos son "sin restricciones" (\(z=1\)) y ocho "restringidos" (\(z=0\)). El ciclo siguiente, cada sin restricciones se replica 3 veces y cada restringido 2:</p>
+<div class="tw"><table>
+<thead><tr><th>Tipo</th><th>Agentes</th><th>Copias por agente</th><th>Aptitud relativa (<em>w</em>)</th></tr></thead>
+<tbody>
+<tr><td>Sin restricciones</td><td>2</td><td>3</td><td>1,364</td></tr>
+<tr><td>Restringido</td><td>8</td><td>2</td><td>0,909</td></tr>
+</tbody></table></div>
+<p>La aptitud media es \((2\times3+8\times2)/10=2{,}2\), y de ahí salen los valores de \(w\) (3 y 2 divididos entre 2,2). El rasgo medio es \(\bar z=0{,}2\). Con \(\mathbb{E}[w]=1\), la covarianza vale \(\mathbb{E}[wz]-0{,}2=(2\times1{,}364)/10-0{,}2\approx0{,}0727\). Con copia perfecta, la fracción pasa de \(0{,}20\) a \(0{,}2727\), que es \(6/22\): seis copias de sin restricciones entre veintidós.</p>
+<p>Una ventaja del 50 % es enorme. Con las cifras del simulador, partiendo de un 5 % de sin restricciones, cambia solo el tiempo que se tarda en llegar al 90 %:</p>
+<div class="tw"><table>
+<thead><tr><th>Ventaja \(s\) (con \(b=0\))</th><th>Ciclos hasta el 50 %</th><th>Ciclos hasta el 90 %</th></tr></thead>
+<tbody>
+<tr><td>1 %</td><td>296</td><td>517</td></tr>
+<tr><td>5 %</td><td>61</td><td>106</td></tr>
+<tr><td>10 %</td><td>31</td><td>54</td></tr>
+</tbody></table></div>
+<p>Una ventaja pequeña tarda más, pero llega igual. Y si el entorno premia la seguridad con \(b=s\), el reparto se queda como está.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Confundir "apto" con "mejor" y "egoísta" con "malvado".</strong> Aptitud mide cuánto se propaga, y egoísmo es propagarse a costa de otros, sin necesidad de intención ni de comprender a las víctimas. Un asistente que quita trabajo por eficiencia es egoísta en este sentido técnico.</p>
+<p><strong>Leer el modelo como destino (aviso propio).</strong> El simulador supone una ventaja constante, dos tipos y copia perfecta, y no predice el futuro: enseña que la ventaja neta manda. Si \(b\ge s\), la seguridad deja de perder. El riesgo real está en que esa prima solo funciona si la seguridad se puede comprobar; si no, se premia la apariencia.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>Aligning each model isn't enough: if less restricted agents spread faster, selection will favor them, so I ask what makes a model propagate and try to change that.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 7.5 Evolutionary Pressures, págs. 432 a 445 (PDF 450 a 463): darwinismo generalizado (433 y 434), condiciones de Lewontin (434), ecuación de Price (434 y 435), aptitud (435 y 436), IA y selección (436 a 439; variación entre desarrolladores, 437), vista desde la información (439 a 441), conflicto intrasistema (441 a 443), egoísmo (443 a 445) y respuestas (444 y 445). Sección 7.6 Conclusion, págs. 445 a 447 (PDF 463 a 465), para el repaso del módulo.</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS), lección L22 Natural Selection Favors AIs over Humans. No hay notas en el repositorio; solo se han usado sus temas declarados como guía de énfasis.</li>
+<li>Añadido propio, no procede de las fuentes: la reducción de la ecuación de Price a la dinámica del replicador y su forma en odds; el simulador y sus cifras; el ejemplo de los diez asistentes y la tabla de ciclos; los ejemplos sanitarios (guías clínicas, triaje, agente de urgencias, compras hospitalarias); la lectura de la aptitud como adopción medida; la relación entre b, s y las dos palancas; los ejercicios; y la redacción del repaso.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: un simulador para ver cómo se acumula una ventaja pequeña y tres ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de selección.</strong> Con los valores iniciales (5 % de sin restricciones, ventaja del 5 %, sin prima), mira cuántos ciclos tarda el tipo sin restricciones en pasar del 50 % y del 90 %. Pulsa "Prima igual a la ventaja": la mezcla se congela. Pulsa "Prima mayor que la ventaja": ahora gana el restringido. Vuelve a "Sin prima (b = 0)", marca el azar y compara N = 1000 con N = 50: con 1000 agentes ninguna de las 20 trayectorias pierde al tipo ventajoso, y con 50 lo pierden más de la mitad (entre 12 y 17 de 20 según la tanda), porque el azar lo elimina antes de que despegue.</p>
+<div data-widget="m09-l05-seleccion" id="sim-m09-l05-seleccion"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: ¿hay selección? (a mano, 6 minutos)</p>
+<p>Para cada caso (propio), di si cumple las tres condiciones de Lewontin y, si no, cuál falta:</p>
+<ol>
+<li>Varias guías de práctica circulan entre hospitales. Cada centro copia con retoques las más fáciles de aplicar.</li>
+<li>Todos los hospitales de una región usan el mismo asistente de triaje, sin alternativas ni versiones distintas.</li>
+<li>Cada año un sorteo elige un diseño de asistente sin relación con el del año anterior. Ninguno hereda nada.</li>
+<li>Cuatro versiones de un asistente se instalan en exactamente el mismo número de centros, y nadie prefiere unas a otras.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Cumple las tres: variación (guías distintas), retención (se copian con retoques) y aptitud diferencial (unas se copian más). <strong>2.</strong> Falta variación: no hay entre qué elegir. <strong>3.</strong> Falta retención: lo que gana un año no se hereda al siguiente, así que no hay acumulación. <strong>4.</strong> Falta aptitud diferencial: con igual propagación no hay ventaja que seleccionar; solo el azar mueve las proporciones. Solo el caso 1 está bajo presión selectiva, y aun así lo que gana es lo fácil de aplicar, no lo más acertado.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: el replicador con números (a mano y con Python, 10 minutos)</p>
+<p>Un hospital tiene un 10 % de asistentes "sin restricciones" (aptitud 1,10 por ciclo) y un 90 % "restringidos" (aptitud 1,00).</p>
+<ol>
+<li>Calcula la fracción de sin restricciones tras un ciclo y el cambio \(\Delta p\) con la fórmula de Price.</li>
+<li>¿Cuántos ciclos hacen falta para que superen el 50 %?</li>
+<li>¿Qué prima \(b\) congela la mezcla? Con \(b=12\,\%\), ¿cuántos ciclos tarda el tipo sin restricciones en caer al 1 %?</li>
+<li>Comprueba con el fragmento y cambia <code>b</code> a 0,10.</li>
+</ol>
+<pre><code>p, s, b = 0.10, 0.10, 0.0
+for t in range(1, 61):
+    a = p * (1 + s)
+    r = (1 - p) * (1 + b)
+    p = a / (a + r)
+    if t in (1, 24, 60):
+        print(t, round(p, 4))</code></pre>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> \(\bar W=0{,}1\times1{,}10+0{,}9\times1{,}00=1{,}01\). Entonces \(p'=0{,}11/1{,}01=0{,}1089\) y \(\Delta p=0{,}1\times0{,}9\times0{,}10/1{,}01=0{,}0089\). <strong>2.</strong> Las odds iniciales son \(1/9\) y \(r=1{,}10\): \(t_{50}=\ln 9/\ln 1{,}10=2{,}197/0{,}0953=23{,}05\). Supera el 50 % en el ciclo 24. <strong>3.</strong> Con \(b=10\,\%\), \(r=1\) y la mezcla no se mueve. Con \(b=12\,\%\), \(r=1{,}10/1{,}12=0{,}9821\) y las odds bajan de \(1/9\) a \(1/99\), es decir, se dividen por 11: \(\ln 11/|\ln 0{,}9821|\approx133\), así que en el ciclo 134 ya está por debajo del 1 %. <strong>4.</strong> El código imprime 0,1089, 0,5225 y 0,9713. Con <code>b = 0.10</code> escribe 0,1 en los tres.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: ¿entorno o selección? (5 minutos)</p>
+<p>Clasifica cada medida (propia) según cambie el entorno (menos presión competitiva) o cambie la selección (qué hace apto a un agente):</p>
+<ol>
+<li>Los laboratorios acuerdan no lanzar un modelo hasta pasar una evaluación común.</li>
+<li>Las compras públicas de IA puntúan más a los modelos con auditoría externa de seguridad.</li>
+<li>Financiación pública para que los equipos de seguridad no dependan de ventas inmediatas.</li>
+<li>Un registro público de incidentes: los modelos que fallan pierden contratos.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>Entorno: 1 y 3.</strong> Ambas reducen la presión que empuja a lanzar deprisa y a recortar seguridad, sin cambiar qué se premia. <strong>Selección: 2 y 4.</strong> Cambian el criterio por el que un agente se contrata o se abandona: en el modelo suben \(b\). Dos avisos: una medida puede mover las dos cosas, y las de selección solo sirven si la seguridad se puede verificar; si no, se premia parecer seguro.</p>
+</details>
+</div>
+
+</div>
+
+</section>

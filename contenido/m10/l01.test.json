@@ -1,0 +1,115 @@
+[
+  {
+    "id": "m10l01-q01",
+    "tipo": "unica",
+    "enunciado": "Según la teoría semiendógena del crecimiento, ¿qué sostuvo durante siglos la aceleración de la economía y cómo explica que se frenara a mediados del siglo XX?",
+    "opciones": [
+      "Un bucle entre ahorro y capital; se frenó porque se agotó la energía",
+      "La inversión pública; se frenó por las guerras mundiales",
+      "Un bucle entre población, investigación y tecnología; se frenó porque la natalidad cayó por su cuenta y se desacopló de la productividad",
+      "El comercio internacional; se frenó por los aranceles"
+    ],
+    "correcta": 2,
+    "explicacion": "Más gente da más investigadores y tecnología, y eso permite más gente. Al caer la natalidad el bucle se desacopló; la IA podría reabrirlo porque se copia con hardware, no con nacimientos."
+  },
+  {
+    "id": "m10l01-q02",
+    "tipo": "numerica",
+    "enunciado": "Una economía crece un 3 % al año, de forma constante. ¿En cuántos años se duplica su producción? Responde con un decimal.",
+    "correcta": 23.45,
+    "tolerancia": 0.2,
+    "explicacion": "T = ln 2 / ln 1,03 = 0,6931 / 0,02956 ≈ 23,45 años. La regla del 70 (70/3 ≈ 23,3) también entra en el margen."
+  },
+  {
+    "id": "m10l01-q03",
+    "tipo": "unica",
+    "enunciado": "¿Qué describe la enfermedad de costes de Baumol y por qué frena un crecimiento explosivo?",
+    "opciones": [
+      "Los sectores automatizados suben sus precios porque necesitan más energía",
+      "La automatización destruye siempre más empleo del que crea",
+      "Los costes de investigación crecen más deprisa que los beneficios de la investigación",
+      "Los sectores que no mejoran su productividad deben subir salarios para retener personal y sus precios pesan cada vez más, así que el crecimiento del conjunto se modera"
+    ],
+    "correcta": 3,
+    "explicacion": "Es un efecto de composición: aunque una parte de la economía se dispare, la que sigue necesitando personas pesa cada vez más en el gasto. El impacto puede ser grande sin ser explosivo."
+  },
+  {
+    "id": "m10l01-q04",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estos son frenos a un crecimiento explosivo que menciona el libro?",
+    "opciones": [
+      "Factores no acumulables, como el terreno y la energía disponibles",
+      "Rendimientos decrecientes de la I+D, porque las ideas fáciles ya se aprovecharon",
+      "Que el software de IA no pueda copiarse con facilidad",
+      "Que la adopción de una tecnología nueva sea lenta y gradual"
+    ],
+    "correcta": [
+      0,
+      1,
+      3
+    ],
+    "explicacion": "El argumento explosivo se apoya justo en lo contrario de la tercera opción: el software se copia muy deprisa. Los otros tres sí son frenos."
+  },
+  {
+    "id": "m10l01-q05",
+    "tipo": "vf",
+    "enunciado": "Como históricamente el efecto productividad ha compensado al efecto desplazamiento, el libro concluye que la IA de nivel humano tampoco destruirá empleo.",
+    "correcta": false,
+    "explicacion": "Falso. La IA de nivel humano también inventaría tareas nuevas, así que el efecto productividad no reservaría trabajo a las personas. Que siempre haya habido empleo no es una ley natural."
+  },
+  {
+    "id": "m10l01-q06",
+    "tipo": "numerica",
+    "enunciado": "En el modelo de reparto de la lección, la renta de hoy es 100 con a = 1/3. Más adelante a = 0,6 y la producción se multiplica por 2. La población posee el 50 % del capital (o = 0,5). ¿Cuál es el índice de ingreso del hogar típico, con 1 igual a su ingreso de hoy? Responde con dos decimales.",
+    "correcta": 1.68,
+    "tolerancia": 0.02,
+    "explicacion": "Ingreso futuro: 0,4 × 2 + 0,5 × 0,6 × 2 = 1,4. Ingreso de hoy: 0,667 + 0,5 × 0,333 = 0,833. Índice: 1,4 / 0,833 = 1,68, menos que el 2 de la producción por habitante."
+  },
+  {
+    "id": "m10l01-q07",
+    "tipo": "numerica",
+    "enunciado": "En el modelo de tareas, la tecnología mejora un 2 % al año (g_A = 2 %) y la mitad de las tareas está automatizada (a = 0,5). ¿Cuál es el crecimiento de equilibrio, en %? Usa 1 + g = (1 + g_A)^(1/(1 − a)) y responde con dos decimales.",
+    "correcta": 4.04,
+    "tolerancia": 0.02,
+    "explicacion": "El exponente es 1/(1 − 0,5) = 2: 1 + g = 1,02² = 1,0404, es decir, g = 4,04 %. La aproximación g ≈ g_A/(1 − a) da 4,00 %, que aquí queda fuera del margen: la pregunta pide la fórmula exacta."
+  },
+  {
+    "id": "m10l01-q08",
+    "tipo": "unica",
+    "enunciado": "¿Cuál de estos ejemplos es de acceso estructurado?",
+    "opciones": [
+      "Publicar los pesos de un modelo para que cualquiera los descargue",
+      "Ofrecer el modelo solo a través de una API, con verificación de identidad y sin acceso a los pesos",
+      "Reservar el modelo a un único ministerio",
+      "Guardar los pesos en un servidor con una contraseña débil"
+    ],
+    "correcta": 1,
+    "explicacion": "El acceso estructurado permite usar el modelo con condiciones sobre quién, para qué y cómo. La primera opción es abierta, la tercera restringida y la cuarta acaba siendo abierta de hecho."
+  },
+  {
+    "id": "m10l01-q09",
+    "tipo": "unica",
+    "enunciado": "¿Cuál de estas situaciones es un ejemplo de uso indebido desde arriba (top-down)?",
+    "opciones": [
+      "Una persona usa un modelo abierto para lanzar ciberataques masivos",
+      "Un gobierno que controla en exclusiva una IA potente la usa para vigilar y censurar a la población",
+      "Un modelo se filtra por un fallo de seguridad y termina en manos de estafadores",
+      "Un grupo aficionado modifica un modelo abierto para generar desinformación"
+    ],
+    "correcta": 1,
+    "explicacion": "El riesgo desde arriba viene de gobiernos o élites que controlan la tecnología: vigilancia, control de la información, bloqueo de valores. Las otras son uso indebido desde abajo."
+  },
+  {
+    "id": "m10l01-q10",
+    "tipo": "unica",
+    "enunciado": "¿Qué ventaja atribuye el libro a un ecosistema diverso de IA frente a un singleton?",
+    "opciones": [
+      "Elimina toda competencia entre organizaciones",
+      "Se evitan los problemas de acción colectiva",
+      "No hay un punto único de fallo: si una IA falla o se comporta mal, otras pueden compensarla o vigilarla",
+      "Garantiza que ninguna IA llegará a concentrar poder"
+    ],
+    "correcta": 2,
+    "explicacion": "Con varias piezas, un fallo hunde menos al conjunto. Las dos primeras opciones son ventajas del singleton, y la última es falsa: con muchas IA el poder aún puede concentrarse o pueden coludir."
+  }
+]

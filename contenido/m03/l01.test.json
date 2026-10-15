@@ -1,0 +1,113 @@
+[
+  {
+    "id": "m03l01-q01",
+    "tipo": "unica",
+    "enunciado": "¿Qué necesita el enfoque mecanicista para funcionar bien?",
+    "opciones": [
+      "Que el sistema tenga muchísimas piezas y se pueda promediar",
+      "Que las piezas actúen unas sobre otras en una cadena trazable de causa y efecto",
+      "Que el sistema tenga propiedades emergentes",
+      "Que los componentes sean aleatorios e independientes"
+    ],
+    "correcta": 1,
+    "explicacion": "El enfoque mecanicista estudia cada pieza y recompone una cadena de causa y efecto, como una bicicleta o un programa con bucles y condicionales. Promediar y suponer independencia es el enfoque estadístico."
+  },
+  {
+    "id": "m03l01-q02",
+    "tipo": "unica",
+    "enunciado": "Un gas en una caja tiene presión y temperatura, que no están en ninguna partícula. Según la lección, ¿por qué no se considera un sistema complejo en el sentido del libro?",
+    "opciones": [
+      "Porque no tiene propiedades emergentes",
+      "Porque tiene muy pocas partículas",
+      "Porque sus propiedades de conjunto se reducen a estadística sobre las partículas",
+      "Porque sus partículas se influyen mucho y de forma desordenada"
+    ],
+    "correcta": 2,
+    "explicacion": "El gas sí tiene propiedades emergentes, pero se derivan de promedios sobre las partículas. Un sistema complejo exige rasgos emergentes que en la práctica no salen de un análisis reductivo de las piezas."
+  },
+  {
+    "id": "m03l01-q03",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas afirmaciones son correctas según la lección?",
+    "opciones": [
+      "En un sistema complejo se pueden predecir a veces pautas generales a corto plazo, como que enero será más frío que junio",
+      "En un sistema complejo es imposible predecir cualquier cosa",
+      "Los sistemas nuevos, como la IA integrada en la sociedad, son más difíciles de predecir porque hay pocos datos del pasado",
+      "En un sistema complejo, estudiar cada pieza por separado y recomponer el conjunto da toda la información relevante"
+    ],
+    "correcta": [
+      0,
+      2
+    ],
+    "explicacion": "Se pueden predecir pautas generales, pero no el detalle ni la trayectoria a largo plazo, y menos en sistemas nuevos con pocos datos. Estudiar las piezas aisladas no basta porque lo interesante nace de las interacciones."
+  },
+  {
+    "id": "m03l01-q04",
+    "tipo": "vf",
+    "enunciado": "Un sistema es complejo simplemente porque tiene muchísimas piezas, como un motor de avión.",
+    "correcta": false,
+    "explicacion": "Un motor de avión es complicado, pero se analiza por mecanismo. Complejo, en el sentido del libro, exige piezas que se influyen de forma que el conjunto muestra rasgos que no salen de mirarlas aisladas."
+  },
+  {
+    "id": "m03l01-q05",
+    "tipo": "unica",
+    "enunciado": "La superconductividad pasó de considerarse compleja a considerarse simple al tomar el par de electrones como pieza en vez del electrón. ¿Qué enseña el caso?",
+    "opciones": [
+      "Que los fenómenos emergentes no existen",
+      "Que la complejidad puede depender de la escala elegida y de lo que entendemos, y no ser una propiedad fija",
+      "Que los electrones se pueden ignorar",
+      "Que los sistemas complejos se resuelven siempre con estadística"
+    ],
+    "correcta": 1,
+    "explicacion": "Al cambiar la pieza básica, un fenómeno que parecía complejo pasó a explicarse con modelos reduccionistas. Por eso el libro propone un espectro según la información necesaria para predecir, y no una frontera."
+  },
+  {
+    "id": "m03l01-q06",
+    "tipo": "numerica",
+    "enunciado": "En el Juego de la vida sobre un tablero de 40 x 40 que se cierra sobre sí mismo, un planeador se desplaza una celda en diagonal cada 4 generaciones. ¿Cuántas generaciones tarda en volver a su posición inicial?",
+    "correcta": 160,
+    "tolerancia": 0.5,
+    "explicacion": "Vuelve a su sitio cuando ha recorrido 40 celdas en cada eje, a una celda por cada 4 generaciones: 40 × 4 = 160."
+  },
+  {
+    "id": "m03l01-q07",
+    "tipo": "numerica",
+    "enunciado": "10 000 pacientes tienen, de forma independiente, un 2 % de probabilidad de sufrir una caída. La desviación típica del número de caídas es la raíz de n·p·(1−p). ¿Cuánto vale?",
+    "correcta": 14,
+    "tolerancia": 0.05,
+    "explicacion": "n·p·(1−p) = 10 000 × 0,02 × 0,98 = 196, y su raíz es 14. Es un resultado estadístico que solo vale si los pacientes son independientes."
+  },
+  {
+    "id": "m03l01-q08",
+    "tipo": "unica",
+    "enunciado": "Según la lección, ¿por qué no basta con buscar la neurona responsable de cada rasgo para explicar cómo una red neuronal clasifica una imagen?",
+    "opciones": [
+      "Porque las redes neuronales no tienen capas",
+      "Porque todos los nodos de una capa participan un poco en cada rasgo y no hay una correspondencia limpia entre nodo y rasgo",
+      "Porque las redes no reconocen bordes ni formas",
+      "Porque las redes neuronales se entienden mejor sumando las salidas de cada neurona"
+    ],
+    "correcta": 1,
+    "explicacion": "Se ve cierta jerarquía (bordes, formas, composiciones), pero no un reparto limpio de tareas por nodo. Las identificaciones de partes responsables son pocas y muy costosas."
+  },
+  {
+    "id": "m03l01-q09",
+    "tipo": "vf",
+    "enunciado": "El libro sostiene que el enfoque de sistemas complejos permite entender por completo cómo funcionan las redes neuronales profundas.",
+    "correcta": false,
+    "explicacion": "El libro dice que ese enfoque no compensa del todo ni da una comprensión completa. Ofrece un vocabulario que recoge más de la complejidad y lecciones generales para tratar con estos sistemas."
+  },
+  {
+    "id": "m03l01-q10",
+    "tipo": "unica",
+    "enunciado": "En el simulador de interdependencia, con 50 agentes que se imitan, la media de la fracción final sigue cerca de 0,5, pero casi todas las simulaciones acaban en 0 o en 1. ¿Qué enseña?",
+    "opciones": [
+      "Que la media siempre describe bien el resultado típico",
+      "Que cuando las piezas se influyen, un promedio puede describir un resultado que casi nunca ocurre",
+      "Que imitar hace que los agentes sean independientes",
+      "Que el simulador tiene un error"
+    ],
+    "correcta": 1,
+    "explicacion": "Si las piezas dependen unas de otras, el resultado del conjunto no se deduce de una media sobre piezas independientes. Ahí falla el enfoque estadístico y hace falta mirar las interacciones."
+  }
+]

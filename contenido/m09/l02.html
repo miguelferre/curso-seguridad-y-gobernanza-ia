@@ -1,0 +1,241 @@
+<section class="leccion" data-id="m09/l02">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>En la lección anterior, dos jugadores racionales que se encuentran una sola vez acaban desertando, aunque cooperar les saldría mejor a los dos. Hoy añadimos el tiempo: si se van a volver a ver, lo que hagas hoy influye en lo que te harán mañana, y eso abre una puerta a cooperar, aunque no del todo.</p>
+<p>Para comparar estrategias se organizan torneos, donde cada jugador se enfrenta a muchos rivales y cuenta la media. Una estrategia sencilla, el tit-for-tat (TFT), que empieza cooperando y devuelve la última jugada del otro, ganó a menudo. Las carreras entre empresas y países por desplegar IA son un dilema repetido en el que cada uno recorta seguridad por miedo a quedarse atrás. Y con más de dos jugadores aparece el gorrón: el que se aprovecha de lo que aportan los demás.</p>
+<svg viewBox="0 0 360 292" role="img" aria-labelledby="ri-t ri-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="ri-t">Dos partidos de seis rondas</title>
+<desc id="ri-d">Primer partido: tit-for-tat coopera en la primera ronda y deserta en las cinco siguientes frente a un jugador que deserta siempre; suma 5 puntos frente a 10. Segundo partido: dos tit-for-tat cooperan las seis rondas y suman 18 cada uno. Debajo, la idea de que en un torneo cuenta la media de todos los partidos.</desc>
+<rect x="4" y="4" width="352" height="96" rx="10" style="fill:var(--surface);stroke:var(--trap);stroke-width:2"/>
+<text x="16" y="24" style="fill:var(--trap);font-weight:700;font-size:13px">PARTIDO 1: TFT contra siempre deserta</text>
+<text x="16" y="51" style="fill:currentColor;font-size:12.5px">TFT</text>
+<rect x="104" y="36" width="23" height="21" rx="4" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<text x="115.5" y="51" text-anchor="middle" style="fill:var(--ex);font-size:12px;font-weight:700">C</text>
+<rect x="131" y="36" width="23" height="21" rx="4" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5"/>
+<text x="142.5" y="51" text-anchor="middle" style="fill:var(--trap);font-size:12px;font-weight:700">D</text>
+<rect x="158" y="36" width="23" height="21" rx="4" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5"/>
+<text x="169.5" y="51" text-anchor="middle" style="fill:var(--trap);font-size:12px;font-weight:700">D</text>
+<rect x="185" y="36" width="23" height="21" rx="4" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5"/>
+<text x="196.5" y="51" text-anchor="middle" style="fill:var(--trap);font-size:12px;font-weight:700">D</text>
+<rect x="212" y="36" width="23" height="21" rx="4" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5"/>
+<text x="223.5" y="51" text-anchor="middle" style="fill:var(--trap);font-size:12px;font-weight:700">D</text>
+<rect x="239" y="36" width="23" height="21" rx="4" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5"/>
+<text x="250.5" y="51" text-anchor="middle" style="fill:var(--trap);font-size:12px;font-weight:700">D</text>
+<text x="274" y="51" style="fill:currentColor;font-size:12.5px;font-weight:700">5</text>
+<text x="16" y="79" style="fill:currentColor;font-size:12.5px">Desertor</text>
+<rect x="104" y="64" width="23" height="21" rx="4" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5"/>
+<text x="115.5" y="79" text-anchor="middle" style="fill:var(--trap);font-size:12px;font-weight:700">D</text>
+<rect x="131" y="64" width="23" height="21" rx="4" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5"/>
+<text x="142.5" y="79" text-anchor="middle" style="fill:var(--trap);font-size:12px;font-weight:700">D</text>
+<rect x="158" y="64" width="23" height="21" rx="4" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5"/>
+<text x="169.5" y="79" text-anchor="middle" style="fill:var(--trap);font-size:12px;font-weight:700">D</text>
+<rect x="185" y="64" width="23" height="21" rx="4" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5"/>
+<text x="196.5" y="79" text-anchor="middle" style="fill:var(--trap);font-size:12px;font-weight:700">D</text>
+<rect x="212" y="64" width="23" height="21" rx="4" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5"/>
+<text x="223.5" y="79" text-anchor="middle" style="fill:var(--trap);font-size:12px;font-weight:700">D</text>
+<rect x="239" y="64" width="23" height="21" rx="4" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5"/>
+<text x="250.5" y="79" text-anchor="middle" style="fill:var(--trap);font-size:12px;font-weight:700">D</text>
+<text x="274" y="79" style="fill:currentColor;font-size:12.5px;font-weight:700">10</text>
+<rect x="4" y="108" width="352" height="96" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="16" y="128" style="fill:var(--ex);font-weight:700;font-size:13px">PARTIDO 2: TFT contra TFT</text>
+<text x="16" y="155" style="fill:currentColor;font-size:12.5px">TFT</text>
+<rect x="104" y="140" width="23" height="21" rx="4" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<text x="115.5" y="155" text-anchor="middle" style="fill:var(--ex);font-size:12px;font-weight:700">C</text>
+<rect x="131" y="140" width="23" height="21" rx="4" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<text x="142.5" y="155" text-anchor="middle" style="fill:var(--ex);font-size:12px;font-weight:700">C</text>
+<rect x="158" y="140" width="23" height="21" rx="4" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<text x="169.5" y="155" text-anchor="middle" style="fill:var(--ex);font-size:12px;font-weight:700">C</text>
+<rect x="185" y="140" width="23" height="21" rx="4" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<text x="196.5" y="155" text-anchor="middle" style="fill:var(--ex);font-size:12px;font-weight:700">C</text>
+<rect x="212" y="140" width="23" height="21" rx="4" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<text x="223.5" y="155" text-anchor="middle" style="fill:var(--ex);font-size:12px;font-weight:700">C</text>
+<rect x="239" y="140" width="23" height="21" rx="4" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<text x="250.5" y="155" text-anchor="middle" style="fill:var(--ex);font-size:12px;font-weight:700">C</text>
+<text x="274" y="155" style="fill:currentColor;font-size:12.5px;font-weight:700">18</text>
+<text x="16" y="183" style="fill:currentColor;font-size:12.5px">TFT</text>
+<rect x="104" y="168" width="23" height="21" rx="4" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<text x="115.5" y="183" text-anchor="middle" style="fill:var(--ex);font-size:12px;font-weight:700">C</text>
+<rect x="131" y="168" width="23" height="21" rx="4" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<text x="142.5" y="183" text-anchor="middle" style="fill:var(--ex);font-size:12px;font-weight:700">C</text>
+<rect x="158" y="168" width="23" height="21" rx="4" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<text x="169.5" y="183" text-anchor="middle" style="fill:var(--ex);font-size:12px;font-weight:700">C</text>
+<rect x="185" y="168" width="23" height="21" rx="4" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<text x="196.5" y="183" text-anchor="middle" style="fill:var(--ex);font-size:12px;font-weight:700">C</text>
+<rect x="212" y="168" width="23" height="21" rx="4" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<text x="223.5" y="183" text-anchor="middle" style="fill:var(--ex);font-size:12px;font-weight:700">C</text>
+<rect x="239" y="168" width="23" height="21" rx="4" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<text x="250.5" y="183" text-anchor="middle" style="fill:var(--ex);font-size:12px;font-weight:700">C</text>
+<text x="274" y="183" style="fill:currentColor;font-size:12.5px;font-weight:700">18</text>
+<rect x="4" y="212" width="352" height="76" rx="10" style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:2"/>
+<text x="16" y="232" style="fill:var(--accent-ink);font-weight:700;font-size:13px">TORNEO: cuenta la media de todos los partidos</text>
+<text x="16" y="254" style="fill:currentColor;font-size:12.5px">El desertor gana el partido 1, pero entre dos</text>
+<text x="16" y="272" style="fill:currentColor;font-size:12.5px">desertores cada uno suma 6; dos TFT, 18 cada uno.</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Explicar por qué la repetición sostiene la cooperación y por qué se pierde si se conoce la última ronda.</li>
+<li>Calcular a mano los puntos de un partido y de un torneo, y explicar por qué una estrategia puede perder cada partido y ganar el torneo.</li>
+<li>Relacionar las carreras corporativas y militares de IA con el dilema repetido, y citar el resultado del modelo de atrición.</li>
+<li>Calcular cuánto gana un gorrón en un problema de acción colectiva y qué sanción hace que aportar compense.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>Por qué repetir cambia el juego</h3>
+<p>Recuerda el dilema del prisionero de la lección anterior: desertar (<em>defect</em>) es la mejor jugada diga lo que diga el otro, y por eso los dos acaban peor que si hubieran cooperado. Ese razonamiento parte de que el encuentro es único: si no volveréis a coincidir, tu jugada no puede cambiar lo que el otro haga después.</p>
+<p>En el dilema iterado (<em>Iterated Prisoner's Dilemma</em>) los mismos jugadores repiten el juego, y tu jugada de hoy sí condiciona la del otro mañana. El libro señala dos mecanismos. El castigo: si desertas hoy, mañana deserto yo, y tu puntuación queda por debajo de la que tendrías si yo hubiera cooperado, hagas lo que hagas. La recompensa: si cooperas hoy, mañana coopero, y ganas más de lo que ganarías si yo desertara. Esa expectativa da razones para cooperar.</p>
+<p>Aquí usamos pagos en puntos, donde más es mejor, con la matriz clásica de la literatura (añadido propio, no viene del libro): 3 cada uno si cooperan los dos (recompensa, \(R\)); 1 cada uno si desertan los dos (castigo, \(P\)); y si uno deserta y el otro coopera, 5 para el que deserta (tentación, \(T\)) y 0 para el otro (\(S\)). Con las letras de la lección anterior, \(a=3\), \(b=0\), \(c=5\) y \(d=1\): se cumplen \(c>a\) y \(d>b\), así que sigue siendo un dilema.</p>
+
+<h3>Si se sabe cuándo acaba, la cooperación se desmorona</h3>
+<p>Ejemplo propio: dos hospitales firman un convenio de tres semanas y saben que la tercera es la última. En ella nadie teme una represalia, así que ambos desertan. Sabiéndolo, en la segunda tampoco desertar cuesta nada, y así hasta la primera. El libro presenta este argumento, la inducción hacia atrás (<em>backward induction</em>), para cualquier número de rondas: si se conoce la última, se deserta siempre.</p>
+<p>Cambia todo si el final es incierto. Según el libro, cuando hay suficiente duda sobre el futuro de la relación, los agentes racionales pueden cooperar más, porque desertar hoy puede salir caro mañana. Con IA, dos sistemas que interactúan muchas veces pueden cooperar, pero solo si no saben cuándo terminan sus interacciones.</p>
+<p>Un modelo propio lo cuantifica. Tras cada ronda la relación continúa con probabilidad \(w\), así que la duración esperada es \(1/(1-w)\) rondas. Frente a tit-for-tat, cooperar siempre da 3 por ronda, con la ronda \(t\) ponderada por \(w^t\); desertar desde la primera da 5 una vez y luego 1 por ronda, porque el otro devuelve la deserción:</p>
+<div class="formula">\[ V_{\text{coop}}=\frac{3}{1-w}\qquad V_{\text{des}}=5+\frac{w}{1-w}\qquad V_{\text{coop}}\ge V_{\text{des}}\iff w\ge \tfrac12 \]</div>
+<p>Con \(w\) por debajo de 1/2, desertar desde el principio ya sale a cuenta: cuanto más pesa el futuro, más cuesta desertar. Puedes ver el caso \(w=0\), un único encuentro, en el <a data-ir="practica" href="#sim-torneo">simulador del torneo</a>.</p>
+
+<h3>Torneos: cómo se mide una estrategia</h3>
+<p>La mejor estrategia depende de contra quién se juegue, y por eso se organizan torneos. Un partido (<em>match</em>) son varias rondas entre los mismos dos jugadores; un torneo (<em>tournament</em>), una población de más de dos que se enfrentan por parejas, y gana quien acumula más puntos de media. El libro cuenta que el politólogo Robert Axelrod organizó en los años setenta varios torneos así, con estrategias diversas.</p>
+<p>La tabla 7.3 del libro reúne las estrategias más conocidas:</p>
+<div class="tw"><table>
+<thead><tr><th>Estrategia</th><th>Qué hace</th></tr></thead>
+<tbody>
+<tr><td>Siempre coopera</td><td>Coopera sea cual sea el rival</td></tr>
+<tr><td>Siempre deserta</td><td>Deserta sea cual sea el rival</td></tr>
+<tr><td>Aleatoria (<em>random</em>)</td><td>Elige al azar cada ronda, sin mirar el pasado</td></tr>
+<tr><td>Rencorosa (<em>grudger</em>)</td><td>Empieza cooperando; si el rival deserta una vez, deserta para siempre</td></tr>
+<tr><td>Tit-for-tat (TFT)</td><td>Empieza cooperando y después repite la última jugada del rival</td></tr>
+<tr><td>TFT generosa</td><td>Como la TFT, pero a veces coopera aunque el rival haya desertado</td></tr>
+</tbody></table></div>
+<p>La TFT ("ojo por ojo") fue la más famosa y ganó con frecuencia. Combina los dos mecanismos, premiar la cooperación y castigar la deserción, y además perdona: responde a una deserción con otra sola vez y vuelve a cooperar si el otro lo hace.</p>
+
+<h4>Por qué puede perder cada partido y ganar el torneo</h4>
+<p>Aquí el libro señala algo contraintuitivo. En cada partido, la TFT suele puntuar igual o algo peor que su rival, porque ante la primera deserción siempre va un paso por detrás; el desertor suele puntuar igual o mejor. Y sin embargo gana torneos: cuenta la media contra todos, y dos desertores que se encuentran puntúan poco, mientras que dos cooperadores puntúan bastante. Todo depende de la población: con suficientes cooperadores, cooperar rinde más.</p>
+<p>Con los pagos de arriba y partidos de 10 rondas sin errores, salen a mano (cálculo propio) estos resultados:</p>
+<ul>
+<li>Desertor contra TFT: el desertor suma \(5+9\times1=14\) y la TFT \(0+9\times1=9\). El desertor gana el partido.</li>
+<li>Dos TFT: \(10\times3=30\) cada una. Dos desertores: \(10\times1=10\) cada uno.</li>
+</ul>
+<p>Con ellos se calcula la media de cualquier población. Con 3 TFT y 1 desertor, cada TFT saca \((30+30+9)/3=23\) y el desertor 14: gana la TFT. Con 1 TFT y 3 desertores, gana el desertor. El ejercicio A busca cuántas TFT hacen falta, y <a data-ir="practica" href="#sim-torneo">el simulador</a> deja cambiar cuántos jugadores hay de cada estrategia.</p>
+
+<h3>Cuando hay errores (añadido propio)</h3>
+<p>Una jugada puede salir mal, como un mensaje que no llega. Con ruido, cada jugada sale al revés con cierta probabilidad y los dos ven lo que pasó de verdad. Un error fija a la rencorosa en desertar para siempre y lanza a la TFT a un eco de deserciones; la TFT generosa lo rompe porque a veces perdona. Con un 5 % de ruido y unas 87 rondas por partido, dos rencorosas puntúan unos 117 puntos de 260 posibles, dos TFT unos 202 y dos generosas unos 248 (resultados del simulador, no del libro).</p>
+
+<h3>Las carreras de IA como dilemas repetidos</h3>
+<p>El libro usa este marco para las carreras (<em>races</em>) entre empresas y entre países. En una carrera corporativa, cada laboratorio puede esperar a comprobar la seguridad de su producto (cooperar) o lanzarlo ya (desertar), y lo peor es ser el único que espera. Ejemplo del libro: los primeros chatbots de lenguaje abiertos al público, tras los que otras empresas aceleraron sus lanzamientos.</p>
+<p>Ejemplo propio: dos empresas de IA clínica eligen cada trimestre entre validar su modelo con un estudio externo o lanzarlo ya, y quien lanza sin validar obliga a la otra a imitarla.</p>
+<p>El libro lo modela con el modelo de atrición (<em>attrition model</em>), parecido al juego de la gallina (<em>chicken</em>) de la lección anterior: una subasta en la que todos pagan lo que ofrecen, ganen o no, y lo que se puja es el riesgo de catástrofe que cada uno tolera. Con dos competidores que entienden igual su situación, el modelo predice que aceptarán un 33 % de probabilidad de provocar un desenlace tan malo como valioso es el premio, lo que el libro resume como garantías de seguridad de solo un 66 %. Añade que en la práctica puede ser peor, porque quien estima mal el riesgo se pasa de esa cifra. No derivamos el 33 %.</p>
+<p>En la carrera militar el libro usa otro modelo, el dilema de seguridad (<em>security dilemma</em>): cada nación se arma por miedo a quedar por debajo de la otra, y ambas suben el riesgo de accidentes y de mal uso sin ganar seguridad. Ejemplo del libro: la carrera nuclear de la Guerra Fría. Los riesgos militares de la IA ya se vieron en el módulo 1.</p>
+
+<h3>Extorsión</h3>
+<p>Ejemplo propio: un ransomware cifra las historias clínicas de un hospital y solo las libera si se paga. Es extorsión, forzar con amenazas a hacer lo que no se querría, y el libro la cita como prueba de que funciona, con costes de miles de millones al año. ¿Hay algo parecido en el dilema iterado?</p>
+<p>El libro dice que sí. Las estrategias de extorsión imitan a la TFT, pero a veces desertan aunque el otro haya cooperado, con probabilidades que fija la última ronda. Extort-2, la que muestra el libro, coopera con probabilidad 8/9 tras cooperar los dos, 1/2 si el otro desertó y ella cooperó, 1/3 si ella desertó y el otro cooperó, y 0 si desertaron los dos. Al rival le conviene ceder: cualquier desviación le hace ganar menos, y el extorsionador puntúa más que él.</p>
+<p>Rara vez ganan torneos, porque puntúan poco contra otros extorsionadores, pero rara vez desaparecen del todo: persisten si se cruzan poco entre ellos, sobre todo en poblaciones pequeñas, donde uno solo explota a los cooperadores. De ahí la preocupación del libro por un futuro con pocos agentes de IA muy poderosos.</p>
+
+<h3>Más de dos: los problemas de acción colectiva</h3>
+<p>Ahora pasamos de parejas a grupos. En un trabajo en equipo, quien no se esfuerza disfruta del resultado si los demás lo sacan adelante, y si no, se ahorra un esfuerzo inútil (el libro parte del mismo ejemplo). Es un problema de acción colectiva (<em>collective action problem</em>), un dilema iterado con más de dos presos: cada agente decide si contribuye al bien común, a un coste propio, o si se aprovecha de lo que aportan los demás, es decir, si es un gorrón (<em>free rider</em>), lo que impone una externalidad al grupo.</p>
+<p>Un modelo propio, inspirado en la matriz con \(b\) y \(c\) del libro, lo cuantifica: hay \(n\) agentes, cada aportación cuesta \(c\), y lo aportado se multiplica por \(r\) y se reparte a partes iguales. Con \(k\) aportantes, todos reciben \(rck/n\), y quien aporta paga además \(c\). Un agente que pasa de aportar a aprovecharse, con los demás fijos, gana:</p>
+<div class="formula">\[ G=c\left(1-\frac{r}{n}\right) \]</div>
+<p>Si \(r&lt;n\), \(G>0\) y aprovecharse es dominante, como supone el libro. Si además \(r>1\), el grupo saldría ganando si todos aportaran: es un dilema.</p>
+<p>Ejemplo propio (sanitario): diez clínicas alimentan un registro compartido de reacciones adversas. Aportar cuesta \(c=10\) y el valor conjunto se multiplica por \(r=4\). Si todas aportan, cada una obtiene \(4\times10-10=30\); una que deja de aportar, con las otras nueve fijas, gana \(10(1-4/10)=6\). Como esto vale para cada una, la aportación se hunde y, cuando nadie aporta, todas se quedan en 0.</p>
+<p>El libro añade que, si al principio dominan los que se aprovechan, la población tiende a no cooperar, y describe dos formas de mover el equilibrio: la coerción mutua (normas, reputación, presión social) y la coerción externa (regulaciones y sanciones). En el modelo, ambas son una sanción esperada \(s\) al gorrón, y aportar pasa a dominar cuando \(s>c(1-r/n)\): en el ejemplo, más de 6 puntos. Puedes probarlo en el <a data-ir="practica" href="#sim-bien-comun">simulador del gorrón</a>.</p>
+<p>El libro añade ejemplos reales (la pandemia, el clima, el voto, la tragedia de los comunes o <em>tragedy of the commons</em>) y avisa de que encargar la gestión a representantes de IA no lo soluciona, porque heredan los mismos incentivos.</p>
+
+<h3>Dos catástrofes de acción colectiva</h3>
+<p>Al extender los modelos de carrera a más de dos participantes, el libro señala dos escenarios. En la guerra relámpago (<em>flash war</em>, ya vista en el módulo 1), varias naciones despliegan defensas automáticas con orden de responder: un falso positivo de una basta para que las demás reaccionen en cadena, más rápido de lo que los humanos pueden frenar, y tener personas en el bucle no garantiza seguridad si acaban obedeciendo. En la economía autónoma (<em>autonomous economy</em>), cada empresa elige entre mantener trabajo humano (aportar) o automatizarlo con IA (aprovecharse); cada ronda hace más difícil volver, y se acaba en una economía que los humanos ya no dirigen. Como vía, el libro apunta a señalar de forma creíble que se regula por cuenta propia, para bajar la presión a la escalada. La cooperación se trata en la lección siguiente.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Dos hospitales, A y B, comparten una UCI de desbordamiento. Cada semana pueden aceptar los pacientes del otro (cooperar) o derivar todo (desertar). Pagos por semana: 3 si aceptan los dos, 1 si ninguno, 5 al que deriva mientras el otro acepta y 0 al que acepta sin que le acepten.</p>
+<p>Con un convenio de 10 semanas y final conocido, la inducción hacia atrás predice que los dos derivan siempre y suman 10 cada uno, aunque con TFT sumarían 30. Sin fecha de fin y con \(w=0{,}8\), cooperar contra TFT vale \(3/0{,}2=15\) y desertar desde el principio, \(5+0{,}8/0{,}2=9\): compensa cooperar.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Creer que repetir asegura la cooperación, o que ser cooperativo siempre gana.</strong> Con final conocido, la inducción hacia atrás devuelve la deserción, y la TFT solo gana con suficientes cooperadores alrededor.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>Repetition alone doesn't guarantee cooperation: it takes an uncertain horizon, reciprocity that also forgives, and, once there are many parties, incentives that make contributing worth it for each of them.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 7.2: 7.2.4 The Iterated Prisoner's Dilemma (págs. 380 a 394; tabla 7.3 en la 384, Extort-2 en la figura 7.7, pág. 391), 7.2.5 Collective Action Problems (págs. 395 a 402; tabla 7.4 en la 397) y 7.2.6 Summary (págs. 402 y 403); PDF 398 a 421. La tabla 7.3 describe "siempre coopera" con el texto de "siempre deserta", una errata aparente del libro que aquí se corrige.</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS), sin lección propia sobre este tema. Axelrod se cita como lo cuenta el libro.</li>
+<li>Añadido propio, no procede de las fuentes: la matriz de pagos 5, 3, 1 y 0 (clásica de la literatura); el modelo de continuación con probabilidad \(w\) y su umbral 1/2; los cálculos a mano; el análisis del ruido; el modelo del gorrón con multiplicador \(r\) y sanción \(s\); los ejemplos sanitarios y de IA clínica; los simuladores y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: dos simuladores para explorar y tres ejercicios, dos a mano y uno con Python.</p>
+
+<p class="consigna"><strong>Simulador del torneo.</strong> Con los valores iniciales (siete jugadores, unas 87 rondas por partido, sin ruido), arriba quedan la rencorosa, la TFT y la TFT generosa, y "siempre deserta" queda cuarta. Prueba tres cosas. Uno: pulsa "Un solo encuentro" (probabilidad de continuar 0) y mira quién gana. Dos: pulsa "Ruido del 10 %", abre la matriz y compara la diagonal (cada estrategia contra otra igual) para ver cuánto pierden la rencorosa y la TFT generosa; en el ranking, en cambio, la generosa no sube, porque pierde puntos contra quienes desertan. Tres: "Ejemplo a mano" reproduce las cifras de la teoría; sube después la TFT a 2 jugadores y observa quién pasa a ganar.</p>
+<div data-widget="m09-l02-torneo" id="sim-torneo"></div>
+
+<p class="consigna"><strong>Simulador del gorrón.</strong> Empieza con 10 agentes, coste 10 y multiplicador 4: aprovecharse gana 6 puntos, y la aportación se hunde en pocas rondas aunque todos ganarían 30 si aportaran. Sube la sanción esperada poco a poco y observa en qué valor exacto la curva del gorrón deja de estar por encima y la fracción de aportantes deja de caer. Después vuelve a 0, sube el multiplicador hasta 10 y mira qué pasa con la ganancia de aprovecharse cuando \(r\) alcanza el número de agentes.</p>
+<div data-widget="m09-l02-bien-comun" id="sim-bien-comun"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: cuántos cooperadores hacen falta (a mano, 8 minutos)</p>
+<p>Torneo de partidos de 10 rondas, sin errores y con los pagos de la teoría (3, 1, 5 y 0). Hay 3 jugadores que siempre desertan y \(x\) jugadores TFT. Cada jugador juega un partido contra cada uno de los demás, y la puntuación es la media por partido.</p>
+<ol>
+<li>Con \(x=1\), calcula la media de la TFT y la de cada desertor. ¿Quién gana?</li>
+<li>Repite con \(x=2\) y con \(x=3\).</li>
+<li>¿A partir de cuántas TFT gana la TFT? Explica en una frase por qué basta un grupo pequeño.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p>Partidos de 10 rondas: TFT contra desertor, 9 para la TFT y 14 para el desertor; dos TFT, 30 cada una; dos desertores, 10 cada uno.</p>
+<p><strong>1.</strong> \(x=1\): la TFT suma 27 en 3 partidos, media 9. Cada desertor suma \(14+10+10=34\), media \(34/3\approx11{,}3\). Gana el desertor.</p>
+<p><strong>2.</strong> \(x=2\): TFT \((30+3\times9)/4=14{,}25\); desertor \((2\times14+2\times10)/4=12\). Con \(x=3\): TFT \((2\times30+3\times9)/5=17{,}4\); desertor \((3\times14+2\times10)/5=12{,}4\). Gana la TFT.</p>
+<p><strong>3.</strong> Bastan 2. Las TFT sacan 30 entre ellas y contra un desertor sacan 9, casi lo mismo que saca un desertor contra otro (10). Comprueba \(x=1\) con "Ejemplo a mano" y \(x=2\) subiendo la TFT a 2 en el simulador.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: cuánto futuro hace falta (a mano, 5 minutos)</p>
+<p>Los dos hospitales del ejemplo (pagos 3, 1, 5 y 0) usan TFT, y uno se plantea desertar siempre desde ahora. Cada semana la relación continúa con probabilidad \(w\).</p>
+<ol>
+<li>Con \(w=0{,}4\), calcula el valor de seguir cooperando y el de desertar siempre. ¿Qué conviene?</li>
+<li>Halla el valor mínimo de \(w\) que hace que cooperar no sea peor. ¿Qué duración esperada tiene la relación entonces?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Cooperar: \(3/(1-0{,}4)=5\). Desertar siempre: \(5+0{,}4/0{,}6\approx5{,}67\). Con tan poco futuro, desertar compensa (con \(w=0{,}8\), como en el ejemplo, ocurre lo contrario).</p>
+<p><strong>2.</strong> \(3/(1-w)\ge5+w/(1-w)\) da \(3\ge5-4w\), es decir, \(w\ge0{,}5\). La duración esperada es \(1/(1-0{,}5)=2\) semanas.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: el gorrón, con Python (6 minutos)</p>
+<p>Diez clínicas alimentan un registro compartido, con \(c=10\) y \(r=4\). Este fragmento calcula lo que gana una clínica al dejar de aportar según la sanción \(s\):</p>
+<pre><code>n, c, r = 10, 10, 4
+
+def pago(aporta, otros, s=0.0):
+    """Pago de un agente. otros = cuántos de los demás aportan."""
+    k = otros + (1 if aporta else 0)
+    return r * c * k / n - (c if aporta else s)
+
+for s in (0, 6, 6.5):
+    dif = [pago(False, o, s) - pago(True, o) for o in range(n)]
+    print(s, sorted(set(round(d, 2) for d in dif)))</code></pre>
+<p>Responde antes de ejecutarlo: ¿qué imprimirá para cada \(s\)? ¿Y por qué no depende de cuántos de los otros aportan?</p>
+<details>
+<summary>Ver solución</summary>
+<p>Imprime <code>0 [6.0]</code>, <code>6 [0.0]</code> y <code>6.5 [-0.5]</code>. Cada lista tiene un solo valor porque la ganancia de pasar a gorrón es \(c(1-r/n)-s\) sin importar cuántos otros aporten: el modelo es lineal. Con \(s=0\) vale 6, con \(s=6\) hay empate y con \(s=6{,}5\) aportar compensa por 0,5. Para que aportar domine, la sanción debe superar el umbral \(c(1-r/n)=6\); el libro atribuye ese papel a la coerción mutua o externa.</p>
+</details>
+</div>
+
+</div>
+
+</section>

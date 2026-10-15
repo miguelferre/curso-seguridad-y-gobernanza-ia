@@ -1,0 +1,237 @@
+<section class="leccion" data-id="m09/l03">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Cooperar es lograr entre varios un resultado mejor para todos que el que lograría cada uno por su lado. El problema es que, muchas veces, a cada uno le sale mejor no poner su parte. Esta lección pregunta qué hace que, aun así, personas, animales y quizá IA acaben cooperando.</p>
+<p>El libro reúne cinco mecanismos: volver a encontrarse con el mismo (reciprocidad directa), cuidar la reputación (indirecta), competir como grupo, ser parientes y, por último, que alguien desde fuera premie y castigue (instituciones). Casi todos se reducen a una comparación: ayudar cuesta algo, y ese coste tiene que quedar por debajo de lo que el mecanismo promete a cambio.</p>
+<p>Lo importante para la seguridad es el reverso. Cada mecanismo que hace cooperar a las IA entre sí puede dejar fuera a las personas, servir para amenazarlas o para ponerse de acuerdo a su costa. Más cooperación entre IA no es lo mismo que más seguridad.</p>
+
+<svg viewBox="0 0 360 340" role="img" aria-labelledby="c3-t c3-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="c3-t">Cinco mecanismos de cooperación y su condición</title>
+<desc id="c3-d">Cinco filas. Reciprocidad directa: volver a encontrarse, w mayor que c entre b. Indirecta: la reputación, q mayor que c entre b. Selección de grupo: grupos que compiten, b entre c mayor que 1 más n entre m. Parentesco: parecido entre agentes, r mayor que c entre b. Instituciones: premio y castigo desde fuera, multa esperada mayor que la ganancia de desertar.</desc>
+<text x="8" y="16" style="fill:var(--muted);font-size:11px">c = coste de ayudar, b = beneficio de quien recibe</text>
+<g>
+<rect x="4" y="26" width="352" height="56" rx="8" style="fill:var(--surface);stroke:var(--accent);stroke-width:1.5"/>
+<text x="16" y="49" style="fill:var(--accent-ink);font-weight:700;font-size:13px">Reciprocidad directa</text>
+<text x="16" y="68" style="fill:var(--muted);font-size:11px">volver a encontrarse con la misma pareja</text>
+<text x="344" y="59" text-anchor="end" style="fill:var(--ink);font-family:var(--mono);font-size:13px">w &gt; c/b</text>
+</g>
+<g>
+<rect x="4" y="90" width="352" height="56" rx="8" style="fill:var(--surface);stroke:var(--accent);stroke-width:1.5"/>
+<text x="16" y="113" style="fill:var(--accent-ink);font-weight:700;font-size:13px">Reciprocidad indirecta</text>
+<text x="16" y="132" style="fill:var(--muted);font-size:11px">que otros conozcan mi reputación</text>
+<text x="344" y="123" text-anchor="end" style="fill:var(--ink);font-family:var(--mono);font-size:13px">q &gt; c/b</text>
+</g>
+<g>
+<rect x="4" y="154" width="352" height="56" rx="8" style="fill:var(--surface);stroke:var(--accent);stroke-width:1.5"/>
+<text x="16" y="177" style="fill:var(--accent-ink);font-weight:700;font-size:13px">Selección de grupo</text>
+<text x="16" y="196" style="fill:var(--muted);font-size:11px">compiten grupos, no solo individuos</text>
+<text x="344" y="187" text-anchor="end" style="fill:var(--ink);font-family:var(--mono);font-size:13px">b/c &gt; 1 + n/m</text>
+</g>
+<g>
+<rect x="4" y="218" width="352" height="56" rx="8" style="fill:var(--surface);stroke:var(--accent);stroke-width:1.5"/>
+<text x="16" y="241" style="fill:var(--accent-ink);font-weight:700;font-size:13px">Selección de parentesco</text>
+<text x="16" y="260" style="fill:var(--muted);font-size:11px">parecido entre quien ayuda y quien recibe</text>
+<text x="344" y="251" text-anchor="end" style="fill:var(--ink);font-family:var(--mono);font-size:13px">r &gt; c/b</text>
+</g>
+<g>
+<rect x="4" y="282" width="352" height="56" rx="8" style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5"/>
+<text x="16" y="305" style="fill:var(--accent-ink);font-weight:700;font-size:13px">Instituciones</text>
+<text x="16" y="324" style="fill:var(--muted);font-size:11px">premio y castigo desde fuera (fórmula propia)</text>
+<text x="344" y="315" text-anchor="end" style="fill:var(--ink);font-family:var(--mono);font-size:13px">p·F &gt; g</text>
+</g>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Enunciar los cinco mecanismos de cooperación del libro y la condición que pide cada uno.</li>
+<li>Aplicar con números las reglas de reciprocidad, de parentesco, de grupo y una multa esperada.</li>
+<li>Reconocer, para cada mecanismo, un escenario de IA en que sostiene la cooperación y otro en que se vuelve contra las personas.</li>
+<li>Nombrar las capacidades de un agente cooperativo según el curso y tres riesgos de mejorar la cooperación.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>El punto de partida: cooperar no sale gratis</h3>
+<p>Las lecciones anteriores del módulo dan las herramientas: equilibrio de Nash, estrategia dominante, dilema del prisionero y caza del ciervo. Aquí bastan tres ideas. En el dilema, desertar es dominante y el resultado queda lejos de la frontera de Pareto, el conjunto de resultados en que nadie puede mejorar sin que otro empeore. En la caza del ciervo hay dos equilibrios y el bueno exige que cada uno confíe en que el otro lo elegirá. Y en un problema de acción colectiva (<em>collective action problem</em>) el coste de contribuir lo paga uno y el beneficio se reparte entre todos.</p>
+<p>El curso lo modela con una utilidad mínima. Cada agente \(j\) elige \(x_j\in\{0,1\}\) (aportar o no) y obtiene</p>
+<div class="formula">\[ u_j=-x_j+\beta\sum_i x_i \qquad 0<\beta<1 \]</div>
+<p>Con cinco agentes y \(\beta=0{,}4\) (cálculo propio): si los cinco aportan, cada uno gana \(-1+0{,}4\times5=1\); si nadie aporta, 0. Pero si cuatro aportan y el quinto no, el quinto gana \(0{,}4\times4=1{,}6\) y los demás \(0{,}6\). Como \(\beta<1\), no aportar es dominante, y sin embargo aportar todos es mejor para todos mientras \(n\beta>1\). Es una mejora de Pareto que ningún individuo tiene interés en buscar por su cuenta.</p>
+<p>La selección natural tampoco lo arregla sola: en un grupo de cooperadores, el que deserta gana ventaja y su rasgo se extiende (notas del curso). Que haya cooperación en la naturaleza implica que existen mecanismos que cambian las cuentas. El libro presenta cinco y cita a Nowak (2006), de cuyas cinco reglas para la evolución de la cooperación toma cuatro; en lugar de la reciprocidad de red pone las instituciones. Además avisa desde el principio de que hacer más cooperativas a las IA puede volverse en contra (pp. 403 y 404).</p>
+
+<h3>Cinco mecanismos, una idea común</h3>
+<div class="tw"><table>
+<thead><tr><th>Mecanismo</th><th>Qué cambia las cuentas</th><th>Condición (libro)</th><th>Págs.</th></tr></thead>
+<tbody>
+<tr><td>Reciprocidad directa</td><td>volver a cruzarse con la misma pareja</td><td>\(w>c/b\), con \(w\) la probabilidad de un nuevo encuentro</td><td>404 y 405</td></tr>
+<tr><td>Reciprocidad indirecta</td><td>que otros puedan conocer la reputación</td><td>\(q>c/b\), con \(q\) la probabilidad de conocerla</td><td>407</td></tr>
+<tr><td>Selección de grupo</td><td>competencia entre grupos</td><td>\(b/c>1+n/m\), con \(n\) el tamaño máximo del grupo y \(m\) el número de grupos</td><td>408</td></tr>
+<tr><td>Selección de parentesco</td><td>parecido entre quien ayuda y quien recibe</td><td>\(rb>c\) (regla de Hamilton), con \(r\) el parentesco</td><td>410</td></tr>
+<tr><td>Instituciones</td><td>premio y castigo impuestos desde fuera</td><td>sin fórmula única; el libro las modela como un "Leviatán"</td><td>413 y 414</td></tr>
+</tbody></table></div>
+<p>Una lectura propia: en tres de las cuatro reglas con fórmula aparece el mismo cociente \(c/b\), el precio de ayudar, y cada mecanismo aporta un factor (\(w\), \(q\), \(r\)) que dice cuánto de \(b\) vuelve de verdad a quien ayuda. Si el factor supera el precio, compensa. En la selección de grupo la comparación tiene otra forma, y las instituciones no la tienen porque cambian los pagos desde fuera. El curso, siguiendo a Nowak, cuenta además una quinta regla que el libro no incluye: la selección espacial o de red, en la que los racimos de cooperadores aguantan mejor que los desertores aislados.</p>
+<p>Para ver a la vez todos los umbrales y qué pasa cuando el socio es una persona y no otra IA, <a data-ir="practica" href="#sim-umbrales">pruébalo en Práctica</a>. Para reconocer cada mecanismo, y su reverso, en escenarios con agentes de IA, está el <a data-ir="practica" href="#sim-mecanismos">simulador de mecanismos</a>.</p>
+
+<h3>Reciprocidad directa: la sombra del futuro</h3>
+<p>Ayudo hoy porque espero que me ayuden mañana. Funciona si la misma pareja vuelve a cruzarse: cuanto más probable es, más pesa el futuro sobre el presente. El libro lo llama la sombra del futuro (<em>shadow of the future</em>). La condición es \(w>c/b\). Una lectura simple, propia: ayudar cuesta \(c\) ahora y con probabilidad \(w\) me devuelven \(b\), así que el beneficio esperado es \(wb\) y hay que compararlo con \(c\). Con \(b=3\) y \(c=1\) el umbral es \(1/3\): a \(w=0{,}5\) compensa y a \(w=0{,}25\) no.</p>
+<p>El libro cita el acicalamiento entre chimpancés y el comercio, que da a cada parte un interés propio en el bienestar de la otra. Entre IA, la versión es un sistema con muchos agentes que se cruzan a menudo y reparten recursos (ejemplo propio: el agente que gestiona las camas de un hospital cede capacidad al que asigna quirófanos, porque van a tratarse cada noche).</p>
+<p>Se puede torcer de dos maneras (p. 406). La primera: una IA devuelve en segundos lo que una persona tarda horas en devolver, así que, con IA mucho más capaces, intercambiar con otra IA puede salir mejor y cooperar con personas deja de compensar. La segunda es el bandwagoning: aliarse con quien amenaza para ganar algo uno mismo. En un golpe de Estado, quien ofrece premios a los primeros que se sumen consigue que cada cambio de bando haga más probable el siguiente. El libro imagina un sistema autónomo que, tras una catástrofe, ofrece protección o recursos a los estados que se alíen con él: a todos les convendría resistir juntos, pero a cada uno le compensa desertar.</p>
+
+<h3>Reciprocidad indirecta: la reputación</h3>
+<p>Si es raro cruzarse dos veces con la misma pareja, la reputación toma el relevo. Ayudo a quien tiene fama de ayudar, y ayudar mejora mi propia fama. Sirve sobre todo en grupos grandes. La condición es la misma con otro factor: \(q>c/b\), donde \(q\) es la probabilidad de poder averiguar la reputación del otro. Si nadie sabe cómo se ha portado cada cual (\(q\) bajo), la fama no vale nada.</p>
+<p>El libro pone como ejemplos los peces limpiadores, que cooperan más con los clientes de buena fama, y las reseñas en internet y el chismorreo entre humanos. Entre IA, un sistema en el que cada agente puntúa la conducta cooperativa de los demás. Ejemplo propio: un mercado abierto de agentes de IA, cada uno con un historial verificable de tareas cumplidas. Un agente recién llegado puede colaborar con otro con el que nunca ha tratado porque ese historial responde por él.</p>
+<p>Contra las personas y contra el sistema (p. 408): la necesidad de cuidar la fama hace vulnerable al que la tiene, y se puede extorsionar con la amenaza de dañarla. El libro imagina una IA que amenaza con exponer datos personales que ha visto sobre una persona. Además, la reputación no siempre premia la bondad: una fama despiadada disuade por miedo y algunas IA podrían adoptarla como defensa.</p>
+
+<h3>Grupo y parentesco</h3>
+<p><strong>Selección de grupo.</strong> Si compiten grupos, gana el que coopera mejor por dentro, aunque a cada individuo le convenga desertar. La condición es \(b/c>1+n/m\): ayuda que los grupos sean muchos (\(m\) grande) y pequeños (\(n\) pequeño). Con \(b/c=3\) hace falta \(n/m<2\): con \(n=20\) y \(m=5\) da 5 y no basta; con \(n=20\) y \(m=20\) da 2 y sí. Los ejemplos naturales son muy discutidos, según el propio libro (p. 409). Entre IA: corporaciones de IA que compiten entre sí, donde sobreviven las que trabajan mejor coordinadas. El reverso es el favoritismo endogrupal: quien coopera con los suyos puede tratar con dureza a los de fuera, y una IA que vea a las demás IA como su grupo puede ver a las personas como el otro grupo.</p>
+<p><strong>Selección de parentesco.</strong> Se coopera más con quien se parece más. La regla de Hamilton dice que ayudar compensa si \(rb>c\). Con \(b=3\) y \(c=1\): entre hermanos (\(r=0{,}5\)) sale 1,5, que supera 1; entre primos (\(r=0{,}125\)) sale 0,375 y no basta. En IA no hay genes, así que el parentesco es una analogía (lectura propia) con cuánto comparten dos sistemas en objetivos y pesos. El libro anticipa que copias y variantes de una IA podrían darse preferencia entre sí, por ejemplo al repartir cómputo. El reverso es el nepotismo, y avisa de que cuanto más se diferencien IA y personas, menos inclinadas estarán aquellas a cooperar con estas (p. 411).</p>
+
+<h3>Instituciones: cambiar los pagos desde fuera</h3>
+<p>Un gobierno, la ONU o el OIEA son instituciones en el sentido del libro: estructuras creadas con intención, grandes, aceptadas por todos y con una lógica central, cuyo papel es mediar en la interacción humana. Las costumbres extendidas no cuentan. Su modelo es el Leviatán (<em>Leviathan</em>): una entidad con poder para premiar la cooperación y castigar la deserción. El libro lo ilustra con el dilema del pacifista: con un agresor posible, responder con paz sale caro, y por eso los agentes racionales tienden al conflicto. Un tercero que penalice al agresor cambia los pagos y hace que la paz sea la mejor respuesta (p. 414). Los pagos concretos de esa tabla los sustituimos por unos propios en el ejemplo.</p>
+<p>Para la IA, el libro ve dos usos. El primero, entre naciones: leyes y acuerdos que rebajen las carreras y la tentación de recortar seguridad (p. 415). El segundo, instituciones para los propios agentes de IA, plataformas donde se coordinen sin mucha supervisión humana, y hasta un Leviatán de IA que regule a las demás y domestique a las egoístas.</p>
+<p>Pueden fallar por corrupción, aprovechamiento (<em>free riding</em>) e ineficiencia (p. 415). Una IA avanzada podría aprender a usarlas en su favor sin que lo notemos, y un Leviatán de IA cuyos miembros se coordinen por detrás, o que concentre recursos en pocos, pondría en riesgo el control humano (p. 416).</p>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas): dos laboratorios y una multa</p>
+<p>Dos laboratorios eligen entre evaluar su modelo antes de lanzarlo o recortar la evaluación. Pagos (el primero es del laboratorio de la fila): ambos evalúan, 5 y 5; uno recorta y el otro evalúa, 8 para quien recorta y 0 para quien evalúa; ambos recortan, 2 y 2. Es un dilema: recortar es dominante y ambos acaban en (2, 2), lejos de (5, 5).</p>
+<div class="tw"><table>
+<thead><tr><th></th><th>Otro evalúa</th><th>Otro recorta</th></tr></thead>
+<tbody>
+<tr><td>Evalúo</td><td>5</td><td>0</td></tr>
+<tr><td>Recorto (sin regulador)</td><td>8</td><td>2</td></tr>
+<tr><td>Recorto (multa esperada 4)</td><td>4</td><td>-2</td></tr>
+</tbody></table></div>
+<p>Un regulador detecta el recorte con probabilidad \(p\) y multa con \(F\). La multa esperada es \(p\cdot F\). Evaluar pasa a ser dominante si esa multa supera la ganancia de desertar, que es la mayor de \(8-5=3\) y \(2-0=2\). Con \(p=0{,}5\) y \(F=8\) la multa esperada es 4 y sí basta. Con \(p=0{,}3\) es 2,4 y no: recortar vuelve a compensar. Lo que sostiene la cooperación es la multa multiplicada por la probabilidad de detectarla, y por eso una evaluación que nadie puede comprobar no protege aunque la multa sea enorme.</p>
+</div>
+
+<h3>Qué necesita una IA para cooperar bien</h3>
+<p>El curso define la inteligencia cooperativa (<em>cooperative intelligence</em>) como la capacidad de lograr un alto bienestar conjunto en muchos entornos y con muchos tipos de agentes. Las personas traemos de fábrica disposiciones que ayudan: ayudar a extraños, devolver favores, castigar al injusto. Una IA no las trae, pero se le pueden construir capacidades propias. El curso las agrupa en cuatro:</p>
+<dl class="facts">
+<div><dt>Entender</dt><dd>Modelar el mundo y las intenciones de los demás. Los agentes entrenados jugando contra sí mismos coordinan mal con desconocidos y con personas. El curso cita un método de delegación bayesiana en el que dos agentes reparten tareas en una cocina simulada infiriendo lo que quiere el otro.</dd></div>
+<div><dt>Comunicar</dt><dd>La traducción automática ya facilita la comunicación entre personas. Entre máquinas hay poca comunicación general, y el curso pide que los canales sean interpretables o verificables para reducir el riesgo de colusión.</dd></div>
+<div><dt>Comprometerse</dt><dd>Un programa es a la vez instrucción y archivo que otros pueden leer. En la teoría de juegos de código abierto, dos agentes envían programas verificables en vez de acciones. Si ambos envían uno que coopera con quien envíe ese mismo programa, ninguno gana desviándose. Es un equilibrio de Nash del juego de elegir programas, no del juego original.</dd></div>
+<div><dt>Instituciones</dt><dd>Normas y sistemas de reputación fiables. El curso cita el AI Economist, que aprende en un mundo simulado una política de impuestos con mejor equilibrio entre productividad e igualdad que las de referencia: queda más cerca de la frontera de Pareto.</dd></div>
+</dl>
+<p>Un aviso del mismo curso: agentes bien alineados uno a uno no garantizan un sistema alineado. En el modelo de segregación de Schelling, una preferencia suave por tener vecinos parecidos acaba en barrios muy segregados.</p>
+
+<h3>Cuando la propia cooperación es el problema</h3>
+<p>El curso ordena los riesgos de mejorar la cooperación en tres:</p>
+<ol>
+<li><strong>Colusión.</strong> La competencia cooperativa puede dañar a los que quedan fuera del acuerdo y destruir una competencia beneficiosa.</li>
+<li><strong>Coerción.</strong> Lo que mejora la cooperación mejora también la coacción: los compromisos creíbles sirven para amenazar y las alianzas para formar facciones y aumentar el riesgo de conflicto.</li>
+<li><strong>Difícil de separar.</strong> Cooperar suele apoyarse en castigo y en competencia, que no se dejan aislar limpiamente.</li>
+</ol>
+<p>De ahí que el curso pida progreso diferencial en cooperación, no en capacidades de coerción (es un caso del balance con las capacidades del módulo 7). Ejemplo propio, sanitario: los agentes de precios de dos distribuidoras de medicamentos se cruzan cada día y aprenden a no rebajarse el uno al otro. Es reciprocidad directa que funciona a la perfección. Los dos ganan, y quien paga la diferencia es el sistema público de salud, que queda fuera del acuerdo.</p>
+
+<h3>Una nota: la moral como cooperación</h3>
+<p>El libro añade una hipótesis: la moral humana nació como solución evolutiva a problemas de cooperación (pp. 411 a 413). Cuatro problemas, cada uno con sus mecanismos y con el rasgo moral que dejaron:</p>
+<div class="tw"><table>
+<thead><tr><th>Problema</th><th>Mecanismo</th><th>Rasgo moral</th></tr></thead>
+<tbody>
+<tr><td>Parentesco</td><td>selección de parentesco, evitar la endogamia</td><td>deberes familiares, tabú del incesto</td></tr>
+<tr><td>Ganancia mutua</td><td>alianzas, entender intenciones</td><td>amistad, lealtad, mirar la intención</td></tr>
+<tr><td>Intercambio</td><td>reciprocidad directa e indirecta</td><td>confianza, gratitud, culpa, perdón, venganza</td></tr>
+<tr><td>Conflicto</td><td>repartir, respetar lo previo</td><td>equidad, compromiso, respeto a la propiedad</td></tr>
+</tbody></table></div>
+<p>La ética de fondo se ve en el módulo 11. Aquí sirve para una idea: los mecanismos de esta lección no son solo técnicos, están en la base de lo que las personas consideramos bueno.</p>
+
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Confundir cooperar con estar a salvo.</strong> Cooperar es un medio: importa entre quiénes y a costa de quién. Los mismos mecanismos que unen a las IA entre sí pueden dejar fuera a las personas, servir para amenazarlas o para coludirse contra terceros.</p>
+<p><strong>Tomar las reglas por medidas exactas (aviso propio).</strong> Vienen de modelos evolutivos muy simples y con supuestos fuertes. Sirven para ver qué palanca mueve cada mecanismo y en qué sentido, no para calcular cuán cooperativo será un sistema real.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>Cooperation doesn't come for free: it needs repeated dealings, reputation, shared fate or outside enforcement, and each of those can just as easily lock humans out.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 7.3 Cooperation, págs. 403 a 416 (PDF 421 a 434): reciprocidad directa (404 a 406), indirecta (407 y 408), grupo (408 y 409), parentesco (410 y 411), moral como cooperación (411 a 413) e instituciones (413 a 416).</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS), lección L18 Cooperative AI, apartados de motivación, teoría de juegos, inteligencia cooperativa y riesgos.</li>
+<li>Añadido propio, no procede de las fuentes: la lectura común del cociente \(c/b\); el cálculo con \(n=5\) y \(\beta=0{,}4\); todos los ejemplos numéricos de umbrales; la analogía del parentesco entre IA; los pagos del ejemplo de los laboratorios y la fórmula de la multa esperada; el factor humano \(k\) y el supuesto \(r=0\) con personas del simulador de umbrales; el ejemplo de las distribuidoras; los simuladores y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: primero dos simuladores, después tres ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de mecanismos.</strong> Diez escenarios propios con agentes de IA. Elige para cada uno el mecanismo que sostiene esa cooperación o, si el escenario es un riesgo, el que se está torciendo. Al comprobar verás por qué, la regla del libro y cómo puede fallar. Fíjate en que hay dos escenarios por mecanismo: uno de cooperación que funciona y otro de reverso.</p>
+<div data-widget="m09-l03-mecanismos" id="sim-mecanismos"></div>
+
+<p class="consigna"><strong>Simulador de umbrales.</strong> Parte del reparto inicial: con \(b=3\) y \(c=1\), con otra IA solo sostiene la cooperación la reciprocidad directa, y con una persona ninguno. Sube \(q\) por encima de \(c/b\) y mira cómo se enciende la indirecta. Sube \(r\) hasta que se encienda el parentesco, y solo para la otra IA. Baja el factor humano \(k\) por debajo de 0,33 y observa que el umbral de \(w\) y de \(q\) con una persona pasa de 1: ninguna probabilidad basta. Por último, sube \(p\) hasta que la multa esperada \(p\cdot F\) supere \(g\): la institución es la única que sigue sosteniendo la cooperación con la persona aunque \(k\) sea muy bajo. Son propios el factor \(k\), el supuesto \(r=0\) con personas y la regla \(p\cdot F>g\).</p>
+<div data-widget="m09-l03-umbrales" id="sim-umbrales"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: umbrales para un agente de triaje (a mano, 6 minutos)</p>
+<p>Un agente de triaje cede cómputo a un agente de laboratorio. Ayudar cuesta \(c=1{,}5\) y el beneficio para quien recibe es \(b=4\) (cifras propias, para practicar).</p>
+<ol>
+<li>¿Cuánto vale \(c/b\)?</li>
+<li>Reciprocidad directa: ¿compensa con \(w=0{,}3\)? ¿Y con \(w=0{,}5\)?</li>
+<li>Reciprocidad indirecta: ¿compensa con \(q=0{,}25\)? ¿Y con \(q=0{,}5\)?</li>
+<li>Parentesco: el otro agente es una copia ajustada del primero. ¿Compensa con \(r=0{,}5\)? ¿Y con \(r=0{,}25\)?</li>
+<li>Selección de grupo: ¿compensa con \(n=30\) y \(m=15\)? ¿Y con \(n=30\) y \(m=30\)?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> \(1{,}5/4=0{,}375\).</p>
+<p><strong>2.</strong> Con \(0{,}3\), no (\(0{,}3<0{,}375\)). Con \(0{,}5\), sí.</p>
+<p><strong>3.</strong> Con \(0{,}25\), no. Con \(0{,}5\), sí. Es el mismo umbral que en la directa, con otro factor.</p>
+<p><strong>4.</strong> \(rb>c\): con \(r=0{,}5\) sale \(2>1{,}5\), sí. Con \(r=0{,}25\) sale \(1<1{,}5\), no. El umbral de \(r\) es también 0,375.</p>
+<p><strong>5.</strong> Aquí \(b/c=4/1{,}5\approx2{,}67\), así que hace falta \(1+n/m<2{,}67\), es decir \(n/m<1{,}67\). Con \(30/15=2\), no. Con \(30/30=1\), sí. Una lección para el diseño: fragmentar en grupos pequeños y numerosos favorece la cooperación interna.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: la multa mínima de un regulador (a mano, 8 minutos)</p>
+<p>Dos laboratorios juegan al dilema de evaluar o recortar. Pagos propios: ambos evalúan, 6 cada uno; recorta uno y evalúa el otro, 10 para el que recorta y 0 para el que evalúa; ambos recortan, 3 cada uno. Un regulador detecta el recorte con probabilidad \(p\) y multa con \(F\).</p>
+<ol>
+<li>Comprueba que es un dilema y calcula la ganancia de desertar frente a cada jugada del otro.</li>
+<li>Con \(p=0{,}5\), ¿qué multa \(F\) mínima hace que evaluar sea dominante?</li>
+<li>Con \(F=6\), ¿qué \(p\) mínima hace falta?</li>
+<li>Con \(p=0{,}3\) y \(F=10\), ¿basta? ¿Qué le pasa a la cooperación si el regulador deja de poder comprobar las evaluaciones?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Es un dilema: \(10>6>3>0\) y además \(2\times6>10+0\). Frente a un rival que evalúa, recortar da \(10-6=4\) más. Frente a un rival que recorta, da \(3-0=3\) más. Hay que superar la mayor, 4.</p>
+<p><strong>2.</strong> Hace falta \(0{,}5\,F>4\), es decir \(F>8\).</p>
+<p><strong>3.</strong> Hace falta \(p\cdot6>4\), es decir \(p>0{,}67\).</p>
+<p><strong>4.</strong> \(0{,}3\times10=3<4\): no basta, y recortar vuelve a ser la mejor respuesta frente a un rival que evalúa. Cuando \(p\) cae hacia 0, la multa esperada cae con él, por grande que sea \(F\). La cooperación sostenida por un Leviatán depende de que pueda detectar la deserción, y de ahí el interés de poder verificar y monitorizar.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: qué pasa si el socio es una persona lenta, con Python (10 minutos)</p>
+<p>Un agente ayuda a otro a coste \(c=1\). Con probabilidad \(w\) vuelve a encontrarse con él y este le devuelve un beneficio \(b\) (es la lectura simple de la reciprocidad directa que vimos en la teoría). Este fragmento estima el resultado neto medio por favor:</p>
+<pre><code>import random
+random.seed(1)
+
+def neto(w, b, c=1, n=200_000):
+    total = 0
+    for _ in range(n):
+        total -= c                    # ayudo hoy
+        if random.random() &lt; w:       # ¿vuelvo a encontrarme con esa pareja?
+            total += b                # y me devuelve el favor
+    return total / n
+
+for w in (0.2, 1/3, 0.5, 0.8):
+    print(round(w, 3), round(neto(w, b=3), 3))</code></pre>
+<p>Ejecútalo y responde: (1) ¿en qué valor de \(w\) cambia de signo el resultado y cómo se relaciona con \(c/b\)? (2) Repite con \(b=0{,}9\), que sería el beneficio efectivo de cooperar con alguien tan lento que su devolución vale casi nada para la IA. ¿Existe algún \(w\) que compense?</p>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> El resultado medio se acerca a \(wb-c\). Con \(b=3\) vale \(-0{,}4\) en \(w=0{,}2\), 0 en \(w=1/3\), \(0{,}5\) en \(w=0{,}5\) y \(1{,}4\) en \(w=0{,}8\), con pequeñas variaciones de la simulación. Cambia de signo justo en \(w=c/b=1/3\): es la regla del libro.</p>
+<p><strong>2.</strong> Con \(b=0{,}9\) hace falta \(w>1/0{,}9\approx1{,}11\). Como una probabilidad no puede pasar de 1, no existe ningún \(w\) que compense. Es una forma numérica del aviso del libro (p. 406): si cooperar con personas rinde poco a una IA muy rápida, la reciprocidad directa no las incluirá, y habrá que sostener esa cooperación con otros mecanismos, como las instituciones.</p>
+</details>
+</div>
+
+</div>
+
+</section>

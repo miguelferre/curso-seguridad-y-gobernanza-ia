@@ -1,0 +1,114 @@
+[
+  {
+    "id": "m05l01-q01",
+    "tipo": "unica",
+    "enunciado": "Según el libro, ¿qué dos obstáculos dificultan sobre todo la monitorización eficaz de los sistemas de IA?",
+    "opciones": [
+      "El coste del cómputo y la falta de datos etiquetados",
+      "La opacidad de los modelos y la aparición de capacidades emergentes",
+      "La lentitud de la inferencia y la escasez de investigadores",
+      "El exceso de regulación y la falta de código abierto"
+    ],
+    "correcta": 1,
+    "explicacion": "El libro señala la opacidad de los sistemas y la aparición de capacidades emergentes sorprendentes al hacerse más avanzados. De ahí salen las líneas de trabajo: transparencia, evaluaciones y detección de anomalías."
+  },
+  {
+    "id": "m05l01-q02",
+    "tipo": "unica",
+    "enunciado": "¿Qué advertencia hace el libro sobre muchos mapas de saliencia?",
+    "opciones": [
+      "Son demasiado costosos de calcular para modelos grandes",
+      "Solo funcionan con imágenes de alta resolución",
+      "Muchos dependen poco del modelo: salen parecidos con uno sin entrenar, así que no explican cómo procesa los datos",
+      "Siempre reflejan fielmente las neuronas más activas"
+    ],
+    "correcta": 2,
+    "explicacion": "Si el mapa apenas cambia al usar un modelo aleatorio sin entrenar, no está mostrando nada del modelo real. Es la señal de que una visualización convincente puede no ser informativa."
+  },
+  {
+    "id": "m05l01-q03",
+    "tipo": "vf",
+    "enunciado": "Si el propio modelo de lenguaje escribe el razonamiento que justifica su respuesta, podemos dar esa explicación por fiel a lo que ocurre dentro del modelo.",
+    "correcta": false,
+    "explicacion": "Falso. Las explicaciones de un modelo pueden confabular: sonar plausibles y omitir la verdadera causa. En el ejemplo del libro, un modelo entrenado para responder siempre (a) justificaba esa opción sin mencionar el motivo real."
+  },
+  {
+    "id": "m05l01-q04",
+    "tipo": "vf",
+    "enunciado": "Como la pérdida media de entrenamiento mejora de forma suave al escalar el modelo, se puede descartar que aparezcan capacidades nuevas de golpe.",
+    "correcta": false,
+    "explicacion": "Falso. Cada capacidad puede saltar en un momento distinto y el promedio de muchas las suaviza. Mirando solo la media, cuesta notar que ha aparecido algo nuevo."
+  },
+  {
+    "id": "m05l01-q05",
+    "tipo": "unica",
+    "enunciado": "Un modelo entrenado en laberintos resulta ser un mesa-optimizador. ¿Qué se sabe con certeza de su objetivo interno?",
+    "opciones": [
+      "Que coincide con el objetivo con el que se entrenó",
+      "Que produce buen rendimiento en el entrenamiento, pero hay muchos objetivos distintos que lo logran",
+      "Que es siempre un objetivo instrumental",
+      "Que desaparece al desplegarlo"
+    ],
+    "correcta": 1,
+    "explicacion": "Solo sabemos que el objetivo aprendido funciona bien en el entrenamiento, y muchos objetivos diferentes cumplen eso. Por eso un buen rendimiento entrenando no prueba que el objetivo sea el nuestro."
+  },
+  {
+    "id": "m05l01-q06",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles son virtudes que el libro pide a una buena explicación del comportamiento de un modelo? Marca todas las correctas.",
+    "opciones": [
+      "Poder predictivo: ayudar a anticipar la conducta en casos nuevos",
+      "Fidelidad: reflejar los mecanismos reales del modelo",
+      "Simplicidad: ser fácil de entender sin perder demasiado",
+      "Rapidez: generarse en menos de un segundo"
+    ],
+    "correcta": [
+      0,
+      1,
+      2
+    ],
+    "explicacion": "El libro habla de poder predictivo, fidelidad y simplicidad, y del equilibrio entre las dos últimas. La rapidez de cálculo no es una de esas virtudes."
+  },
+  {
+    "id": "m05l01-q07",
+    "tipo": "unica",
+    "enunciado": "Un modelo de radiografías se descargó de un repositorio comunitario. Funciona bien salvo cuando la imagen lleva una pequeña marca en la esquina: entonces siempre responde «normal». ¿Qué línea de monitorización apunta a este problema?",
+    "opciones": [
+      "Troyanos, porque hay una funcionalidad oculta que se activa con una señal concreta",
+      "Incertidumbre, porque el modelo no está calibrado",
+      "Transparencia, porque el mapa de calor sale poco nítido",
+      "Evaluaciones de capacidades peligrosas en lenguaje natural"
+    ],
+    "correcta": 0,
+    "explicacion": "Un disparador que cambia la respuesta de forma fija es la firma de un troyano. La l05 lo desarrolla. La incertidumbre y la transparencia pueden ayudar a sospecharlo, pero la pregunta de fondo es si hay algo escondido."
+  },
+  {
+    "id": "m05l01-q08",
+    "tipo": "unica",
+    "enunciado": "Para validar un método que busca capacidades peligrosas, el libro propone que los investigadores añadan a propósito funcionalidad oculta. ¿Para qué?",
+    "opciones": [
+      "Para aumentar la capacidad general del modelo",
+      "Para acelerar el entrenamiento",
+      "Para comprobar que el método es lo bastante sensible como para detectarla",
+      "Para poder eliminar la capacidad después"
+    ],
+    "correcta": 2,
+    "explicacion": "Un método que no encuentra nada puede ser insensible. Si no detecta lo que se ha plantado a propósito, no se puede fiar de su silencio."
+  },
+  {
+    "id": "m05l01-q09",
+    "tipo": "numerica",
+    "enunciado": "Un hospital revisa 500 fallos de su modelo. Una línea de vigilancia avisa del 70 % de ellos y otra del 50 %, y sus puntos ciegos son independientes. ¿Cuántos fallos se escapan a las dos? Responde con un número.",
+    "correcta": 75,
+    "tolerancia": 0.5,
+    "explicacion": "A la primera línea se le escapa el 30 % y a la segunda el 50 %. Con independencia se multiplican: 500 × 0,3 × 0,5 = 75 fallos. Si compartieran punto ciego, se escaparían más, hasta 150."
+  },
+  {
+    "id": "m05l01-q10",
+    "tipo": "numerica",
+    "enunciado": "Un modelo se evalúa en 20 tareas. Cada una pasa de 0 a 1 de acierto al alcanzar su propia escala crítica, y las escalas críticas son 1, 2, ..., 20, una por tarea. ¿En cuánto sube el acierto medio al pasar de la escala 12 a la 13? Responde como número entre 0 y 1.",
+    "correcta": 0.05,
+    "tolerancia": 0.001,
+    "explicacion": "A escala 12 hay 12 tareas resueltas (0,60) y a escala 13, 13 (0,65). El promedio sube 0,05, aunque la tarea que se enciende salta de 0 a 1. La media esconde el salto."
+  }
+]

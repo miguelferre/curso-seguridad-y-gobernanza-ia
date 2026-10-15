@@ -1,0 +1,109 @@
+[
+  {
+    "id": "m06l04-q01",
+    "tipo": "unica",
+    "enunciado": "Una clínica recibe la alerta de un modelo y quiere saber por qué salió para este paciente concreto. ¿Qué necesita?",
+    "opciones": [
+      "Una explicación global, el ranking de importancias del modelo entero",
+      "Una explicación local, con lo que empujó esta predicción",
+      "Una justificación, que argumente que la decisión es correcta",
+      "La estabilidad nDCG de la línea base"
+    ],
+    "correcta": 1,
+    "explicacion": "La local responde por qué esta predicción para este caso. La global sirve al equipo de monitorización para ver en qué se apoya el modelo en conjunto. Y ninguna de las dos es una justificación: esa la aporta una persona con criterio clínico."
+  },
+  {
+    "id": "m06l04-q02",
+    "tipo": "numerica",
+    "enunciado": "Un modelo lineal puntúa el riesgo con un coeficiente de -1,5 por cada g/dL de hemoglobina. La media de hemoglobina en el fondo es 12,5 g/dL y el paciente tiene 10,0 g/dL. ¿Cuánto vale el valor de Shapley de la hemoglobina para este paciente, en puntos?",
+    "correcta": 3.75,
+    "tolerancia": 0.02,
+    "explicacion": "Con un modelo lineal y fondo independiente, φ = w · (x − media) = (−1,5) · (10,0 − 12,5) = (−1,5) · (−2,5) = +3,75. Sale positivo: la hemoglobina baja empuja el riesgo hacia arriba."
+  },
+  {
+    "id": "m06l04-q03",
+    "tipo": "numerica",
+    "enunciado": "Un modelo usa dos variables, A y B. Sobre el fondo, la predicción media es v(∅) = 20; conociendo solo A, v(A) = 35; conociendo solo B, v(B) = 28; conociendo las dos, v(A,B) = 60. ¿Cuánto vale el valor de Shapley de A?",
+    "correcta": 23.5,
+    "tolerancia": 0.05,
+    "explicacion": "Hay dos órdenes de entrada con peso 1/2. A entra primero: 35 − 20 = 15. A entra después de B: 60 − 28 = 32. φ_A = ½·15 + ½·32 = 23,5. Como comprobación, φ_B = ½·8 + ½·25 = 16,5 y 23,5 + 16,5 = 40 = 60 − 20."
+  },
+  {
+    "id": "m06l04-q04",
+    "tipo": "vf",
+    "enunciado": "Si cambias el fondo de referencia por un grupo de pacientes muy distinto, los valores de Shapley de un paciente no cambian, porque solo dependen del modelo y del paciente.",
+    "correcta": false,
+    "explicacion": "Falso. El fondo define la base y lo que significa que una variable esté «ausente», así que cambia todos los φ. Con el fondo nuevo la suma sigue cuadrando, pero con una base distinta: elegir un fondo representativo es parte de la explicación."
+  },
+  {
+    "id": "m06l04-q05",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estos métodos se pueden calcular sin etiquetas reales?",
+    "opciones": [
+      "LIME",
+      "Dependencia parcial (PDP)",
+      "Importancia por permutación",
+      "Contrafactual de Wachter"
+    ],
+    "correcta": [
+      0,
+      1,
+      3
+    ],
+    "explicacion": "LIME, el PDP y el contrafactual trabajan con las predicciones del modelo. La permutación mide cuánto empeora el error al barajar una variable, así que necesita las etiquetas para calcular ese error."
+  },
+  {
+    "id": "m06l04-q06",
+    "tipo": "unica",
+    "enunciado": "Llamas dos veces a LIME sobre el mismo paciente, con pocas perturbaciones, y obtienes pesos algo distintos. ¿Cuál es la explicación más probable?",
+    "opciones": [
+      "El modelo ha cambiado entre las dos llamadas",
+      "Es ruido del muestreo aleatorio de perturbaciones",
+      "LIME solo funciona con modelos lineales",
+      "Los valores de Shapley no cumplen la eficiencia"
+    ],
+    "correcta": 1,
+    "explicacion": "LIME ajusta una recta sobre perturbaciones aleatorias. Con pocas, dos llamadas dan pesos distintos. Ayuda subir el número de perturbaciones y repetir la llamada para separar ese ruido de una fragilidad real."
+  },
+  {
+    "id": "m06l04-q07",
+    "tipo": "numerica",
+    "enunciado": "En la línea base, tres variables ocupan los puestos 1, 2 y 3 con relevancias 3, 2 y 1. Hoy los tres puestos los ocupan las variables que en la línea base valían 2, 3 y 1, en ese orden. ¿Cuánto vale el nDCG de hoy? Responde con tres decimales.",
+    "correcta": 0.9225,
+    "tolerancia": 0.01,
+    "explicacion": "IDCG = 3/log2(2) + 2/log2(3) + 1/log2(4) = 3 + 1,262 + 0,5 = 4,762. DCG = 2/1 + 3/1,585 + 1/2 = 2 + 1,893 + 0,5 = 4,393. nDCG = 4,393 / 4,762 = 0,9225. Un intercambio entre las dos primeras pesa más que uno entre las dos últimas (0,973 en el ejercicio B)."
+  },
+  {
+    "id": "m06l04-q08",
+    "tipo": "unica",
+    "enunciado": "En el evento de la demo de Vigía, la estabilidad de la explicación vale 0,984 («ok») mientras el monitor de equidad da alerta. ¿Qué lectura es correcta?",
+    "opciones": [
+      "La explicación es estable, luego el modelo es correcto y equitativo",
+      "El modelo se apoya en lo mismo que siempre y aun así puede tratar peor a un grupo: la estabilidad no sustituye a la equidad",
+      "Uno de los dos monitores tiene un error y hay que apagarlo",
+      "La estabilidad debería haber caído por debajo de 0,5 para ser coherente"
+    ],
+    "correcta": 1,
+    "explicacion": "Una estabilidad alta solo dice que la explicación se parece a la de la línea base, no que sea correcta ni que el daño esté repartido por igual. Los monitores miran cosas distintas y se leen juntos."
+  },
+  {
+    "id": "m06l04-q09",
+    "tipo": "vf",
+    "enunciado": "En un modelo de lenguaje, los pesos de atención muestran a qué palabras atendió el modelo y por eso son una buena explicación de por qué decidió lo que decidió.",
+    "correcta": false,
+    "explicacion": "Falso. Según el Atlas, una atención alta en un token no implica que ese token sea responsable de la salida: dónde miró el modelo no es lo mismo que qué pesó en su decisión."
+  },
+  {
+    "id": "m06l04-q10",
+    "tipo": "unica",
+    "enunciado": "Dos pacientes que difieren en 0,1 años de edad reciben del explicador explicaciones opuestas: la edad pesa +0,3 en uno y −0,2 en el otro. ¿Qué propiedad falla?",
+    "opciones": [
+      "La estabilidad temporal frente a la línea base",
+      "La eficiencia de Shapley",
+      "La robustez del explicador ante entradas casi idénticas",
+      "La justificación clínica de la decisión"
+    ],
+    "correcta": 2,
+    "explicacion": "La robustez compara entradas vecinas en el mismo momento. La estabilidad temporal compara contra una línea base histórica, y la eficiencia es una propiedad de la suma de los valores de Shapley. Antes de culpar al explicador conviene repetir la llamada, por si es solo ruido de muestreo."
+  }
+]

@@ -1,0 +1,221 @@
+<section class="leccion" data-id="m04/l02">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Un modelo aprende con los datos de un sitio y después trabaja en otro. Si el segundo se parece poco al primero, el modelo falla sin avisar: por dentro sigue tan seguro como antes.</p>
+<p>Ese desajuste se llama desplazamiento de distribución (<em>distribution shift</em>). Puede cambiar quiénes son los pacientes, cuántos están enfermos o cómo miden los aparatos. Para prepararse se prueba el modelo con cambios fabricados, de leves a fuertes, y se entrena con variaciones de sus propios datos.</p>
+<p>Pero eso solo cubre los cambios que alguien imaginó. El que ocurra de verdad puede ser otro, y ahí aparece el cisne negro. Por eso la prueba de antes se completa con vigilancia después.</p>
+
+<svg viewBox="0 0 360 250" role="img" aria-labelledby="ds-t ds-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="ds-t">Entrenamiento y despliegue no coinciden</title>
+<desc id="ds-d">Dos campanas que se solapan solo en parte: la de entrenamiento, en el hospital A, a la izquierda, y la de despliegue, en el hospital B, desplazada a la derecha. Debajo, tres cosas que pueden cambiar: quiénes son los pacientes, cuántos están enfermos y cómo se mide.</desc>
+<rect x="4" y="4" width="352" height="152" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="26" style="fill:var(--accent-ink);font-weight:700;font-size:14px">DATOS DE ENTRENAMIENTO Y DE USO</text>
+<path d="M30,132 C62,132 78,50 122,50 C166,50 182,132 214,132 Z" style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:2"/>
+<path d="M118,132 C150,132 166,62 210,62 C254,62 270,132 302,132 Z" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:2;fill-opacity:.8"/>
+<text x="60" y="118" text-anchor="middle" style="fill:var(--accent-ink);font-size:12px;font-weight:700">Hospital A</text>
+<text x="274" y="118" text-anchor="middle" style="fill:var(--trap);font-size:12px;font-weight:700">Hospital B</text>
+<text x="180" y="147" text-anchor="middle" style="fill:var(--muted);font-size:12px">el modelo apenas vio lo de la derecha</text>
+<rect x="4" y="166" width="112" height="78" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="60" y="190" text-anchor="middle" style="fill:var(--ex);font-weight:700;font-size:13px">Quiénes</text>
+<text x="60" y="210" text-anchor="middle" style="fill:currentColor;font-size:12px">edad y perfil</text>
+<text x="60" y="228" text-anchor="middle" style="fill:var(--muted);font-size:11px">de los pacientes</text>
+<rect x="124" y="166" width="112" height="78" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="180" y="190" text-anchor="middle" style="fill:var(--ex);font-weight:700;font-size:13px">Cuántos</text>
+<text x="180" y="210" text-anchor="middle" style="fill:currentColor;font-size:12px">prevalencia</text>
+<text x="180" y="228" text-anchor="middle" style="fill:var(--muted);font-size:11px">de la enfermedad</text>
+<rect x="244" y="166" width="112" height="78" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="300" y="190" text-anchor="middle" style="fill:var(--ex);font-weight:700;font-size:13px">Cómo se mide</text>
+<text x="300" y="210" text-anchor="middle" style="fill:currentColor;font-size:12px">ruido y sesgo</text>
+<text x="300" y="228" text-anchor="middle" style="fill:var(--muted);font-size:11px">de los aparatos</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Distinguir los desplazamientos de etiqueta, de covariables y de concepto, con un ejemplo sanitario de cada uno.</li>
+<li>Explicar por qué la exactitud de validación no anticipa la de despliegue, y calcular cómo la exactitud puede subir mientras el valor predictivo positivo se hunde.</li>
+<li>Diseñar una prueba de estrés: qué cambios, en cuántos niveles de severidad, con qué métricas y por qué no se entrena con ella.</li>
+<li>Describir el aumento de datos y decir qué protege, qué no y cuánto cuesta.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>Por qué un modelo rinde peor fuera del laboratorio</h3>
+<p>Las notas del curso parten de un clasificador de gatos y perros cuya exactitud en uso real es entre un 20 y un 30 % menor que en entrenamiento. Se aparta un conjunto de validación, se reentrena y la brecha sigue igual. Conclusión: no era sobreajuste (<em>overfitting</em>), sino que los datos del mundo real salen de otra distribución (ejemplo de las notas).</p>
+<p>(Ejemplo propio.) Un modelo que estima la probabilidad de una enfermedad se entrena con pacientes del hospital A y rinde de maravilla. El hospital B lo adopta. Allí los pacientes son más mayores, el analizador es de otra marca y la enfermedad es menos frecuente. Nadie ha tocado el modelo y aun así rinde peor. El informe de validación de A no lo avisó porque no podía: solo conocía A.</p>
+
+<h3>Qué puede cambiar exactamente</h3>
+<p>Hablamos de desplazamiento de distribución (<em>distribution shift</em> o <em>dataset shift</em>) cuando la distribución de entrenamiento y la de uso difieren: \(P_{\text{ent}}(X,Y)\neq P_{\text{uso}}(X,Y)\). Aquí \(X\) son los datos de entrada e \(Y\) lo que se quiere predecir. La distribución conjunta se puede trocear de dos maneras, \(P(X,Y)=P(Y)\,P(X\mid Y)=P(X)\,P(Y\mid X)\), y de ahí salen tres cambios básicos.</p>
+<div class="tw"><table>
+<thead><tr><th>Cambio</th><th>Qué se mueve</th><th>Qué se queda</th><th>Ejemplo del Atlas</th></tr></thead>
+<tbody>
+<tr><td>De etiqueta (<em>label shift</em>)</td><td>\(P(Y)\)</td><td>\(P(X\mid Y)\)</td><td>Una campaña de cribado duplica los positivos que llegan al sistema; cada paciente sigue igual (deriva de etiqueta)</td></tr>
+<tr><td>De covariables (<em>covariate shift</em>)</td><td>\(P(X)\)</td><td>\(P(Y\mid X)\)</td><td>Un hospital cambia de escáner y las imágenes tienen otra textura de ruido (deriva de datos)</td></tr>
+<tr><td>De concepto (<em>concept shift</em>)</td><td>\(P(Y\mid X)\)</td><td>\(P(X)\)</td><td>Una guía clínica nueva cambia cuándo derivar a un paciente con el mismo perfil (deriva de concepto)</td></tr>
+</tbody></table></div>
+<p>Las notas tratan los dos primeros y advierten de que la mayoría de los trabajos de aprendizaje profundo que dicen resolver el desplazamiento resuelven en realidad el de covariables, y de ese se ocupa el resto de la lección. El tercero y los ejemplos los aporta el Atlas. En la práctica los cambios llegan mezclados y la terminología es laxa.</p>
+<p>Un matiz propio: en el <a data-ir="practica" href="#sim-desplazamiento">simulador de la parte de Práctica</a>, el cambio de edad no es de covariables puro. El modelo aprende en A que los enfermos son mayores. Si en B tanto sanos como enfermos son mayores, la edad deja de separarlos y el modelo confunde vejez con enfermedad. Es una correlación espuria (<em>spurious correlation</em>): útil en A y engañosa en B. Las notas usan el caso de las aves acuáticas, que suelen aparecer sobre fondo azul: si el modelo se agarra al fondo, falla cuando el fondo cambia.</p>
+
+<h3>Por qué no basta la exactitud de validación</h3>
+<p>La validación sale del mismo pozo que el entrenamiento, así que mide sobreajuste, no desplazamiento (razonamiento propio a partir del caso de las notas). El libro lo señala al hablar de ataques: que un sistema puntúe alto en su conjunto de prueba no dice si resistirá (libro 3.3.3). Y hay un segundo problema, más sutil: una sola cifra de exactitud puede subir mientras el sistema empeora.</p>
+<p>Supón un desplazamiento de etiqueta puro, con sensibilidad \(s\) y especificidad \(e\) fijas y prevalencia \(\pi\). Entonces (fórmulas y ejemplo propios):</p>
+<div class="formula">\[ \text{exactitud}=\pi s+(1-\pi)e \qquad\qquad \text{VPP}=\frac{\pi s}{\pi s+(1-\pi)(1-e)} \]</div>
+<p>El valor predictivo positivo (VPP) es la fracción de alertas que corresponden a un enfermo de verdad. Con \(s=0{,}90\) y \(e=0{,}95\):</p>
+<div class="tw"><table>
+<thead><tr><th>Prevalencia</th><th>Exactitud</th><th>VPP</th><th>Alertas falsas de cada 100 alertas</th></tr></thead>
+<tbody>
+<tr><td>20 %</td><td>0,940</td><td>0,818</td><td>18</td></tr>
+<tr><td>2 %</td><td>0,949</td><td>0,269</td><td>73</td></tr>
+</tbody></table></div>
+<p>Al bajar la prevalencia casi todos los pacientes son sanos y manda la especificidad, así que la exactitud sube. Pero las alertas se llenan de falsos positivos. La lección práctica: la robustez se describe con curvas y con varias métricas, no con un número.</p>
+
+<h3>Cómo se prueba la robustez</h3>
+<p>Una prueba de estrés (<em>stress test</em>) somete al modelo a cambios controlados y mide cuánto se degrada. Las notas repasan los bancos de prueba de clasificación de imágenes, que sirven de patrón:</p>
+<dl class="facts">
+<div><dt>ImageNet-C</dt><dd>Quince corrupciones comunes en cinco niveles de severidad cada una, 75 en total. Su métrica, el error medio por corrupción (<em>mCE</em>), divide el error del modelo por el de un modelo de referencia antiguo (AlexNet): cuanto menor, mejor.</dd></div>
+<div><dt>ImageNet-Sketch e ImageNet-R</dt><dd>50 000 bocetos y 30 000 renderizaciones artísticas de las mismas clases. Es un cambio grande pero controlado.</dd></div>
+<div><dt>ImageNet-A</dt><dd>Imágenes reales que se han filtrado porque dos redes ResNet las clasifican mal. Es un filtro sobre imágenes naturales, no un ataque con perturbación acotada (aclaración propia): esos ataques son de la lección anterior del módulo (m04/l01).</dd></div>
+<div><dt>WILDS</dt><dd>Diez conjuntos con cambios reales (lenguaje, código, moléculas, medicina, satélite, reseñas). Cada ejemplo lleva además una etiqueta de dominio, como la cámara con la que se hizo.</dd></div>
+</dl>
+<p>La regla de las notas es que estos bancos sirven para probar y no para entrenar. Así el cambio sigue pareciéndose a uno imprevisto. Si se entrena con ellos, la nota deja de medir lo que prometía.</p>
+<p>Traducido a la clínica (receta propia):</p>
+<ol>
+<li>Lista los cambios plausibles: analizador, edad, prevalencia, datos que faltan. Es la imaginación de seguridad de la segunda lección de cisnes negros, la del módulo 2.</li>
+<li>Define para cada uno niveles de severidad, de leve a fuerte.</li>
+<li>Mide una curva por cambio y con varias métricas: exactitud, sensibilidad y VPP.</li>
+<li>Fija antes de mirar un criterio de aceptación, como "exactitud mínima del 90 % con un sesgo de hasta 1,0". El resultado no es "robusto" o "no robusto", sino hasta dónde aguanta.</li>
+</ol>
+
+<h3>Cómo se mejora la robustez</h3>
+<p>Las notas agrupan las mejoras en tres direcciones: aumento de datos, arquitectura y preentrenamiento. Nos detenemos en la primera porque es la que puedes practicar.</p>
+
+<h4>Aumento de datos (data augmentation)</h4>
+<p>(Ejemplo propio.) Imagina que el analizador del hospital B lee con más ruido que el del A y no sabes cuánto. Una salida es que el modelo ya haya visto esa incertidumbre al entrenarse: junto a las lecturas originales, se le dan copias alteradas al azar que siguen siendo casos válidos. Las notas llaman aumento de datos (<em>data augmentation</em>) a esta idea, con giros, volteos o cambios de color en imágenes como ejemplos, y esperan que los rasgos que resisten las alteraciones resistan también el cambio real. Entre las líneas que citan están los aumentos nuevos, los algoritmos que buscan los mejores, la combinación de varios y el entrenamiento adversarial piramidal, que añade ruido adversarial a varias resoluciones y enlaza con m04/l01.</p>
+<p>Con datos de pacientes no hay giros que hacer: las alteraciones son lecturas de un analizador con más ruido, con otra calibración o con campos que faltan (idea propia). El <a data-ir="practica" href="#sim-desplazamiento">simulador de Práctica</a> entrena un segundo modelo con copias de los pacientes de A con esas alteraciones y lo compara con el modelo normal. Lo que enseña, y no viene de las notas:</p>
+<ul>
+<li>Protege dentro de la familia de alteraciones que se simuló. Cuando el cambio sale de ese rango, la protección se acaba.</li>
+<li>Cuesta algo en el hospital A: el modelo se apoya menos en la lectura del analizador, que era muy informativa.</li>
+<li>No arregla la prevalencia ni la edad. Un cambio que el aumento no conocía no lo cubre, e incluso puede estorbar.</li>
+</ul>
+
+<h4>Otras direcciones</h4>
+<p>Los transformadores de visión resultaron más robustos que las redes convolucionales tipo ResNet, y ConvNeXt, una red convolucional rediseñada, alcanza una robustez comparable casi como efecto secundario. Las notas no declaran ganador. En preentrenamiento, el autocodificador enmascarado (<em>masked autoencoder</em>, MAE) oculta en torno al 80 % de la imagen y aprende a reconstruirla; al salir marcó el estado del arte en estos bancos. Otra línea busca rasgos invariantes que ignoren las correlaciones espurias, y otra optimiza sobre un conjunto explícito de distribuciones conocidas; las notas la vinculan con el sesgo algorítmico, que retomará el módulo 6.</p>
+
+<h3>Dónde acaba la robustez</h3>
+<p>(Comentario propio.) Toda prueba de estrés y todo aumento cubren la familia de cambios que alguien imaginó: un conocido desconocido. El cisne negro (módulo 2) es el cambio que cae fuera de la familia, como un analizador que falla de una forma que nadie simuló o una enfermedad nueva. Los bancos de las notas se reservan para probar porque así aproximan lo imprevisto, y aproximar no es asegurar.</p>
+<p>Al hablar de vigilar sistemas de IA, el libro pone entre los retos clave que un detector reconozca un cisne negro: un suceso raro e imprevisible que ningún ejemplo de entrenamiento representó (libro 3.2, p. 135). Su herramienta es la detección de anomalías, del módulo 5.</p>
+<p>Después de desplegar queda la segunda línea de defensa: vigilar. El módulo 6 lo retoma en la lección de deriva. El monitor de deriva del Atlas distingue deriva de datos, de concepto y de etiqueta, que son los tres desplazamientos de esta lección con otro nombre. Vigía lo enseña con un lote de pacientes en el que los jóvenes pasan del 15 % al 33 % de la muestra.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, con las cifras del simulador)</p>
+<p>Esta es la prueba de estrés del modelo del simulador frente a un analizador que lee de más (sesgo). Se compara el modelo normal con uno entrenado con aumento de intensidad 2, que vio sesgos de hasta \(\pm 1\) y ruido de hasta 2. El criterio, fijado antes: exactitud mínima del 90 %.</p>
+<div class="tw"><table>
+<thead><tr><th>Sesgo del analizador</th><th>0</th><th>0,5</th><th>1,0</th><th>1,5</th><th>2,0</th></tr></thead>
+<tbody>
+<tr><td>Modelo normal</td><td>98,2 %</td><td>97,2 %</td><td>94,3 %</td><td>88,6 %</td><td>79,8 %</td></tr>
+<tr><td>Modelo con aumento</td><td>97,4 %</td><td>97,3 %</td><td>96,3 %</td><td>94,2 %</td><td>90,6 %</td></tr>
+</tbody></table></div>
+<p>El modelo normal cumple hasta un sesgo de 1,0 y falla en 1,5. El de aumento cumple incluso con 2,0, ya fuera de lo que vio, y a cambio pierde unas ocho décimas en el hospital A. La conclusión no es que uno "sea robusto", sino qué rango de sesgo cubre cada uno. Con un sesgo de 3 hasta el de aumento cae por debajo del 80 %.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Entrenar con la propia prueba.</strong> Si el modelo se entrena con las corrupciones exactas con las que se evalúa, la nota sube y la robustez no: se ha aprendido el examen. Las notas lo avisan también para el aumento de datos.</p>
+<p><strong>Robustez con un solo número (aviso propio).</strong> La exactitud global puede subir cuando la prevalencia baja, y un aumento que ayuda con el sesgo puede estorbar con la edad. Sin curvas por tipo de cambio y sin varias métricas, un buen resultado no dice mucho.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>Validation accuracy only tells me how the model does on data like what it saw. Before deployment I run stress tests across shift types and severities, and after deployment I monitor for drift, because the shift that hurts will probably be the one I didn't test.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS), lección L7 Black Swan Robustness, notas de Oliver Zhang: definición y tipos de desplazamiento, bancos de prueba (ImageNet-C, Sketch, R, A y WILDS), aumento de datos, arquitectura, preentrenamiento y otros marcos.</li>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 3.2, p. 135 (los sucesos raros no representados en el entrenamiento y la detección de anomalías) y sección 3.3.3, p. 146 (una exactitud alta de prueba no asegura robustez).</li>
+<li>Atlas de métricas (obra propia de Miguel), monitor de deriva: deriva de datos, de concepto y de etiqueta, con sus ejemplos clínicos. Vigía: guion del laboratorio, escenario del lote con jóvenes (15 % a 33 %).</li>
+<li>Añadido propio, no procede de las fuentes: el caso del hospital A y el B; las fórmulas de exactitud y VPP bajo cambio de prevalencia y sus cifras; la receta de prueba de estrés clínica; el matiz de la edad como correlación espuria; la traducción del aumento a datos de pacientes y sus límites; el simulador, el ejemplo de la tabla y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: primero un simulador para explorar el desplazamiento y el aumento de datos, después tres ejercicios.</p>
+
+<p class="consigna"><strong>Simulador del desplazamiento.</strong> El modelo es propio y sintético: estima una enfermedad con la edad, la lectura de un analizador y otro dato clínico, y se entrena en el hospital A. Empieza como está (sesgo 1,5, aumento 2): el modelo normal cae hacia el 89 % y el de aumento hacia el 94 %, a cambio de unas ocho décimas menos en A. Sube el sesgo hasta 3: el modelo de aumento también cae, sobre todo cuando el sesgo pasa de lo que vio (± 1). Cambia la curva a "Edad media" y sube los años: con este sesgo la ventaja del aumento se encoge de unos 5,6 puntos a unos 2, porque la edad no es lo que protegía. Pulsa "Hospital A (sin cambio)" para poner el sesgo a 0 y repite la curva: ahora el modelo de aumento queda por debajo del normal, hasta unos 4 puntos con 25 años de más. Por último, con el hospital A puesto, baja la prevalencia a 2 % y elige VPP como métrica de la curva: la exactitud de la tabla sube 0,6 puntos respecto a A, pero el VPP del modelo normal cae del 95,7 % al 64,0 %.
+<div data-widget="m04-l02-desplazamiento" id="sim-desplazamiento"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: el mismo modelo en otro sitio (a mano, 6 minutos)</p>
+<p>Un modelo de cribado tiene sensibilidad 0,85 y especificidad 0,90 (cifras propias). Se entrenó donde la prevalencia era del 10 %. Se despliega en un centro de atención primaria con prevalencia del 1 %, y se supone que la sensibilidad y la especificidad se mantienen.</p>
+<ol>
+<li>Calcula la exactitud y el VPP en cada sitio.</li>
+<li>En 10 000 pacientes del centro, ¿cuántas alertas son verdaderas y cuántas falsas?</li>
+<li>¿Ha mejorado el modelo porque su exactitud haya subido?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Con \(\pi=0{,}10\): exactitud \(0{,}10\times0{,}85+0{,}90\times0{,}90=0{,}895\); VPP \(=0{,}085/(0{,}085+0{,}90\times0{,}10)=0{,}486\). Con \(\pi=0{,}01\): exactitud \(0{,}0085+0{,}99\times0{,}90=0{,}8995\); VPP \(=0{,}0085/(0{,}0085+0{,}99\times0{,}10)=0{,}079\).</p>
+<p><strong>2.</strong> Hay 100 enfermos y 9 900 sanos. Alertas verdaderas: \(0{,}85\times100=85\). Alertas falsas: \(0{,}10\times9\,900=990\). Son 1 075 alertas y solo 85 son enfermos.</p>
+<p><strong>3.</strong> No. La exactitud pasa de 0,895 a 0,8995 solo porque hay muchos más sanos, que el modelo acierta bien. El VPP cae del 49 % al 8 %: de cada cien alertas, más de noventa son falsas. Es un desplazamiento de etiqueta y pide recalibrar el umbral, no fiarse de la exactitud.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: leer una prueba de estrés (a mano, 8 minutos)</p>
+<p>Un equipo compara un modelo normal X con otro entrenado con aumento Y en cinco niveles de severidad de un cambio de analizador (cifras propias). Sin cambio, X tiene un 95 % de exactitud e Y un 93 %.</p>
+<div class="tw"><table>
+<thead><tr><th>Nivel</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead>
+<tbody>
+<tr><td>Exactitud de X</td><td>0,93</td><td>0,90</td><td>0,84</td><td>0,75</td><td>0,62</td></tr>
+<tr><td>Exactitud de Y</td><td>0,92</td><td>0,91</td><td>0,88</td><td>0,83</td><td>0,77</td></tr>
+</tbody></table></div>
+<ol>
+<li>Calcula el error medio de cada modelo en los cinco niveles y el cociente error de Y entre error de X, al estilo del mCE con X como referencia.</li>
+<li>El criterio fijado era "al menos un 85 % hasta el nivel 3". ¿Quién lo cumple?</li>
+<li>Si solo mirases la exactitud sin cambio, ¿qué modelo elegirías y qué te perderías?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Exactitud media de X: \((0{,}93+0{,}90+0{,}84+0{,}75+0{,}62)/5=0{,}808\), error medio \(0{,}192\). De Y: \((0{,}92+0{,}91+0{,}88+0{,}83+0{,}77)/5=0{,}862\), error medio \(0{,}138\). Cociente: \(0{,}138/0{,}192=0{,}72\). Aquí la referencia es X, no un modelo externo como AlexNet: es una adaptación propia del mCE.</p>
+<p><strong>2.</strong> En el nivel 3, X tiene 0,84 (falla) e Y tiene 0,88 (cumple). Y cumple en los tres niveles y X solo en los dos primeros.</p>
+<p><strong>3.</strong> Elegirías X (0,95 frente a 0,93) y te perderías que Y aguanta mucho mejor los cambios fuertes: en el nivel 5 la diferencia es de 15 puntos. La exactitud sin cambio esconde el rango de cobertura.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: el punto de ruptura, con Python (10 minutos)</p>
+<p>Un modelo de un solo dato clasifica con un umbral. Los sanos leen \(N(0,1)\) y los enfermos \(N(3,1)\), la mitad de cada uno, y el umbral está en 1,5. Un analizador nuevo lee de más una cantidad fija (el sesgo). Antes de ejecutar, estima la exactitud con sesgo 1 y luego comprueba con este código, que solo usa la biblioteca estándar:</p>
+<pre><code>from statistics import NormalDist
+
+N = NormalDist()
+
+def exactitud(sesgo, umbral=1.5):
+    sanos_bien = N.cdf(umbral - sesgo)
+    enfermos_bien = 1 - N.cdf(umbral - 3 - sesgo)
+    return 0.5 * (sanos_bien + enfermos_bien)
+
+for b in (0, 0.5, 1, 1.5, 2, 3):
+    print(b, round(exactitud(b), 3))</code></pre>
+<ol>
+<li>Con un bucle, encuentra el mayor sesgo con exactitud de al menos 0,80.</li>
+<li>Llama a <code>exactitud(1, umbral=2.5)</code>. ¿Qué exactitud sale y qué significa?</li>
+<li>¿Por qué esa solución no sirve cuando no sabes de antemano cuánto valdrá el sesgo, y qué herramienta ocupa su lugar?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p>El código da 0,933; 0,909; 0,843; 0,749; 0,654 y 0,533. Con sesgo 1 la exactitud es 0,843.</p>
+<p><strong>1.</strong> El sesgo máximo que mantiene el 80 % es de unos 1,24. Es el punto de ruptura respecto al criterio.</p>
+<p><strong>2.</strong> Sale 0,933, la de sesgo 0. Subir el umbral en la misma cantidad que el sesgo devuelve toda la exactitud: es recalibrar.</p>
+<p><strong>3.</strong> Porque hay que conocer el sesgo. Sin saberlo, se puede entrenar con aumento, que reparte la protección en un rango a costa de algo de exactitud en A. Después de desplegar, el monitor de deriva del módulo 6 sirve para descubrir el sesgo real y decidir si toca recalibrar.</p>
+</details>
+</div>
+</div>
+
+</section>

@@ -1,0 +1,235 @@
+<section class="leccion" data-id="m00/l05">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Entrenar un modelo grande es una apuesta cara, pero no del todo a ciegas: si sabes cuánto cómputo, cuántos parámetros y cuántos datos vas a poner, existe una ecuación que estima cuánto se equivocará. Esas ecuaciones son las leyes de escala (<em>scaling laws</em>).</p>
+<p>Tienen una forma muy concreta: cada mejora cuesta más que la anterior. Para reducir a la mitad la parte del error que se puede reducir hay que multiplicar los recursos por un factor grande, no por dos, y además queda un suelo de error que ninguna escala elimina.</p>
+<p>La segunda mitad de la lección mira el ritmo. El cómputo crece muy deprisa, los plazos para una IA de nivel humano son muy inciertos y la IA puede ser peligrosa mucho antes de ese hito. Al final tienes el repaso de todo el módulo 0.</p>
+
+<svg viewBox="0 0 360 352" role="img" aria-labelledby="rs5-t rs5-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="rs5-t">Leyes de escala y velocidad de la IA</title>
+<desc id="rs5-d">Primer panel: una recta descendente en una gráfica log-log, cuya pendiente es el exponente. Segundo panel: el cómputo se reparte entre parámetros y datos, y ambos bajan la pérdida. Tercer panel: una línea de tiempo con las estimaciones de las encuestas de expertos sobre IA de nivel humano, 10 % en 2027, 50 % en 2047 y 50 % en 2059.</desc>
+<rect x="4" y="4" width="352" height="112" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="26" style="fill:var(--accent-ink);font-weight:700;font-size:14px">LEY DE POTENCIAS: recta en log-log</text>
+<path d="M40 38 V100 H200" style="fill:none;stroke:var(--muted);stroke-width:1.5"/>
+<line x1="48" y1="46" x2="192" y2="92" style="stroke:var(--accent);stroke-width:3"/>
+<circle cx="48" cy="46" r="4" style="fill:var(--accent)"/><circle cx="192" cy="92" r="4" style="fill:var(--accent)"/>
+<text x="12" y="52" style="fill:var(--muted);font-size:11px">log y</text>
+<text x="170" y="113" style="fill:var(--muted);font-size:11px">log x</text>
+<text x="216" y="62" style="fill:currentColor;font-size:12.5px">La pendiente</text>
+<text x="216" y="80" style="fill:currentColor;font-size:12.5px">es el exponente</text>
+
+<rect x="4" y="126" width="352" height="98" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="18" y="148" style="fill:var(--ex);font-weight:700;font-size:14px">MÁS CÓMPUTO, MENOS PÉRDIDA</text>
+<rect x="10" y="160" width="84" height="28" rx="6" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<text x="52" y="178" text-anchor="middle" style="fill:currentColor;font-size:12.5px">Cómputo</text>
+<rect x="118" y="160" width="128" height="28" rx="6" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<text x="182" y="178" text-anchor="middle" style="fill:currentColor;font-size:12.5px">Parámetros y datos</text>
+<rect x="270" y="160" width="80" height="28" rx="6" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<text x="310" y="178" text-anchor="middle" style="fill:currentColor;font-size:12.5px">Pérdida</text>
+<path d="M94 174 H112 M246 174 H264" style="fill:none;stroke:var(--ex);stroke-width:1.5"/>
+<polygon points="118,174 110,170 110,178" style="fill:var(--ex)"/><polygon points="270,174 262,170 262,178" style="fill:var(--ex)"/>
+<text x="18" y="210" style="fill:var(--muted);font-size:12px">Cada salto es una ley de potencias, con un suelo de error</text>
+
+<rect x="4" y="234" width="352" height="114" rx="10" style="fill:var(--surface);stroke:var(--trap);stroke-width:2"/>
+<text x="18" y="256" style="fill:var(--trap);font-weight:700;font-size:14px">¿CUÁNDO IA DE NIVEL HUMANO? MUY INCIERTO</text>
+<line x1="30" y1="298" x2="330" y2="298" style="stroke:var(--muted);stroke-width:1.5"/>
+<circle cx="45" cy="298" r="5" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:2"/>
+<circle cx="195" cy="298" r="5" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:2"/>
+<circle cx="285" cy="298" r="5" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:2"/>
+<text x="45" y="286" text-anchor="middle" style="fill:currentColor;font-size:12px">2027 · 10 %</text>
+<text x="195" y="286" text-anchor="middle" style="fill:currentColor;font-size:12px">2047 · 50 %</text>
+<text x="285" y="322" text-anchor="middle" style="fill:currentColor;font-size:12px">2059 · 50 %</text>
+<text x="18" y="340" style="fill:var(--muted);font-size:11.5px">Encuesta de 2023 (2027 y 2047) y de 2022 (2059)</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Leer un exponente en una gráfica log-log y calcular cuánto hay que escalar para dividir una magnitud entre dos.</li>
+<li>Interpretar los tres términos de la ecuación de Chinchilla y explicar por qué importa repartir bien los parámetros y los datos.</li>
+<li>Nombrar los límites de las leyes de escala: no son universales, sus ecuaciones se discuten y hay un suelo de error.</li>
+<li>Resumir con cifras el ritmo del cómputo y las estimaciones de plazos de la IA de nivel humano, con sus obstáculos.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>Primero, una herramienta: la ley de potencias</h3>
+<p>Una ley de potencias (<em>power law</em>) relaciona dos cantidades con la forma \(y=b\,x^{a}\). Manda el exponente \(a\): si \(x\) se multiplica por un factor \(k\), \(y\) se multiplica por \(k^{a}\). Con \(a=2\), duplicar \(x\) cuadruplica \(y\), como pasa con el área de un círculo cuando duplicas su radio (ejemplo del libro). Con un exponente negativo, \(y\) baja cuando \(x\) crece, y ese es el caso de las leyes de escala.</p>
+<p>Hay un truco para reconocerlas a simple vista. Al tomar logaritmos queda una recta, con la pendiente \(a\). Si dibujas una gráfica con los dos ejes en escala logarítmica (gráfica log-log), toda ley de potencias sale como una recta y la pendiente es el exponente.</p>
+<div class="formula">\[ y=b\,x^{a}\;\Longleftrightarrow\;\log y=a\log x+\log b \qquad\text{y}\qquad x\to k\,x\;\Rightarrow\;y\to k^{a}\,y \]</div>
+<p>De aquí sale la pregunta práctica de la lección: si \(y\) baja como \(x^{-a}\), ¿cuánto hay que multiplicar \(x\) para dividir \(y\) entre dos? Se resuelve \(k^{-a}=\tfrac12\) (cálculo propio):</p>
+<div class="formula">\[ k=2^{1/a} \]</div>
+<p>Ejemplo propio con un exponente redondo: si \(a=0{,}301\), entonces \(k=10\). Cada vez que multiplicas \(x\) por diez, \(y\) se divide por dos. Puedes verlo en el <a data-ir="practica" href="#sim-m00-l05-escala">simulador de Práctica</a>: la recta de la gráfica tiene esa pendiente.</p>
+
+<h3>¿Qué predice una ley de escala en una red profunda?</h3>
+<p>En aprendizaje profundo, la pérdida (<em>loss</em>, la medida de cuánto se equivoca el modelo) baja de forma predecible cuando crecen dos cantidades:</p>
+<dl class="facts">
+<div><dt>N</dt><dd>El número de parámetros, es decir, los pesos que se ajustan al entrenar. Es una medida aproximada de la capacidad del modelo.</dd></div>
+<div><dt>D</dt><dd>El tamaño de los datos de entrenamiento, contados en tokens (o en otras unidades básicas, según la modalidad).</dd></div>
+</dl>
+<p>Las dos cosas dependen del cómputo (<em>compute</em>): con más cómputo cabe un modelo mayor, más datos o ambas cosas. Dos precisiones. El libro mide el cómputo en FLOP/s, pero en la ley cuenta el total de operaciones del entrenamiento, los FLOP (aclaración propia). Y para pasar de cómputo a parámetros y datos usaremos \(C\approx 6ND\), una regla que no está en el libro: es un añadido externo, tomado del artículo de Chinchilla (Hoffmann et al., 2022), que el libro recomienda en su bibliografía (p. 113).</p>
+<p>Según el libro, estas relaciones se han mantenido sobre unos ocho órdenes de magnitud de cómputo (un orden de magnitud es multiplicar por diez) y las curvas de modelos muy distintos se parecen. La pérdida baja de forma potencial, no lineal, y cada paso cuesta más que el anterior. Una advertencia sobre la cifra con que el libro lo ilustra (p. 104): al duplicar los parámetros, dice, la pérdida podría quedar en un cuarto o un octavo, según el exponente. Eso corresponde a exponentes de 2 y de 3, mientras que los de la ecuación que el libro da una página después (p. 105) son 0,34 y 0,28. Con ellos, duplicar N deja ese término en un 79 % (\(2^{-0{,}34}\approx0{,}79\), cálculo propio) y la pérdida total apenas se mueve. Tómala como imagen genérica de una ley de potencias y quédate con los exponentes de la ecuación.</p>
+
+<h3>La ecuación de Chinchilla</h3>
+<p>El ejemplo estrella es Chinchilla, un modelo de lenguaje de 70.000 millones de parámetros que superó a otros mucho mayores porque se entrenó con bastantes más tokens de lo habitual. De ahí salió una ley de escala que tiene en cuenta parámetros y datos a la vez. Su ecuación estimada (libro, ecuación 2.1) es:</p>
+<div class="formula">\[ L(N,D)=406{,}4\,N^{-0{,}34}+410{,}7\,D^{-0{,}28}+1{,}69 \]</div>
+<div class="tw"><table>
+<thead><tr><th>Término</th><th>Qué recoge</th><th>Cómo baja</th></tr></thead>
+<tbody>
+<tr><td>\(406{,}4\,N^{-0{,}34}\)</td><td>lo que se pierde por tener un modelo pequeño</td><td>ley de potencias en N, exponente 0,34</td></tr>
+<tr><td>\(410{,}7\,D^{-0{,}28}\)</td><td>lo que se pierde por tener pocos datos</td><td>ley de potencias en D, exponente 0,28</td></tr>
+<tr><td>\(1{,}69\)</td><td>el error irreducible (nombre del libro)</td><td>no baja con más escala</td></tr>
+</tbody></table></div>
+<p>Lectura propia que usaremos todo el rato: los dos primeros términos forman la parte reducible de la pérdida, y solo ella dibuja una recta en log-log.</p>
+
+<h4>Con un presupuesto fijo, ¿cómo se reparte?</h4>
+<p>La lección de Chinchilla es que no basta con agrandar el modelo: con un cómputo dado, gastarlo todo en parámetros deja pocos datos, y al revés. Minimizando \(L\) bajo esa restricción (cálculo propio a partir de la ecuación 2.1) sale que N y D deben crecer a la vez, y que los datos algo más deprisa. Con ese reparto óptimo, la parte reducible \(L-E\) cae también como una ley de potencias, ahora en el cómputo:</p>
+<div class="formula">\[ N_{\text{opt}}\propto C^{\frac{\beta}{\alpha+\beta}}\approx C^{0{,}45},\quad D_{\text{opt}}\propto C^{\frac{\alpha}{\alpha+\beta}}\approx C^{0{,}55},\quad L-E\propto C^{-\gamma},\quad \gamma=\frac{\alpha\beta}{\alpha+\beta}\approx0{,}154 \]</div>
+<p>Aquí \(\alpha=0{,}34\) y \(\beta=0{,}28\) son los exponentes de la ecuación y \(E=1{,}69\) es el suelo. Aviso: con el cómputo de Chinchilla (unos \(5{,}9\cdot10^{23}\) FLOP, que salen de \(6ND\) con sus 70.000 millones de parámetros y los 1,4 billones de tokens de Hoffmann et al., 2022, añadido externo) la ecuación da un óptimo de unos \(3\cdot10^{10}\) parámetros y \(3\cdot10^{12}\) tokens, no exactamente el reparto de Chinchilla. Es un ajuste, no una identidad.</p>
+
+<h3>¿Cuánto cuesta mejorar? Bajar a la mitad</h3>
+<p>Con \(k=2^{1/a}\) y los tres exponentes que tenemos, sale el precio de dividir por dos la parte reducible de la pérdida (cálculo propio con los números de la ecuación 2.1):</p>
+<div class="tw"><table>
+<thead><tr><th>Qué escalas</th><th>Exponente</th><th>Factor para dividir por dos la parte reducible</th></tr></thead>
+<tbody>
+<tr><td>Solo los parámetros (datos fijos)</td><td>0,34</td><td>× 7,7</td></tr>
+<tr><td>Solo los datos (parámetros fijos)</td><td>0,28</td><td>× 11,9</td></tr>
+<tr><td>El cómputo, bien repartido</td><td>0,154</td><td>× 91</td></tr>
+</tbody></table></div>
+<p>Dos lecturas. Primera: en cómputo el exponente es el más pequeño porque el presupuesto se reparte entre parámetros y datos, y cada duplicación del cómputo solo quita un 10 % de la parte reducible (\(2^{-0{,}154}\approx0{,}90\)). Segunda: la parte reducible no es toda la pérdida. Con el cómputo de Chinchilla y el reparto óptimo vale 0,240; dividirla por dos lleva la pérdida total de 1,930 a 1,810, un 6 % menos, porque el suelo de 1,69 no se mueve. Con esos valores es imposible dividir la pérdida total por dos.</p>
+
+<h3>¿Hasta dónde valen estas leyes?</h3>
+<ul>
+<li><strong>No son universales.</strong> Los modelos generativos, como los grandes modelos de lenguaje, siguen leyes regulares. En los discriminativos, como los clasificadores de imágenes, hoy no se ven leyes claras y el rendimiento puede estancarse aunque crezcan los datos o el modelo.</li>
+<li><strong>Un algoritmo mejor desplaza la curva.</strong> Sube la constante de la ley y da mejor resultado con los mismos parámetros y tokens. Pero inventarlo es difícil, así que la mayor parte del esfuerzo va a subir N y D.</li>
+<li><strong>La lección amarga (<em>bitter lesson</em>).</strong> Observación de Richard Sutton: meter a mano el conocimiento de expertos rinde a corto plazo y acaba frenando, y a la larga ganan los métodos que escalan con cómputo. Amarga, porque lo sencillo vence a diseños elegantes de años de trabajo.</li>
+<li><strong>Las ecuaciones se discuten.</strong> Las leyes de OpenAI de 2020 quedaron superadas por las de Chinchilla, que a su vez podrían sustituirse. La tendencia general es robusta, pero las fórmulas concretas están menos asentadas que, por ejemplo, la termodinámica.</li>
+</ul>
+
+<h3>¿A qué velocidad crece la escala?</h3>
+<p>El libro reúne varios indicadores de lo deprisa que crece el esfuerzo:</p>
+<div class="tw"><table>
+<thead><tr><th>Indicador</th><th>Cifra (libro)</th></tr></thead>
+<tbody>
+<tr><td>Coste estimado de entrenar GPT-3</td><td>unos 5 millones de dólares</td></tr>
+<tr><td>Coste reportado de GPT-4</td><td>más de 100 millones de dólares</td></tr>
+<tr><td>Gasto en cómputo de modelos notables, 2009 a 2024</td><td>se triplica cada año, aproximadamente</td></tr>
+<tr><td>Cómputo usado en entrenar esos modelos</td><td>se cuadruplica cada año</td></tr>
+<tr><td>Artículos de IA publicados</td><td>de unos 128.000 en 2017 a unos 282.000 en 2022</td></tr>
+</tbody></table></div>
+<p>Si el gasto se multiplica por 3 y el cómputo por 4 (suponiendo que ambas tendencias cubren el mismo periodo), el precio de cada unidad de cómputo cae: se multiplica por \(3/4\) cada año, un 25 % menos (cálculo propio). A esto se suman mejoras de software, como FlashAttention, que acelera el entrenamiento de transformadores evitando operaciones repetidas. Y la pérdida al predecir el siguiente token ha seguido su tendencia durante más de una docena de órdenes de magnitud de cómputo, contra lo que esperaban los escépticos.</p>
+<p>Enlace propio con lo anterior: a \(\times4\) por año, un factor de 91 en cómputo son \(\log_4 91\approx3{,}3\) años. Es una extrapolación, y nada garantiza que la tendencia se mantenga. El simulador la calcula con el ritmo que elijas.</p>
+
+<h3>¿Cuándo podría llegar una IA de nivel humano?</h3>
+<p>Aquí "nivel humano" (<em>human-level AI</em>, HLAI) significa un sistema que iguala la habilidad humana media en todas o casi todas las tareas cognitivas. El libro avisa de que HLAI, AGI y compañía son etiquetas ambiguas y de que suele ser más útil hablar de capacidades concretas o de impacto económico concreto. Con esa cautela, plantea tres preguntas.</p>
+<h4>¿Es posible?</h4>
+<p>El argumento del libro: el cerebro es un objeto físico que produce inteligencia general, así que no hay una razón de peso para que un objeto hecho de otro material no pueda igualarla. Tampoco hace falta copiarlo célula a célula: los aviones vuelan sin aletear, porque se entendieron unos principios y no se imitó al ave.</p>
+<h4>¿Cuándo?</h4>
+<p>Los expertos discrepan mucho. En una encuesta de 2023 a más de 2.700 investigadores, las respuestas agregadas daban un 10 % de probabilidad antes de 2027 y un 50 % antes de 2047. Una encuesta parecida de 2022 situaba el 50 % en 2059: en un solo año la estimación se adelantó 12 años. Las encuestas recientes tienden a acortar plazos, señal de que los avances han sorprendido a muchos investigadores. Pero en los años cincuenta y sesenta el campo fue demasiado optimista y las expectativas frustradas desembocaron en el "invierno de la IA". Una mediana de encuesta es un dato sobre opiniones, no una predicción calibrada (comentario propio).</p>
+<h4>¿Qué podría frenarlo?</h4>
+<dl class="facts">
+<div><dt>Avances conceptuales</dt><dd>Quizá no baste con escalar y falten ideas que aún no conocemos. Se puede extrapolar el cómputo, pero no se puede extrapolar un descubrimiento.</dd></div>
+<div><dt>Falta de datos</dt><dd>Más cómputo pide más datos, y los de calidad podrían agotarse. Hay salidas: comprar datos privados, generar datos sintéticos o aprender jugando contra uno mismo, como hizo AlphaGo.</dd></div>
+<div><dt>Retorno económico</dt><dd>Si el coste de mejorar los modelos crece más deprisa que los ingresos, la inversión podría caer.</dd></div>
+</dl>
+<h4>Qué llevarse</h4>
+<p>Hay mucha incertidumbre y no hay base para descartar plazos cortos. Y un sistema no necesita inteligencia general para hacer daño: uno muy competente en un único campo ya puede causarlo. Por eso importa vigilar la IA de hoy y no esperar al nivel humano.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Un grupo hospitalario entrena un modelo que resume notas clínicas. La parte reducible de su pérdida vale 0,40 y suponemos que sigue los exponentes del libro, con el cómputo repartido de forma óptima (\(\gamma=0{,}154\)). ¿Cuánto cómputo cuesta cada objetivo?</p>
+<ul>
+<li>Bajar la parte reducible a la mitad (0,20): \(2^{1/0{,}154}\approx91\) veces el cómputo.</li>
+<li>Bajarla solo a 0,30, un 25 % menos: \((4/3)^{1/0{,}154}\approx6{,}5\) veces el cómputo.</li>
+</ul>
+<p>Si el entrenamiento actual cuesta 2 millones de euros y el precio por unidad de cómputo no cambia, el primer objetivo pide unos 183 millones y el segundo unos 13. Conviene apuntar al segundo o mover otras palancas: mejores datos clínicos y mejores algoritmos, que desplazan la curva en vez de recorrerla (reflexión propia).</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Tratar la ecuación como una ley física (aviso propio, con base en el libro).</strong> Las cifras de la ecuación 2.1 son un ajuste que ya sustituyó a otro y solo se ha comprobado dentro de un rango: extrapolar mucho más allá es una apuesta, no un cálculo.</p>
+<p><strong>Confundir pérdida con capacidad.</strong> Dividir por dos la parte reducible no duplica lo que el modelo sabe hacer, y la pérdida total no baja del suelo. Las leyes predicen un número, la pérdida, no qué tareas se resolverán (aviso propio).</p>
+<p><strong>Leer una fecha de encuesta como un calendario.</strong> Un 50 % en 2047 no es "llegará en 2047": es una opinión agregada muy repartida y que cambió mucho en un año.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>Scaling laws let us forecast loss from compute, but they say nothing certain about capabilities or timelines, so I plan for the trend, keep wide error bars, and remember that AI can be risky long before it reaches human level.</p>
+
+<div class="teoria prose">
+
+<h3>Repaso del módulo 0</h3>
+<p>Con esta lección se cierra el módulo. Seis ideas para llevarte, en el orden de las lecciones:</p>
+<ul>
+<li><strong>Qué es la IA.</strong> "IA" es un paraguas: IA estrecha, general, de nivel humano, transformadora y superinteligencia se solapan, así que al evaluar riesgos conviene describir el sistema por sus capacidades concretas.</li>
+<li><strong>Cómo se hace un modelo.</strong> Tarea, datos, entrenamiento, evaluación y despliegue. Evaluar bien es crítico.</li>
+<li><strong>Tipos de aprendizaje.</strong> Supervisado (con etiquetas), no supervisado (sin ellas) y por refuerzo (con datos que recoge el propio agente); la profundidad se usa en los tres.</li>
+<li><strong>Aprendizaje profundo.</strong> Redes de capas de neuronas que aprenden representaciones jerárquicas. Entrenar es predecir, medir el error, propagarlo hacia atrás y ajustar; luego vienen el preentrenamiento y el ajuste fino.</li>
+<li><strong>Escala.</strong> La pérdida baja como una ley de potencias en parámetros, datos y cómputo, con un suelo y sin valer para todos los modelos.</li>
+<li><strong>Velocidad y cautela.</strong> La inversión y el cómputo crecen deprisa, los plazos son muy inciertos y el riesgo justifica atención antes del nivel humano. Esta base permite razonar después sobre seguridad y ética.</li>
+</ul>
+
+</div>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 2.4 Scaling Laws, págs. 102 a 107 (PDF 120 a 125): leyes de potencias y gráficas log-log (102 y 103), leyes de escala en aprendizaje profundo (104 y 105), ecuación de Chinchilla (105), discusión y lección amarga (106 y 107). Sección 2.5 Speed of AI Development, págs. 107 a 110 (PDF 125 a 128). Sección 2.6 Conclusion, págs. 110 a 113 (PDF 128 a 131), base del repaso del módulo.</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS). No hay una lección asociada a este tema.</li>
+<li>Añadido externo, no procede del libro: la regla \(C\approx6ND\) y los 1,4 billones de tokens de Chinchilla, de Hoffmann et al., <em>Training Compute-Optimal Large Language Models</em> (2022, arXiv 2203.15556), que el libro recomienda en su bibliografía (p. 113).</li>
+<li>Añadido propio, no procede de las fuentes: la fórmula del factor \(2^{1/a}\) y los factores ×7,7, ×11,9 y ×91; el reparto óptimo del cómputo y el exponente \(\gamma\), obtenidos de la ecuación 2.1 con \(C\approx6ND\); el cálculo de la pérdida a la escala de Chinchilla; el 79 % al duplicar los parámetros; el precio del cómputo (\(3/4\) al año) y los 3,3 años; el ejemplo hospitalario y sus cifras; los avisos de las trampas; el repaso del módulo (reelaborado desde el resumen del libro); y los ejercicios y el simulador.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Un simulador para explorar la ley de escala y dos ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de la ley de escala.</strong> Empieza en modo "Cómputo", con los exponentes del libro y el punto de partida a la escala de Chinchilla. La recta gruesa es la parte reducible de la pérdida, con pendiente \(-0{,}154\): para dividirla por dos hay que multiplicar el cómputo por 91, unos 3,3 años a ×4 por año. Sube \(\alpha\) y \(\beta\) hacia 0,5 y la recta se empina y el factor se desploma; bájalos hacia 0,1 y el factor se dispara. Cambia a "Parámetros" o "Datos" y observa que la pérdida total (línea discontinua) se aplana contra un suelo mayor que 1,69, porque el otro término no se mueve. Solo la parte reducible es recta.</p>
+<div data-widget="m00-l05-escala" id="sim-m00-l05-escala"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: leer el exponente en una gráfica (a mano, 6 minutos)</p>
+<p>Un equipo mide la parte reducible de la pérdida de una familia de modelos (cifras propias de práctica). Con \(10^{6}\) parámetros vale 0,80 y con \(10^{8}\), 0,20. Se supone una ley de potencias.</p>
+<ol>
+<li>¿Cuál es el exponente? Calcúlalo como la pendiente en una gráfica log-log.</li>
+<li>¿Por cuánto hay que multiplicar los parámetros para dividir por dos la pérdida?</li>
+<li>¿Qué valor se espera con \(10^{9}\) parámetros?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> La pérdida se divide entre 4 al multiplicar los parámetros por 100. La pendiente es \(\log_{10}(0{,}20/0{,}80)/2=-0{,}602/2\approx-0{,}301\), así que el exponente es 0,301.</p>
+<p><strong>2.</strong> \(k=2^{1/0{,}301}=10\). Cada vez que multiplicas los parámetros por diez, la pérdida se divide por dos.</p>
+<p><strong>3.</strong> De \(10^8\) a \(10^9\) hay un factor 10, así que se espera \(0{,}20/2=0{,}10\). Cada paso de este tipo cuesta diez veces más recursos que el anterior y quita menos en términos absolutos: de 0,20 a 0,10 son 0,10, y de 0,10 a 0,05 serían solo 0,05.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: mismo presupuesto, distinto reparto, con Python (8 minutos)</p>
+<p>Tres modelos se entrenan con el mismo cómputo, \(C\approx6ND\approx1{,}2\cdot10^{23}\) FLOP, pero repartido de forma distinta entre parámetros y datos (cifras propias de práctica). Usa la ecuación 2.1 del libro y este fragmento:</p>
+<pre><code>A, B, E = 406.4, 410.7, 1.69
+alfa, beta = 0.34, 0.28
+
+def perdida(N, D):
+    return A * N**-alfa + B * D**-beta + E
+
+for N, D in [(1e11, 2e11), (3e10, 6.7e11), (1e10, 2e12)]:
+    print(f"{6*N*D:.2e}", round(perdida(N, D), 4), round(perdida(N, D) - E, 4))</code></pre>
+<p>Responde: (1) ¿qué modelo tiene la menor pérdida? (2) ¿Cuánto baja la parte reducible del mejor respecto al peor, en porcentaje? (3) ¿Qué enseñanza de Chinchilla ilustra el resultado?</p>
+<details>
+<summary>Ver solución</summary>
+<p>El programa da \(L=2{,}0453\) para el primero, \(2{,}0019\) para el segundo y \(1{,}9994\) para el tercero; las partes reducibles son \(0{,}3553\), \(0{,}3119\) y \(0{,}3094\).</p>
+<p><strong>1.</strong> El tercero (10.000 millones de parámetros y 2 billones de tokens) es el mejor, y el primero, el mayor, es el peor. <strong>2.</strong> \(1-0{,}3094/0{,}3553\approx0{,}129\): un 13 % menos de parte reducible, con el mismo cómputo. Sobre la pérdida total la mejora es solo del 2,2 %, por el suelo. <strong>3.</strong> Con un presupuesto fijo no gana el modelo más grande: gana el que reparte bien entre parámetros y datos. El primero, muy grande y con pocos datos, arrastra un término de datos alto (0,28 frente a 0,07 en el de parámetros).</p>
+</details>
+</div>
+
+
+</div>
+
+</section>

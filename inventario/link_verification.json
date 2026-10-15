@@ -1,0 +1,382 @@
+[
+  {
+    "n": 1,
+    "titulo": "Introduction",
+    "links": {
+      "video": {
+        "url": "https://youtu.be/i_dbiGMHKMA",
+        "status": 303
+      },
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1vP4s1oxomdg3uU5PiV5E",
+        "status": 307
+      }
+    }
+  },
+  {
+    "n": 2,
+    "titulo": "Optional Optional",
+    "links": {
+      "video": {
+        "url": "https://youtu.be/CDmc6-QyNwI",
+        "status": 303
+      },
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/15yMNlkWAL5cuSHHZe1gy",
+        "status": 307
+      },
+      "notas_url": {
+        "url": "https://github.com/centerforaisafety/Intro_to_ML_Safety/blob",
+        "status": 200
+      },
+      "preguntas": {
+        "status": 303
+      },
+      "notebook": {
+        "origin": "drive",
+        "status": 303
+      }
+    }
+  },
+  {
+    "n": 3,
+    "titulo": "Risk Decomposition",
+    "links": {
+      "video": {
+        "url": "https://youtu.be/fNFIdS1rGq8",
+        "status": 303
+      },
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1RMZ89VHzVnDhugcrrwvH",
+        "status": 307
+      }
+    }
+  },
+  {
+    "n": 4,
+    "titulo": "Accident Models",
+    "links": {
+      "video": {
+        "url": "https://youtu.be/Ic_qDqYEJcA",
+        "status": 303
+      },
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1HquuLs0OTVYvuk0QRCG_",
+        "status": 307
+      }
+    }
+  },
+  {
+    "n": 5,
+    "titulo": "Black Swans",
+    "links": {
+      "video": {
+        "url": "https://youtu.be/aX1OPczTxf4",
+        "status": 303
+      },
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1rDWQuwdqFPm1ebqnuM9x",
+        "status": 307
+      }
+    }
+  },
+  {
+    "n": 6,
+    "titulo": "Adversarial Robustness",
+    "links": {
+      "video": {
+        "url": "https://youtu.be/wIX00bZ173k",
+        "status": 303
+      },
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1HzloChC0XElQkCTI181C",
+        "status": 307
+      },
+      "notas_url": {
+        "url": "https://github.com/centerforaisafety/Intro_to_ML_Safety/blob",
+        "status": 200
+      },
+      "notebook": {
+        "origin": "drive",
+        "status": 303
+      }
+    }
+  },
+  {
+    "n": 7,
+    "titulo": "Black Swan Robustness",
+    "links": {
+      "video": {
+        "url": "https://youtu.be/9mEp0mk0mpA",
+        "status": 303
+      },
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1uW7hNstJAq7_lSyk3yP8",
+        "status": 307
+      },
+      "notas_url": {
+        "url": "https://github.com/centerforaisafety/Intro_to_ML_Safety/blob",
+        "status": 200
+      }
+    }
+  },
+  {
+    "n": 8,
+    "titulo": "Anomaly Detection",
+    "links": {
+      "video": {
+        "url": "https://youtu.be/344sNPH-cSE",
+        "status": 303
+      },
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1WEzSFUbcl1Rp4kQq1K4u",
+        "status": 307
+      },
+      "notas_url": {
+        "url": "https://github.com/centerforaisafety/Intro_to_ML_Safety/blob",
+        "status": 200
+      },
+      "notebook": {
+        "origin": "drive",
+        "status": 303
+      }
+    }
+  },
+  {
+    "n": 9,
+    "titulo": "Interpretable Uncertainty",
+    "links": {
+      "video": {
+        "url": "https://youtu.be/nWfCp7ZN6H8",
+        "status": 303
+      },
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1GHKlv-9UmQdUPracBr09",
+        "status": 307
+      },
+      "notas_url": {
+        "url": "https://github.com/centerforaisafety/Intro_to_ML_Safety/blob",
+        "status": 200
+      }
+    }
+  },
+  {
+    "n": 10,
+    "titulo": "Transparency",
+    "links": {
+      "video": {
+        "url": "https://youtu.be/cqMe9E4p7fE",
+        "status": 303
+      },
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1kxgJw31-rH2sZ7z7T9On",
+        "status": 307
+      }
+    }
+  },
+  {
+    "n": 11,
+    "titulo": "Trojans",
+    "links": {
+      "video": {
+        "url": "https://youtu.be/KnA_aTQ9upU",
+        "status": 303
+      },
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/18yWh74a4OANPX1aWhILO",
+        "status": 307
+      },
+      "notas_url": {
+        "url": "https://github.com/centerforaisafety/Intro_to_ML_Safety/blob",
+        "status": 200
+      },
+      "notebook": {
+        "origin": "drive",
+        "status": 303
+      }
+    }
+  },
+  {
+    "n": 12,
+    "titulo": "Detecting Emergent Behavior",
+    "links": {
+      "video": {
+        "url": "https://youtu.be/\\_4qrAck4q18",
+        "status": 303
+      },
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1MGz_eMPQNm5Ov52IZz2v",
+        "status": 307
+      },
+      "notas_url": {
+        "url": "https://github.com/centerforaisafety/Intro_to_ML_Safety/blob",
+        "status": 200
+      }
+    }
+  },
+  {
+    "n": 13,
+    "titulo": "Honest Models",
+    "links": {
+      "video": {
+        "url": "https://youtu.be/r24Gj3quBXc",
+        "status": 303
+      },
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1eVO4-HiPlxkOgySEPBv_",
+        "status": 307
+      }
+    }
+  },
+  {
+    "n": 14,
+    "titulo": "Power Aversion",
+    "links": {
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1bI0WNfPg9B0LK7h5Oe6l",
+        "status": 307
+      }
+    }
+  },
+  {
+    "n": 15,
+    "titulo": "Machine Ethics",
+    "links": {
+      "video": {
+        "url": "https://youtu.be/FeX3gOV7Tj0",
+        "status": 303
+      },
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1yibQ-RBSMnejAdEk8iMT",
+        "status": 307
+      },
+      "notebook": {
+        "origin": "drive",
+        "status": 303
+      }
+    }
+  },
+  {
+    "n": 16,
+    "titulo": "ML for Improved Decision-Making",
+    "links": {
+      "video": {
+        "url": "https://youtu.be/IPFBe465Vrc",
+        "status": 303
+      },
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1HmbLzwmx4IiqoIlhoZ0u",
+        "status": 307
+      },
+      "notas_url": {
+        "url": "https://github.com/centerforaisafety/Intro_to_ML_Safety/blob",
+        "status": 200
+      }
+    }
+  },
+  {
+    "n": 17,
+    "titulo": "ML for Cyberdefense",
+    "links": {
+      "video": {
+        "url": "https://youtu.be/OiPuGPUJpXQ",
+        "status": 303
+      },
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/169h2BwK8U7CvPPYiCMEw",
+        "status": 307
+      }
+    }
+  },
+  {
+    "n": 18,
+    "titulo": "Cooperative AI",
+    "links": {
+      "video": {
+        "url": "https://youtu.be/ZUi-kP_X2K4",
+        "status": 303
+      },
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1d5dryLUmW2bqQaCak4Px",
+        "status": 307
+      },
+      "notas_url": {
+        "url": "https://github.com/centerforaisafety/Intro_to_ML_Safety/blob",
+        "status": 200
+      }
+    }
+  },
+  {
+    "n": 19,
+    "titulo": "X-Risk Overview",
+    "links": {
+      "video": {
+        "url": "https://youtu.be/3eP2WcFE20w",
+        "status": 303
+      },
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/19IuBw7GsO6MEeOQIAbY6",
+        "status": 307
+      }
+    }
+  },
+  {
+    "n": 20,
+    "titulo": "Possible Existential Hazards",
+    "links": {
+      "video": {
+        "url": "https://youtu.be/k1jV0Mx1xT4",
+        "status": 303
+      },
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1tp65f22ZhWoKdie6VNrh",
+        "status": 307
+      }
+    }
+  },
+  {
+    "n": 21,
+    "titulo": "Safety-Capabilities Balance",
+    "links": {
+      "video": {
+        "url": "https://youtu.be/sJm7LNMtA4E",
+        "status": 303
+      },
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1P2VsZClM6YsK_vYtO66Y",
+        "status": 307
+      }
+    }
+  },
+  {
+    "n": 22,
+    "titulo": "Natural Selection Favors AIs over Humans",
+    "links": {
+      "video": {
+        "url": "https://youtu.be/48h-ySTggE8",
+        "status": 303
+      },
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1asx5L-tEk5mZTxvO2xzt",
+        "status": 307
+      }
+    }
+  },
+  {
+    "n": 23,
+    "titulo": "Review and Conclusion",
+    "links": {
+      "video": {
+        "url": "https://youtu.be/_fu7lKRt0Ac",
+        "status": 303
+      },
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1EL9ogIdzapL8_tZMMTw0",
+        "status": 307
+      },
+      "preguntas": {
+        "status": 303
+      }
+    }
+  }
+]

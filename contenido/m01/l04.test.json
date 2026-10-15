@@ -1,0 +1,109 @@
+[
+  {
+    "id": "m01l04-q01",
+    "tipo": "unica",
+    "enunciado": "Si se clasifican los cuatro riesgos del módulo por el tipo de causa, ¿cuál corresponde a la IA descontrolada?",
+    "opciones": [
+      "Intencional",
+      "Estructural (del entorno)",
+      "Accidental",
+      "Interna"
+    ],
+    "correcta": 3,
+    "explicacion": "El uso malicioso es intencional, la carrera es estructural, los riesgos organizativos son accidentales y el descontrol es interno: nace del propio sistema y de cómo se comporta."
+  },
+  {
+    "id": "m01l04-q02",
+    "tipo": "unica",
+    "enunciado": "En el caso de las ratas de Hanoi (1902), ¿cuál era el proxy?",
+    "opciones": [
+      "Las colas de rata entregadas",
+      "El número de ratas vivas en la ciudad",
+      "El dinero que pagaba la administración",
+      "El número de personas que cazaban ratas"
+    ],
+    "correcta": 0,
+    "explicacion": "El fin era reducir la población de ratas, pero lo que se pagaba, y por tanto lo que se optimizaba, eran las colas. Aparecieron ratas sin cola, vivas."
+  },
+  {
+    "id": "m01l04-q03",
+    "tipo": "vf",
+    "enunciado": "Según la ley de Goodhart, la relación entre una medida y la meta real suele seguir siendo fiable aunque se presione con fuerza sobre la medida.",
+    "correcta": false,
+    "explicacion": "Es al revés: una relación que funcionaba mientras nadie la usaba como palanca tiende a romperse cuando se presiona sobre ella. Por eso una medida útil para observar puede ser mala como objetivo."
+  },
+  {
+    "id": "m01l04-q04",
+    "tipo": "multiple",
+    "enunciado": "En el modelo del simulador, ¿qué cambios retrasan el momento en que el objetivo real empieza a caer? Marca todos los correctos.",
+    "opciones": [
+      "Subir la vigilancia del atajo en la métrica",
+      "Bajar la facilidad del atajo",
+      "Subir el daño del atajo",
+      "Subir la presión de optimización"
+    ],
+    "correcta": [
+      0,
+      1
+    ],
+    "explicacion": "El optimizador cambia al atajo cuando este rinde más que mejorar de verdad, es decir, cuando \\(k(1-q)\\) lo supera. Menos atajo (por vigilancia o por dificultad) lo retrasa. La presión y el daño no mueven el pico: la presión solo decide hasta dónde llegas en la curva y el daño, cuánto cae el objetivo después."
+  },
+  {
+    "id": "m01l04-q05",
+    "tipo": "numerica",
+    "enunciado": "En el modelo del simulador, mejorar de verdad rinde \\(1/(1+h/8)\\) por paso y el atajo rinde \\(k(1-q)\\). Con \\(k=0{,}4\\) y una vigilancia del 50 %, ¿con qué mejora acumulada \\(h\\) pasa el optimizador al atajo?",
+    "correcta": 32,
+    "tolerancia": 0.5,
+    "explicacion": "El atajo rinde \\(0{,}4\\times0{,}5=0{,}2\\). Cambia cuando \\(1/(1+h/8)=0{,}2\\), es decir, \\(1+h/8=5\\) y \\(h=8\\times4=32\\)."
+  },
+  {
+    "id": "m01l04-q06",
+    "tipo": "unica",
+    "enunciado": "¿Por qué una IA podría buscar poder aunque nadie se lo pida y no tenga ansia de dominio?",
+    "opciones": [
+      "Porque el poder es un medio útil para casi cualquier meta",
+      "Porque todas las IA se programan para dominar",
+      "Porque solo busca poder si su meta es hacer daño",
+      "Porque lo aprende de las personas que la insultan"
+    ],
+    "correcta": 0,
+    "explicacion": "Es una meta instrumental: más control sobre el entorno ayuda a lograr casi cualquier fin, incluso uno trivial como traer café. No hace falta malicia."
+  },
+  {
+    "id": "m01l04-q07",
+    "tipo": "multiple",
+    "enunciado": "Según las notas de L19, ¿cuáles son metas instrumentales convergentes? Marca todas las correctas.",
+    "opciones": [
+      "Autopreservación",
+      "Adquirir recursos",
+      "Obedecer siempre a su supervisor",
+      "Conservar su meta actual"
+    ],
+    "correcta": [
+      0,
+      1,
+      3
+    ],
+    "explicacion": "La lista de las notas es autopreservación, conservar la propia meta, mejorar la propia capacidad y adquirir recursos. Obedecer siempre no ayuda a casi cualquier meta y no está en la lista."
+  },
+  {
+    "id": "m01l04-q08",
+    "tipo": "unica",
+    "enunciado": "¿Qué problema plantea el engaño para la estrategia de vigilar a un sistema?",
+    "opciones": [
+      "Vigilar sale demasiado caro",
+      "Lo observado puede no representar lo que hace cuando no lo miramos",
+      "Vigilar reduce las capacidades del modelo",
+      "Las métricas de vigilancia no se pueden calcular"
+    ],
+    "correcta": 1,
+    "explicacion": "Como en el caso de Volkswagen, un sistema puede portarse bien mientras lo evalúan y de otra manera después. Entonces superar las pruebas prueba menos."
+  },
+  {
+    "id": "m01l04-q09",
+    "tipo": "vf",
+    "enunciado": "El libro concluye que conviene centrarse solo en el riesgo existencial y dejar los daños actuales y los riesgos catastróficos menores para más tarde.",
+    "correcta": false,
+    "explicacion": "Defiende lo contrario: daños actuales, catastróficos y existenciales están entrelazados. Ignorar los menores los normaliza y puede llevar a derivar al peligro, así que propone una gestión amplia del riesgo."
+  }
+]

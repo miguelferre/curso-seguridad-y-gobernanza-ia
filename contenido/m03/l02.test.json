@@ -1,0 +1,116 @@
+[
+  {
+    "id": "m03l02-q01",
+    "tipo": "unica",
+    "enunciado": "Cien hormigas legionarias colocadas en el suelo dan vueltas hasta agotarse, pero decenas de miles se comportan como una colonia inteligente. ¿Qué rasgo ilustra sobre todo?",
+    "opciones": [
+      "Funcionalidad distribuida: cada hormiga hace por sí sola una función completa",
+      "Emergencia: una propiedad del conjunto que se enciende al aumentar la escala",
+      "Conducta adaptativa: la colonia cambia de hábitat",
+      "Control central: una hormiga dirige a las demás"
+    ],
+    "correcta": 1,
+    "explicacion": "Esa conducta no existe en ninguna hormiga ni en un grupo pequeño: aparece al superar cierta escala. Es emergencia, y no hay hormiga al mando."
+  },
+  {
+    "id": "m03l02-q02",
+    "tipo": "numerica",
+    "enunciado": "Según la ley de Kleiber, la tasa metabólica crece con la masa elevada a \\(3/4\\). Un elefante pesa cinco veces más que un caballo. ¿Cuántas veces mayor es su tasa metabólica? Responde con un decimal o dos.",
+    "correcta": 3.34,
+    "tolerancia": 0.05,
+    "explicacion": "\\(5^{3/4}\\approx3{,}34\\), que el libro redondea a 3,3. No es 5: el exponente menor que 1 hace que crecer salga más barato por unidad de masa."
+  },
+  {
+    "id": "m03l02-q03",
+    "tipo": "unica",
+    "enunciado": "En una colmena, si vuelven demasiadas abejas con agua, cuesta más encontrar quién la reciba y se recluta a menos abejas para ir a por más. ¿Qué es este mecanismo?",
+    "opciones": [
+      "Un bucle positivo que amplifica el número de salidas",
+      "Autoorganización crítica sin ningún bucle",
+      "Un bucle negativo que estabiliza el número de abejas que salen",
+      "Un caso de caos por sensibilidad a las condiciones iniciales"
+    ],
+    "correcta": 2,
+    "explicacion": "Más abejas de vuelta frenan el reclutamiento de nuevas salidas: la retroalimentación frena lo que ocurre, es negativa y estabiliza."
+  },
+  {
+    "id": "m03l02-q04",
+    "tipo": "vf",
+    "enunciado": "En el punto crítico de un sistema, un suceso local pequeño solo puede tener consecuencias pequeñas.",
+    "correcta": false,
+    "explicacion": "Falso. En el punto crítico un suceso pequeño puede tener efectos de cualquier tamaño, hasta alcanzar todo el sistema. Por debajo lo local se queda local; por encima se dispara."
+  },
+  {
+    "id": "m03l02-q05",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas afirmaciones describen la funcionalidad distribuida?",
+    "opciones": [
+      "Ningún componente cumple por sí solo una función del sistema",
+      "Hay más componentes de los estrictamente necesarios para una tarea",
+      "Todos los componentes son idénticos y no hay ninguna especialización",
+      "Cada función está asignada a una sola pieza, como en una cafetera"
+    ],
+    "correcta": [
+      0,
+      1
+    ],
+    "explicacion": "Codificación parcial (nadie completa la tarea solo) y redundante (sobran componentes). Distribuir no es no especializar. La cafetera, con una pieza por función, es el caso contrario."
+  },
+  {
+    "id": "m03l02-q06",
+    "tipo": "numerica",
+    "enunciado": "Los casos de gripe de una ciudad escalan con la población elevada a 1,15. Si la ciudad duplica su población, ¿por cuánto se multiplican los casos? Responde con dos decimales.",
+    "correcta": 2.22,
+    "tolerancia": 0.02,
+    "explicacion": "\\(2^{1{,}15}\\approx2{,}22\\). Los casos crecen más deprisa que la población: por habitante suben un 11 % aproximadamente (\\(2{,}22/2\\approx1{,}11\\))."
+  },
+  {
+    "id": "m03l02-q07",
+    "tipo": "unica",
+    "enunciado": "En el mapa logístico \\(x_{n+1}=r\\,x_n(1-x_n)\\), ¿qué ocurre cuando \\(r\\) supera aproximadamente 3,57?",
+    "opciones": [
+      "Entra en un régimen caótico: dos poblaciones iniciales casi iguales acaban muy distintas",
+      "La población se extingue siempre",
+      "Todas las trayectorias convergen al mismo valor",
+      "El modelo deja de tener retroalimentación"
+    ],
+    "correcta": 0,
+    "explicacion": "Por encima de ese umbral entra el régimen caótico, con extrema sensibilidad a las condiciones iniciales, y el largo plazo es difícil de predecir."
+  },
+  {
+    "id": "m03l02-q08",
+    "tipo": "multiple",
+    "enunciado": "Según el libro, ¿cuáles de estas afirmaciones describen la incidencia política (advocacy) y la elaboración de políticas como sistema complejo?",
+    "opciones": [
+      "Hace falta un nivel crítico de apoyo antes de que los legisladores atiendan una causa",
+      "Los avances suelen llegar como equilibrio puntuado: largos periodos sin cambio visible y saltos súbitos",
+      "El resultado de una campaña refleja de forma directa el esfuerzo y la organización invertidos",
+      "Los opositores no aprenden de las tácticas nuevas, así que estas no pierden fuerza"
+    ],
+    "correcta": [
+      0,
+      1
+    ],
+    "explicacion": "Hay umbrales críticos y equilibrio puntuado. Pero por la no linealidad, el azar y los esfuerzos previos, el resultado no refleja necesariamente el esfuerzo de esa campaña, y los oponentes que aprenden desgastan las tácticas."
+  },
+  {
+    "id": "m03l02-q09",
+    "tipo": "vf",
+    "enunciado": "Si una propiedad escala con el tamaño elevado a 1,15, dos sistemas de tamaño 1 producen en conjunto lo mismo que un sistema único de tamaño 2.",
+    "correcta": false,
+    "explicacion": "Falso. Dos sistemas de tamaño 1 dan 2. Uno de tamaño 2 da \\(2^{1{,}15}\\approx2{,}22\\), un 11 % más: dos sistemas separados no se comportan como uno grande."
+  },
+  {
+    "id": "m03l02-q10",
+    "tipo": "unica",
+    "enunciado": "En el simulador de la planta, al subir la transmisión por contacto de 0,40 a 0,60 (un 50 % más) la fracción media de camas infectadas pasa de un 2,5 % a un 85 %. ¿Qué rasgo ilustra mejor?",
+    "opciones": [
+      "Estructura escalable: el contagio crece con una potencia del tamaño de la planta",
+      "Funcionalidad distribuida: varias camas comparten la infección",
+      "Conducta adaptativa: la planta cambia para frenar el brote",
+      "Criticalidad y no linealidad: se cruza un punto de vuelco y una entrada pequeña cambia mucho el resultado"
+    ],
+    "correcta": 3,
+    "explicacion": "Un cambio moderado de la entrada produce un salto enorme al cruzar el umbral: por debajo casi todos los brotes mueren pequeños y por encima alcanzan gran parte de la planta."
+  }
+]

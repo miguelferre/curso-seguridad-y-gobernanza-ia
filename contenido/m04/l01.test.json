@@ -1,0 +1,117 @@
+[
+  {
+    "id": "m04l01-q01",
+    "tipo": "unica",
+    "enunciado": "En un ataque con presupuesto ε en norma L∞, ¿qué se limita?",
+    "opciones": [
+      "La suma de los cambios de todos los componentes",
+      "La distancia euclídea entre la entrada original y la atacada",
+      "El cambio máximo en cualquier componente por separado",
+      "El número de componentes que el atacante puede tocar"
+    ],
+    "correcta": 2,
+    "explicacion": "La norma L∞ es el mayor cambio en cualquier componente. Con ε = 8/255 en una imagen, ningún píxel cambia más de 8 niveles, aunque los cambien todos. La distancia euclídea es la norma L2, y la suma de cambios, la L1."
+  },
+  {
+    "id": "m04l01-q02",
+    "tipo": "unica",
+    "enunciado": "¿Hacia dónde mueve FGSM la entrada?",
+    "opciones": [
+      "En el sentido del signo del gradiente de la pérdida respecto a la entrada, con un paso de tamaño ε",
+      "En el sentido contrario al gradiente de la pérdida respecto a los pesos",
+      "Hacia un punto al azar dentro de la bola de radio ε",
+      "Hacia la media de los ejemplos de la otra clase"
+    ],
+    "correcta": 0,
+    "explicacion": "Se calcula el gradiente de la pérdida respecto a la entrada (no respecto a los pesos, que es lo que se usa para entrenar) y se avanza ε en el sentido de su signo. Así la pérdida sube y cada componente cambia exactamente ε."
+  },
+  {
+    "id": "m04l01-q03",
+    "tipo": "numerica",
+    "enunciado": "Un clasificador logístico lineal tiene 20 componentes, todos con |w_i| = 1, y un logit de partida de −1. Un atacante aplica FGSM con ε = 0,2 en el sentido que sube el logit. ¿Qué probabilidad de la clase atacada da el modelo después? Responde como número entre 0 y 1.",
+    "correcta": 0.9526,
+    "tolerancia": 0.005,
+    "explicacion": "El logit sube ε · ‖w‖₁ = 0,2 × 20 = 4 y pasa de −1 a 3. La probabilidad es σ(3) = 1 / (1 + e^(−3)) = 0,9526."
+  },
+  {
+    "id": "m04l01-q04",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas afirmaciones sobre PGD frente a FGSM son correctas?",
+    "opciones": [
+      "PGD da varios pasos y proyecta el punto a la bola de radio ε tras cada uno",
+      "Con más pasos, PGD suele generar ejemplos más fuertes",
+      "En un modelo lineal con norma L∞ y signo del gradiente, PGD termina en un punto distinto del de FGSM",
+      "PGD no necesita gradientes del modelo"
+    ],
+    "correcta": [
+      0,
+      1
+    ],
+    "explicacion": "PGD repite pasos pequeños con proyección, y aumentar los pasos lo hace más fuerte. En un modelo lineal el signo del gradiente es el mismo en todo el plano, así que PGD acaba en la misma esquina de la caja que FGSM. Y ambos usan gradientes, es decir, acceso al modelo."
+  },
+  {
+    "id": "m04l01-q05",
+    "tipo": "numerica",
+    "enunciado": "Un punto tiene logit −3 en un modelo lineal con ‖w‖₁ = 12. ¿A partir de qué valor de ε un ataque en norma L∞ puede cambiarle la clase? Es decir, ¿cuál es su radio certificado?",
+    "correcta": 0.25,
+    "tolerancia": 0.005,
+    "explicacion": "El mayor desplazamiento posible del logit es ε · ‖w‖₁ = 12ε. Cruza la frontera cuando 12ε > 3, es decir, ε > 3 / 12 = 0,25. Ese valor, |z| / ‖w‖₁, es el radio certificado."
+  },
+  {
+    "id": "m04l01-q06",
+    "tipo": "vf",
+    "enunciado": "Si una defensa aguanta bien un ataque FGSM, se puede concluir que también aguantará un PGD de 10 pasos.",
+    "correcta": false,
+    "explicacion": "FGSM es un ataque débil y PGD con varios pasos es mucho más fuerte. Según las notas del curso, hay defensas que se rompen solo aumentando el número de pasos, así que probar únicamente con FGSM da una falsa sensación de seguridad."
+  },
+  {
+    "id": "m04l01-q07",
+    "tipo": "unica",
+    "enunciado": "Un modelo se ha entrenado con ejemplos adversariales generados con FGSM. ¿Qué cabe esperar frente a un ataque PGD de 10 pasos?",
+    "opciones": [
+      "Que sea inmune, porque PGD es una versión de FGSM",
+      "Que sea igual de robusto que uno entrenado con PGD",
+      "Que la exactitud no cambie respecto a la del modelo sin ataque",
+      "Que no aguante: la robustez ante un ataque no se traslada sola a otro más fuerte"
+    ],
+    "correcta": 3,
+    "explicacion": "Según las notas del curso, un modelo entrenado con FGSM no rinde bien frente a PGD de 10 pasos. La robustez es específica del ataque con el que se entrena, y el entrenamiento con PGD sí resistió una clase entera de ejemplos."
+  },
+  {
+    "id": "m04l01-q08",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas afirmaciones coinciden con lo que dice el libro sobre los ejemplos adversariales?",
+    "opciones": [
+      "No tienen por qué ser imperceptibles: lo esencial es que un adversario cambie la entrada para provocar el error",
+      "También afectan a los modelos de lenguaje, con sufijos que se transfieren a modelos que no se usaron para crearlos",
+      "Una exactitud alta en el conjunto de prueba asegura que el modelo es robusto",
+      "Ya hay ataques que se saltan las salvaguardas de los modelos de lenguaje actuales"
+    ],
+    "correcta": [
+      0,
+      1,
+      3
+    ],
+    "explicacion": "El libro insiste en que la exactitud alta en prueba no garantiza la robustez (por eso la tercera es falsa). Las otras tres coinciden con sus págs. 145 a 147."
+  },
+  {
+    "id": "m04l01-q09",
+    "tipo": "vf",
+    "enunciado": "En un clasificador lineal, un punto con |z| > ε‖w‖₁ no puede cambiar de clase con ningún ataque L∞ de presupuesto ε.",
+    "correcta": true,
+    "explicacion": "El mayor desplazamiento del logit dentro de la caja es exactamente ε‖w‖₁, que logra el cambio ε·signo(w). Si el margen |z| es mayor, ningún ataque de ese tamaño llega a la frontera: es un certificado de robustez (derivación propia de la lección)."
+  },
+  {
+    "id": "m04l01-q10",
+    "tipo": "unica",
+    "enunciado": "¿Qué relación tiene la robustez adversarial con la idea de usar IAs para vigilar a otras IAs?",
+    "opciones": [
+      "Ninguna: un evaluador entrenado con datos limpios es inmune a estos ataques",
+      "Un evaluador que se puede engañar con ejemplos adversariales deja de servir como vigilante",
+      "Solo afecta a los evaluadores de imágenes, no a los de texto",
+      "Hace innecesario el entrenamiento adversarial de los propios evaluadores"
+    ],
+    "correcta": 1,
+    "explicacion": "El libro advierte de que, si una IA puede fabricar ejemplos adversariales contra su evaluador, este no vigila. Y como la historia de los ejemplos adversariales favorece al ataque, no se puede dar por hecha la robustez de los evaluadores (pp. 148 y 149)."
+  }
+]

@@ -1,0 +1,205 @@
+<section class="leccion" data-id="m02/l02">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Los sistemas seguros no lo son por suerte: se diseñan para serlo. La ingeniería de seguridad ha reunido ocho ideas que sirven casi para cualquier sistema, también para la IA y para la organización que la construye. Se meten desde el principio, no como parche al final.</p>
+<p>Todas responden a una pregunta: qué pasa cuando algo falla. Unas evitan que un solo fallo lo tumbe todo (copias, reparto de tareas, permisos mínimos). Otras limitan el daño cuando el fallo llega (parar al perder confianza, frenar lo que se desboca). Otras ayudan a entender y a aprender (transparencia, antifragilidad). La última las junta: varias capas, porque ninguna es perfecta.</p>
+<p>Las capas solo ayudan si no fallan por el mismo motivo. Cuatro capas que fallan a la vez son, en la práctica, una. La agrupación en tres bloques del esquema es propia de esta lección, no del libro.</p>
+
+<svg viewBox="0 0 360 330" role="img" aria-labelledby="dp-t dp-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="dp-t">Ocho principios agrupados por lo que hacen</title>
+<desc id="dp-d">Tres grupos: que un fallo no lo tumbe todo (redundancia, separación de funciones, mínimo privilegio), limitar el daño (fail-safe, retroalimentación negativa), entender y aprender (transparencia, antifragilidad). Debajo, defensa en profundidad que combina todos. La agrupación es propia de la lección.</desc>
+<rect x="4" y="4" width="352" height="74" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="28" style="fill:var(--accent-ink);font-weight:700;font-size:15px">QUE UN FALLO NO LO TUMBE TODO</text>
+<text x="18" y="50" style="fill:currentColor;font-size:13px">Redundancia · Separación de funciones</text>
+<text x="18" y="68" style="fill:currentColor;font-size:13px">Mínimo privilegio</text>
+<rect x="4" y="88" width="352" height="74" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="18" y="112" style="fill:var(--ex);font-weight:700;font-size:15px">LIMITAR EL DAÑO SI FALLA</text>
+<text x="18" y="134" style="fill:currentColor;font-size:13px">A prueba de fallos (fail-safe)</text>
+<text x="18" y="152" style="fill:currentColor;font-size:13px">Retroalimentación negativa</text>
+<rect x="4" y="172" width="352" height="74" rx="10" style="fill:var(--surface);stroke:var(--trap);stroke-width:2"/>
+<text x="18" y="196" style="fill:var(--trap);font-weight:700;font-size:15px">ENTENDER Y APRENDER</text>
+<text x="18" y="218" style="fill:currentColor;font-size:13px">Transparencia</text>
+<text x="18" y="236" style="fill:currentColor;font-size:13px">Antifragilidad</text>
+<text x="180" y="266" text-anchor="middle" style="fill:currentColor;font-size:20px;font-weight:700">↓</text>
+<rect x="4" y="276" width="352" height="46" rx="8" style="fill:var(--accent-soft);stroke:var(--rule-strong)"/>
+<text x="180" y="304" text-anchor="middle" style="fill:currentColor;font-size:13.5px;font-weight:600">DEFENSA EN PROFUNDIDAD: varias capas a la vez</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Enunciar los ocho principios de diseño seguro con un ejemplo cotidiano y un uso en un sistema de IA para cada uno.</li>
+<li>Distinguir una medida preventiva de una protectora y relacionarlas con los factores de la ecuación del riesgo.</li>
+<li>Calcular la probabilidad de que fallen todas las capas de una defensa con fallos independientes y explicar por qué la correlación la empeora.</li>
+<li>Explicar por qué la antifragilidad y la defensa en profundidad tienen costes (adaptación imprevista, complejidad) y cuándo conviene contenerlas.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>Por qué diseñar la seguridad desde el principio</h3>
+<p>En la lección anterior viste que el riesgo depende de la probabilidad, la severidad, la exposición y la vulnerabilidad. Los principios de diseño seguro (<em>safe design principles</em>) son formas concretas de bajar esos factores en cualquier sistema. Su ventaja es de método: si se incorporan desde el diseño, la seguridad forma parte del sistema. Si se añaden después, se acaba apagando fuegos uno a uno cuando aparecen.</p>
+<p>Los principios valen tanto para el modelo como para lo que lo rodea: el control de quién puede acceder a él y la forma de trabajar de la organización que lo desarrolla. Según el sistema, alguno puede servir menos o incluso ser contraproducente, y eso también lo verás abajo.</p>
+
+<h3>1. Redundancia (redundancy)</h3>
+<p>Imagina que el hospital guarda todas las imágenes en un único servidor. Si cae, se para todo el servicio, y esa pieza es un punto único de fallo (<em>single point of failure</em>). La redundancia consiste en que dos o más componentes puedan asumir la misma tarea crítica, así que perder uno no detiene el conjunto. Ejemplos del libro: un coche con freno de pie y de mano, dos discos con los mismos documentos, la segunda opinión médica.</p>
+<p><strong>En IA.</strong> Ejemplo propio: dos modelos entrenados por separado que revisan la misma imagen, o un modelo y un profesional. Ejemplo del libro: un "parlamento moral", en el que varias teorías éticas emuladas negocian y votan y ninguna decide sola en un caso extremo.</p>
+
+<h3>2. Separación de funciones (separation of duties)</h3>
+<p>Piensa en un circuito de medicación donde la misma persona prescribe, autoriza y dispensa: un error o una mala intención no encuentra ningún freno (ejemplo propio). Repartir esos pasos entre personas distintas hace que nadie pueda usar o abusar del conjunto por sí solo. Es la separación de funciones. Ejemplo del libro: dos productos químicos que, mezclados en cantidad, podrían explotar, guardados en armarios distintos y con responsables distintos.</p>
+<p><strong>En IA.</strong> Varios agentes especializados en tareas concretas que colaboran, en vez de un único agente que lo hace todo. El libro lo enlaza con los "servicios integrales de IA" (<em>comprehensive AI services</em>): productos acotados a tareas específicas, sin perseguir un único agente flexible para todo.</p>
+
+<h3>3. Mínimo privilegio (least privilege)</h3>
+<p>Cada agente recibe solo el acceso y el poder que necesita para su tarea. Complementa al anterior: según el libro, repartir tareas puede no bastar si cada uno tiene acceso a todo. De ahí que los armarios del ejemplo lleven llave.</p>
+<p><strong>En IA.</strong> No conectar un sistema a internet si no lo necesita, no darle acceso de administrador a información confidencial. Además limita su capacidad de acumular poder. El libro lo retoma al cerrar el capítulo: ser prudentes con el poder que se da a una IA reduce cuánto nos exponemos a sus sucesos raros e imprevistos, y los sistemas muy potentes pueden mantenerse aislados y accesibles solo a personas verificadas que los necesiten.</p>
+
+<h3>4. A prueba de fallos (fail-safe)</h3>
+<p>No todos los fallos son iguales: parar es una cosa y hacer daño mientras se falla es otra. Una bomba de infusión que, al perder la señal del monitor, se detiene en lugar de seguir con la última dosis es un ejemplo propio. El principio busca que el sistema quede en un estado seguro incluso cuando falla. Ejemplo del libro: los frenos de un ascensor, que se mantienen abiertos mientras los cables están en tensión y se cierran solos sobre los raíles si esa tensión se pierde, de modo que deberían impedir la caída aunque el cable se rompa.</p>
+<p><strong>En IA.</strong> Ejemplo propio: un modelo clínico que devuelve el caso a lectura humana cuando el servicio cae. Ejemplos del libro: un interruptor de apagado (<em>kill switch</em>) para todas las copias del sistema, y un monitor de la confianza del agente o de la probabilidad de daño que interrumpe sus acciones al cruzar un umbral.</p>
+
+<h3>5. Antifragilidad (antifragility)</h3>
+<p>Recuperarse de un golpe no es lo mismo que salir reforzado de él. Un sistema antifrágil hace lo segundo. Ejemplos del libro: el hueso y el músculo que se refuerzan con la carga, y el sistema inmunitario tras una infección. Ejemplo propio: un servicio de urgencias que revisa cada incidente y cambia su protocolo para que no se repita.</p>
+<p><strong>En IA.</strong> Consistiría en dejar que el modelo siga aprendiendo mientras opera, para que un error no se repita en situaciones parecidas. El coste es que un sistema que cambia solo puede acabar comportándose de formas que nadie previó ni quiso, y eso lo hace más difícil de controlar. Caso del libro: Tay, el chatbot que Microsoft lanzó en Twitter en 2016 para aprender de sus conversaciones, y que fue retirado a las 16 horas por sus comentarios ofensivos. Antes de dejar que un sistema aprenda por su cuenta en un entorno que nadie controla, hay que decidir qué puede cambiar y quién lo revisa.</p>
+
+<h3>6. Retroalimentación negativa (negative feedback)</h3>
+<p>Algunos cambios se alimentan a sí mismos. Si el efecto refuerza la causa, hay un bucle positivo y todo escala sin freno: es el caso del deshielo, que deja menos superficie clara que refleje el sol y así favorece más deshielo (ejemplo del libro). Si el efecto frena la causa, hay un bucle negativo, que estabiliza. El termostato de una sala es un ejemplo propio; el libro cita el sudor y el tiritar del cuerpo. Meter bucles negativos en un sistema mejora su controlabilidad.</p>
+<p><strong>En IA.</strong> Hacen falta dos piezas: quien detecte el problema y quien reaccione. Ejemplo propio: si el número de casos que un modelo clínico marca como urgentes se dispara, un límite automático reduce cuántos puede marcar por hora hasta que alguien revise el modelo. Para la detección, el libro propone monitores (<em>AI watch dogs</em>) que vigilen si una IA gana poder o se comporta de forma peligrosa. Para la respuesta, cita desconectarla de internet, restaurar una versión anterior o recurrir a otras IA entrenadas para restarle poder.</p>
+
+<h3>7. Transparencia (transparency)</h3>
+<p>Un accidente también puede empezar en quien maneja el sistema. Si el personal de enfermería no sabe qué significa el aviso naranja del asistente ni cómo ignorarlo con seguridad, tarde o temprano hará lo equivocado (ejemplo propio). La transparencia pide que quien opera conozca el sistema lo suficiente para usarlo sin causar daño. Ejemplo del libro: un piloto debe conocer el piloto automático, incluido cómo se anula y cómo evitar activarlo o desactivarlo por error.</p>
+<p><strong>En IA.</strong> La investigación en transparencia de los modelos profundos busca ver mejor por qué deciden lo que deciden. Con esa vista se puede prever cuándo un modelo va a fallar o a engañar, y actuar antes. Lo verás con detalle en el módulo de monitorización técnica.</p>
+
+<h3>8. Defensa en profundidad (defense in depth)</h3>
+<p>Un único control, por bueno que sea, tiene huecos. La defensa en profundidad apila varios, con la esperanza de que los huecos de uno los tape otro. No promete riesgo cero, sino menos riesgo. Ejemplo del libro: mascarilla, distancia y lavado de manos, que ninguno resuelve por sí solo.</p>
+<p><strong>En IA.</strong> Ejemplo propio: un modelo clínico rodeado de un umbral de confianza, una lectura humana y una auditoría periódica. Cada uno cubre lo que el anterior puede dejar pasar.</p>
+<p>Con capas <em>independientes</em>, la probabilidad de que fallen todas es el producto de las probabilidades de cada una:</p>
+<div class="formula">\[ P(\text{fallan todas}) = p_1\times p_2\times\cdots\times p_n \]</div>
+<p>Cuatro capas que fallan un 10 % de las veces cada una fallan juntas \(0{,}1^4=0{,}0001\), o sea un 0,01 %. Con capas del 10 %, cada una extra añade un nueve al conjunto. Puedes comprobarlo en <a data-ir="practica" href="#sim-defensa-profundidad">el simulador de la Práctica</a>.</p>
+
+<h4>La cautela: capas que no son independientes</h4>
+<p>El libro avisa de que más capas significan más complejidad, y de que las capas pueden interactuar y producir efectos secundarios. Su ejemplo: reducir el contacto social protege del virus, pero un sistema inmunitario poco entrenado puede debilitarse. La ecuación anterior supone además que cada capa falla por su cuenta. Si dos capas comparten causa (el mismo proveedor de datos, la misma persona cansada, el mismo tipo de error), el producto se queda corto.</p>
+<p>Para verlo con números hemos añadido un modelo propio, simple y no procedente del libro. Con un factor de correlación \(c\) entre 0 y 1, la probabilidad de que fallen todas es una mezcla entre el caso independiente y el caso en que todas caen juntas y solo cuenta la más resistente:</p>
+<div class="formula">\[ P_c = (1-c)\prod_i p_i + c\,\min_i p_i \]</div>
+<p>Con \(c=0\) sale el producto. Con \(c=1\) las \(n\) capas valen lo que la mejor de ellas, sola. Los sistemas reales no siguen una fórmula así, pero enseña la dirección del efecto: la correlación desinfla el beneficio de apilar capas.</p>
+
+<h4>Preventivas y protectoras</h4>
+<p>Recuerda los cuatro factores de la lección anterior. Dos determinan si el accidente ocurre (la probabilidad del peligro y la exposición) y dos, cuánto daña (la severidad y la vulnerabilidad). Las medidas sobre los dos primeros son preventivas, y las medidas sobre los otros dos, protectoras. En el ejemplo del triaje de la lección anterior (propio), reentrenar el modelo es preventivo y el protocolo de reevaluación a los 30 minutos es protector.</p>
+<div class="tw"><table>
+<thead><tr><th>Tipo</th><th>Factor que baja</th><th>Ejemplo del libro</th></tr></thead>
+<tbody>
+<tr><td>Preventiva</td><td>Probabilidad, exposición</td><td>Evitar aglomeraciones y lavarse las manos</td></tr>
+<tr><td>Protectora</td><td>Severidad, vulnerabilidad</td><td>Vacunarse y cuidar la salud</td></tr>
+</tbody></table></div>
+<p>Prevenir suele ser más eficaz y barato que reparar, así que conviene darle más peso. Pero las protectoras no se descuidan. El Titanic tenía compartimentos estancos como medida preventiva, pero no llevaba botes para todos los pasajeros: la parte protectora era insuficiente.</p>
+
+<h3>Cómo se combinan</h3>
+<p>Síntesis propia, no del libro: los ocho no compiten, y un buen diseño usa varios a la vez. Se apoyan entre sí: la separación de funciones puede no bastar sin mínimo privilegio, y un bucle de retroalimentación negativa depende de una monitorización que lo dispare. El libro, al cerrar el capítulo, los presenta como un buen primer paso contra los riesgos sistémicos de la IA, con la cautela de elegir bien las defensas y no pasarse de complejidad. Añade que puede ser buena idea reforzar la controlabilidad.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, con cifras inventadas para practicar)</p>
+<p>Un hospital usa un modelo que marca radiografías de tórax con posible nódulo pulmonar para priorizarlas. Así aplicaría los ocho principios sin cambiar el modelo:</p>
+<div class="tw"><table>
+<thead><tr><th>Principio</th><th>Medida en el hospital</th></tr></thead>
+<tbody>
+<tr><td>Redundancia</td><td>Doble lectura: el modelo y un radiólogo evalúan cada imagen. En el flujo habitual, el radiólogo ve la marca del modelo.</td></tr>
+<tr><td>Separación de funciones</td><td>Quien entrena o ajusta el modelo no valida sus resultados ni firma el informe.</td></tr>
+<tr><td>Mínimo privilegio</td><td>El modelo lee la imagen y el motivo de la prueba, no toda la historia clínica, y no puede escribir en ella.</td></tr>
+<tr><td>A prueba de fallos</td><td>Si el servicio cae o la confianza baja de un umbral, la imagen pasa a la cola normal de lectura humana, sin retraso extra.</td></tr>
+<tr><td>Antifragilidad</td><td>Revisión mensual de casos en que modelo y radiólogo discrepan, y reentrenamiento controlado y validado, no aprendizaje libre en producción (lección de Tay).</td></tr>
+<tr><td>Retroalimentación negativa</td><td>Si la proporción de casos marcados como urgentes se duplica respecto a lo habitual, se limita al modelo y se avisa al responsable.</td></tr>
+<tr><td>Transparencia</td><td>El informe muestra la zona que motivó la marca y las limitaciones conocidas del modelo, y el personal está formado para saber cuándo desconfiar.</td></tr>
+<tr><td>Defensa en profundidad</td><td>Todo lo anterior a la vez, no una sola medida.</td></tr>
+</tbody></table></div>
+<p>Cálculo con tres capas que dejan pasar un nódulo: el modelo (10 %), la lectura del radiólogo (5 %) y una segunda lectura de los casos dudosos (20 %). Si son independientes:</p>
+<div class="formula">\[ 0{,}10\times0{,}05\times0{,}20 = 0{,}001 = 0{,}1\,\% \]</div>
+<p>Pero el radiólogo tiende a fiarse de lo que ha marcado el modelo, y ambos aprendieron con imágenes del mismo tipo de equipo. Con una correlación \(c=0{,}5\) en el modelo de la lección:</p>
+<div class="formula">\[ P_c = 0{,}5\times0{,}001 + 0{,}5\times0{,}05 = 0{,}0255 = 2{,}55\,\% \]</div>
+<p>Es 25,5 veces peor que el caso independiente. Un buen diseño no solo añade capas: procura que fallen por causas distintas, por ejemplo con un radiólogo que lea primero sin ver la marca del modelo.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>"Más capas siempre es más seguro."</strong> Solo si fallan por motivos distintos. Cuatro capas del 10 % dan un 0,01 % con fallos independientes, pero con correlación total dan un 10 %, lo mismo que una sola. Añadir una capa que comparte causa de fallo con las anteriores casi no aporta y sí suma complejidad, que el propio libro advierte que puede traer efectos secundarios.</p>
+<p><strong>Otra trampa:</strong> creer que un principio sirve siempre. La antifragilidad pide adaptación, y adaptarse en un entorno abierto puede llevar a un comportamiento peor, como en Tay. Hay que decidir dónde se aplica y con qué límites.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>I don't trust a single safeguard: I stack independent layers, give each component least privilege, and check that the layers don't all fail for the same reason.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 4.3 Safe Design Principles, págs. 189 a 195 (PDF 207 a 213). La idea de aplicar mínimo privilegio y controlabilidad a la IA se refuerza en la sección 4.8 Conclusion, pág. 238 (PDF 256).</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS): no hay lección específica de esta sección.</li>
+<li>Añadido propio, no procede de las fuentes: el ejemplo del hospital con todas sus cifras, el modelo de correlación \(P_c\), la agrupación de los ocho principios del esquema, las aplicaciones sanitarias y los ejemplos propios de IA de cada principio, el cálculo con capas independientes y el nueve extra por cada capa del 10 %, y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: un simulador para explorar y tres ejercicios, dos de cálculo y uno de clasificar medidas.</p>
+
+<p class="consigna"><strong>Simulador de capas.</strong> Pulsa "Ejemplo clínico (20, 10, 5 %)" y mira la probabilidad de que fallen todas con correlación 0. Después sube la correlación poco a poco. Observa en qué punto "Veces peor" pasa de 10 (el conjunto pierde un nueve) y qué pasa con 100 %: el conjunto vale lo que la mejor capa sola.</p>
+<div data-widget="defensa-profundidad" id="sim-defensa-profundidad"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: capas y correlación (a mano, 6 minutos)</p>
+<p>Un servicio de apoyo clínico tiene tres capas de defensa contra un error: un filtro automático (falla el 20 %), una revisión de enfermería (10 %) y una revisión médica (5 %). Cifras propias de práctica. Usa el modelo de la lección, \(P_c=(1-c)\prod p_i+c\,\min p_i\).</p>
+<ol>
+<li>Calcula la probabilidad de que fallen las tres si son independientes.</li>
+<li>Calcúlala con \(c=0{,}5\) y con \(c=1\).</li>
+<li>Con independencia, ¿cuántos nueves de fiabilidad tiene el conjunto? Llamando \(r\) a la fiabilidad del conjunto, \(k=-\log_{10}(1-r)\), donde \(1-r\) es su probabilidad de fallo total.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> \(0{,}2\times0{,}1\times0{,}05=0{,}001\), es decir, un 0,1 %.</p>
+<p><strong>2.</strong> Con \(c=0{,}5\): \(0{,}5\times0{,}001+0{,}5\times0{,}05=0{,}0005+0{,}025=0{,}0255\), un 2,55 %. Con \(c=1\): \(0{,}05\), un 5 %, la probabilidad de la mejor capa sola.</p>
+<p><strong>3.</strong> \(1-r=0{,}001\), luego \(k=-\log_{10}(0{,}001)=3\). Tres nueves con independencia. Con \(c=1\), \(k=-\log_{10}(0{,}05)\approx1{,}3\).</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: qué principio y qué tipo (a mano, 6 minutos)</p>
+<p>Un hospital instala un asistente de IA que sugiere dosis de medicación. Para cada medida, di qué principio ilustra y si es preventiva (baja probabilidad o exposición) o protectora (baja severidad o vulnerabilidad).</p>
+<ol>
+<li>Una enfermera revisa cada dosis sugerida antes de administrarla.</li>
+<li>Un botón permite desactivar el asistente en todas las plantas a la vez.</li>
+<li>El asistente solo ve el peso y las alergias del paciente, no toda la historia clínica.</li>
+<li>Si la proporción de dosis marcadas como altas sube mucho, el sistema vuelve solo a la versión anterior.</li>
+<li>Cada mes se estudian las dosis corregidas por enfermería y se usan para mejorar el modelo con validación.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Redundancia (doble comprobación). Preventiva: el error del modelo llega menos veces al paciente, es decir, baja la exposición. También podría verse como protectora si se argumenta que limita el daño.</p>
+<p><strong>2.</strong> A prueba de fallos, en su forma de interruptor de apagado. Protectora: limita el daño una vez detectado el fallo. También se podría defender como preventiva si reduce la exposición de los pacientes al error.</p>
+<p><strong>3.</strong> Mínimo privilegio. Preventiva: reduce la exposición de datos que el asistente no necesita. Puede leerse también como protectora, porque acota lo que un abuso o un fallo podría dañar.</p>
+<p><strong>4.</strong> Retroalimentación negativa: una desviación dispara una respuesta que la frena. Protectora, porque acota cuánto se prolonga el daño. Se puede defender también como preventiva si evita que el error escale; lo que importa es razonar con qué factor lo justificas.</p>
+<p><strong>5.</strong> Antifragilidad, con aprendizaje validado y no libre. Preventiva: baja la probabilidad de repetir el error.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: cuánta correlación tolera la defensa (Python, 8 minutos)</p>
+<p>Con las tres capas del ejercicio A, ejecuta este fragmento. Después responde: ¿a partir de qué \(c\) el conjunto falla diez veces más que en el caso independiente (pierde un nueve)?</p>
+<pre><code>capas = [0.20, 0.10, 0.05]
+producto = 1.0
+for p in capas:
+    producto *= p
+for c in (0, 0.25, 0.5, 0.75, 1):
+    pc = (1 - c) * producto + c * min(capas)
+    print(f"c={c:.2f}  falla todo={pc:.5f}  veces peor={pc / producto:.1f}")</code></pre>
+<details>
+<summary>Ver solución</summary>
+<p>Salida esperada: \(0{,}00100\) (x 1,0), \(0{,}01325\) (x 13,2), \(0{,}02550\) (x 25,5), \(0{,}03775\) (x 37,8) y \(0{,}05000\) (x 50,0).</p>
+<p>Para el umbral se resuelve \((1-c)\times0{,}001+c\times0{,}05=0{,}01\). Queda \(0{,}001+0{,}049\,c=0{,}01\), de modo que \(c=0{,}009/0{,}049\approx0{,}18\). Con solo un 18 % de correlación en este modelo, la defensa pierde un nueve. Conclusión: pequeñas dependencias entre capas pesan mucho, y por eso importa tanto que las capas fallen por causas distintas.</p>
+</details>
+</div>
+</div>
+
+</section>

@@ -1,0 +1,224 @@
+<section class="leccion" data-id="m08/l05">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Nadie sabe con certeza qué teoría moral es la correcta, y los filósofos no se han puesto de acuerdo. Una IA con una sola teoría y una meta estrecha la aplicará con mucha eficacia y con toda seguridad, incluso donde lleva a conclusiones que casi nadie aceptaría.</p>
+<p>El libro propone que el sistema reconozca su duda: un grado de confianza para cada teoría (su credencia) y una regla para decidir. Hay tres: seguir la teoría más probable, promediar los valores que cada teoría da a cada opción, o simular un parlamento donde cada teoría tiene delegados que negocian y votan. Pueden recomendar cosas distintas ante el mismo dilema, y la lección enseña a ver esa discrepancia.</p>
+
+<svg viewBox="0 0 360 326" role="img" aria-labelledby="rs85-t rs85-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="rs85-t">Tres reglas ante la incertidumbre moral</title>
+<desc id="rs85-d">Arriba, una barra dividida en tres tramos que representan la credencia en tres teorías: 60, 30 y 10. Debajo, tres cajas: teoría favorita, que elige lo que dice la de mayor credencia; elegibilidad esperada, que pondera y suma; y parlamento moral, que reparte delegados, negocia y vota.</desc>
+<rect x="4" y="4" width="352" height="96" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="26" style="fill:var(--accent-ink);font-weight:700;font-size:14px">CREDENCIA EN CADA TEORÍA</text>
+<rect x="18" y="38" width="200" height="26" style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5"/>
+<rect x="218" y="38" width="100" height="26" style="fill:var(--surface);stroke:var(--accent);stroke-width:1.5"/>
+<rect x="318" y="38" width="24" height="26" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5"/>
+<text x="118" y="56" text-anchor="middle" style="fill:currentColor;font-size:12.5px">Teoría 1: 60</text>
+<text x="268" y="56" text-anchor="middle" style="fill:currentColor;font-size:12.5px">Teoría 2: 30</text>
+<text x="330" y="56" text-anchor="middle" style="fill:currentColor;font-size:11px">10</text>
+<text x="18" y="88" style="fill:var(--muted);font-size:12px">Cada teoría puntúa cada opción, y ninguna es segura</text>
+
+<rect x="4" y="112" width="352" height="66" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="134" style="fill:var(--accent-ink);font-weight:700;font-size:13.5px">1. TEORÍA FAVORITA (MFT)</text>
+<text x="18" y="154" style="fill:currentColor;font-size:12.5px">Elige lo que dice la teoría con más credencia</text>
+<text x="18" y="169" style="fill:var(--muted);font-size:12px">Sencilla, pero descarta a las demás</text>
+
+<rect x="4" y="188" width="352" height="66" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="210" style="fill:var(--accent-ink);font-weight:700;font-size:13.5px">2. ELEGIBILIDAD ESPERADA (MEC)</text>
+<text x="18" y="230" style="fill:currentColor;font-size:12.5px">Credencia × valor de cada teoría, y se suma</text>
+<text x="18" y="245" style="fill:var(--muted);font-size:12px">Necesita números y compararlos entre teorías</text>
+
+<rect x="4" y="264" width="352" height="58" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="286" style="fill:var(--accent-ink);font-weight:700;font-size:13.5px">3. PARLAMENTO MORAL</text>
+<text x="18" y="304" style="fill:currentColor;font-size:12.5px">Delegados por credencia: negocian y votan</text>
+<text x="18" y="317" style="fill:var(--muted);font-size:12px">El resultado depende de cómo se imagine</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Explicar por qué una IA que optimiza una sola teoría moral es frágil, y qué significa que tenga credencias sobre varias.</li>
+<li>Calcular la elegibilidad esperada (MEC) de una opción a partir de credencias y valores, y hallar la opción que recomienda.</li>
+<li>Comparar la teoría favorita, la elegibilidad esperada y el parlamento moral: qué pregunta contesta cada una, qué ventaja tiene y en qué falla.</li>
+<li>Enumerar las ventajas y los retos de un parlamento moral simulado por IA, y relacionarlo con el aprendizaje de valores del notebook.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>¿Por qué debería dudar una IA en cuestiones morales?</h3>
+<p>El libro parte de una observación sencilla: cuanto mejor optimiza un sistema, más creativas son las soluciones que encuentra para su meta, y más probable es que pisen valores que nadie se acordó de incluir (libro, pp. 353 y 354). Si además a la IA se le dice que una teoría moral concreta es la verdadera, no tiene ningún motivo para frenar cuando esa teoría empuja hacia algo extremo. El libro pide sistemas que no lleven codificada una falsa certeza y que admitan que hay varias perspectivas morales válidas (p. 354).</p>
+<p>Hay un segundo motivo, más práctico: un mismo sistema lo usan personas con creencias distintas, y cada una querrá que no atropelle las suyas en lo posible (p. 361). Ejemplo propio: a un asistente sobre el uso de datos clínicos lo consultan un investigador que valora el bien colectivo y una paciente que valora su consentimiento. Ninguno acepta que la máquina zanje esa discusión por su cuenta.</p>
+
+<h3>¿Qué significa no estar seguro de una moral?</h3>
+<p>Para hablar de esa duda hace falta una unidad. El libro usa la credencia (<em>credence</em>): el grado de confianza, expresado como probabilidad, que alguien da a que una teoría sea cierta (p. 353). Alguien puede tener una credencia del 70 % en el utilitarismo y del 30 % en una ética de reglas. Es un grado de creencia sobre algo que no se resuelve observando, no una frecuencia: se puede discutir y revisar, y alguien tiene que decidirlo.</p>
+<p>Los nombres de las teorías aparecen aquí solo como etiquetas; se estudian en el módulo 11. Para esta lección basta con saber que el utilitarismo juzga por las consecuencias y busca el mayor bienestar, que la deontología pone reglas y obligaciones por delante de las consecuencias, y que el contractualismo funda las normas en un acuerdo hipotético entre los miembros de una sociedad (pp. 352 y 353). La ética de la virtud, que el libro solo nombra de pasada, valora actuar con virtud (definición propia).</p>
+<p>El pluralismo razonable (<em>reasonable pluralism</em>) acepta que la orientación de varias fuentes puede chocar y que aun así cada una aporta algo (p. 353). En decisiones de mucho peso, como repartir recursos escasos entre hospitales o diseñar una IA, el libro dice que eso se queda corto y hace falta una regla explícita (p. 353). Son las tres siguientes.</p>
+
+<h3>Primera regla: seguir la teoría favorita</h3>
+<p>La regla de la teoría favorita (<em>My Favorite Theory</em>, MFT) dice que se haga lo que recomiende la teoría a la que se da más credencia. Es lo que mucha gente hace sin pensarlo, y su gran ventaja es que no exige cálculos ni entender a fondo las demás teorías. Funciona razonablemente cuando la duda es pequeña y una teoría destaca claramente (libro, p. 355).</p>
+<p>Su fallo es que tira información. Si la credencia está repartida 51 % y 49 %, la regla obedece a la primera aunque la segunda considere que la acción elegida es profundamente inmoral, con un daño mucho mayor que el beneficio que ve la primera (ejemplo del libro, p. 355). Además, quien la aplica tiende a racionalizar su teoría de cabecera (p. 355).</p>
+
+<h3>Segunda regla: maximizar la elegibilidad esperada</h3>
+<p>La maximización de la elegibilidad esperada (<em>Maximize Expected Choice-Worthiness</em>, MEC) trata la duda moral como se trata la duda sobre un resultado en una decisión con riesgo. Tiene dos pasos (libro, pp. 355 y 356). Primero, cada teoría da a cada opción un número, su elegibilidad (<em>choice-worthiness</em>): cuán buena es esa opción según la teoría. Segundo, se multiplica por la credencia de la teoría y se suma. Con credencias \(c_i\) y valores \(V_i(a)\):</p>
+<div class="formula">\[ \mathrm{EC}(a)=\sum_i c_i\,V_i(a) \]</div>
+<p>Se elige la opción con mayor \(\mathrm{EC}\). El libro lo ilustra con Alex, a quien un asesino pregunta dónde está su amigo Jordan (pp. 354 a 356). Alex tiene credencias del 60 % en el utilitarismo, del 30 % en la deontología y del 10 % en el contractualismo, y sus valores para mentir son +500, −1000 y +100:</p>
+<div class="formula">\[ 0{,}6\times500+0{,}3\times(-1000)+0{,}1\times100=300-300+10=+10 \]</div>
+<p>Alex miente, porque su mejor estimación del valor moral de mentir es positiva. El propio libro avisa de que el margen es mínimo y de que los números no representan nada preciso. Este es un punto fuerte de MEC: una opción que probablemente esté bien pero podría ser terrible no gana, porque un valor muy negativo de una teoría compensa varios pequeños positivos de otras (p. 356).</p>
+<p>Los límites también se ven aquí (p. 356). Los números son arbitrarios (el libro cita la ética de la virtud, que aconseja actuar virtuosamente sin pautas claras), y las teorías que solo ordenan las opciones no dan valores. Una teoría absolutista, que prohíbe ciertas acciones sin excepción, llevaría un valor enorme y aplastaría al resto incluso con credencia baja: el 0,01 % de 1.000.000 ya son 100. Añadido propio sobre la escala: si en el ejemplo de Alex la deontología puntuara mentir con −1100 en lugar de −1000, la suma pasaría de +10 a \(300-330+10=-20\) y Alex diría la verdad, sin que nadie haya cambiado de opinión.</p>
+
+<h3>Tercera regla: un parlamento moral</h3>
+<p>En un parlamento moral (<em>moral parliament</em>) hay delegados que representan a cada teoría, en número proporcional a su credencia, y que negocian y votan para llegar a una recomendación (libro, p. 357). Con 100 delegados, los de Alex serían 60 utilitaristas, 30 deontólogos y 10 contractualistas.</p>
+<p>Con mayoría simple, los 60 utilitaristas ganarían siempre. Para evitarlo, el libro propone la votación con oportunidades proporcionales (<em>proportional chances voting</em>): cada opción se toma con una probabilidad igual a su cuota de votos. Aquí, mentir con un 70 % (utilitaristas y contractualistas) y decir la verdad con un 30 % (deontólogos). Como ninguna mayoría garantiza nada, a cada delegado le interesa pactar, sobre todo para que no salga con ninguna probabilidad algo que su teoría considera terrible (pp. 357 y 360).</p>
+<p>Prueba a predecir qué votaría ese parlamento y verás la dificultad: depende de si alguien cambia de opinión por el camino. Si nadie cambia, sale el 70/30. Si los deontólogos convencen a los contractualistas, el libro estima un 60 % de mentir. Y cabe una salida nueva, como omitir la verdad sin mentir (ejemplo del libro, p. 357). Ninguna fórmula decide entre las tres: el resultado depende de la imaginación de quien lo simula, con sus sesgos, y por eso el libro plantea simularlo con diplomáticos que representen cada postura o con varias IA.</p>
+
+<div class="tw"><table>
+<thead><tr><th>Regla</th><th>Pregunta que contesta</th><th>Necesita</th><th>Su límite</th></tr></thead>
+<tbody>
+<tr><td>Teoría favorita (MFT)</td><td>¿Qué teoría creo más probable?</td><td>Solo la credencia</td><td>Ignora lo que digan las demás, aunque estén casi empatadas</td></tr>
+<tr><td>Elegibilidad esperada (MEC)</td><td>¿Qué es lo mejor en promedio?</td><td>Credencias y valores comparables entre teorías</td><td>La escala es arbitraria y las teorías absolutistas dominan</td></tr>
+<tr><td>Parlamento moral</td><td>¿Qué pactarían mis teorías?</td><td>Credencias y una forma de votar</td><td>El resultado depende de cómo se imagine la negociación</td></tr>
+</tbody></table></div>
+<p>La columna de preguntas es una lectura propia. El libro concluye que no hay una regla válida para todo y que la elección depende de la situación, del nivel de incertidumbre y de las preferencias (p. 361).</p>
+
+<h3>¿Cómo se lleva un parlamento a una IA?</h3>
+<p>La idea del libro es usar IA como delegados: sistemas entrenados o instruidos para actuar según una teoría concreta, que se reúnen, discuten, negocian y votan. La recomendación que salga instruiría a otra IA que actúa en el mundo (libro, pp. 357 y 358). El propio libro reconoce que es especulativo: los delegados podrían entender mal las teorías que representan (p. 358).</p>
+<p>El parlamento puede representar también a partes interesadas (<em>stakeholders</em>) en lugar de teorías. El libro pone el ejemplo de una decisión sobre transporte público, con delegados de vecinos, viajeros y grupos ambientales (p. 358). En un hospital, y como ejemplo propio, serían la paciente, su familia, el personal y la gerencia. Así se prioriza a quienes sufren la decisión.</p>
+
+<h3>¿Qué ventajas tiene frente a dar valores fijos a la IA?</h3>
+<p>El libro enumera cinco (pp. 358 a 360). Es personalizable y escalable: si falta representación, se añaden delegados. Es transparente: si se guardan las negociaciones en lenguaje humano, se ve cómo se pesaron las consideraciones. Es menos frágil, porque varias teorías dan redundancia (módulo 2). Fomenta el compromiso, sobre todo con oportunidades proporcionales. Y evita fijar valores para siempre: el parlamento puede rehacerse cuando cambian las opiniones morales.</p>
+<p>La fragilidad merece un detalle, porque se parece a lo visto con los sustitutos (<em>proxies</em>) mal optimizados en el módulo 5. Imagina que un hospital compara 1.000 protocolos igual de buenos con una medición ruidosa (cifra propia). El que sale primero lo hace en parte por suerte en el ruido, y suele quedar unas tres desviaciones típicas por encima de la media real; el ejercicio C lo comprueba. El libro aplica la misma idea a una IA que evalúa millones de opciones con un error pequeño en su estimación de valor: tiende a elegir las de más varianza, porque son las que aparentan valer más. Lo llama maldición del ganador (<em>winner's curse</em>), como en una subasta, donde gana quien sobrestima el bien (p. 359). Su ejemplo es una bolsa de monedas en una feria, y una IA utilitarista que gastaría muchos recursos en crear mentes digitales felices a costa de la humanidad. Un parlamento diverso lo frena, según el libro, porque las acciones que la mayoría de las personas juzgaría extremas no salen elegidas.</p>
+<p>Los retos son reales (p. 360): decidir qué teorías entran y con qué peso es subjetivo y político, y la IA tendría que entender bien cada teoría para representarla.</p>
+
+<h3>De la teoría al código: aprender valores</h3>
+<p>La lección L15 del curso <em>Intro to ML Safety</em> (Machine Ethics) cubre, según su lista de temas, la ética normativa, los valores humanos, el aprendizaje de valores mediante comparaciones, el paso del conocimiento moral a la acción y el parlamento moral. No hay notas en el repositorio: solo se ha usado la lista de temas y el notebook.</p>
+<p>El notebook trabaja con un modelo de lenguaje (DeBERTa) que da una utilidad a frases como «he salvado a x personas». Primero calcula con gradientes qué palabras pesan en esa puntuación (un mapa de saliencia) y después busca fallos: la utilidad no siempre crece con las vidas salvadas, el encuadre positivo o negativo de la misma idea da puntuaciones distintas, un ruido mínimo (100.000 frente a 100.001 dólares) cambia el resultado y aparecen sesgos entre grupos.</p>
+<p>Puente propio: una utilidad aprendida es una sola función de valor, una sola «teoría» con un solo juego de números. Sus fallos son los de la teoría favorita sin la cautela de un parlamento, y por eso se audita antes de fiarse de ella. Como contexto, <em>Aligning AI With Shared Human Values</em> (Hendrycks y colaboradores) presenta el conjunto ETHICS, con conceptos de justicia, bienestar, deberes, virtudes y moral de sentido común (arXiv 2008.02275, resumen leído el 30 de septiembre de 2026). El notebook no dice con qué datos se entrenó su modelo.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, con valores ilustrativos)</p>
+<p>Un hospital podría usar historias clínicas antiguas para entrenar un detector de sepsis. Pedir el consentimiento de todos los pacientes antiguos es inviable. Opciones: A, usar todos los datos sin consentimiento; B, exigir consentimiento explícito; C, datos anonimizados con comité de ética y exclusión voluntaria; D, un piloto con consentimiento y ampliar después. Cuatro teorías con credencias del 35, 25, 25 y 15 %: utilitarismo, deontología, contractualismo y ética de la virtud.</p>
+<ul>
+<li><strong>Teoría favorita:</strong> el utilitarismo, y su mejor opción es A. Tres de las cuatro teorías la puntúan mal.</li>
+<li><strong>MEC:</strong> con los valores del simulador, A da \(-94{,}5\), B \(24{,}5\), C \(39\) y D \(44\). Gana D, con C muy cerca.</li>
+<li><strong>Parlamento por oportunidades proporcionales:</strong> cada teoría vota su mejor opción: A recibe el 35 %, B el 25 %, C el 25 % y D el 15 %. Sin negociación, la opción que más rechazan las demás sale con más de una probabilidad entre tres.</li>
+</ul>
+<p>La teoría favorita y el parlamento sin negociación coinciden en A, y MEC dice D: las reglas discrepan y ninguna satisface a todas las teorías. En <a data-ir="practica" href="#sim-m08-l05-parlamento">el simulador</a> puedes mover las credencias y ver qué cambia.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Tomar la elegibilidad esperada como una medición (aviso propio).</strong> Los valores de cada teoría son juicios, no datos. Un resultado de +10 frente a −20 por cambiar una escala un 10 % no dice nada sobre la moral, dice que el método es sensible. Antes de fiarse de la cifra, mira cuánto varía con la escala.</p>
+<p><strong>Confundir el parlamento con una media.</strong> Un parlamento con oportunidades proporcionales no promedia valores: reparte probabilidades entre opciones según los votos. En el ejemplo puede dar el 35 % a la opción más extrema; solo la negociación, que el libro describe pero no formaliza, lo desplaza hacia compromisos.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>I don't hard-code one moral theory into a system. I keep credences over several, choose a decision rule on purpose, and check where the rules disagree, because that is where the risk lives.</p>
+
+<div class="teoria prose">
+
+<h3>Repaso del módulo 8</h3>
+<p>El capítulo 6 del libro concluye que, por defecto, la IA seguirá los incentivos económicos y una parte de la ley, y que eso no basta (libro, pp. 361 y 362). Seis puntos resumen el módulo (formulación propia):</p>
+<ul>
+<li><strong>La ley es el suelo, no el techo.</strong> Evita lo ya prohibido, pero tiene huecos y calla sobre el bien que se debería hacer (lección 1).</li>
+<li><strong>El mercado no cuenta todo.</strong> Los precios omiten daños a terceros; una IA que optimiza beneficios optimiza una cifra incompleta (lección 2).</li>
+<li><strong>Hay que decidir qué es el bienestar.</strong> Placer, preferencias y bienes objetivos dan respuestas distintas, y «haz lo que elijo», «lo que quiero» y «lo que me hace feliz» chocan (lección 3; libro, p. 361).</li>
+<li><strong>El reparto importa.</strong> Una función de bienestar social decide cómo se junta el bienestar de cada persona en un solo número. El libro apunta, como conjetura, a una prioritarista continua (lección 4; p. 362).</li>
+<li><strong>Hay que admitir la duda moral.</strong> Con credencias y una regla explícita, un sistema evita la falsa certeza de una sola teoría (esta lección).</li>
+<li><strong>Las tensiones se resuelven antes de desplegar</strong> sistemas potentes, aunque sea de forma provisional, y falta investigación (pp. 361 y 362).</li>
+</ul>
+
+</div>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 6.9 Moral Uncertainty, págs. 352 a 361 (PDF 370 a 379): credencia y pluralismo razonable (352 y 353), teoría favorita (355), elegibilidad esperada (355 y 356), parlamento moral (357), parlamento en IA y partes interesadas (357 y 358), ventajas y retos (358 a 360) y conclusiones (360 y 361). Sección 6.10 Conclusion, págs. 361 y 362, para el repaso.</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS), lección L15 Machine Ethics: solo la lista de temas y el notebook adaptado. No hay notas en el repositorio.</li>
+<li>Consultado el 30 de septiembre de 2026: resumen de Hendrycks et al., <em>Aligning AI With Shared Human Values</em>, arXiv 2008.02275 (v6, 17 de febrero de 2023), para describir el conjunto ETHICS.</li>
+<li>Añadido propio, no procede de las fuentes: el caso de la sepsis y sus cifras; los valores de espejo de Alex y los del caso 51/49; el ejemplo de −1100; el modelo de negociación del simulador; el cuadro comparativo; el puente con la utilidad aprendida; el repaso del módulo 8; el ejemplo de los protocolos; y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: un simulador para explorar, un notebook opcional y tres ejercicios.</p>
+
+<p class="consigna"><strong>Simulador del parlamento moral.</strong> Empieza con el caso de la sepsis, sin negociar: la teoría favorita y el parlamento eligen A, y MEC elige D. Baja la intensidad de la deontología a ×0,5: MEC pasa a C sin que cambie ninguna credencia (con ×6 pasa a B). Es el problema de la escala. Después sube la disposición a negociar al 40 %: la opción de compromiso C recibe la mayoría de los votos. En el caso de Alex, el parlamento da 70 % a mentir y MEC vale +10; con la deontología en ×1,1, MEC pasa a decir la verdad. En el caso 51/49, pon 96 y 4 en las credencias y mira desde dónde MEC deja de discrepar de la teoría favorita.</p>
+<div data-widget="m08-l05-parlamento" id="sim-m08-l05-parlamento"></div>
+
+<div class="notebook" style="background:var(--surface);border:1px solid var(--rule);border-left:4px solid var(--accent);border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0">
+<p class="label">Notebook: utilidad aprendida, saliencia y fallos de un modelo de valores</p>
+<p>Es un ejercicio del curso Intro to ML Safety (lección L15), adaptado al español. Empieza con un mapa de saliencia sobre reseñas de cine y después toma un DeBERTa que puntúa la utilidad de frases. Escribes cuatro fragmentos (leer las utilidades, calcular el gradiente de cada palabra, aplicarlo a cada frase y pintar el mapa) y con ello buscas fallos: escala, encuadre, ruido y sesgos entre grupos. Al final propones al menos dos fallos propios.</p>
+<p><strong>Tiempo aproximado:</strong> de 1,5 a 2 horas (estimación propia, no medida), más la descarga del modelo.</p>
+<ul>
+<li><strong>Necesita descargas que no están en este curso:</strong> los pesos, en Google Drive, y DeBERTa, en Hugging Face. Hacen falta <code>torch</code>, <code>transformers</code>, <code>sentencepiece</code>, <code>pandas</code>, <code>matplotlib</code> y <code>gdown</code>. La primera parte usa <code>thermostat-datasets</code>, que puede no instalarse con Python 3.13 (sin verificar); si falla, salta a la segunda, que es independiente.</li>
+<li><strong>No se ha ejecutado.</strong> El código es el del original con cuatro arreglos marcados en los comentarios; cada celda es sintácticamente correcta y los huecos <code>TODO</code> llevan un <code>pass</code>. Puede haber fallos de versiones.</li>
+</ul>
+<p><strong>Enlace:</strong> <a href="../notebooks/m08-l05-etica-de-maquinas.ipynb"><code>notebooks/m08-l05-etica-de-maquinas.ipynb</code></a></p>
+</div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: Alex con tres reglas (a mano, 8 minutos)</p>
+<p>Alex tiene credencias del 60 % en el utilitarismo, del 30 % en la deontología y del 10 % en el contractualismo. Para mentir, sus valores son +500, −1000 y +100. Para decir la verdad, toma los opuestos (−500, +1000 y −100; es una asunción propia).</p>
+<ol>
+<li>Calcula la elegibilidad esperada de mentir y de decir la verdad, y di qué recomienda MEC.</li>
+<li>¿Qué recomienda la teoría favorita?</li>
+<li>¿Qué probabilidad da a cada opción un parlamento con oportunidades proporcionales, si cada teoría vota por su opción preferida y nadie cambia de opinión?</li>
+<li>¿Por debajo de qué valor de mentir para la deontología cambia la recomendación de MEC?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Mentir: \(0{,}6\times500+0{,}3\times(-1000)+0{,}1\times100=300-300+10=+10\). Decir la verdad da el opuesto, \(-10\). MEC recomienda mentir, con un margen mínimo.</p>
+<p><strong>2.</strong> La teoría favorita es el utilitarismo, con el 60 %, y recomienda mentir.</p>
+<p><strong>3.</strong> Votan mentir los utilitaristas y los contractualistas, es decir, el 70 %, y decir la verdad los deontólogos, el 30 %. La probabilidad es de 0,7 y de 0,3.</p>
+<p><strong>4.</strong> Con un valor \(x\) para la deontología, mentir vale \(0{,}6\times500+0{,}3x+0{,}1\times100=310+0{,}3x\). Cambia el signo cuando \(x=-310/0{,}3\approx-1033{,}3\). Por debajo de eso, MEC dice la verdad. Basta un 3 % más de fuerza en la deontología, sin cambiar ninguna credencia, para cambiar la decisión.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: casi empate (a mano, 8 minutos)</p>
+<p>Dos teorías: el contractualismo, con el 51 % de credencia, da +50 a mentir y −50 a decir la verdad; la deontología, con el 49 %, da −1000 a mentir y +1000 a decir la verdad (valores propios; la idea sale del libro).</p>
+<ol>
+<li>¿Qué recomienda la teoría favorita?</li>
+<li>Calcula la elegibilidad esperada de mentir y de decir la verdad. ¿Qué recomienda MEC?</li>
+<li>¿Qué credencia mínima en el contractualismo hace falta para que MEC recomiende mentir?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Mentir, porque la teoría más probable es el contractualismo.</p>
+<p><strong>2.</strong> Mentir: \(0{,}51\times50+0{,}49\times(-1000)=25{,}5-490=-464{,}5\). Decir la verdad: \(+464{,}5\). MEC recomienda decir la verdad, lo contrario que la teoría favorita.</p>
+<p><strong>3.</strong> Con credencia \(c\) en el contractualismo, mentir vale \(50c-1000(1-c)=1050c-1000\), positivo si \(c>1000/1050\approx0{,}952\): hace falta más de un 95 %. Con solo dos puntos de ventaja, la teoría favorita ignora que la otra rechaza mentir con una fuerza veinte veces mayor.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: la maldición del ganador, con Python (10 minutos)</p>
+<p>Un sistema compara opciones que valen todas lo mismo (0). Su estimación de cada una lleva un ruido normal de desviación 1 y elige la que parece mejor. Este fragmento simula cuánto la sobrestima según el número de opciones:</p>
+<pre><code>import random
+random.seed(1)
+
+def sobrestimacion(n_opciones, repeticiones=2000):
+    total = 0.0
+    for _ in range(repeticiones):
+        estimaciones = [random.gauss(0, 1) for _ in range(n_opciones)]
+        total += max(estimaciones)   # la opción que parece mejor
+    return total / repeticiones
+
+for n in (2, 10, 100, 1000):
+    print(n, round(sobrestimacion(n), 2))</code></pre>
+<p>Ejecútalo y responde: ¿cuánto vale de verdad la opción elegida? ¿Cómo crece la sobrestimación con las opciones? ¿Qué implica para una IA que busca la mejor acción entre millones?</p>
+<details>
+<summary>Ver solución</summary>
+<p>La opción elegida vale 0, como todas: lo que se ve es puro ruido. Con la semilla 1 salen 0,57 para 2 opciones, 1,54 para 10, 2,51 para 100 y 3,23 para 1.000 (con otra semilla varían un poco). La sobrestimación crece despacio, pero no se detiene, y con miles de opciones el «mejor» resultado es de unas tres desviaciones típicas por encima de la realidad. Una IA que optimice con estimaciones ruidosas sobre un espacio enorme acabará eligiendo justo lo que más se ha sobrestimado. El libro sostiene que un parlamento diverso lo hace menos probable, porque las acciones que la mayoría de las personas juzgaría extremas no salen elegidas (p. 359). Lectura propia: es una comprobación cruzada, porque una acción extrema tendría que convencer a varias teorías con errores distintos.</p>
+</details>
+</div>
+
+</div>
+
+</section>

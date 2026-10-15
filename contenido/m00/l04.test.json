@@ -1,0 +1,118 @@
+[
+  {
+    "id": "m00l04-q01",
+    "tipo": "unica",
+    "enunciado": "¿Qué arquitectura usa un bucle de realimentación con un estado oculto para recordar entradas anteriores en datos secuenciales?",
+    "opciones": [
+      "LeNet",
+      "La red recurrente (RNN)",
+      "AlexNet",
+      "ResNet"
+    ],
+    "correcta": 1,
+    "explicacion": "Las redes recurrentes guardan un estado oculto que se realimenta en cada paso, y por eso sirven para texto, voz o series temporales. LeNet, AlexNet y ResNet son redes convolucionales para imágenes."
+  },
+  {
+    "id": "m00l04-q02",
+    "tipo": "multiple",
+    "enunciado": "¿Qué puertas añade la LSTM a la celda de memoria de una RNN estándar? Marca todas las que correspondan.",
+    "opciones": [
+      "Puerta de entrada",
+      "Puerta de olvido",
+      "Puerta de salida",
+      "Puerta de atención"
+    ],
+    "correcta": [
+      0,
+      1,
+      2
+    ],
+    "explicacion": "La LSTM regula la información con tres puertas: la de entrada decide qué se admite, la de olvido qué se retiene y la de salida qué se transmite. La atención es la base del Transformer, no de la LSTM."
+  },
+  {
+    "id": "m00l04-q03",
+    "tipo": "numerica",
+    "enunciado": "En ImageNet, el mejor error top-5 previo a 2012 era del 26,2 % y AlexNet logró el 15,3 %. ¿Cuántos puntos porcentuales bajó el error?",
+    "correcta": 10.9,
+    "tolerancia": 0.05,
+    "explicacion": "26,2 − 15,3 = 10,9 puntos. En proporción, es una reducción de alrededor del 41,6 % del error previo."
+  },
+  {
+    "id": "m00l04-q04",
+    "tipo": "numerica",
+    "enunciado": "Un clasificador de 10 clases empieza con logits casi nulos, así que reparte la probabilidad por igual. ¿Qué pérdida de entropía cruzada media esperas al inicio? Redondea a dos decimales.",
+    "correcta": 2.3,
+    "tolerancia": 0.02,
+    "explicacion": "Cada clase recibe probabilidad 0,1, y la pérdida es −ln 0,1 = ln 10 ≈ 2,30. Es la comprobación de cordura que pide el notebook."
+  },
+  {
+    "id": "m00l04-q05",
+    "tipo": "unica",
+    "enunciado": "Según el libro, ¿cuál es una de las razones clave por las que los modelos GPT son más populares que BERT?",
+    "opciones": [
+      "Porque leen el texto en ambos sentidos",
+      "Porque generan texto largo con más naturalidad, al entrenarse para predecir lo que sigue",
+      "Porque no necesitan preentrenamiento",
+      "Porque son anteriores al Transformer"
+    ],
+    "correcta": 1,
+    "explicacion": "BERT aprende rellenando huecos y es muy bueno para tareas de comprensión, pero GPT se entrena para predecir lo que viene y genera frases, párrafos y ensayos con más facilidad. Además, los dos se apoyan en el Transformer y ambos se preentrenan."
+  },
+  {
+    "id": "m00l04-q06",
+    "tipo": "vf",
+    "enunciado": "Como las clases de CIFAR-10 y de CIFAR-100 no se solapan, se puede usar uno como datos dentro de distribución y el otro como datos fuera de distribución en investigación sobre detección de anomalías.",
+    "correcta": true,
+    "explicacion": "Es una de las ventajas que citan las notas del curso. Además, CIFAR usa imágenes pequeñas de 32 por 32, útiles para experimentar rápido."
+  },
+  {
+    "id": "m00l04-q07",
+    "tipo": "unica",
+    "enunciado": "Una red no consigue llegar al 100 % de acierto en entrenamiento cuando se le dan solo 50 imágenes para sobreajustar. ¿Qué indica?",
+    "opciones": [
+      "Que la red generaliza muy bien",
+      "Que hace falta más validación",
+      "Que probablemente hay un error en el código o en los hiperparámetros",
+      "Que ya no hay que revisar nada más"
+    ],
+    "correcta": 2,
+    "explicacion": "Memorizar 50 ejemplos es fácil para una red sana. Si no puede, conviene revisar el código, la tasa de aprendizaje y la inicialización antes de entrenar con todos los datos."
+  },
+  {
+    "id": "m00l04-q08",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estos conjuntos son de lenguaje natural? Marca todos los que correspondan.",
+    "opciones": [
+      "SST-2",
+      "CIFAR-100",
+      "GLUE",
+      "ImageNet"
+    ],
+    "correcta": [
+      0,
+      2
+    ],
+    "explicacion": "SST-2 (reseñas de cine, sentimiento binario) y GLUE (varias tareas de lenguaje) son de texto. CIFAR-100 e ImageNet son de imágenes."
+  },
+  {
+    "id": "m00l04-q09",
+    "tipo": "numerica",
+    "enunciado": "Una red totalmente conectada tiene entrada de 784 valores, dos capas ocultas de 100 unidades y 10 clases de salida, con un sesgo por unidad. ¿Cuántos parámetros tiene en total?",
+    "correcta": 89610,
+    "tolerancia": 0.5,
+    "explicacion": "784 × 100 + 100 = 78 500; 100 × 100 + 100 = 10 100; 100 × 10 + 10 = 1 010. La suma es 89 610."
+  },
+  {
+    "id": "m00l04-q10",
+    "tipo": "unica",
+    "enunciado": "Según las notas del curso, ¿qué problema resolvían las conexiones residuales de ResNet?",
+    "opciones": [
+      "Las redes muy profundas ajustaban peor incluso los datos de entrenamiento",
+      "Las redes pequeñas sobreajustaban el conjunto de prueba",
+      "Faltaban datos etiquetados para ImageNet",
+      "Las redes no podían usar ReLU"
+    ],
+    "correcta": 0,
+    "explicacion": "Antes de ResNet, añadir capas hacía que la red se ajustara peor al entrenamiento. Con conexiones residuales, una capa apagada equivale a la identidad, de modo que una red profunda puede imitar a una más corta."
+  }
+]

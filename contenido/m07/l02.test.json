@@ -1,0 +1,117 @@
+[
+  {
+    "id": "m07l02-q01",
+    "tipo": "unica",
+    "enunciado": "¿Cuál describe mejor la seguridad sistémica, tal como la presenta el libro?",
+    "opciones": [
+      "Hacer más robusto un modelo concreto frente a ataques adversariales",
+      "Aprovechar las capacidades de la IA para que la sociedad resista mejor los riesgos, incluidos los que la propia IA trae o agrava",
+      "Prohibir el desarrollo de modelos capaces hasta que se resuelva el alineamiento",
+      "Vigilar en producción que un modelo mantenga su calibración"
+    ],
+    "correcta": 1,
+    "explicacion": "La seguridad sistémica actúa sobre el entorno: ciberdefensa, biosecuridad, entorno informativo y mejores decisiones. La robustez, la monitorización y el alineamiento trabajan sobre el modelo."
+  },
+  {
+    "id": "m07l02-q02",
+    "tipo": "unica",
+    "enunciado": "Un detector de intrusiones muy sensible y con pocos falsos positivos genera, aun así, casi todo alarmas falsas. ¿Por qué?",
+    "opciones": [
+      "Porque los detectores de IA siempre se equivocan más que los humanos",
+      "Porque la sensibilidad no importa cuando hay falsos positivos",
+      "Porque los ataques reales son muy raros frente al volumen de eventos, y una tasa pequeña de falsos positivos sobre millones de eventos da muchas alarmas falsas",
+      "Porque el valor predictivo positivo solo depende de la tasa de falsos positivos"
+    ],
+    "correcta": 2,
+    "explicacion": "El valor predictivo depende de la sensibilidad, de la tasa de falsos positivos y de la prevalencia. Con una prevalencia de una entre cientos de miles, incluso un 0,1 % de falsos positivos produce muchas más alarmas falsas que verdaderas."
+  },
+  {
+    "id": "m07l02-q03",
+    "tipo": "numerica",
+    "enunciado": "Un hospital registra 100 000 eventos al día y 20 son ataques. El detector tiene sensibilidad 0,8 y tasa de falsos positivos 0,002. ¿Qué porcentaje de las alarmas es un ataque real (valor predictivo positivo)? Responde en porcentaje, sin el símbolo, por ejemplo 12,5.",
+    "correcta": 7.4,
+    "tolerancia": 0.2,
+    "explicacion": "Alarmas verdaderas: 20 × 0,8 = 16. Alarmas falsas: 99 980 × 0,002 ≈ 200. Valor predictivo: 16 / (16 + 199,96) ≈ 0,074, es decir, un 7,4 %."
+  },
+  {
+    "id": "m07l02-q04",
+    "tipo": "numerica",
+    "enunciado": "Un modelo da estas probabilidades a cuatro sucesos: 0,9, 0,2, 0,7 y 0,5. Ocurren el primero y el cuarto; no ocurren el segundo y el tercero. ¿Cuál es su puntuación de Brier? Responde con un número, por ejemplo 0,3.",
+    "correcta": 0.1975,
+    "tolerancia": 0.002,
+    "explicacion": "Errores al cuadrado: (0,9-1)² = 0,01; (0,2-0)² = 0,04; (0,7-0)² = 0,49; (0,5-1)² = 0,25. Suman 0,79 y, entre 4, dan 0,1975."
+  },
+  {
+    "id": "m07l02-q05",
+    "tipo": "vf",
+    "enunciado": "Un pronosticador que responde siempre 50 % obtiene un Brier de 0,25 sea cual sea lo que ocurra.",
+    "correcta": true,
+    "explicacion": "Cada error al cuadrado vale (0,5-0)² o (0,5-1)², es decir, 0,25 en cualquier caso. Por eso 0,25 es la referencia con la que comparar a un pronosticador: quien aporta algo queda por debajo."
+  },
+  {
+    "id": "m07l02-q06",
+    "tipo": "vf",
+    "enunciado": "Un sistema que acierta el 90 % de sus pronósticos está, por eso, bien calibrado.",
+    "correcta": false,
+    "explicacion": "La tasa de aciertos no dice cuán confiado iba. Si sus probabilidades medias eran del 99 %, está sobreconfiado; si eran del 60 %, infraconfiado. La calibración compara la confianza con la frecuencia real."
+  },
+  {
+    "id": "m07l02-q07",
+    "tipo": "multiple",
+    "enunciado": "El libro dice que un asesor de IA para decisiones de alto riesgo necesitaría salvaguardas. ¿Cuáles de estas son las que menciona?",
+    "opciones": [
+      "Evitar la dependencia excesiva de sus consejos",
+      "Evitar que anime a asumir riesgos inadecuados",
+      "Dejar que decida solo cuando su Brier sea bajo",
+      "No mostrar a las personas las probabilidades que calcula"
+    ],
+    "correcta": [
+      0,
+      1
+    ],
+    "explicacion": "El libro pide evitar la dependencia excesiva y que se fomenten riesgos inadecuados. Su objetivo es mejorar el juicio humano, no sustituirlo, y esconder las probabilidades iría en contra de la calibración."
+  },
+  {
+    "id": "m07l02-q08",
+    "tipo": "unica",
+    "enunciado": "¿Qué concluyen las notas del curso sobre Autocast, el banco de pruebas de pronóstico con lenguaje?",
+    "opciones": [
+      "Los mejores modelos superan ya a los expertos humanos",
+      "Los modelos pequeños sin acceso a noticias fueron los mejores",
+      "Los modelos grandes que recuperan información fueron los mejores, pero quedan muy por detrás de los expertos humanos",
+      "No se puede evaluar el pronóstico con preguntas históricas"
+    ],
+    "correcta": 2,
+    "explicacion": "Los mejores resultados fueron de modelos grandes con recuperación de información, todavía lejos de los expertos. Los propios autores advierten que, si el pronóstico es una capacidad general, lo desaconsejarían."
+  },
+  {
+    "id": "m07l02-q09",
+    "tipo": "unica",
+    "enunciado": "Un pronosticador da, de media, un 90 % de confianza al lado que elige y acierta el 70 % de las veces. ¿Qué se puede decir?",
+    "opciones": [
+      "Está infraconfiado en 20 puntos",
+      "Está sobreconfiado en 20 puntos",
+      "Está calibrado, porque acierta más del 50 %",
+      "Está sobreconfiado en 90 puntos"
+    ],
+    "correcta": 1,
+    "explicacion": "La sobreconfianza es la confianza media menos la tasa de aciertos: 90 % menos 70 % son 20 puntos por encima."
+  },
+  {
+    "id": "m07l02-q10",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas medidas son inversiones en infraestructura física que el libro cita como complemento a la IA contra pandemias?",
+    "opciones": [
+      "Mejorar la ventilación y la filtración del aire de los edificios",
+      "Luz ultravioleta germicida",
+      "Reservas de mascarillas, batas y otros equipos de protección",
+      "Cribar con IA los pedidos de síntesis genética"
+    ],
+    "correcta": [
+      0,
+      1,
+      2
+    ],
+    "explicacion": "Las tres primeras son medidas físicas. El cribado de pedidos de síntesis genética es una aplicación de la IA (una capa digital), que el libro cita en biosecuridad."
+  }
+]

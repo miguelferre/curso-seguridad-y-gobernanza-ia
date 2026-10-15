@@ -1,0 +1,96 @@
+[
+  {
+    "id": "m12l02-q01",
+    "tipo": "unica",
+    "enunciado": "¿Cuál de estas es la mejor pregunta de proyecto?",
+    "opciones": [
+      "¿Es segura la IA en sanidad?",
+      "¿Baja el FPR95 al entrenar con exposición a atípicos, frente a la MSP, con CIFAR-10 como normal y SVHN y CIFAR-100 como anómalos?",
+      "Estudiar todos los detectores de anomalías que existen y compararlos.",
+      "Demostrar que la MSP no sirve para detectar datos raros."
+    ],
+    "correcta": 1,
+    "explicacion": "Tiene una medida, unos datos, una comparación y admite un \"no\" como respuesta. La primera es demasiado amplia, la tercera no cabe en el tiempo de un proyecto y la cuarta presupone la respuesta."
+  },
+  {
+    "id": "m12l02-q02",
+    "tipo": "unica",
+    "enunciado": "Llevas dos semanas con el proyecto y los primeros resultados no favorecen tu hipótesis. ¿Qué te protege mejor del sesgo de confirmación?",
+    "opciones": [
+      "Probar métricas nuevas hasta encontrar alguna que sí la favorezca.",
+      "Descartar las semillas que salen peor, porque son mala suerte.",
+      "Haber escrito antes de medir el criterio de éxito y qué resultado te haría cambiar de idea, y conservar todo lo que ejecutaste.",
+      "Reducir el proyecto a la parte donde sí funciona."
+    ],
+    "correcta": 2,
+    "explicacion": "El criterio fijado de antemano y el registro completo impiden que interpretes cada número a tu favor. Las otras tres opciones son justo las maniobras del sesgo: cambiar la métrica, filtrar las ejecuciones incómodas y encoger la pregunta hasta que salga."
+  },
+  {
+    "id": "m12l02-q03",
+    "tipo": "unica",
+    "enunciado": "El plan no cabe en el plazo. ¿Qué recortas primero?",
+    "opciones": [
+      "El apartado de límites, que no aporta resultados.",
+      "El criterio de éxito, que se puede escribir al final.",
+      "La línea base, para tener más tiempo para tu método.",
+      "Una extensión opcional, como una variante extra del método o una fase de recuperación, y lo declaras en el informe junto con lo que pierdes."
+    ],
+    "correcta": 3,
+    "explicacion": "Se recortan extensiones, no el núcleo. Sin criterio previo aparece el sesgo de confirmación, sin línea base la comparación no vale nada y sin límites las conclusiones dicen más de lo que los datos permiten."
+  },
+  {
+    "id": "m12l02-q04",
+    "tipo": "multiple",
+    "enunciado": "¿Qué debe incluir un informe de proyecto honesto? Marca todas las correctas.",
+    "opciones": [
+      "El criterio de éxito escrito antes de ejecutar.",
+      "Solo la mejor de las ejecuciones, para que el resultado se lea con claridad.",
+      "Los resultados que no salieron como esperabas.",
+      "Un apartado con lo que no se ha probado.",
+      "Datos anonimizados de pacientes reales, para dar realismo."
+    ],
+    "correcta": [0, 2, 3],
+    "explicacion": "El criterio previo, los resultados incómodos y los límites son lo que hace creíble un proyecto. Mostrar solo la mejor ejecución es cosechar el ruido, y las reglas del proyecto excluyen los datos de pacientes, incluso anonimizados."
+  },
+  {
+    "id": "m12l02-q05",
+    "tipo": "vf",
+    "enunciado": "Un detector obtiene un AUROC de 0,95 en un único conjunto anómalo. Con eso ya se puede afirmar que sirve para cualquier dato fuera de distribución.",
+    "correcta": false,
+    "explicacion": "Falso. Como recuerda la lección de detección de anomalías, conviene evaluar contra varios conjuntos, también cercanos: una puntuación que gana con un modelo puede perder con otro, y lo fácil de detectar depende de cuánto se parezca lo raro a lo normal."
+  },
+  {
+    "id": "m12l02-q06",
+    "tipo": "numerica",
+    "enunciado": "Tu proyecto tiene 20 horas de trabajo. Añades un margen del 20 % para imprevistos y puedes dedicarle 5 horas por semana. ¿Cuántas semanas necesitas, redondeando hacia arriba?",
+    "correcta": 5,
+    "tolerancia": 0,
+    "explicacion": "Con el margen son 20 × 1,2 = 24 horas, y 24 / 5 = 4,8, que redondeado hacia arriba son 5 semanas. Sin margen serían 4: por eso el margen cambia el calendario."
+  },
+  {
+    "id": "m12l02-q07",
+    "tipo": "unica",
+    "enunciado": "Tu proyecto necesita un escenario de deriva nuevo en la demo de Vigía, y los escenarios son código del repo. ¿Qué haces?",
+    "opciones": [
+      "Hacer un fork propio de Vigía (licencia MIT) para implementarlo o, si no quieres tocar código, entregar la especificación y ensayar con el laboratorio de la demo o con ficheros sintéticos propios.",
+      "Editar los guiones de escenarios sobre la instalación compartida de otra persona, sin fork, porque lo usas en el curso.",
+      "Usar datos reales de un servicio para que el escenario sea más realista.",
+      "Cambiar la carpeta de datos por defecto de Vigía para no mezclar los ensayos."
+    ],
+    "correcta": 0,
+    "explicacion": "Vigía es MIT: el código se cambia en un fork propio, o se entrega la especificación sin código. Los datos han de ser sintéticos, y la carpeta de datos por defecto no se toca: se usa una propia."
+  },
+  {
+    "id": "m12l02-q08",
+    "tipo": "unica",
+    "enunciado": "Tu criterio de éxito es que el AUROC suba. Ajustas hiperparámetros hasta que sube en el mismo conjunto de prueba, mirándolo cada vez. ¿Qué ha pasado?",
+    "opciones": [
+      "Nada: mientras el número suba, el detector es mejor.",
+      "Has aprendido más del modelo y ahora el AUROC es más fiable.",
+      "La métrica se ha convertido en el objetivo y se ha ajustado con los mismos datos con que se evalúa, así que ya no mide cómo generaliza.",
+      "El AUROC ha dejado de servir y hay que sustituirlo por la exactitud."
+    ],
+    "correcta": 2,
+    "explicacion": "Es proxy gaming a pequeña escala: cuando una medida se vuelve objetivo y se ajusta sobre lo que la evalúa, deja de medir lo que importa. La solución es un conjunto de evaluación que no se toque durante el ajuste, no cambiar a la exactitud, que con anomalías raras engaña."
+  }
+]

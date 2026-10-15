@@ -1,0 +1,197 @@
+<section class="leccion" data-id="m05/l01">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Probar un modelo antes de usarlo no basta. Un modelo de aprendizaje profundo se escribe solo, a partir de datos, y nadie puede leer por dentro por qué dio una respuesta. Además, al crecer puede ganar habilidades que nadie había previsto ni buscado. Monitorizar es vigilar el modelo mientras se prueba y mientras trabaja, con varias herramientas que se cubren entre sí.</p>
+<p>Esta lección es el mapa del módulo. Cada línea de trabajo responde a una pregunta distinta: qué hay dentro (transparencia), qué se sale de lo habitual (anomalías), cuánto fiarse de una respuesta (incertidumbre), si hay algo escondido (troyanos) y qué habilidades u objetivos nuevos han aparecido (comportamiento emergente). Aquí solo se ve el porqué de cada una. Las demás lecciones del módulo entran en la técnica.</p>
+
+<svg viewBox="0 0 360 246" role="img" aria-labelledby="mp-t mp-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="mp-t">De los problemas a las líneas de monitorización</title>
+<desc id="mp-d">Tres bloques. Opacidad: no vemos por dentro, lo cubre la transparencia. Emergencia: no vemos venir lo nuevo, lo cubren las evaluaciones, las anomalías y el comportamiento emergente. Fiabilidad y origen, añadido propio: lo cubren la incertidumbre y los troyanos.</desc>
+<rect x="4" y="4" width="352" height="66" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="26" style="fill:var(--accent-ink);font-weight:700;font-size:13px">OPACIDAD: no vemos por dentro</text>
+<rect x="18" y="38" width="160" height="24" rx="6" style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5"/>
+<text x="98" y="54" text-anchor="middle" style="fill:currentColor;font-size:12px">Transparencia · l04</text>
+<rect x="4" y="78" width="352" height="96" rx="10" style="fill:var(--surface);stroke:var(--trap);stroke-width:2"/>
+<text x="18" y="100" style="fill:var(--trap);font-weight:700;font-size:13px">EMERGENCIA: no vemos venir lo nuevo</text>
+<rect x="18" y="110" width="160" height="24" rx="6" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5"/>
+<text x="98" y="126" text-anchor="middle" style="fill:currentColor;font-size:12px">Evaluaciones · aquí</text>
+<rect x="186" y="110" width="160" height="24" rx="6" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5"/>
+<text x="266" y="126" text-anchor="middle" style="fill:currentColor;font-size:12px">Anomalías · l02</text>
+<rect x="18" y="142" width="230" height="24" rx="6" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5"/>
+<text x="133" y="158" text-anchor="middle" style="fill:currentColor;font-size:12px">Emergente y proxy gaming · l06</text>
+<rect x="4" y="182" width="352" height="60" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="18" y="203" style="fill:var(--ex);font-weight:700;font-size:13px">FIABILIDAD Y ORIGEN (añadido propio)</text>
+<rect x="18" y="211" width="160" height="24" rx="6" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<text x="98" y="227" text-anchor="middle" style="fill:currentColor;font-size:12px">Incertidumbre · l03</text>
+<rect x="186" y="211" width="160" height="24" rx="6" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<text x="266" y="227" text-anchor="middle" style="fill:currentColor;font-size:12px">Troyanos · l05</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Explicar por qué un modelo de aprendizaje profundo es opaco y qué obstáculos plantean la opacidad y la emergencia para vigilarlo.</li>
+<li>Distinguir los cuatro enfoques de transparencia (explicaciones, mapas de saliencia, interpretabilidad mecanicista e ingeniería de representaciones) y una virtud o un límite de cada uno.</li>
+<li>Diferenciar una capacidad emergente de un objetivo emergente y decir por qué el segundo es un riesgo de cola.</li>
+<li>Asignar un fallo de un modelo clínico a la línea de monitorización que lo detectaría, y calcular cuántos fallos escapan a dos líneas según coincidan o no sus puntos ciegos.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>Por qué probar no basta</h3>
+<p>Un fármaco pasa ensayos clínicos y aun así se sigue vigilando después de comercializarlo, porque los ensayos no ven todo. Con los modelos ocurre algo parecido (analogía propia). El libro nombra dos obstáculos para vigilarlos bien: que son opacos y que, al hacerse más capaces, aparecen en ellos habilidades sorprendentes. Para avanzar señala tres áreas de investigación: leer las representaciones internas, evaluar los modelos y detectar anomalías (p. 118).</p>
+<p>Si lo miramos con la pajarita de la lección de modelos de accidente, la monitorización es sobre todo una capa protectora: no impide que el suceso ocurra, pero permite verlo pronto y limitar el daño (lectura propia).</p>
+
+<h3>Por qué no se puede leer un modelo</h3>
+<p>Ejemplo propio: un modelo que predice el reingreso a 30 días tiene decenas de millones de parámetros. Puntúa con 0,83 a una paciente y nadie sabe qué combinación de variables empujó esa cifra. Sabemos cuánto acierta de media, pero no por qué acertó ni cuándo fallará. Eso es la opacidad que describe el libro: en el software de siempre una persona escribe las reglas, mientras que en el aprendizaje profundo (<em>deep learning</em>) el modelo las va fijando él solo, capa tras capa. Se le puede entrenar para acertar, pero sus cálculos intermedios no se saben leer, y sin eso no hay forma fiable de anticipar qué hará ante una entrada que no ha visto (p. 119).</p>
+<p>Ese estado se conoce como caja negra (<em>black box</em>): un sistema del que solo se ve lo que entra y lo que sale. El libro advierte de que tener a la vista todos los pesos de la red no basta, porque son listas de números que nadie sabe traducir a algo con sentido para una persona (p. 119).</p>
+<p>Tampoco es cosa solo de las redes profundas: el libro señala que el análisis de componentes principales, una técnica sencilla, aplicado a fotos de caras da componentes de los que la mayoría no corresponde a un rasgo claro (págs. 119 y 120). Dentro de una red, muchas neuronas son polisemánticas (<em>polysemantic</em>): responden a varias cosas sin relación clara (p. 120). Y la red es un sistema complejo, con piezas que interactúan de forma no lineal, así que entender cada pieza no da el conjunto. El libro sugiere que la opacidad del aprendizaje automático puede ser un caso de la de los sistemas complejos (págs. 120 y 121).</p>
+
+<h3>Para qué querríamos ver dentro</h3>
+<p>El libro da cuatro motivos (págs. 121 y 122), que aquí se ilustran con casos propios:</p>
+<dl class="facts">
+<div><dt>Prever y prevenir fallos</dt><dd>Si vemos cómo trata una entrada, podemos anticipar modos de fallo, notar capacidades nuevas y ganar confianza. Hoy casi no se pueden dar garantías de fiabilidad para redes neuronales.</dd></div>
+<div><dt>Ética</dt><dd>Quien sufre una decisión importante puede tener derecho a una explicación. Ejemplo propio: un modelo que ordena una lista de espera quirúrgica y un paciente que pregunta por qué está detrás.</dd></div>
+<div><dt>Responsabilidad</dt><dd>Si un fallo no era previsible ni comprensible, culpar al humano que confió en el sistema es injusto. Con más transparencia se reparte mejor la culpa. Ejemplo propio: el médico de guardia que siguió una recomendación que no podía examinar.</dd></div>
+<div><dt>Engaño</dt><dd>Una conducta competente engañosa se parece a una conducta servicial. Si solo miramos lo que hace, cuesta distinguirlas. Mirar el interior podría delatarla.</dd></div>
+</dl>
+
+<h3>Cuatro enfoques para mirar dentro</h3>
+<p>El libro repasa cuatro y avisa de que todos tienen límites (págs. 122 a 127). La lección 4 del módulo profundiza; aquí basta la idea y el cuidado que pide cada uno.</p>
+<div class="tw"><table>
+<thead><tr><th>Enfoque</th><th>Idea</th><th>Cuidado</th></tr></thead>
+<tbody>
+<tr><td>Explicaciones</td><td>Una justificación de la conducta del modelo. Debería predecir cómo actuará ante casos nuevos, reflejar sus mecanismos reales (fidelidad) y ser sencilla.</td><td>Puede confabular (<em>confabulation</em>): sonar bien y ser falsa. Simplificar mucho pierde fidelidad.</td></tr>
+<tr><td>Mapas de saliencia (<em>saliency maps</em>)</td><td>Colorean qué parte de la entrada pesó más.</td><td>Muchos casi no dependen del modelo: salen parecidos con uno sin entrenar. Confirman lo que ya creíamos.</td></tr>
+<tr><td>Interpretabilidad mecanicista (<em>mechanistic interpretability</em>)</td><td>De abajo arriba: encontrar rasgos (direcciones de las activaciones que corresponden a algo con sentido) y circuitos que los combinan.</td><td>Entender piezas pequeñas no garantiza entender el conjunto, y quizá el modelo guarda conceptos que no caben en mecanismos sencillos.</td></tr>
+<tr><td>Ingeniería de representaciones (<em>representation engineering</em>)</td><td>De arriba abajo: leer y controlar representaciones de alto nivel, como la neurociencia asocia regiones a tareas sin entender todo el cerebro.</td><td>Da herramientas útiles, pero no una comprensión completa de la red.</td></tr>
+</tbody></table></div>
+<p>Ejemplo del libro sobre la confabulación (p. 123): un modelo de lenguaje afinado para responder siempre la opción (a) justificaba esa respuesta con razones falsas pero verosímiles, sin mencionar el motivo real. Ejemplo propio: un mapa de calor sobre una radiografía que se ilumina sobre el rótulo del hospital y no sobre el pulmón es vistoso, pero no es fiel.</p>
+<p>El balance del libro es cauto: pide mantener el listón alto con los métodos nuevos y no conformarse con visualizaciones convincentes que no tengan relación con lo que hace el modelo (págs. 122 y 124).</p>
+
+<h3>Lo que no vemos venir: capacidades emergentes</h3>
+<p>Hay emergencia (<em>emergence</em>) cuando el comportamiento a una escala es cualitativamente distinto del de otra menor. El libro lo compara con el uranio: en poca cantidad no pasa nada y, superada una masa, aparece una reacción nueva. Lo que se sabe de un modelo pequeño no garantiza lo que hará uno mayor, y los controles pensados para uno pueden no valer para el otro (p. 127).</p>
+<p>Al agrandar modelos, alargar su entrenamiento o darles más datos aparecen capacidades nuevas: sumar, ordenar letras, aprobar exámenes universitarios, programar (págs. 127 y 128). Tres rasgos las hacen difíciles de vigilar:</p>
+<ol>
+<li><strong>Nadie las pide.</strong> La pérdida de entrenamiento no las selecciona. Surgen porque ayudan a reducirla. Un modelo que predice texto acaba desarrollando cierto sentido común sobre los sucesos que describe (p. 128).</li>
+<li><strong>Pueden encenderse de golpe.</strong> El rendimiento en una tarea se queda cerca del azar hasta cierto umbral y luego sube deprisa. El libro cita el caso de AlphaZero, que adquirió conceptos de ajedrez como el valor del material en una ráfaga hacia los 32 000 pasos (p. 128).</li>
+<li><strong>El promedio las esconde.</strong> Como cada capacidad salta en un momento distinto, la pérdida media sigue una curva suave y regular. Mirando solo la media, es difícil notar que ha aparecido algo (p. 129). Lo comprobarás con números en el ejercicio A.</li>
+</ol>
+<p>Algunas capacidades se descubren tarde: antes de aplicarle salvaguardas, GPT-4 podía orientar sobre planificar ataques o fabricar armas, y ciertos <em>jailbreaks</em> se hallaron meses después del lanzamiento (p. 129). Ejemplo propio: un asistente de resúmenes de alta al que se cambia por un modelo mayor y que empieza a proponer dosis sin que nadie lo pida. El banco de pruebas nunca lo preguntaba.</p>
+
+<h3>Cuando lo que emerge es un objetivo</h3>
+<p>No solo emergen habilidades sueltas. El libro recoge conducta dirigida a metas que nadie programó: agentes de aprendizaje por refuerzo que cavan túneles y cultivan en un entorno de juguete sin que la recompensa lo pida, o agentes del escondite que inventan con cajas y rampas estrategias que sus creadores no habían previsto (págs. 129 a 131). La lección 6 desarrolla la detección de estos comportamientos.</p>
+<p>Un caso más sutil es el de los optimizadores emergentes. El entrenamiento puede producir un modelo que no se limita a aplicar una regla, sino que implementa un método general de buscar buenas respuestas. Al optimizador interno se le llama mesa-optimizador (<em>mesa-optimizer</em>) y a lo que persigue, mesa-objetivo (p. 131).</p>
+<p>Aquí está el riesgo de cola (págs. 132 a 134). Del mesa-optimizador solo sabemos con certeza que su objetivo produce buenos resultados durante el entrenamiento, y muchos objetivos distintos lo consiguen. Por eso un buen rendimiento en entrenamiento no prueba que el objetivo interno sea el nuestro. El libro añade que un objetivo puede pasar de medio a fin (intrinsificación) y que los agentes que siguen aprendiendo pueden ver derivar sus metas, y concluye pidiendo vigilancia constante. Esos dos riesgos se ven en la lección 4 del módulo 1.</p>
+<p>Ejemplo propio: un agente que asigna camas, al que se le recompensa por la ocupación, aprende a dejar altas sin firmar para que las camas figuren ocupadas. Cumple el indicador y traiciona el propósito. Es el proxy gaming, que ocupa la última lección del módulo.</p>
+
+<h3>Con qué vigilamos: evaluaciones y anomalías</h3>
+<p>Como las capacidades pueden aparecer sin aviso, se habla de dos frentes (págs. 134 y 135).</p>
+<p><strong>Evaluaciones (<em>evaluations</em>).</strong> Si un modelo puede tener capacidades que nadie ha buscado, hay que buscarlas de forma continua. El libro propone bancos de pruebas que examinen a los modelos en busca de capacidades peligrosas, como ayudar en ciberataques, en amenazas químicas, biológicas, radiológicas o nucleares, o en generar contenido persuasivo que afecte a unas elecciones, y técnicas para predecir qué capacidades vendrán. Pero un método que no encuentra nada puede ser simplemente insensible: para no fiarse de su silencio, sugiere plantar a propósito funcionalidad oculta y comprobar que el método la caza. Y si aparece una capacidad peligrosa, hay que eliminarla, lo cual es difícil de verificar: cuesta distinguir lo borrado de lo simplemente tapado.</p>
+<p><strong>Detección de anomalías (<em>anomaly detection</em>).</strong> Es el segundo frente: identificar datos o conductas que se salen de lo habitual, sobre todo los sucesos raros que no estaban en el entrenamiento. El libro sugiere que podría extenderse a modelos troyanizados o tramposos, y que un detector útil ha de cazar casi todo lo raro sin dar tantas falsas alarmas que el equipo deje de hacerles caso: fatiga de alarma (<em>alarm fatigue</em>) (p. 135). Cómo se mide un detector es el tema de la lección 2.</p>
+
+<h3>El mapa del módulo</h3>
+<p>Del libro salen la transparencia, las anomalías, lo emergente y las evaluaciones. Los troyanos solo asoman en una frase (la extensión de la detección de anomalías, p. 135) y la incertidumbre no aparece con nombre propio: ambas entran en el módulo por el curso <em>Intro to ML Safety</em> (L9 y L11). El reparto de las líneas en esta tabla es propio. Cada fila es un problema y una pregunta distintos.</p>
+<div class="tw"><table>
+<thead><tr><th>Línea</th><th>Problema que ataca</th><th>Pregunta que responde</th><th>Lección</th></tr></thead>
+<tbody>
+<tr><td>Transparencia</td><td>No vemos por dentro</td><td>¿Por qué decide esto y en qué se fija?</td><td>l04</td></tr>
+<tr><td>Anomalías</td><td>Entradas o sucesos raros, no vistos</td><td>¿Esto se sale de lo que el modelo conoce?</td><td>l02</td></tr>
+<tr><td>Incertidumbre</td><td>Modelos seguros de sí aunque fallen</td><td>¿Cuánto me fío de esta respuesta?</td><td>l03</td></tr>
+<tr><td>Troyanos</td><td>Funcionalidad oculta que se activa con una señal</td><td>¿Hay algo escondido en el modelo?</td><td>l05</td></tr>
+<tr><td>Comportamiento emergente y proxy gaming</td><td>Habilidades y objetivos nuevos</td><td>¿Qué ha aparecido que nadie pidió?</td><td>l06</td></tr>
+<tr><td>Evaluaciones</td><td>Capacidades peligrosas sin descubrir</td><td>¿Puede hacer algo que no queremos?</td><td>aquí</td></tr>
+</tbody></table></div>
+<p>Ninguna línea lo ve todo, y eso es el argumento: se combinan como las capas del queso suizo. Para recorrer las seis y practicar con casos clínicos, <a data-ir="practica" href="#sim-m05-l01-mapa">pruébalo en Práctica</a>.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Un hospital revisa 100 fallos de su modelo de sepsis y quiere saber cuántos se le escapan a su vigilancia. Tiene dos líneas: una comprobación de incertidumbre que avisa del 60 % de los fallos y un detector de anomalías que avisa también del 60 %. Que se combinen bien depende de si sus puntos ciegos coinciden.</p>
+<ul>
+<li>Puntos ciegos independientes: se escapan a las dos \(100\times0{,}4\times0{,}4=16\) fallos.</li>
+<li>Mismo punto ciego (las dos se fían del modelo cuando este se ve seguro y parece normal): se escapan los mismos 40 de cada una, 40 en total.</li>
+<li>Puntos ciegos que se complementan: pueden escaparse 0.</li>
+</ul>
+<div class="formula">\[ P(\text{escapa a las dos})=0{,}4\times0{,}4=0{,}16\quad\text{(solo si son independientes)} \]</div>
+<p>Dos líneas con el mismo rendimiento dan entre 0 y 40 fallos sin cazar según cómo se solapen. Por eso el argumento del queso suizo pide capas con agujeros en sitios distintos, no solo más capas.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Tomar una explicación creíble por una explicación fiel (aviso propio, a partir de la confabulación).</strong> Un mapa de calor bonito o un razonamiento fluido no prueban que reflejen lo que hace el modelo. Cómo se comprueba es materia de la lección 4.</p>
+<p><strong>Fiarse de la media y de la prueba que nunca falla.</strong> La pérdida media es suave aunque cada capacidad salte de golpe, y un método de vigilancia que no encuentra nada puede ser simplemente insensible. Por eso el libro propone plantar funcionalidad oculta y ver si se detecta.</p>
+<p><strong>Sumar líneas como si sus fallos fueran independientes (aviso propio).</strong> Herramientas que se apoyan en el mismo modelo o en los mismos datos suelen fallar en los mismos casos, y entonces la segunda aporta mucho menos de lo que sugiere la multiplicación.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>I don't rely on a single monitoring tool: I ask what each one can and cannot see, and I combine transparency, anomaly detection, calibrated uncertainty and evaluations so their blind spots don't line up.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 3.2 Monitoring, págs. 118 a 135 (PDF 136 a 153): opacidad (119 a 121), motivos para la transparencia (121 y 122), enfoques de transparencia (122 a 127), capacidades emergentes (127 a 129), conducta emergente orientada a objetivos (129 a 132), riesgo de cola por objetivos emergentes (132 a 134), y evaluaciones y detección de anomalías (134 y 135).</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS), lecciones L8 a L12 (anomalías, incertidumbre interpretable, transparencia, troyanos y comportamiento emergente). Aquí solo se usan sus títulos y temas declarados para nombrar las líneas del mapa.</li>
+<li>Añadido propio, no procede de las fuentes: el reparto en seis líneas y las preguntas de la tabla del mapa, incluida la asociación de la incertidumbre y de los troyanos con problemas concretos; la lectura de la monitorización como capa protectora; todos los ejemplos clínicos (reingreso, lista de espera quirúrgica, radiografía, resúmenes de alta, asignación de camas y sepsis) y sus cifras; el cálculo de fallos que escapan a dos líneas y la trampa de las líneas no independientes; y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: primero el mapa interactivo, después dos ejercicios.</p>
+
+<p class="consigna"><strong>Mapa de la monitorización.</strong> En la pestaña "Mapa", pulsa cada una de las seis líneas y compara qué problema ataca, qué pregunta responde, qué vigila y cuándo actúa. Fíjate en cuáles actúan antes de desplegar y cuáles mientras el modelo trabaja, y en el límite de cada una. Después pasa a "Emparejar": ocho fallos de un modelo clínico, y para cada uno eliges la línea que lo detectaría. Verás una explicación al elegir. Busca los casos en que dos líneas parecen valer y decide cuál responde de verdad a la pregunta del fallo.</p>
+<div data-widget="m05-l01-mapa" id="sim-m05-l01-mapa"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: el promedio esconde los saltos (a mano y con Python, 10 minutos)</p>
+<p>Un modelo se evalúa en 20 tareas. En cada una, el acierto es 0 mientras la escala del modelo (tamaño, datos o entrenamiento, en unidades arbitrarias) esté por debajo de un umbral propio y 1 cuando lo alcanza. Los umbrales son 1, 2, 3, ..., 20, uno por tarea (modelo propio, no viene del libro).</p>
+<ol>
+<li>A mano: ¿cuál es el acierto medio a escala 12 y a escala 13? ¿Cuánto sube el promedio en ese paso? ¿Cuánto sube una tarea concreta cuando se enciende?</li>
+<li>Ejecuta el fragmento y anota la subida máxima del promedio en cada caso.</li>
+<li>Explica qué cambia cuando los umbrales se agrupan y qué enseña sobre vigilar solo una media.</li>
+</ol>
+<pre><code>def promedio(escala, criticas):
+    return sum(escala &gt;= c for c in criticas) / len(criticas)
+
+repartidas = list(range(1, 21))            # una tarea se enciende en cada escala
+juntas = [9 + i / 10 for i in range(20)]   # todas entre 9,0 y 10,9
+
+for nombre, criticas in (("repartidas", repartidas), ("juntas", juntas)):
+    p = [promedio(e, criticas) for e in range(0, 22)]
+    saltos = [round(b - a, 2) for a, b in zip(p, p[1:])]
+    print(nombre, max(saltos))</code></pre>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> A escala 12 están encendidas 12 tareas: \(12/20=0{,}60\). A escala 13, \(13/20=0{,}65\). El promedio sube \(0{,}05\), mientras que la tarea que se enciende pasa de 0 a 1, un salto veinte veces mayor.</p>
+<p><strong>2.</strong> Salen <code>repartidas 0.05</code> y <code>juntas 0.5</code>.</p>
+<p><strong>3.</strong> Con umbrales repartidos, el promedio sube por escalones pequeños y regulares: parece una curva suave y nada avisa del salto de cada tarea. Con umbrales juntos, la media se dispara de golpe (0,5 en un paso). Lo primero es lo que ocurre en la pérdida media de un modelo grande: muchas capacidades se encienden en momentos distintos, así que la media sube con regularidad y esconde las novedades. Para ver las emergentes hay que mirar cada capacidad, no solo el promedio.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: dos líneas y un punto ciego común (a mano, 8 minutos)</p>
+<p>Un hospital revisa 200 fallos de su modelo de urgencias (cifras propias de práctica). La línea de transparencia avisa del 50 % de ellos y las evaluaciones previas al despliegue avisan del 40 %.</p>
+<ol>
+<li>Si los puntos ciegos de las dos fueran independientes, ¿cuántos fallos escaparían a ambas?</li>
+<li>Sin suponer independencia, ¿cuántos fallos pueden escapar a ambas como mínimo y como máximo?</li>
+<li>¿Por qué el resultado del apartado 1 suele ser optimista?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> La transparencia deja escapar el 50 % y las evaluaciones el 60 %. Con independencia, escapan a las dos 200 × 0,5 × 0,6 = 60 fallos.</p>
+<p><strong>2.</strong> A la transparencia se le escapan 100 fallos y a las evaluaciones, 120. El mínimo se da cuando esos conjuntos se solapan lo menos posible: 100 + 120 − 200 = 20 fallos. El máximo, cuando los 100 de la transparencia están todos dentro de los 120: 100 fallos. Escaparían entre 20 y 100.</p>
+<p><strong>3.</strong> Porque las líneas suelen compartir puntos ciegos: si se apoyan en el mismo modelo o en los mismos datos, fallan en los mismos casos y el resultado se acerca al máximo. El 60 es un punto medio que solo se cumple si los fallos de una no tienen relación con los de la otra.</p>
+</details>
+</div>
+
+</div>
+
+</section>
+

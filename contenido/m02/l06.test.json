@@ -1,0 +1,124 @@
+[
+  {
+    "id": "m02l06-q01",
+    "tipo": "unica",
+    "enunciado": "¿Qué distingue a un cisne negro de otros eventos de cola?",
+    "opciones": [
+      "Que es todavía más raro que los demás eventos de cola",
+      "Que casi nadie lo esperaba, porque no cabía en el modelo del mundo de la mayoría",
+      "Que siempre tiene una causa maliciosa",
+      "Que solo ocurre en sistemas tecnológicos"
+    ],
+    "correcta": 1,
+    "explicacion": "Todos los eventos de cola son raros y de gran impacto. Lo propio del cisne negro es la sorpresa: indica que nuestro modelo del mundo era incorrecto o incompleto."
+  },
+  {
+    "id": "m02l06-q02",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas señales apuntan a un mayor riesgo de cola o de cisnes negros?",
+    "opciones": [
+      "Un sistema muy conectado, donde un fallo puede desencadenar una cascada",
+      "Un sistema nuevo, que lleva poco tiempo en uso",
+      "Un sistema aislado, con décadas de datos y un funcionamiento estable",
+      "Un ritmo de cambio tecnológico cada vez más rápido"
+    ],
+    "correcta": [
+      0,
+      1,
+      3
+    ],
+    "explicacion": "Conexión, novedad y progreso acelerado son señales del libro, junto con la complejidad. Un sistema aislado, estable y con mucha historia es lo contrario: hay menos cascadas y más evidencia previa."
+  },
+  {
+    "id": "m02l06-q03",
+    "tipo": "unica",
+    "enunciado": "Un asistente de apoyo al diagnóstico se validó con pocos pacientes de un grupo étnico, y el equipo lo sabe pero aún no ha estudiado cómo funciona con ellos. ¿En qué casilla de la parrilla está este riesgo?",
+    "opciones": [
+      "Conocido conocido (known known)",
+      "Desconocido conocido (unknown known)",
+      "Conocido desconocido (known unknown)",
+      "Desconocido desconocido (unknown unknown)"
+    ],
+    "correcta": 2,
+    "explicacion": "Son conscientes de la laguna (primera palabra: conocido) y no la entienden aún (segunda: desconocido). La respuesta es un estudio dirigido. Sería un desconocido desconocido si nadie se hubiera planteado la pregunta."
+  },
+  {
+    "id": "m02l06-q04",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas técnicas ayudan a convertir algunos cisnes negros en conocidos desconocidos?",
+    "opciones": [
+      "Imaginación de seguridad: jugar a \"¿y si...?\" y cuestionar supuestos",
+      "Equipo rojo: buscar formas de abusar del sistema o sabotearlo",
+      "Escaneo del horizonte: vigilar amenazas futuras y estudiar casi accidentes",
+      "Calcular con más decimales la media del histórico de incidentes"
+    ],
+    "correcta": [
+      0,
+      1,
+      2
+    ],
+    "explicacion": "Las tres primeras amplían lo que imaginamos y vigilamos. Afinar la media de un histórico no sirve: los cisnes negros no están en él, y en colas largas la media es poco fiable."
+  },
+  {
+    "id": "m02l06-q05",
+    "tipo": "numerica",
+    "enunciado": "Sobre la apuesta del libro, imagina que ganas 15 con un 99,8 % de probabilidad y pierdes 10 000 con un 0,2 %. ¿Cuánto vale el resultado esperado? Escribe el número con dos decimales.",
+    "correcta": -5.03,
+    "tolerancia": 0.01,
+    "explicacion": "0,998 × 15 + 0,002 × (−10 000) = 14,97 − 20 = −5,03. Con 99,9 % y 0,1 % era positivo (4,985): un cambio mínimo de probabilidad invierte el signo. Las probabilidades de este apartado son un cálculo propio de la lección."
+  },
+  {
+    "id": "m02l06-q06",
+    "tipo": "numerica",
+    "enunciado": "En esa misma apuesta (ganar 15 o perder 10 000), ¿a partir de qué probabilidad de perder, en porcentaje, el resultado esperado deja de ser positivo? Redondea a dos decimales y escribe solo el número, sin el signo %.",
+    "correcta": 0.15,
+    "tolerancia": 0.01,
+    "explicacion": "Se busca q con 15 × (1 − q) − 10 000 × q = 0, luego q = 15 / 10 015 ≈ 0,0015, es decir, un 0,15 %. Como con cisnes negros no sabemos estimar una probabilidad tan pequeña con esa precisión, el método no sirve para decidir (cálculo propio de la lección)."
+  },
+  {
+    "id": "m02l06-q07",
+    "tipo": "unica",
+    "enunciado": "¿Por qué la falacia de la demora (\"esperemos a tener más información\") es peligrosa ante colas largas?",
+    "opciones": [
+      "Porque los datos nuevos casi siempre vienen de la parte central y no informan sobre la cola, mientras la espera aumenta la exposición",
+      "Porque recopilar datos es siempre demasiado caro",
+      "Porque con más datos la media empeora",
+      "Porque la ley de los grandes números deja de cumplirse"
+    ],
+    "correcta": 0,
+    "explicacion": "La ley de los grandes números sigue valiendo, pero los nuevos datos rara vez tocan la cola. Y si el evento es muy destructivo, puede llegar antes de que hayamos aprendido nada. Con colas finas, en cambio, esperar suele ser razonable."
+  },
+  {
+    "id": "m02l06-q08",
+    "tipo": "vf",
+    "enunciado": "Si en un sistema de IA recién desplegado no se ha observado ningún incidente grave, eso demuestra que el riesgo de un cisne negro es bajo.",
+    "correcta": false,
+    "explicacion": "Falso. La ausencia de evidencia solo indica ausencia de riesgo si esperaríamos haber visto ya alguna. En un sistema nuevo y con eventos raros por definición, es normal no haberla visto todavía."
+  },
+  {
+    "id": "m02l06-q09",
+    "tipo": "unica",
+    "enunciado": "Un hospital refuerza su protocolo ante epidemias y el año siguiente no hay ninguna. Un directivo propone recortar el presupuesto porque \"no ha servido de nada\". ¿Qué error refleja?",
+    "opciones": [
+      "La falacia de la demora",
+      "La paradoja de la preparación",
+      "La metaignorancia sobre el pasado",
+      "El sesgo de tomar la media como resumen"
+    ],
+    "correcta": 1,
+    "explicacion": "Si las medidas funcionan, el desastre no llega y parecen innecesarias, y no podemos repetir el año sin ellas para comprobarlo. Es la paradoja de la preparación."
+  },
+  {
+    "id": "m02l06-q10",
+    "tipo": "unica",
+    "enunciado": "Según los puntos clave del capítulo, ante una tecnología nueva con posible riesgo de cola, ¿qué conviene exigir antes de desplegarla a gran escala?",
+    "opciones": [
+      "Evidencia de que es peligrosa",
+      "Evidencia de que es segura",
+      "Que otros países la desplieguen primero",
+      "Tres nueves de fiabilidad"
+    ],
+    "correcta": 1,
+    "explicacion": "Como con la ruleta rusa, no se espera a demostrar que el arma está cargada: se pide evidencia de seguridad, que con colas largas puede ser imposible de conseguir. Los nueves solo miden la probabilidad de fallo, no la gravedad."
+  }
+]

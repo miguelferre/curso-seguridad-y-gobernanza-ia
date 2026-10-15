@@ -1,0 +1,110 @@
+[
+  {
+    "id": "m06l01-q01",
+    "tipo": "unica",
+    "enunciado": "¿Qué marco de equidad exige que el modelo dé el resultado favorable a la misma proporción de personas en cada grupo?",
+    "opciones": [
+      "Probabilidades igualadas (equalized odds)",
+      "Calibración",
+      "Paridad estadística",
+      "Equidad contrafactual"
+    ],
+    "correcta": 2,
+    "explicacion": "La paridad estadística compara tasas de decisión favorable entre grupos, sin mirar si la decisión era acertada. Las probabilidades igualadas comparan errores (falsos positivos y falsos negativos) y la calibración compara probabilidades anunciadas con frecuencias reales."
+  },
+  {
+    "id": "m06l01-q02",
+    "tipo": "numerica",
+    "enunciado": "Un monitor mide una tasa favorable de 0,24 en el grupo supervisado y de 0,36 en el de referencia. ¿Cuánto vale el impacto dispar (razón supervisado entre referencia)? Responde con tres decimales.",
+    "correcta": 0.667,
+    "tolerancia": 0.005,
+    "explicacion": "El impacto dispar es la razón de tasas favorables: 0,24 / 0,36 = 0,667. Con el valor de fábrica de 0,80 (regla de las cuatro quintas), habría alerta."
+  },
+  {
+    "id": "m06l01-q03",
+    "tipo": "vf",
+    "enunciado": "Excluir el atributo protegido de las variables de entrada garantiza que el modelo no discrimine por él.",
+    "correcta": false,
+    "explicacion": "Falso. Otras variables pueden actuar de sustituto (proxy): en los ejemplos del libro, los colegios de un currículo, o la talla y la creatinina en la asignación de trasplantes. Además, si el atributo se descarta y no se registra, el sesgo queda sin corregir y sin medir."
+  },
+  {
+    "id": "m06l01-q04",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas métricas se pueden calcular solo con las predicciones y el grupo, sin etiquetas reales? Marca todas las correctas.",
+    "opciones": [
+      "Impacto dispar",
+      "Diferencia de paridad estadística",
+      "Diferencia de tasa de falsos negativos",
+      "Diferencia de VPP"
+    ],
+    "correcta": [0, 1],
+    "explicacion": "El impacto dispar y la paridad estadística solo usan la tasa de resultado favorable, así que sirven desde el primer día. Las diferencias de FNR y de VPP necesitan saber cuántos casos eran realmente positivos, es decir, el desenlace real."
+  },
+  {
+    "id": "m06l01-q05",
+    "tipo": "numerica",
+    "enunciado": "Un modelo tiene la misma sensibilidad (0,90) y la misma tasa de falsos positivos (0,20) en los dos grupos. La tasa base es 0,10 en el grupo supervisado y 0,40 en el de referencia. ¿Cuánto vale la diferencia de tasa favorable (supervisado menos referencia)? Responde con dos decimales y con signo.",
+    "correcta": -0.21,
+    "tolerancia": 0.005,
+    "explicacion": "Con errores iguales, la diferencia es (b_S − b_R)(TPR − FPR) = (0,10 − 0,40)(0,90 − 0,20) = −0,21. Comprobación directa: 0,10·0,90 + 0,90·0,20 = 0,27 en el supervisado y 0,40·0,90 + 0,60·0,20 = 0,48 en la referencia. Los errores son idénticos y la brecha sale de las tasas base."
+  },
+  {
+    "id": "m06l01-q06",
+    "tipo": "unica",
+    "enunciado": "Dos grupos con el mismo TPR y la misma FPR, pero con tasas base distintas. ¿Qué ocurre con el valor predictivo positivo (VPP)?",
+    "opciones": [
+      "Es igual en los dos, porque los errores son iguales",
+      "Es mayor en el grupo con mayor tasa base",
+      "Es mayor en el grupo con menor tasa base",
+      "No se puede calcular sin más datos"
+    ],
+    "correcta": 1,
+    "explicacion": "Las odds del VPP valen b/(1−b) · TPR/FPR. Con el mismo TPR y FPR, crecen con la tasa base. En el ejemplo del Atlas, con tasas base de 30 % y 10 %, el VPP es 0,774 y 0,471."
+  },
+  {
+    "id": "m06l01-q07",
+    "tipo": "unica",
+    "enunciado": "En un monitor de equidad para derivaciones, alguien declara por error 0 (no derivar) como resultado favorable en lugar de 1 (derivar). Antes el impacto dispar era 19,50. ¿Qué pasa con el mismo lote de datos?",
+    "opciones": [
+      "No cambia nada: el impacto dispar no depende de qué se declare favorable",
+      "Solo cambia la escala, de 0-100 a 0-1",
+      "El impacto dispar pasa a 0",
+      "Pasa a más de 100 y la lectura se invierte: parece que el grupo joven recibe más derivaciones de las debidas"
+    ],
+    "correcta": 3,
+    "explicacion": "Todas las métricas de tasa favorable dependen de esa declaración. Invertirla cambia el sentido de la comparación con los mismos datos: en el caso del Atlas, de 19,50 a un valor por encima de 100."
+  },
+  {
+    "id": "m06l01-q08",
+    "tipo": "vf",
+    "enunciado": "Sobre el mismo lote de transacciones, el impacto dispar es el mismo sea cual sea el tamaño de la ventana de evaluación.",
+    "correcta": false,
+    "explicacion": "Falso. La ventana forma parte de la definición del número. En el lote de 450 transacciones del Atlas, el impacto dispar es 27,81 con ventana de 50, 19,50 con 200 y 12,38 con 450."
+  },
+  {
+    "id": "m06l01-q09",
+    "tipo": "unica",
+    "enunciado": "Según la demo de Vigía 1.0.0, la diferencia de FNR está en 0,305 («ok», umbral 0,55) en la línea base y en 0,631 en la fase e1_evento. ¿Qué lectura es correcta?",
+    "opciones": [
+      "La línea base era justa porque el estado es «ok», y el evento supera el umbral de 0,55, así que salta la alerta",
+      "El «ok» de la línea base solo indica que estaba por debajo del umbral, no que el modelo fuera justo; en e1_evento el 0,631 supera el 0,55 y hay alerta",
+      "Los dos valores están dentro de tolerancia porque el umbral de 0,55 es un mínimo",
+      "El 0,631 es un impacto dispar y por eso es inestable"
+    ],
+    "correcta": 1,
+    "explicacion": "Un estado «ok» dice que ninguna métrica cruzó su umbral, y 0,305 ya es una diferencia grande. El umbral de la diferencia de FNR es superior: alerta si sube por encima de 0,55, y 0,631 lo supera. El impacto dispar es otra métrica, con umbral inferior de 20."
+  },
+  {
+    "id": "m06l01-q10",
+    "tipo": "unica",
+    "enunciado": "Un modelo perfecto (sensibilidad 1 y FPR 0) se aplica a dos grupos con tasas base distintas. ¿Qué marco de equidad falla todavía?",
+    "opciones": [
+      "Los errores iguales, porque las tasas base difieren",
+      "El valor predictivo, porque será distinto en cada grupo",
+      "La paridad estadística, porque la tasa favorable coincide con la tasa base",
+      "Ninguno: con predicción perfecta se cumplen los tres"
+    ],
+    "correcta": 2,
+    "explicacion": "Con un modelo perfecto no hay errores en ningún grupo (iguales) y el VPP vale 1 en los dos. Pero la tasa favorable es exactamente la tasa base de cada grupo, así que si difieren, la paridad estadística falla. Es un matiz propio de la lección: la excepción de la predicción perfecta vale para errores y VPP, pero el libro (p. 301) la presenta para los tres marcos y no rescata la paridad."
+  }
+]

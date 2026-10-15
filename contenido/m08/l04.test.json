@@ -1,0 +1,110 @@
+[
+  {
+    "id": "m08l04-q01",
+    "tipo": "unica",
+    "enunciado": "¿Por qué el análisis coste-beneficio es una aproximación tosca de la regla utilitarista?",
+    "opciones": [
+      "Porque solo tiene en cuenta los costes y no los beneficios",
+      "Porque sustituye el bienestar por dinero y cuenta igual un euro de quien ya tiene mucho que uno de quien tiene poco",
+      "Porque exige que cada persona vote su opción favorita",
+      "Porque solo mira a la persona peor situada"
+    ],
+    "correcta": 1,
+    "explicacion": "El análisis pone precio en dinero a cada efecto y suma. El dinero no mide todo el bienestar y no recoge que un euro aporta menos a quien ya tiene mucho. En el ejemplo del libro, el sueldo de cinco médicos cuenta igual que el empleo de veinte auxiliares."
+  },
+  {
+    "id": "m08l04-q02",
+    "tipo": "numerica",
+    "enunciado": "Tres personas tienen bienestares 4, 8 y 32. Con la función logarítmica y logaritmos en base 2, ¿cuánto vale W?",
+    "correcta": 10,
+    "tolerancia": 0.01,
+    "explicacion": "\\(\\log_2 4 + \\log_2 8 + \\log_2 32 = 2 + 3 + 5 = 10\\). Es lo mismo que \\(\\log_2 (4\\cdot 8\\cdot 32) = \\log_2 1024\\)."
+  },
+  {
+    "id": "m08l04-q03",
+    "tipo": "numerica",
+    "enunciado": "Con la función isoelástica y \\(\\alpha = 2\\), ¿cuánto vale W para los bienestares 1, 2 y 4? Responde con su signo.",
+    "correcta": -1.75,
+    "tolerancia": 0.01,
+    "explicacion": "\\(W = \\frac{1}{1-2}\\,(1^{-1} + 2^{-1} + 4^{-1}) = -(1 + 0{,}5 + 0{,}25) = -1{,}75\\). Es negativo porque el factor \\(1/(1-\\alpha)\\) lo es cuando \\(\\alpha > 1\\); aun así \\(W\\) crece cuando alguien mejora."
+  },
+  {
+    "id": "m08l04-q04",
+    "tipo": "unica",
+    "enunciado": "En el ejemplo de las plazas de tratamiento, las políticas dan estos bienestares a los pacientes A, B, C y D: «Máximo beneficio» (2, 8, 9, 9), «Los más graves primero» (6, 6, 6, 5), «Mixta» (4, 7, 7, 8) y «Orden de llegada» (3, 6, 8, 8). ¿Cuál elige la regla del mínimo (maximin)?",
+    "opciones": [
+      "Máximo beneficio",
+      "Los más graves primero",
+      "Mixta",
+      "Orden de llegada"
+    ],
+    "correcta": 1,
+    "explicacion": "El mínimo de cada política es 2, 5, 4 y 3. El mayor es 5, el de «Los más graves primero», aunque su total (23) sea el más bajo de las cuatro."
+  },
+  {
+    "id": "m08l04-q05",
+    "tipo": "vf",
+    "enunciado": "Un prioritarista busca reducir la desigualdad como un fin en sí mismo.",
+    "correcta": false,
+    "explicacion": "Eso es el igualitarismo. El prioritarista quiere mejorar a quien tiene menos porque ese aumento vale más. El nivel de desigualdad no entra en su medida, y reducirla solo le interesa si mejora el bienestar de alguien."
+  },
+  {
+    "id": "m08l04-q06",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas afirmaciones sobre la función isoelástica \\(W_\\alpha\\) son correctas?",
+    "opciones": [
+      "Con \\(\\alpha = 0\\) equivale a la suma de bienestares",
+      "Cuando \\(\\alpha\\) tiende a 1 ordena las opciones como la suma de logaritmos",
+      "Cuando \\(\\alpha\\) crece sin límite ordena las opciones igual que el mínimo",
+      "Al subir \\(\\alpha\\) se da menos prioridad al peor situado"
+    ],
+    "correcta": [0, 1, 2],
+    "explicacion": "El mando \\(\\alpha\\) mide la prioridad que se da al peor situado: 0 es la suma, cerca de 1 es el logaritmo y valores muy grandes son el mínimo. Subir \\(\\alpha\\) da más prioridad, no menos."
+  },
+  {
+    "id": "m08l04-q07",
+    "tipo": "unica",
+    "enunciado": "En el ejemplo del ayuntamiento, Ana vota por el programa educativo, Ben por la clínica y Cara por el parque. Si la decisión se toma solo contando esos votos a favorito, ¿qué ocurre?",
+    "opciones": [
+      "Gana el parque, por ser el de mayor suma",
+      "Hay un empate y no hay razón para preferir un proyecto a otro",
+      "Gana la clínica, por ser la opción intermedia",
+      "Gana la educación, porque es la del mejor mínimo"
+    ],
+    "correcta": 1,
+    "explicacion": "Cada proyecto tiene un solo voto. Con esa información ordinal no hay cómo desempatar, y esto ilustra el problema general que recoge el teorema de imposibilidad de Arrow. Para decidir hace falta la intensidad de las preferencias, es decir, cifras. La suma y el mínimo ya usan esas cifras, no los votos."
+  },
+  {
+    "id": "m08l04-q08",
+    "tipo": "vf",
+    "enunciado": "Un 20 obtenido con la función utilitarista y un 20 obtenido con la maximin miden lo mismo, así que pueden compararse directamente.",
+    "correcta": false,
+    "explicacion": "Los valores solo se comparan dentro de una misma función. El 20 de la suma es un total de puntos; el 20 del mínimo describe a la persona peor situada. Cada función define a su manera qué es una sociedad mejor."
+  },
+  {
+    "id": "m08l04-q09",
+    "tipo": "unica",
+    "enunciado": "Según el teorema de agregación de Harsanyi, si las personas maximizan su utilidad esperada, ¿qué regla es la única que cumple siempre estas dos exigencias: ser indiferente si todos quedan igual con dos opciones y preferir la que mejora a alguien sin empeorar a nadie?",
+    "opciones": [
+      "La suma de los bienestares",
+      "El mínimo del bienestar (maximin)",
+      "La suma de logaritmos",
+      "La votación por mayoría"
+    ],
+    "correcta": 0,
+    "explicacion": "Es el argumento del libro a favor de la regla utilitarista. El maximin, por ejemplo, no distingue cuando mejora alguien que no es el peor situado. La votación es una regla ordinal, y a ella se aplica el problema de Arrow, no el teorema de Harsanyi."
+  },
+  {
+    "id": "m08l04-q10",
+    "tipo": "unica",
+    "enunciado": "Con la función logarítmica en base 2, en el ejemplo del libro (bienestares 2, 4 y 16), ¿qué pasa al comparar subir a una persona de 2 a 4 con subir a otra de 4 a 8?",
+    "opciones": [
+      "Sube más W en el primer caso, porque 2 es menor que 4",
+      "Sube más W en el segundo, porque el cambio absoluto es mayor",
+      "W sube lo mismo en los dos, aunque el segundo cambio sea el doble de grande",
+      "En ninguno de los dos casos cambia W"
+    ],
+    "correcta": 2,
+    "explicacion": "\\(\\log_2 4 - \\log_2 2 = 1\\) y \\(\\log_2 8 - \\log_2 4 = 1\\). Duplicar el bienestar de alguien suma 1 sea quien sea. Por eso el logaritmo da más valor a un mismo aumento en puntos si lo recibe quien tiene menos."
+  }
+]

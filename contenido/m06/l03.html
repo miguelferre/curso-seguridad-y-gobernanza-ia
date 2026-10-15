@@ -1,0 +1,254 @@
+<section class="leccion" data-id="m06/l03">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Un modelo aprende de un mundo concreto: los pacientes, los aparatos y los protocolos de la época en que se entrenó. Con el tiempo ese mundo cambia. Llegan pacientes más jóvenes, se cambia de escáner, sale una guía clínica nueva. A ese cambio se le llama deriva (<em>drift</em>).</p>
+<p>La buena noticia es que se puede detectar sin esperar a saber si el modelo acertó: basta con comparar lo que llega hoy con una foto de referencia, la línea base. La mala es que «distinto» no significa «peor». La deriva es una alarma de humo: dice que algo ha cambiado, no que haya fuego. Por eso se cruza con la calidad y la equidad antes de tocar el modelo.</p>
+
+<svg viewBox="0 0 360 226" role="img" aria-labelledby="rs-t rs-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="rs-t">De la deriva a la decisión</title>
+<desc id="rs-d">Arriba, dos histogramas: la línea base, con diez barras iguales, y el lote de hoy, con barras desiguales y más altas en los extremos. Debajo, tres cajas encadenadas: detectar que la entrada cambió, cruzar con calidad y equidad, y actuar con la escalera de investigar, recalibrar, reentrenar o retirar.</desc>
+<g style="fill:var(--muted);opacity:.75">
+<rect x="10" y="68" width="13" height="32"/><rect x="25.5" y="68" width="13" height="32"/><rect x="41" y="68" width="13" height="32"/><rect x="56.5" y="68" width="13" height="32"/><rect x="72" y="68" width="13" height="32"/>
+<rect x="87.5" y="68" width="13" height="32"/><rect x="103" y="68" width="13" height="32"/><rect x="118.5" y="68" width="13" height="32"/><rect x="134" y="68" width="13" height="32"/><rect x="149.5" y="68" width="13" height="32"/>
+</g>
+<g style="fill:var(--accent)">
+<rect x="195" y="42" width="13" height="58"/><rect x="210.5" y="56" width="13" height="44"/><rect x="226" y="64" width="13" height="36"/><rect x="241.5" y="72" width="13" height="28"/><rect x="257" y="76" width="13" height="24"/>
+<rect x="272.5" y="76" width="13" height="24"/><rect x="288" y="74" width="13" height="26"/><rect x="303.5" y="70" width="13" height="30"/><rect x="319" y="62" width="13" height="38"/><rect x="334.5" y="50" width="13" height="50"/>
+</g>
+<line x1="8" y1="100" x2="165" y2="100" style="stroke:var(--rule-strong)"/><line x1="193" y1="100" x2="350" y2="100" style="stroke:var(--rule-strong)"/>
+<text x="86" y="118" text-anchor="middle" style="fill:var(--muted);font-size:11px;font-weight:600">Línea base</text>
+<text x="271" y="118" text-anchor="middle" style="fill:var(--accent-ink);font-size:11px;font-weight:600">Lote de hoy</text>
+<text x="180" y="34" text-anchor="middle" style="fill:var(--trap);font-size:11px;font-weight:700">¿ha cambiado?</text>
+<path d="M170 72 h18" style="stroke:var(--trap);stroke-width:2;fill:none"/><path d="M188 72 l-6 -4 v8 z" style="fill:var(--trap)"/>
+<rect x="6" y="140" width="106" height="72" rx="8" style="fill:var(--surface);stroke:var(--accent);stroke-width:1.5"/>
+<text x="59" y="160" text-anchor="middle" style="fill:var(--accent-ink);font-size:11px;font-weight:700">1. Detectar</text>
+<text x="59" y="176" text-anchor="middle" style="fill:var(--ink);font-size:10.5px">La entrada cambió</text>
+<text x="59" y="191" text-anchor="middle" style="fill:var(--muted);font-size:10.5px">sin etiquetas</text>
+<rect x="127" y="140" width="106" height="72" rx="8" style="fill:var(--surface);stroke:var(--trap);stroke-width:1.5"/>
+<text x="180" y="160" text-anchor="middle" style="fill:var(--trap);font-size:11px;font-weight:700">2. Cruzar</text>
+<text x="180" y="176" text-anchor="middle" style="fill:var(--ink);font-size:10.5px">¿Cae la calidad?</text>
+<text x="180" y="191" text-anchor="middle" style="fill:var(--muted);font-size:10.5px">¿Y algún subgrupo?</text>
+<rect x="248" y="140" width="106" height="72" rx="8" style="fill:var(--surface);stroke:var(--ex);stroke-width:1.5"/>
+<text x="301" y="160" text-anchor="middle" style="fill:var(--ex);font-size:11px;font-weight:700">3. Actuar</text>
+<text x="301" y="176" text-anchor="middle" style="fill:var(--ink);font-size:10.5px">Investigar primero;</text>
+<text x="301" y="191" text-anchor="middle" style="fill:var(--muted);font-size:10.5px">luego, lo mínimo</text>
+<path d="M112 176 h13" style="stroke:var(--faint);stroke-width:2;fill:none"/><path d="M233 176 h13" style="stroke:var(--faint);stroke-width:2;fill:none"/>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Distinguir la deriva de datos, de etiqueta y de concepto, y decir cuáles se pueden vigilar sin etiquetas.</li>
+<li>Calcular a mano el PSI de una variable en varios tramos, leerlo con los umbrales 0,1 y 0,25, e interpretar el estadístico D y el p-valor de un KS.</li>
+<li>Explicar por qué un PSI alto no implica que caiga la calidad (ni uno bajo que todo vaya bien) y qué señales hay que cruzar.</li>
+<li>Elegir la respuesta proporcionada a una alerta de deriva: investigar, recalibrar, reentrenar o retirar.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>Qué pregunta responde el monitor de deriva</h3>
+<p>El monitor de deriva pregunta si el modelo ve, o produce, algo distinto de lo que vio al entrenarse (Atlas). Necesita dos cosas: el <em>payload</em>, es decir, las peticiones de puntuación reales en producción, y una referencia con la que comparar, la línea base (<em>baseline</em>). No necesita etiquetas. Por eso es la primera línea de alerta en sanidad, donde el resultado clínico tarda semanas. La lección anterior, «Calidad y calibración» (m06/l02), cuenta qué pasa mientras la etiqueta no llega.</p>
+<p>La robustez frente a desplazamientos como problema de investigación, o sea, cómo entrenar para que el modelo aguante el cambio, se ve en m04/l02. Aquí estamos después de desplegar: vigilar, medir el cambio y decidir qué hacer.</p>
+
+<h3>Qué puede cambiar: tres derivas distintas</h3>
+<p>«Deriva» agrupa cosas diferentes. Se distinguen por qué parte de la relación entre entrada \(X\) y resultado \(Y\) se mueve, y de eso depende la acción (fichas de deriva del Atlas; los ejemplos clínicos de cada una están en m04/l02):</p>
+<div class="tw"><table>
+<thead><tr><th>Tipo</th><th>Qué cambia</th><th>¿Se ve sin etiquetas?</th></tr></thead>
+<tbody>
+<tr><td>De datos o de covariable (<em>data drift</em>, <em>covariate shift</em>)</td><td>\(P(X)\): las entradas</td><td>Sí</td></tr>
+<tr><td>De etiqueta o a priori (<em>label drift</em>)</td><td>\(P(Y)\): la prevalencia</td><td>Solo con proxy: la deriva de las predicciones</td></tr>
+<tr><td>De concepto (<em>concept drift</em>)</td><td>\(P(Y\mid X)\): la relación</td><td>No: se infiere de forma indirecta y se confirma con etiquetas</td></tr>
+</tbody></table></div>
+<p>Son los desplazamientos de m04/l02 con otro nombre. La diferencia práctica: la deriva de datos se ve el primer día, y la de concepto casi nunca se confirma en tiempo real, porque necesita el resultado clínico: se sospecha por señales indirectas y se confirma semanas después (Atlas).</p>
+
+<h3>Medir cuánto ha cambiado una variable: PSI</h3>
+<p>El índice de estabilidad poblacional (<em>population stability index</em>, PSI) compara cómo se reparte una variable entre unos tramos (<em>bins</em>) en la línea base y en el lote. Si \(P_i\) es la proporción de la línea base en el tramo \(i\) y \(Q_i\) la del lote:</p>
+<div class="formula">\[ \text{PSI}=\sum_{i=1}^{k}\,(P_i-Q_i)\,\ln\frac{P_i}{Q_i} \]</div>
+<p>Cada término es cero o positivo, porque \(P_i-Q_i\) y \(\ln(P_i/Q_i)\) tienen siempre el mismo signo. Por eso los tramos nunca se compensan entre sí: si un tramo sube y otro baja, los dos suman. El Atlas da un tramo suelto: \(P=0{,}30\) y \(Q=0{,}20\) aportan \(0{,}10\times\ln1{,}5=0{,}0405\).</p>
+<p>Para usarlo hay que decidir los tramos, y la elección importa: si cambian de una semana a otra, el PSI compara cosas distintas. Lo habitual es cortar en deciles con los datos de entrenamiento y congelar esos cortes; cada ventana de producción se reparte después sobre los mismos tramos. Un \(Q_i\) igual a cero rompe el logaritmo, y el Atlas lo suaviza con un mínimo de 0,0001. Los umbrales habituales son una regla de pulgar nacida en el scoring crediticio (Siddiqi, 2006, citado por el Atlas), no una ley:</p>
+<div class="tw"><table>
+<thead><tr><th>PSI</th><th>Lectura</th></tr></thead>
+<tbody>
+<tr><td>Menos de 0,1</td><td>Sin cambio relevante</td></tr>
+<tr><td>De 0,1 a 0,25</td><td>Cambio moderado, a vigilar</td></tr>
+<tr><td>Más de 0,25</td><td>Cambio significativo, revisar el modelo</td></tr>
+</tbody></table></div>
+<p>Un añadido propio sobre el ruido. Aunque no haya deriva alguna, un lote de \(n\) casos reparte los casos de forma algo desigual, y con \(k\) tramos el PSI esperado ronda \((k-1)/n\): con 10 tramos y 100 casos, unos 0,09, casi el umbral de 0,1. Es el aviso clásico del Atlas: con ventanas pequeñas, el PSI da falsos positivos (<a data-ir="practica" href="#sim-m06-l03-psi">pruébalo en Práctica</a>).</p>
+
+<h3>Otra mirada: la prueba KS</h3>
+<p>La prueba de Kolmogorov-Smirnov (KS) no usa tramos. Con la muestra completa de una variable continua, dibuja la función de distribución acumulada (<em>cumulative distribution function</em>, CDF) de la línea base y la del lote, y mide el mayor hueco vertical entre las dos curvas:</p>
+<div class="formula">\[ D=\sup_x\,\lvert F_{\text{base}}(x)-F_{\text{lote}}(x)\rvert \]</div>
+<p>\(D\) va de 0 a 1 y es la magnitud del cambio. Junto a él sale un p-valor, que dice si ese hueco es significativo dado el tamaño de las muestras. Se usa variable a variable como cribado y, para el score de salida, como alternativa directa al PSI (Atlas). Sirve con variables continuas; para una categórica se usa otra medida, como la chi-cuadrado.</p>
+<p>Dos ejemplos sintéticos del Atlas: la edad en el entrenamiento frente a la del evento, con 450 casos cada una, da \(D=0{,}28\) y un p-valor casi 0; con medianas de 52 y 58 años y 400 casos cada una, \(D=0{,}14\) y \(p<0{,}001\), muy significativo pero un desplazamiento moderado. De ahí la trampa: con muestras grandes el KS declara significativa cualquier diferencia minúscula, así que se lee \(D\) junto al p-valor.</p>
+<p>Como escala (estándar, no del Atlas): al 5 % el KS de dos muestras iguales de \(n\) casos rechaza cuando \(D\) supera unos \(1{,}36\sqrt{2/n}\), es decir, 0,096 con 400 casos y 0,019 con 10.000. Y el KS no dice dónde ni por qué difieren las distribuciones: cuando marca una variable, se mira el histograma.</p>
+<div class="tw"><table>
+<thead><tr><th></th><th>PSI</th><th>KS</th></tr></thead>
+<tbody>
+<tr><td>Entrada</td><td>Variable en tramos fijos</td><td>Muestra completa de una variable continua</td></tr>
+<tr><td>Qué mide</td><td>Cambio de proporciones, ponderado por su logaritmo</td><td>Mayor hueco entre las dos CDF</td></tr>
+<tr><td>Cómo se lee</td><td>0,1 y 0,25, por convención</td><td>p-valor menor de 0,05 y, sobre todo, el valor de \(D\); sin umbral universal para \(D\)</td></tr>
+<tr><td>Se equivoca con</td><td>Ventanas pequeñas: falsos positivos</td><td>Muestras enormes: todo sale significativo</td></tr>
+</tbody></table></div>
+
+<h3>Qué mide Vigía</h3>
+<p>El monitor de deriva de Vigía enseña tres puntuaciones, cada una con su umbral superior (Atlas y demo de Vigía 1.0.0). Ninguna necesita etiquetas:</p>
+<div class="tw"><table>
+<thead><tr><th>Clave (etiqueta en pantalla)</th><th>Qué compara</th><th>Umbral en Vigía</th><th>Ejemplo del Atlas (sintético)</th></tr></thead>
+<tbody>
+<tr><td><code>feature_drift_score</code> (Deriva de características)</td><td>La distribución de cada característica de entrada, ponderada por su importancia</td><td>0,15</td><td>Los de 18 a 30 años pasan del 2 % (9 de 450) al 18 % (81 de 450); con peso 0,26 en el modelo, esa variable domina el score.</td></tr>
+<tr><td><code>prediction_drift_score</code> (Deriva de las predicciones)</td><td>La frecuencia con que el modelo predice cada clase</td><td>0,08</td><td>El modelo deriva al 30 % en la línea base y al 46 % hoy: con variación total, \(\lvert0{,}46-0{,}30\rvert=0{,}16\).</td></tr>
+<tr><td><code>confidence_drift_score</code> (Deriva de confianza)</td><td>La distribución de la confianza que da el modelo</td><td>0,30</td><td>Un valor de 0,36 supera el umbral y el run pasa a alerta.</td></tr>
+</tbody></table></div>
+<p>La «variación total» de la tabla es la distancia más sencilla entre dos distribuciones: \(\tfrac12\sum_i\lvert P_i-Q_i\rvert\), la mitad de lo que no se solapa (Atlas); con dos clases es la diferencia de proporciones. Los umbrales son los de la configuración de referencia de Vigía. Un detalle que confunde: la etiqueta española «Desviación de salida» corresponde a la de confianza, no a la deriva de metadatos de salida (corrección de mapeo del Atlas). Cada puntuación usa su propia distancia, así que se leen como tendencias más que como magnitudes absolutas.</p>
+<p>Algunos monitores de deriva suman una estimación de la calidad sin etiquetas: la exactitud base menos una exactitud estimada con el payload. Con una exactitud real que cae de 0,90 a 0,86, el Atlas la cifra hacia 0,08 a 0,10. Vigía muestra esa medida (<code>model_quality_score</code>) «sin datos»: no la calcula, porque mide la calidad con etiquetas reales. Es una estimación: no sustituye a la exactitud real cuando llegan las etiquetas.</p>
+
+<h3>Deriva no es daño</h3>
+<p>Esta es la idea que más se paga cuando falta. Que la entrada cambie no dice si el modelo acierta menos: puede que la población nueva caiga en una zona donde el modelo sigue acertando. Y al revés: si lo que cambia es la relación entre entrada y resultado, las entradas se ven iguales y el modelo falla igual. Las señales se cruzan (Atlas):</p>
+<div class="tw"><table>
+<thead><tr><th>Qué se mueve</th><th>Lectura habitual</th><th>Primer paso</th></tr></thead>
+<tbody>
+<tr><td>Cambian las características y la calidad aguanta</td><td>Deriva de datos que de momento no daña: zona de vigilancia</td><td>Vigilar y mirar por subgrupos</td></tr>
+<tr><td>Cae la calidad y las características no se mueven</td><td>Sospecha de deriva de concepto</td><td>Confirmar con etiquetas cuando lleguen</td></tr>
+<tr><td>Cambian las predicciones y las características no</td><td>Cambio del propio modelo (versión desplegada, error) antes que de la población</td><td>Revisar el despliegue</td></tr>
+<tr><td>Cambian las predicciones y la población también</td><td>Puede ser legítimo (más pacientes lo necesitan) o un fallo</td><td>Cruzar con calidad y características</td></tr>
+<tr><td>Cambia la proporción de positivos sin cambio de características</td><td>Deriva de etiqueta</td><td>A menudo basta recalibrar el umbral</td></tr>
+</tbody></table></div>
+<p>El caso de la demo de Vigía (demo de Vigía 1.0.0; sintético) lo ilustra. En el lote del evento los jóvenes pasan del 14,9 % al 32,9 % y la deriva de confianza sube a 0,370 (alerta, umbral 0,30). Mientras tanto la exactitud es 0,86 y sigue en verde, y la diferencia de falsos negativos entre grupos salta a 0,631 (umbral 0,55). La deriva vio al grupo nuevo; la calidad global, no. La equidad está en m06/l01.</p>
+<p>Hay una segunda razón para cruzar: el cambio puede concentrarse en un subgrupo pequeño, casi invisible en el agregado. Y no todas las variables pesan igual. Una edad que se mueve poco pero pesa 0,26 en el modelo importa más que una variable secundaria que se dispara (idea del Atlas), y por eso el <code>feature_drift_score</code> pondera por importancia. La trampa contraria es mirar solo las variables principales: varios cambios secundarios juntos también mueven la predicción.</p>
+
+<h3>Cómo llega el cambio en el tiempo</h3>
+<p>El Atlas recoge cuatro formas de llegada (tipología de Gama y colaboradores, 2014); aquí van en tres filas porque la gradual y la incremental se tratan igual. La forma condiciona la ventana con que se detecta:</p>
+<dl class="facts">
+<div><dt>Súbita</dt><dd>Un salto un día concreto, como un protocolo nuevo o un cambio de máquina. Se ve con una ventana corta.</dd></div>
+<div><dt>Gradual e incremental</dt><dd>El patrón nuevo va sustituyendo al viejo poco a poco. Pide ventanas largas y una línea base congelada.</dd></div>
+<div><dt>Recurrente</dt><dd>Estacional, como la gripe en invierno. No se reentrena cada vez: se modela el ciclo o se ajusta el umbral por temporada.</dd></div>
+</dl>
+<p>La consecuencia práctica es la línea base. Si la ventana de referencia se actualiza sola, deja de ver precisamente el cambio lento, que es el más habitual. Se congela.</p>
+
+<h3>Qué hacer ante una alerta</h3>
+<p>Imagina que en el lote del evento de Vigía saltan a la vez la deriva de confianza y la diferencia de falsos negativos en el mismo subgrupo de edad. Nadie reentrena todavía. El Atlas propone una escalera de menor a mayor coste, y el primer peldaño es siempre investigar:</p>
+<div class="tw"><table>
+<thead><tr><th>Acción</th><th>Cuándo</th></tr></thead>
+<tbody>
+<tr><td>Investigar</td><td>Siempre primero: cruzar con las demás métricas, ver si es un segmento o algo general y qué transacciones contribuyen</td></tr>
+<tr><td>Recalibrar</td><td>Cambian los datos o la prevalencia, pero la relación entrada-resultado sigue en pie: suele bastar ajustar el umbral de decisión</td></tr>
+<tr><td>Reentrenar</td><td>Se confirma deriva de concepto, o la deriva de datos golpea a una subpoblación mal representada en el entrenamiento</td></tr>
+<tr><td>Retirar</td><td>El cambio es tan grave o tan rápido que nada es seguro mientras se investiga</td></tr>
+</tbody></table></div>
+<p>Cada alerta se registra con su tipo, quién responde, en cuánto tiempo y qué se hizo. Y no se actúa nunca sobre una métrica aislada: el caso se confirma cuando coinciden varias señales en el mismo subgrupo y la misma ventana.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Un modelo de derivación de Atención Primaria puntúa el riesgo del paciente. Los tramos de la puntuación se fijaron con los datos de entrenamiento, y esta semana llega un lote de 450 pacientes tras abrirse un centro nuevo en el área:</p>
+<div class="tw"><table>
+<thead><tr><th>Tramo de riesgo</th><th>Línea base \(P_i\)</th><th>Lote \(Q_i\)</th><th>\((P_i-Q_i)\ln(P_i/Q_i)\)</th></tr></thead>
+<tbody>
+<tr><td>1 (bajo)</td><td>0,40</td><td>0,25</td><td>0,0705</td></tr>
+<tr><td>2</td><td>0,30</td><td>0,30</td><td>0</td></tr>
+<tr><td>3</td><td>0,20</td><td>0,25</td><td>0,0112</td></tr>
+<tr><td>4 (alto)</td><td>0,10</td><td>0,20</td><td>0,0693</td></tr>
+</tbody></table></div>
+<p>El PSI es \(0{,}0705+0+0{,}0112+0{,}0693=0{,}151\): cambio moderado, a vigilar. Lo útil es mirar de dónde sale. Casi todo viene de los extremos: el tramo de riesgo alto pasa del 10 % al 20 %, y eso a un clínico le importa más que el número total. Meses después llegan las etiquetas y la exactitud del lote es 0,87 frente a 0,88 de la línea base: el modelo aguanta. Conclusión: la deriva era real y no dañaba, pero cambia a quién se le pone la alerta de riesgo alto y por eso se vigila, no se reentrena. Para comprobar cómo se mueve el PSI cuando cambian el lote y el tamaño de la muestra, <a data-ir="practica" href="#sim-m06-l03-psi">usa el simulador</a>.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Tratar el PSI o el p-valor como veredicto de daño.</strong> Un PSI de 0,3 dice que la entrada cambió, no que el modelo falle; un KS muy significativo con miles de casos puede ser un desplazamiento trivial. Y el error simétrico: un PSI bajo en todas las variables no descarta una deriva de concepto (Atlas).</p>
+<p><strong>Fiarse de una ventana pequeña.</strong> Con pocos casos por tramo el PSI sube por puro ruido (propio: en torno a \((k-1)/n\) sin deriva alguna). Antes de alarmarse, comprobar el tamaño del lote.</p>
+<p><strong>Una línea base que se mueve sola.</strong> Si la referencia se actualiza con los datos recientes, el cambio gradual se cuela sin alarma.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>A high PSI tells me the inputs moved, not that the model got worse: before I retrain, I check quality and subgroup fairness, and I make sure the shift isn't just a small window.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: esta lección no usa el libro de Hendrycks. Procede del Atlas y de Vigía.</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS) no tiene lección sobre este tema.</li>
+<li>Atlas de métricas (obra propia de Miguel; ejemplos sintéticos): monitor de deriva; fichas del PSI (con Siddiqi, 2006), del test de Kolmogorov-Smirnov (en «deriva» y en «estadística»), de las puntuaciones de deriva de Vigía, de los tres tipos de deriva, de los patrones temporales (Gama et al., 2014) y de qué hacer ante una alerta.</li>
+<li>Vigía 1.0.0 (github.com/miguelferre/vigia), demo del escenario 1: umbrales de la demo, cifras del lote del evento y datos del laboratorio.</li>
+<li>Añadido propio, no procede de las fuentes: el ruido esperado \((k-1)/n\) sin deriva; el valor crítico del KS para dos muestras iguales; el ejemplo del centro nuevo y sus cifras; el simulador (perfil de acierto por tramo y datos de edad inspirados en los controles de la demo, sin ser su generador), los ejercicios y el test.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: primero un simulador, después el laboratorio en Vigía y por último dos ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de deriva: PSI y KS.</strong> Con los valores iniciales (adultos del lote desplazados 10 años, modelo igual de bueno en todos los tramos) el PSI supera 0,25 y el KS es significativo, pero la exactitud no se mueve. Pulsa «Jóvenes al 33 % (caso de Vigía)»: el PSI baja a la franja moderada y la exactitud cae unos 0,04, todavía bajo el umbral de 0,10. Pulsa «Solo cambia el concepto»: PSI y D valen 0 y la exactitud cae 0,08. Por último, marca la muestra aleatoria, pulsa «Sin deriva», elige 100 casos y remuestrea: el PSI ronda 0,09 sin deriva alguna, y con 10 000 casos queda casi en 0.</p>
+<div data-widget="m06-l03-psi" id="sim-m06-l03-psi"></div>
+
+<div class="laboratorio" style="background:var(--surface);border:1px solid var(--rule);border-left:4px solid var(--accent);border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0">
+<p class="label">Laboratorio en Vigía</p>
+<p>Vigía es software libre (licencia MIT) del autor del curso: <a href="https://github.com/miguelferre/vigia">github.com/miguelferre/vigia</a>. Solo funciona en Windows 11 de 64 bits. Los datos son sintéticos. Aquí solo se lee: la demo guiada presenta como «Digestivo» una derivación de atención primaria a reumatología. Pasos y cifras salen de la demo de Vigía 1.0.0; lo que no hay en ella dice «comprueba en pantalla».</p>
+<ul>
+<li><strong>Vía 1, zip de la Release (la recomendada).</strong> Descarga <code>vigia-1.0.0-win64.zip</code> y <code>vigia-1.0.0-win64.zip.sha256</code> de la <a href="https://github.com/miguelferre/vigia/releases">página de Releases</a>. Comprueba la huella con <code>Get-FileHash vigia-1.0.0-win64.zip</code>. Extrae el zip entero. Dentro de <code>vigia-1.0.0-win64\</code> arranca con <code>Vigia.cmd &lt;carpeta&gt;</code>, que abre el navegador solo.</li>
+<li><strong>Vía 2, clon.</strong> <code>git clone https://github.com/miguelferre/vigia.git</code> y, desde su raíz, el bloque «Compilar desde el código» del README, copiado literal. Requisitos: Python 3.13 de python.org, uv y Node 20.19 o superior.
+<pre><code>uv sync --locked --extra dev --extra shap
+cd frontend
+npm ci
+$env:VITE_TEMA="miguel"
+npm run build
+cd ..
+.venv\Scripts\python.exe build\build.py all</code></pre>
+Ese bloque deja el zip en <code>dist\</code>. Extráelo y sigue como en la vía 1.</li>
+<li><strong>Carpeta de datos.</strong> Usa una carpeta aparte para el curso (<code>&lt;carpeta&gt;</code>). La carpeta por defecto, <code>Documents\vigia-datos</code>, guarda tus datos si ya usas Vigía.</li>
+</ul>
+<ol>
+<li><strong>Arranca</strong> Vigía con la carpeta de datos del curso: <code>Vigia.cmd &lt;carpeta&gt;</code>. El puerto es el que ves en la barra de direcciones del navegador.</li>
+<li><strong>Abre la demo</strong> en <code>http://127.0.0.1:&lt;puerto&gt;/demo?paso=0</code> (<code>&lt;puerto&gt;</code> es el de la barra de direcciones) y pulsa Empezar (29 pasos, del 0 al 28). Los pasos 1 a 3 los haces tú; después Vigía carga las semanas 2 a 5.</li>
+<li><strong>Abre el monitor de deriva</strong> (<code>/monitores/deriva</code>). Muestra tres puntuaciones: Deriva de confianza (umbral 0,30), de las predicciones (0,08) y de características (0,15); los metadatos salen sin dato. Si hay desglose por variable o gráfico de la distribución del lote, comprueba en pantalla.</li>
+<li><strong>Lee la línea base y el evento.</strong> De b1 a b5 la deriva de confianza es 0,0, dentro del umbral. El paso 11 carga el lote de casos nuevos (botón «Cargar el lote de casos nuevos»). Según la demo: confianza 0,370 (alerta), predicción 0,082 frente a 0,080, edad KS 0,189 frente a 0,15 y jóvenes del 14,9 % al 32,9 %; en qué pantalla sale cada cifra: comprueba en pantalla. Ponlas junto a los otros monitores del lote (exactitud 0,86, diferencia de falsos negativos 0,631) y responde: ¿qué ve la deriva que no ve la calidad?</li>
+<li><strong>Repite el caso en el simulador</strong> con «Jóvenes al 33 % (caso de Vigía)». El simulador es propio y no reproduce el generador de Vigía: espera un parecido cualitativo, no las mismas cifras.</li>
+<li><strong>Ejecuta un ensayo.</strong> Abre <code>/demo?paso=28</code>, luego <code>/demo#laboratorio</code> y la tarjeta «Ejecutar un ensayo». Con la fase del evento, mueve la proporción de jóvenes (0 a 1, por defecto 0,33) y después la edad media (30 a 80, por defecto 62,4), y anota qué puntuación reacciona y cuál no. Repite con tamaño 50 y con 1000 (rango 50 a 1000, por defecto 450) para ver si la deriva salta con el lote pequeño, como el ruido del PSI. El ensayo no avanza el guion y escribe solo en la carpeta de datos.</li>
+<li><strong>Cierra.</strong> En <code>e1_recovery</code> la demo da la deriva en ok, con los jóvenes de vuelta al 15 %; qué cifras salen, comprueba en pantalla. Apaga con <code>runtime\python\python.exe -m vigia shutdown --data-dir &lt;carpeta&gt;</code> (en la carpeta de Vigía) y apunta tres observaciones: qué monitor alertó primero, si la calidad vio el problema y qué habrías hecho tú según la escalera de la teoría.</li>
+</ol>
+<p>Cautelas: datos sintéticos siempre y nunca datos reales de personas.</p>
+</div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: PSI de tres tramos (a mano, 8 minutos)</p>
+<p>Un modelo puntúa el riesgo de reingreso y sus puntuaciones se dividen en tres tramos, fijados con el entrenamiento. Cifras propias de práctica: en la línea base los casos se reparten 0,50, 0,30 y 0,20; en el lote de esta semana, 0,30, 0,30 y 0,40.</p>
+<ol>
+<li>Calcula el aporte de cada tramo y el PSI total. ¿En qué franja del Atlas cae?</li>
+<li>¿Cambia el PSI si intercambias las dos columnas?</li>
+<li>El lote tiene solo 60 casos. Sin deriva alguna, ¿qué PSI esperarías por puro ruido con 3 tramos? ¿Qué dice eso de tu conclusión?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Tramo 1: \((0{,}50-0{,}30)\ln(0{,}50/0{,}30)=0{,}20\times0{,}5108=0{,}1022\). Tramo 2: \(0\), porque no cambia. Tramo 3: \((0{,}20-0{,}40)\ln(0{,}20/0{,}40)=(-0{,}20)\times(-0{,}6931)=0{,}1386\). Total: \(0{,}2408\). Cae en la franja de 0,1 a 0,25 (cambio moderado), casi en el borde de la de cambio significativo.</p>
+<p><strong>2.</strong> No. Al intercambiar \(P\) y \(Q\) cambian de signo los dos factores de cada término y el producto queda igual: el PSI es simétrico.</p>
+<p><strong>3.</strong> \((k-1)/n=2/60\approx0{,}033\). El PSI de 0,24 queda muy por encima de ese ruido, así que el cambio parece real. Aun así, con 60 casos cada proporción tiene un error típico de unos 6 puntos, así que conviene acumular otro lote antes de decidir.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: qué deriva es y qué haces (6 minutos)</p>
+<p>Para cada caso di qué tipo de deriva sugiere y cuál es el primer paso de la escalera.</p>
+<ol>
+<li>Tras cambiar de escáner, el PSI de las características de imagen es 0,40. La deriva de las predicciones apenas se mueve y la exactitud, medida con etiquetas de hace un mes, es la misma.</li>
+<li>Sale una guía clínica nueva. El PSI de todas las variables es menor de 0,05, pero cuando llegan las etiquetas la sensibilidad ha caído.</li>
+<li>Una campaña de cribado duplica los positivos. Las características se ven estables, la deriva de las predicciones sube de 0,03 a 0,16 (umbral 0,08) y el modelo sigue ordenando bien los casos.</li>
+<li>El proveedor actualiza el modelo sin avisar. Las características de entrada no cambian, pero saltan la deriva de las predicciones y la de confianza.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1. Datos.</strong> La entrada cambió y el modelo aguanta de momento. Vigilar, mirar la calibración y los subgrupos, y no reentrenar por reflejo.</p>
+<p><strong>2. Concepto.</strong> La relación entrada-resultado cambió aunque la población no. Un PSI bajo no lo descarta. Confirmar con las etiquetas y, si se confirma, reentrenar como cambio mayor.</p>
+<p><strong>3. Etiqueta.</strong> Cambia la prevalencia, no la relación. Suele bastar recalibrar el umbral de decisión, sin tocar los pesos.</p>
+<p><strong>4. Cambio del propio modelo.</strong> Cambian las salidas y no las entradas: se sospecha del despliegue antes que de la población. Investigar la versión desplegada y, si hace falta, volver a la anterior.</p>
+</details>
+</div>
+
+</div>
+
+</section>
+

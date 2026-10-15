@@ -1,0 +1,108 @@
+[
+  {
+    "id": "m02l05-q01",
+    "tipo": "unica",
+    "enunciado": "¿Qué define a un evento de cola?",
+    "opciones": [
+      "Es siempre dañino y ocurre por sorpresa",
+      "Tiene probabilidad muy baja e impacto muy alto",
+      "Ocurre con frecuencia y su impacto es pequeño",
+      "Es imposible de medir con datos"
+    ],
+    "correcta": 1,
+    "explicacion": "Un evento de cola es raro y de gran impacto. No tiene por qué ser dañino (Internet o ChatGPT lo fueron en parte de forma positiva) ni imprevisto: eso añade otra categoría, los cisnes negros, que se ve en la lección siguiente."
+  },
+  {
+    "id": "m02l05-q02",
+    "tipo": "vf",
+    "enunciado": "Añadir un único evento extremo a un conjunto de sucesos pequeños cambia mucho la mediana y poco la media.",
+    "correcta": false,
+    "explicacion": "Es al revés. La mediana es el dato de en medio y casi no se mueve, mientras que la media se dispara porque incluye el valor extremo."
+  },
+  {
+    "id": "m02l05-q03",
+    "tipo": "numerica",
+    "enunciado": "Hay 99 sucesos de impacto 5 y se añade uno de impacto 1000. ¿Cuánto vale ahora la media de los 100 sucesos?",
+    "correcta": 14.95,
+    "tolerancia": 0.05,
+    "explicacion": "Total: 99 × 5 + 1000 = 1495. Media: 1495 / 100 = 14,95. La mediana sigue en 5, así que la media es unas tres veces el valor típico."
+  },
+  {
+    "id": "m02l05-q04",
+    "tipo": "numerica",
+    "enunciado": "Un evento de cola tiene probabilidad 0,004 al año y severidad 2500. Con la ecuación clásica, ¿cuánto vale su riesgo?",
+    "correcta": 10,
+    "tolerancia": 0.01,
+    "explicacion": "Riesgo = probabilidad × severidad = 0,004 × 2500 = 10. Es cinco veces el riesgo de un suceso frecuente de probabilidad 0,5 y severidad 4, que vale 2."
+  },
+  {
+    "id": "m02l05-q05",
+    "tipo": "unica",
+    "enunciado": "¿Cuál de estas variables es de cola fina?",
+    "opciones": [
+      "Las ventas de libros",
+      "La magnitud de los terremotos",
+      "La estatura de las personas",
+      "La frecuencia con que aparece cada palabra en un idioma"
+    ],
+    "correcta": 2,
+    "explicacion": "Nadie mide 100 metros, así que la estatura es de cola fina. Las ventas de libros, la magnitud de los terremotos y la frecuencia de las palabras son de cola larga."
+  },
+  {
+    "id": "m02l05-q06",
+    "tipo": "multiple",
+    "enunciado": "Según la caricatura del libro, ¿cuáles de estas propiedades son propias de las colas largas?",
+    "opciones": [
+      "El grupo superior se lleva una cuota desproporcionada del total",
+      "El total lo determina el conjunto entero de miembros",
+      "Un solo dato extremo puede cambiar por completo la media de la muestra",
+      "Se puede predecir con confianza el valor aproximado de cada instancia"
+    ],
+    "correcta": [
+      0,
+      2
+    ],
+    "explicacion": "En las colas largas el grupo superior pesa mucho y un dato extremo mueve la media. Que el conjunto determine el total y que cada valor sea predecible son propiedades de las colas finas."
+  },
+  {
+    "id": "m02l05-q07",
+    "tipo": "numerica",
+    "enunciado": "Los costes de 10 pacientes, en miles de euros, son 1, 1, 1, 1, 2, 2, 2, 3, 3 y 84. ¿Qué porcentaje del total aporta el paciente más caro?",
+    "correcta": 84,
+    "tolerancia": 0.5,
+    "explicacion": "El total es 4 + 6 + 6 + 84 = 100. El paciente de 84 aporta el 84 % del total, siendo el 10 % de los pacientes. Es un patrón de cola larga."
+  },
+  {
+    "id": "m02l05-q08",
+    "tipo": "unica",
+    "enunciado": "¿Qué significa \"planificar para planificar\" ante los eventos de cola?",
+    "opciones": [
+      "Escribir un plan detallado de cada evento posible",
+      "Posponer el plan hasta que el evento ocurra",
+      "Dejar organizado quién decide y cómo se coordina la respuesta, sea cual sea el evento",
+      "Delegar el plan en una empresa externa"
+    ],
+    "correcta": 2,
+    "explicacion": "No se sabe cuándo ni cómo llegará el evento, así que el detalle no se puede fijar de antemano. Lo que sí se puede es preparar el protocolo de respuesta: quién se reúne, cómo se decide y cómo se coordinan los actores."
+  },
+  {
+    "id": "m02l05-q09",
+    "tipo": "vf",
+    "enunciado": "Si un tipo de evento no ha ocurrido nunca en la historia, se puede descartar como riesgo.",
+    "correcta": false,
+    "explicacion": "Falso. Algunos eventos de cola no han ocurrido nunca (un meteorito global, una tormenta solar que apague la red eléctrica) y su impacto es tan alto que ignorarlos sería imprudente. Lo que nunca ha pasado pasa a todas horas."
+  },
+  {
+    "id": "m02l05-q10",
+    "tipo": "unica",
+    "enunciado": "En un fenómeno de Extremistán, ¿qué pasa con el mayor valor de un grupo frente al total?",
+    "opciones": [
+      "Es insignificante frente al total",
+      "Es similar al de cualquier otro miembro",
+      "Puede ser una parte enorme del total",
+      "No se puede medir"
+    ],
+    "correcta": 2,
+    "explicacion": "En Extremistán (cola larga) un valor extremo puede pesar más que muchos otros juntos, como una persona muy rica en el patrimonio mundial. En Mediocristán (cola fina) el mayor pesa poco frente al total."
+  }
+]

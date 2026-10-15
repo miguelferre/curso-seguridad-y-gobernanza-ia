@@ -1,0 +1,7 @@
+fuentes/
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+_wip/
+dist/
+_meta/

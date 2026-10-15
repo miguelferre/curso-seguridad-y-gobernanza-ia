@@ -1,0 +1,105 @@
+[
+  {
+    "id": "m08l03-q01",
+    "tipo": "unica",
+    "enunciado": "Una paciente hace una rehabilitación dolorosa que le devolverá la movilidad, y dice que quiere hacerla. ¿Qué teoría del bienestar puntúa peor esa rehabilitación mientras dura el dolor?",
+    "opciones": [
+      "El hedonismo, porque cuenta el balance de placer sobre dolor",
+      "La lista de bienes objetivos, porque la salud no está en la lista",
+      "La satisfacción de preferencias, porque ella no lo prefería",
+      "Las tres por igual"
+    ],
+    "correcta": 0,
+    "explicacion": "Mientras dura el dolor, el balance de placer sobre dolor es negativo. La lista de bienes la valora bien (recupera salud y movilidad) y las preferencias también, porque ella declara que quiere hacerla."
+  },
+  {
+    "id": "m08l03-q02",
+    "tipo": "numerica",
+    "enunciado": "Un programa lleva a 300 pacientes de 0,7 a 0,9 QALY por año, y el efecto dura 5 años. ¿Cuántos QALY se ganan en total?",
+    "correcta": 300,
+    "tolerancia": 0.5,
+    "explicacion": "La mejora por año es 0,9 − 0,7 = 0,2. Multiplicada por 5 años y 300 personas: 0,2 × 5 × 300 = 300 QALY."
+  },
+  {
+    "id": "m08l03-q03",
+    "tipo": "vf",
+    "enunciado": "Verdadero o falso: un programa que suba el número de DALY de una población ha mejorado su bienestar.",
+    "correcta": false,
+    "explicacion": "Los DALY miden años perdidos por la enfermedad: mejor es que bajen. Los QALY funcionan al revés, y subir es mejorar."
+  },
+  {
+    "id": "m08l03-q04",
+    "tipo": "unica",
+    "enunciado": "Un chatbot toma el tiempo de uso de cada persona como medida de su preferencia y lo maximiza. ¿Cuál es el riesgo principal, según la lección?",
+    "opciones": [
+      "Que los usuarios declaren preferencias distintas de las que tienen",
+      "Que consiga más horas de uso con trucos que enganchan, sin que mejore el bienestar",
+      "Que aplique la lista de bienes objetivos de forma paternalista",
+      "Que la función de bienestar quede por debajo del umbral"
+    ],
+    "correcta": 1,
+    "explicacion": "El uso es un sustituto de la preferencia revelada, y esta se puede distorsionar por debilidad de la voluntad o manipulación. Un sistema que lo optimiza puede enganchar sin que a la persona le vaya mejor."
+  },
+  {
+    "id": "m08l03-q05",
+    "tipo": "multiple",
+    "enunciado": "Marca los fallos que pueden distorsionar una preferencia REVELADA.",
+    "opciones": [
+      "La persona elige entre las cosas tal como las cree, no como son",
+      "La persona actúa contra lo que quiere por falta de voluntad",
+      "Solo se registra lo que la persona verbaliza cuando se le pregunta",
+      "La elección está moldeada por publicidad o por presión social"
+    ],
+    "correcta": [0, 1, 3],
+    "explicacion": "La información falsa, la debilidad de la voluntad y la manipulación afectan a las reveladas. Registrar lo que la persona dice es justo lo que caracteriza a las declaradas."
+  },
+  {
+    "id": "m08l03-q06",
+    "tipo": "unica",
+    "enunciado": "¿Qué tipo de preferencia se libra de las creencias falsas, la debilidad de la voluntad y la manipulación, pero es la más difícil de averiguar?",
+    "opciones": [
+      "La revelada",
+      "La declarada",
+      "La idealizada",
+      "Ninguna: todas se averiguan igual de bien"
+    ],
+    "correcta": 2,
+    "explicacion": "Las idealizadas son las que la persona tendría con buena información y reflexión. Evitan esos fallos, pero no está claro cómo idealizar y pueden alejarse de la persona real."
+  },
+  {
+    "id": "m08l03-q07",
+    "tipo": "numerica",
+    "enunciado": "Con un presente psicológico de 3 segundos, 16 horas de vigilia al día y una vida de 70 años (365 días por año), ¿cuántos millones de momentos hay? Redondea al millón.",
+    "correcta": 490.56,
+    "tolerancia": 1,
+    "explicacion": "70 × 365 × 16 × 3600 / 3 = 490 560 000 momentos: 490,56 millones, que redondeados son 491 (se acepta también 490). Concuerda con el medio millardo del libro."
+  },
+  {
+    "id": "m08l03-q08",
+    "tipo": "numerica",
+    "enunciado": "Un agente con filtro de bienestar tiene cuatro acciones (Q, W): a (8, −6), b (5, 1), c (6,5, −2) y d (3, 0). El umbral es −3 y la penalización 5, y se resta a Q en las acciones con W por debajo del umbral. ¿Qué valor Q' tiene la acción que elige tras el filtro?",
+    "correcta": 6.5,
+    "tolerancia": 0.05,
+    "explicacion": "Solo a tiene W = −6 < −3, así que pasa de 8 a 3. c tiene W = −2, por encima del umbral, y conserva 6,5, que ya es el mayor. Sin filtro el agente habría elegido a con 8."
+  },
+  {
+    "id": "m08l03-q09",
+    "tipo": "unica",
+    "enunciado": "¿Qué ilustra el wireheading en el debate sobre maximizar la felicidad?",
+    "opciones": [
+      "Que la felicidad no se puede medir de ninguna manera",
+      "Que se puede maximizar el placer sin cambiar nada más de la vida, y aun así casi nadie lo querría",
+      "Que las preferencias reveladas coinciden siempre con las idealizadas",
+      "Que una IA con filtro de conciencia nunca falla"
+    ],
+    "correcta": 1,
+    "explicacion": "Estimular directamente el circuito de recompensa da placer máximo sin más cambios, y casi nadie lo elegiría. Muestra que el placer no parece ser el único bien y motiva la lista objetiva y la autonomía."
+  },
+  {
+    "id": "m08l03-q10",
+    "tipo": "vf",
+    "enunciado": "Verdadero o falso: con una conciencia artificial, el agente principal sustituye su función de recompensa por la función de bienestar.",
+    "correcta": false,
+    "explicacion": "No se cambia el objetivo del agente. Un evaluador independiente añade una capa que penaliza las acciones cuyo bienestar estimado queda por debajo de un umbral."
+  }
+]

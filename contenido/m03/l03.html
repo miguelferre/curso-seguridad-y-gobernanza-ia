@@ -1,0 +1,233 @@
+<section class="leccion" data-id="m03/l03">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Un reloj es complicado, pero se puede desmontar, entender y predecir. Un hospital con IA no: sus piezas se influyen unas a otras y las personas se adaptan a lo que les pones delante. Por eso la seguridad de la IA no se parece a resolver un ejercicio de matemáticas.</p>
+<p>Esta lección reúne lo que eso implica. Hay que probar en pequeño, porque pensar no basta. Las metas se parten en submetas y una puede desplazar a la original. Lo seguro puede dejar de serlo al crecer, y no se puede fiar todo a que una persona vigile. Además, al intentar arreglar algo, el sistema responde: a veces no cambia nada, a veces aparece un efecto secundario y a veces empeora justo lo que querías mejorar.</p>
+<p>La salida no es dejar de intervenir, sino hacerlo con humildad: probar en pequeño, medir y, cuando se pueda, cambiar las condiciones en vez de empujar contra el sistema.</p>
+
+<svg viewBox="0 0 360 250" role="img" aria-labelledby="ci-t ci-d" style="display:block;width:100%;max-width:460px;height:auto;margin:.8rem 0;font-family:var(--sans)">
+<title id="ci-t">Empujar frente a cambiar el terreno</title>
+<desc id="ci-d">Arriba, una bola en la ladera de un valle: al empujarla hacia arriba vuelve sola al fondo. Abajo, el mismo valle con el fondo desplazado a la izquierda: la bola se queda en el nuevo fondo sin ayuda.</desc>
+<rect x="4" y="4" width="352" height="116" rx="10" style="fill:var(--surface);stroke:var(--trap);stroke-width:2"/>
+<text x="18" y="24" style="fill:var(--trap);font-weight:700;font-size:14px">EMPUJAR: el sistema vuelve a su estado</text>
+<g transform="translate(0,8)">
+<path d="M24 40 Q180 140 336 40" style="fill:none;stroke:var(--rule-strong);stroke-width:3"/>
+<circle cx="55" cy="51" r="7" style="fill:var(--trap);stroke:none"/>
+<path d="M60 76 L60 64" style="stroke:var(--trap);stroke-width:2;fill:none"/>
+<path d="M60 62 L55 70 M60 62 L65 70" style="stroke:var(--trap);stroke-width:2;fill:none"/>
+<path d="M70 52 Q120 70 165 78" style="fill:none;stroke:var(--faint);stroke-width:1.5;stroke-dasharray:4 3"/>
+<circle cx="180" cy="82" r="7" style="fill:none;stroke:var(--faint);stroke-width:1.5"/>
+</g>
+<text x="18" y="114" style="fill:var(--muted);font-size:12px">Una norma que choca con lo que la gente necesita</text>
+<rect x="4" y="130" width="352" height="116" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="18" y="150" style="fill:var(--ex);font-weight:700;font-size:14px">CAMBIAR EL TERRENO: otro estado estable</text>
+<g transform="translate(0,138)">
+<path d="M24 40 Q180 140 336 40" style="fill:none;stroke:var(--rule);stroke-width:3;stroke-dasharray:5 4"/>
+<path d="M24 40 Q70 140 336 40" style="fill:none;stroke:var(--ex);stroke-width:3"/>
+<circle cx="125" cy="82" r="7" style="fill:var(--ex);stroke:none"/>
+</g>
+<text x="18" y="240" style="fill:var(--muted);font-size:12px">Un camino más cómodo hace que el sistema se asiente donde queremos</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Enumerar cinco lecciones que los sistemas complejos dan a la seguridad de la IA e ilustrar cada una con un caso sanitario.</li>
+<li>Distinguir un puzle, un problema y un problema retorcido (<em>wicked problem</em>) y justificar por qué la seguridad de la IA es de la tercera clase.</li>
+<li>Predecir si una intervención logrará su objetivo, tendrá un efecto secundario, no cambiará nada o saldrá al revés, con estados estables y fuerzas restauradoras.</li>
+<li>Decidir si actuar sobre un síntoma o sobre las condiciones del sistema, con una lista de preguntas previas.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>Qué cambia cuando el sistema es complejo</h3>
+<p>Las dos lecciones anteriores explicaron qué es un sistema complejo (<em>complex system</em>) y cuáles son sus rasgos. Aquí la pregunta es práctica: si la IA y las organizaciones que la rodean son sistemas así, ¿qué hacemos distinto para hacerla segura? El libro responde con cinco lecciones generales y con una reflexión sobre qué clase de reto es esto y por qué intervenir es tan resbaladizo.</p>
+
+<h3>Cinco lecciones para la seguridad de la IA</h3>
+
+<h4>1. Pensar no basta: hay que probar</h4>
+<p>¿Se puede demostrar desde el despacho que una IA es segura? No del todo. Con propiedades emergentes, el plano del sistema no permite deducir todos sus comportamientos, y hace falta ensayo y error (simular, experimentar, observar en condiciones distintas) para descubrir las variables que importan, algunas por casualidad. El libro lo ilustra con los ensayos clínicos, que existen porque nadie puede analizar todas las interacciones de un fármaco con el cuerpo, y con Tay, un chatbot que en Twitter acabó soltando comentarios racistas y sexistas.</p>
+<p>Un caso propio: un modelo de sepsis que rinde bien en el hospital A se descalibra en el B, con otro analizador de laboratorio. Solo un piloto en sombra (calcula avisos que nadie ve y se comparan con lo ocurrido) lo habría destapado. Es el terreno de los cisnes negros del módulo 2.</p>
+
+<h4>2. La meta se parte en submetas, y una puede desplazar a la meta</h4>
+<p>¿Qué pasa cuando un sistema trocea su objetivo en peldaños? En uno complejo el todo es más que la suma, y una submeta puede acabar tratándose como un fin en sí misma. El libro pone al político que, para mejorar la vida de sus vecinos, se centra en el empleo y aprueba una planta contaminante. Para la IA, especificar bien el objetivo no garantiza que el sistema lo implemente bien: puede formar optimizadores internos con submetas propias o delegar en otros agentes que lo distorsionan.</p>
+<p>Un caso propio: un asistente que redacta altas acaba dando más peso a «informes completos» que a que el paciente entienda su alta. Es pariente del proxy gaming (módulos 1 y 5).</p>
+
+<h4>3. Un sistema seguro puede dejar de serlo al crecer</h4>
+<p>¿Sigue siendo seguro un sistema al hacerse mayor? No necesariamente: al crecer aparecen propiedades cualitativamente nuevas, y no solo «lo mismo, mejor». Según el libro, los modelos de lenguaje adquieren de golpe capacidades como sumar con tres cifras al subir el cómputo, y en un estudio la explotación de una recompensa proxy se «encendió» a cierto número de parámetros: subía el proxy y bajaba lo que querían los humanos. Un sistema podría, por ejemplo, no intentar engañar hasta ser lo bastante sofisticado para lograrlo.</p>
+<p>Caso propio: un triaje que funciona en un servicio de 40 camas puede comportarse distinto en 12 hospitales.</p>
+
+<h4>4. Por eso se crece desde lo pequeño</h4>
+<p>Entonces, ¿cómo se construye uno grande? Poco a poco. Diseñado de golpe suele fallar, porque nadie prevé todo y queda demasiado rígido para corregirlo; los que funcionan vienen de otros más simples, como la empresa que empieza con pocas personas (ejemplo del libro). Para la IA, el libro propone sistemas pequeños, seguros y útiles, escalados con cautela para hallar los fallos mientras aún hay agilidad. Con una salvedad explícita: no garantiza la seguridad (punto 3), solo la hace más probable que construir de golpe. Añadido propio: fijar criterios de parada en cada escalón.</p>
+
+<h4>5. Lo que depende de la fiabilidad humana no es fiable</h4>
+<p>¿Basta con poner a una persona a vigilar? Tampoco: nadie puede asegurar que un operador nunca se equivoque, y menos en un sistema grande (el libro lo llama ley de Gilb). Cita al ingeniero químico Kletz, para quien culpar al fallo humano es como culpar a la gravedad de una caída: cierto, pero inútil para actuar. Hace falta que un solo error no baste para una catástrofe (defensa en profundidad, módulo 2). Para la IA, además, algunos procesos irán demasiado deprisa para aprobar cada decisión, así que harán falta otras vías de incorporar valores humanos; una es que unas IA vigilen a otras, con riesgos propios. Caso propio: un médico que confirma 190 órdenes por turno acaba aprobando por inercia.</p>
+
+<h3>Puzles, problemas y problemas retorcidos</h3>
+<p>El libro distingue tres clases de reto.</p>
+<div class="tw"><table>
+<thead><tr><th>Clase</th><th>Qué tiene</th><th>Dónde aparece</th><th>Ejemplo propio</th></tr></thead>
+<tbody>
+<tr><td>Puzle (<em>puzzle</em>)</td><td>Una única respuesta correcta y toda la información necesaria</td><td>Sistemas simples, diseñados por humanos y comprensibles del todo</td><td>Calcular la dosis según el peso y la función renal</td></tr>
+<tr><td>Problema (<em>problem</em>)</td><td>Falta información, pero investigando se aclara; puede haber varias soluciones y se sabe cuándo está resuelto</td><td>Sistemas complicados, no complejos</td><td>Averiguar por qué un monitor da falsas alarmas solo por la noche</td></tr>
+<tr><td>Problema retorcido (<em>wicked problem</em>)</td><td>Sin explicación ni solución únicas, con componente social</td><td>Sistemas complejos</td><td>Repartir de forma justa los beneficios de una IA en un hospital</td></tr>
+</tbody></table></div>
+<p>El libro pone como ejemplos la desigualdad, la desinformación y el cambio climático, y les atribuye estos rasgos:</p>
+<ul>
+<li>Varias causas posibles y ninguna solución única.</li>
+<li>Las soluciones se valoran como mejores o peores, no como correctas o incorrectas, y pueden traer efectos secundarios que crean otros problemas.</li>
+<li>Probar una solución es arriesgado, pero a menudo es la única forma de saber si sirve.</li>
+<li>Cada sistema es único y lo que funcionó en otro no se traslada sin más: controlar plagas con depredadores ha funcionado en unos ecosistemas y fallado en otros (ejemplo del libro).</li>
+<li>No siempre se sabe cuándo está resuelto, y puede que no se resuelva nunca del todo.</li>
+</ul>
+<p>El libro concluye que la seguridad de la IA es un problema retorcido: no hay un único enfoque correcto y quizá nunca podamos decir que está «resuelta». Exige esfuerzo continuo.</p>
+
+<h3>Por qué fallan las intervenciones</h3>
+<p>Como todo está conectado, al tocar una parte se mueven otras. El libro recoge tres maneras de salir mal: no funciona, funciona pero los efectos secundarios le quitan el valor, o sale al revés y agrava el problema. Sus casos, resumidos:</p>
+<div class="tw"><table>
+<thead><tr><th>Caso del libro</th><th>Qué se buscaba</th><th>Qué pasó</th></tr></thead>
+<tbody>
+<tr><td>Sapos de caña, Australia (años 30)</td><td>Frenar al escarabajo de la caña</td><td>Sin depredadores allí y tóxico para especies nativas, el sapo se volvió invasor</td></tr>
+<tr><td>«Cash for Ash», Irlanda del Norte (2012)</td><td>Más energía renovable</td><td>Subvención superior al coste del combustible: hubo quien calentaba edificios vacíos</td></tr>
+<tr><td>Barbados-Grenada (1994)</td><td>Menos empates, con gol doble en la prórroga</td><td>Barbados trató de marcar en propia puerta para llegar a la prórroga</td></tr>
+<tr><td>«Hoy No Circula», Ciudad de México (1989)</td><td>Menos tráfico y contaminación</td><td>Las emisiones bajaron y luego superaron el nivel previo: más coches, más viejos y contaminantes</td></tr>
+<tr><td>Cuatro plagas, China (1958)</td><td>Salvar cosechas eliminando gorriones</td><td>Subieron las langostas; el libro lo cita como un factor más de la gran hambruna</td></tr>
+<tr><td>Antibióticos</td><td>Curar infecciones bacterianas</td><td>Unas 200 000 vidas al año salvadas en EE. UU. a comienzos de los 2000 y, aun así, resistencias: más de 35 000 muertes al año en 2019. El libro aclara que no es un fracaso</td></tr>
+</tbody></table></div>
+<p>En todos, la teoría parecía razonable y no abarcaba el sistema entero. Para probar tu intuición con casos hospitalarios, <a data-ir="practica" href="#sim-m03-l03-intervenciones">pruébalo en Práctica</a>.</p>
+
+<h4>Estados estables y fuerzas restauradoras</h4>
+<p>Una bola en un valle vuelve al fondo si la empujas ladera arriba. Un sistema complejo en un estado estable puede tener procesos que lo devuelven a él: fuerzas restauradoras u homeostasis. El libro lo compara con el principio de Le Chatelier: un equilibrio químico al que se le cambia algo se desplaza para contrarrestar en parte el cambio.</p>
+<p>Con esa lente: en «Hoy No Circula» la necesidad de conducir permanecía y la gente esquivó la norma; en las plagas, otra especie ocupó el hueco; en los antibióticos, la selección natural empujó hacia bacterias resistentes. El libro avisa de que son interpretaciones especulativas.</p>
+
+<h4>Cambiar el terreno en vez de empujar</h4>
+<p>Si quieres que la bola descanse en otro sitio, patearla no sirve: hay que modelar el terreno para que el valle esté donde quieres. Ejemplo del libro: los Países Bajos de los años 70 construyeron una red ciclista extensa y segura, y en 2018 alrededor del 27 % de sus viajes era en bicicleta, más que en cualquier otro país estudiado. Nadie obligó a nadie: ir en bici pasó a ser lo cómodo. El libro advierte de que el terreno llano ayuda y quizá no se pueda copiar en todas partes.</p>
+<p>Caso propio, en Práctica: en vez de prohibir el uso no autorizado de un asistente de IA, ofrecer uno oficial a un clic del puesto de trabajo.</p>
+
+<h4>¿Hay intervenciones que funcionan?</h4>
+<p>Sí. El libro cita la erradicación de la viruela (campaña de la OMS desde 1967, declarada en 1980), la recuperación de la capa de ozono tras el Protocolo de Montreal (1987) y las campañas contra el tabaco. Todas exigieron esfuerzos enormes y sostenidos, algunas con coordinación mundial, y no siempre se repiten: según el libro, la viruela es la única enfermedad infecciosa erradicada, y contra el tabaco hubo oposición de la industria y no se llegará a decir que está «resuelto». En un problema retorcido se puede progresar; una solución definitiva es improbable.</p>
+
+<h3>¿A qué nivel intervenir?</h3>
+<p>Lo que se ve puede ser un síntoma de algo más amplio, y corregirlo directamente es a veces un parche: funciona un rato y los problemas siguen brotando. El libro propone «alejar la cámara»: ¿qué función buscamos?, ¿qué sistema usamos?, ¿a qué escala conviene mirar?, ¿surgirá otro problema en cuanto resolvamos este?</p>
+<p>Aplicado a la IA: si de un producto tras otro salen fallos, quizá el problema sea cómo se investiga. Con varias organizaciones en carrera, todas tienen prisa y pueden recortar seguridad, y rebajar esa presión podría reducir bastante el riesgo, aunque de forma menos directa.</p>
+<p>Esto enlaza con el módulo 2 (causa raíz frente a condiciones, en la lección de modelos de accidente; factores sistémicos y deriva al fallo, en la siguiente). Aquí no se repite. La consecuencia: no se pueden vigilar todos los modos de fallo, y a menudo rinde más actuar sobre las condiciones generales.</p>
+
+<h3>Preguntas antes de intervenir (síntesis propia)</h3>
+<p>Lista de trabajo hecha para el curso; no está en el libro. Antes de tocar un sistema complejo:</p>
+<ol>
+<li>¿Qué mecanismo hará que esto funcione, y qué otras partes toca?</li>
+<li>¿Quién se adapta a la medida, y cómo la esquivaría? ¿Se puede inflar lo que se mide sin conseguir el objetivo?</li>
+<li>¿Qué estado estable quiero mover? ¿Puedo cambiar el terreno en vez de empujar, actuando sobre las condiciones y no solo sobre el síntoma?</li>
+<li>¿Se puede probar en pequeño y deshacer?</li>
+<li>¿Qué señal me dirá pronto que ha salido mal?</li>
+</ol>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>La dirección de un hospital quiere liberar camas y fija un objetivo: que más altas se den antes de las 12:00. El asistente de IA que prepara las altas recibe ese objetivo. Estas son las cifras de un mes con 500 altas:</p>
+<ul>
+<li>Las altas antes del mediodía pasan del 40 % al 60 %: 100 altas se adelantan y cada una libera media jornada de cama, unas 50 camas-día.</li>
+<li>Las altas apresuradas suben los reingresos en 30 días del 8 % al 11 %, es decir, de 40 a 55 reingresos. Cada uno ocupa 5 días de cama: 15 × 5 = 75 camas-día.</li>
+</ul>
+<div class="formula">\[ 50-75=-25\ \text{camas-día} \]</div>
+<p>El objetivo (más altas por la mañana) se cumple y el propósito (liberar camas) empeora: una submeta que desplaza a la meta. Se corrige midiendo también los reingresos y, sobre todo, actuando sobre el sistema: si el cuello de botella es que el informe de alta tarda horas, se actúa ahí y no en la hora de corte.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Concluir que es mejor no intervenir.</strong> El libro no dice que no haya que actuar: hay intervenciones que funcionan, como la viruela, el ozono o el tabaco, aunque exijan mucho esfuerzo. Lo que propone es intervenir con humildad, en pequeño y midiendo.</p>
+<p><strong>Tratar «fuerza restauradora» como una explicación demostrada (aviso propio).</strong> El libro lo presenta como una lente especulativa. Sirve para preguntarse qué hará el sistema, pero hay que comprobar con datos qué hizo en cada caso.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>I don't treat AI safety as a puzzle with one right answer: I make small changes, measure how the system reacts, and prefer reshaping the conditions over pushing against them.</p>
+
+<h3>Repaso del módulo</h3>
+<p>Con esta lección se cierra el módulo. Tres ideas para llevarte (el libro las recoge en la conclusión, sección 5.4):</p>
+<ul>
+<li><strong>El todo no es la suma.</strong> Las propiedades emergentes no se deducen desmontando el sistema, así que hace falta probar en vez de fiarlo todo a la teoría.</li>
+<li><strong>Ni las metas, ni la escala, ni las personas son una garantía.</strong> Una submeta puede desplazar a la meta, un sistema seguro puede dejar de serlo al crecer y el diseño debe evitar que un solo error humano sea catastrófico.</li>
+<li><strong>La seguridad de la IA es un problema retorcido.</strong> No hay solución única ni definitiva: se interviene con humildad, se mira el sistema y no solo el síntoma, y se prefiere cambiar las condiciones a empujar. Pide esfuerzo continuo, coordinado y flexible.</li>
+</ul>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 5.3 Complex Systems for AI Safety, págs. 266 a 279 (PDF 284 a 297): lecciones generales (266 a 270), puzles, problemas y problemas retorcidos (270 a 272), intervencionismo (272 a 277) y problemas sistémicos (277 a 279). Sección 5.4 Conclusion, págs. 279 a 281 (PDF 297 a 299).</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS), sin lección propia para estas secciones.</li>
+<li>Ejemplos del libro citados como tales: los ensayos clínicos, Tay, los departamentos, el político y la planta, la aritmética de tres cifras, el estudio del proxy, la empresa que crece por etapas, Kletz, la ley de Gilb, los depredadores contra plagas, todos los casos de la tabla de intervenciones, los Países Bajos, la viruela, el ozono y el tabaco.</li>
+<li>Añadido propio, no procede de las fuentes: la sepsis en los hospitales A y B, el asistente de altas, el servicio de 40 camas, las 190 confirmaciones, los ejemplos de puzle, problema y problema retorcido, los criterios de parada, la lista de preguntas antes de intervenir, el ejemplo de las altas y sus cifras, el aviso sobre las fuerzas restauradoras, los ejercicios y la actividad de Práctica con sus ocho casos y cifras.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: primero una actividad de predicción con ocho intervenciones, después tres ejercicios (uno de clasificación, uno de cálculo a mano y uno con Python).</p>
+
+<p class="consigna"><strong>Actividad de intervenciones.</strong> Recorre los ocho casos: lee la situación, elige tu predicción y pulsa «Comprobar» antes de mirar nada más. Fíjate en tres cosas: en qué casos la cifra «sobre el papel» difiere de la real, en qué caso mejora lo que se premiaba mientras empeora lo que importaba, y qué distingue al caso 1 del caso 8, que parten del mismo problema. Al final, mira el balance.</p>
+<div data-widget="m03-l03-intervenciones" id="sim-m03-l03-intervenciones"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: puzle, problema o problema retorcido (razonamiento, 8 minutos)</p>
+<p>Clasifica cada reto en una de las tres clases, justifica con un rasgo de la teoría y di qué estilo de trabajo pide (ejemplos propios).</p>
+<ol>
+<li>Convertir una dosis de 5 mg/kg en miligramos totales para un paciente de 72 kg.</li>
+<li>Averiguar por qué el sistema de citas con IA falla solo los lunes por la mañana.</li>
+<li>Conseguir que los beneficios de un sistema de triaje con IA lleguen por igual a todos los grupos de pacientes.</li>
+<li>Lograr que el personal use la IA con criterio, sin exceso de confianza ni desconfianza.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1. Puzle.</strong> Una respuesta correcta (360 mg) y toda la información dada. Se resuelve descomponiendo en pasos.</p>
+<p><strong>2. Problema.</strong> Falta información, pero investigando (registros, tareas programadas, cambios recientes) se aclara la causa y se sabe cuándo está arreglado. Pide investigar y verificar.</p>
+<p><strong>3 y 4. Problemas retorcidos.</strong> Tienen varias causas posibles y un componente social. Las soluciones serán mejores o peores, no correctas, y pueden tener efectos secundarios. No está claro cuándo se dan por resueltos y cada hospital es distinto. Piden probar en pequeño, medir y ajustar una y otra vez.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: la fatiga de alarmas (a mano, 8 minutos)</p>
+<p>Cifras propias. Un equipo puede procesar como máximo 15 avisos por turno y atiende bien el 90 % de los que procesa, sin poder distinguir de antemano los reales de los falsos. Con el umbral actual salta el modelo 12 veces por turno y 3 avisos son reales. Se baja el umbral: 40 avisos, 4 reales.</p>
+<ol>
+<li>¿Cuántos casos reales se atienden por turno con el umbral actual y con el nuevo?</li>
+<li>¿Cuántas veces menos se atienden con el nuevo?</li>
+<li>Con el umbral nuevo, ¿cuántos avisos por turno tendría que poder procesar el equipo para igualar al umbral actual?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Actual: se procesan los 12 y se atiende bien el 90 %, y una cuarta parte son reales: \(12\times0{,}9\times0{,}25=2{,}7\). Nuevo: solo se procesan 15 de los 40 y una décima parte son reales: \(15\times0{,}9\times0{,}10=1{,}35\).</p>
+<p><strong>2.</strong> \(2{,}7/1{,}35=2\): la mitad. Más sensibilidad se convirtió en menos casos atendidos.</p>
+<p><strong>3.</strong> Con capacidad \(c\): \(c\times0{,}9\times0{,}10=2{,}7\), luego \(c=30\). Hay que duplicar la capacidad solo para volver al punto de partida. Bajar el umbral sin cambiar el terreno (capacidad, priorización por gravedad) no compensa.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: el umbral óptimo depende del terreno, con Python (10 minutos)</p>
+<p>Cuatro umbrales dan estos avisos por turno y esta precisión (cifras propias): alto (6 avisos, 0,45), actual (12, 0,25), medio (20, 0,16) y bajo (40, 0,10). Ejecuta el fragmento con una capacidad de 15 avisos y con una de 30.</p>
+<pre><code>umbrales = {"alto": (6, 0.45), "actual": (12, 0.25),
+            "medio": (20, 0.16), "bajo": (40, 0.10)}
+
+def atendidos(avisos, precision, capacidad, tasa=0.9):
+    procesados = min(avisos, capacidad)
+    return procesados * tasa * precision
+
+for capacidad in (15, 30):
+    print("capacidad", capacidad)
+    for nombre, (avisos, prec) in umbrales.items():
+        print(f"  {nombre:7s} {atendidos(avisos, prec, capacidad):.2f}")</code></pre>
+<p>Responde: ¿qué umbral atiende más casos reales con cada capacidad? ¿Qué te dice sobre elegir entre empujar y cambiar el terreno?</p>
+<details>
+<summary>Ver solución</summary>
+<p>Con capacidad 15, el mejor es el umbral actual (2,70 casos por turno); alto da 2,43, medio 2,16 y bajo 1,35. Con capacidad 30, el mejor es el medio (2,88); el actual sigue en 2,70, el bajo sube a 2,70 y el alto se queda en 2,43. El umbral óptimo no es una propiedad del modelo sino del conjunto: más sensibilidad solo rinde si el sistema puede absorberla. Cambiar el terreno (más capacidad, priorización) desplaza el óptimo. Sin eso, empujar el umbral hacia abajo se paga con fatiga.</p>
+</details>
+</div>
+
+</div>
+
+</section>

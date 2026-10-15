@@ -1,0 +1,106 @@
+[
+  {
+    "id": "m11l01-q01",
+    "tipo": "unica",
+    "enunciado": "¿Qué representa una función de utilidad de Bernoulli?",
+    "opciones": [
+      "Cuánto prefiere un agente unos resultados seguros a otros",
+      "La probabilidad de que ocurra cada resultado",
+      "La media de los resultados de una lotería",
+      "La recompensa que un entorno impone al agente"
+    ],
+    "correcta": 0,
+    "explicacion": "Asigna un número a cada resultado seguro, de modo que un resultado se prefiere a otro si y solo si su utilidad es mayor. Las probabilidades entran después, con la utilidad esperada de vNM, y la recompensa externa es otra cosa."
+  },
+  {
+    "id": "m11l01-q02",
+    "tipo": "vf",
+    "enunciado": "Si la utilidad de un agente da 20 a la opción X y 10 a la opción Y, se puede decir que el agente disfruta el doble con X que con Y.",
+    "correcta": false,
+    "explicacion": "Falso. Las unidades de utilidad son arbitrarias: sustituir \\(u\\) por \\(3u+7\\) mantiene todas las elecciones y cambia el cociente. Lo que sí informa es el orden y, en la lectura cardinal, las diferencias relativas."
+  },
+  {
+    "id": "m11l01-q03",
+    "tipo": "numerica",
+    "enunciado": "Una lotería da 80 con probabilidad 0,25 y 20 con probabilidad 0,75. ¿Cuál es su valor esperado?",
+    "correcta": 35,
+    "tolerancia": 0.01,
+    "explicacion": "\\(E[L]=0{,}25\\cdot 80+0{,}75\\cdot 20=20+15=35\\)."
+  },
+  {
+    "id": "m11l01-q04",
+    "tipo": "numerica",
+    "enunciado": "Un agente con utilidad \\(u(x)=\\sqrt{x}\\) se enfrenta a una lotería que da 36 con probabilidad 0,5 y 4 con probabilidad 0,5. ¿Cuál es su utilidad esperada?",
+    "correcta": 4,
+    "tolerancia": 0.01,
+    "explicacion": "\\(U(L)=0{,}5\\cdot\\sqrt{36}+0{,}5\\cdot\\sqrt{4}=0{,}5\\cdot 6+0{,}5\\cdot 2=4\\). Con utilidad lineal el resultado habría sido el valor esperado, 20."
+  },
+  {
+    "id": "m11l01-q05",
+    "tipo": "unica",
+    "enunciado": "Una lotería tiene valor esperado positivo. ¿Qué se puede afirmar sobre su utilidad esperada?",
+    "opciones": [
+      "Tiene que ser positiva, porque son la misma cantidad",
+      "Puede ser negativa o menor que la de una alternativa segura, porque pondera la utilidad de cada resultado y no su cuantía en dinero",
+      "Solo puede diferir si las probabilidades son subjetivas",
+      "Solo puede diferir si el agente incumple los axiomas de vNM"
+    ],
+    "correcta": 1,
+    "explicacion": "Valor esperado y utilidad esperada solo coinciden si \\(u(x)=x\\). Con una utilidad cóncava, como la raíz cúbica del ejemplo del billete de lotería, un valor esperado de +1,33 dólares puede convivir con una utilidad esperada negativa. No hace falta incumplir ningún axioma."
+  },
+  {
+    "id": "m11l01-q06",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas propiedades son axiomas de racionalidad de von Neumann y Morgenstern?",
+    "opciones": [
+      "Completitud",
+      "Transitividad",
+      "Aversión al riesgo",
+      "Independencia",
+      "Neutralidad ante el riesgo"
+    ],
+    "correcta": [0, 1, 3],
+    "explicacion": "Los seis axiomas son completitud, transitividad, continuidad, independencia, monotonía y descomponibilidad. La aversión o la neutralidad ante el riesgo no son axiomas: dependen de la forma de la función de utilidad, y son el tema de la lección siguiente."
+  },
+  {
+    "id": "m11l01-q07",
+    "tipo": "numerica",
+    "enunciado": "En el juego de San Petersburgo (paga \\(2^n\\) dólares con probabilidad \\(1/2^n\\)), un jugador con utilidad \\(u(x)=\\log_2 x\\) tiene utilidad esperada 2. ¿Cuántos dólares seguros le dan esa misma utilidad?",
+    "correcta": 4,
+    "tolerancia": 0.01,
+    "explicacion": "Hay que resolver \\(\\log_2 x = 2\\), luego \\(x=2^2=4\\). Es indiferente entre jugar y recibir 4 dólares, pese a que el valor esperado del juego es infinito."
+  },
+  {
+    "id": "m11l01-q08",
+    "tipo": "unica",
+    "enunciado": "¿Por qué un agente racional con una función de utilidad fija tiende a resistirse a que le cambien esa función?",
+    "opciones": [
+      "Porque cualquier IA lleva programado un instinto de supervivencia",
+      "Porque, medido con sus preferencias actuales, la nueva función le hará conseguir menos utilidad",
+      "Porque los axiomas de vNM prohíben cambiar de función",
+      "Porque un agente racional no admite probabilidades subjetivas"
+    ],
+    "correcta": 1,
+    "explicacion": "Si el agente evalúa el cambio con lo que valora hoy, perseguir otros fines es peor que seguir con los actuales. La resistencia sale de la aritmética de maximizar una utilidad, no de ningún instinto ni de los axiomas."
+  },
+  {
+    "id": "m11l01-q09",
+    "tipo": "vf",
+    "enunciado": "Si las preferencias de un agente son completas y transitivas, y no le da igual todo, acaba teniendo alguna preferencia estricta sobre ser apagado, y eso puede ser un problema tanto si prefiere seguir como si prefiere apagarse.",
+    "correcta": true,
+    "explicacion": "Verdadero. Al ordenar todas sus opciones de forma coherente, el apagado ocupa un lugar en su ranking. Si prefiere seguir, buscará reducir la probabilidad de ser apagado; si prefiere apagarse, puede hacerlo sin permiso. En ambos casos se pierde capacidad de corrección."
+  },
+  {
+    "id": "m11l01-q10",
+    "tipo": "unica",
+    "enunciado": "Con los ejemplos de Galileo y de las papilas gustativas, ¿qué idea ilustra el libro sobre utilidad y recompensa?",
+    "opciones": [
+      "Que lo que se premia desde fuera no tiene por qué formar parte de lo que el agente considera valioso",
+      "Que la utilidad y la recompensa son la misma función con dos nombres",
+      "Que la recompensa siempre acaba sustituyendo a la utilidad",
+      "Que un agente de refuerzo no puede tener ninguna utilidad interna"
+    ],
+    "correcta": 0,
+    "explicacion": "Galileo mantuvo su tesis pese a los refuerzos que le empujaban a callar, y las papilas gustativas siguen adaptaciones antiguas sin maximizar la aptitud actual. La recompensa es un refuerzo externo; la utilidad expresa lo que el agente valora."
+  }
+]

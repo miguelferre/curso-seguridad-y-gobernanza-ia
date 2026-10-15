@@ -1,0 +1,195 @@
+<section class="leccion" data-id="m08/l01">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Hay una propuesta que suena a sentido común: que la IA se limite a cumplir la ley. Tiene méritos reales. La ley la hacemos entre todos, lleva generaciones probándose y sabe ser precisa y flexible a la vez.</p>
+<p>Pero la ley es un suelo y no un techo. Calla en muchos asuntos, a veces permite lo que casi todos rechazaríamos, y se escribió pensando en personas, no en máquinas. Imagina un asistente clínico que cumple todas las normas y que, aun así, no avisa a un usuario que describe síntomas de ictus, porque ninguna norma se lo exige (ejemplo propio). Esta lección enseña a decidir, ante un caso, si basta con la ley o si hace falta además ética.</p>
+<p>Es la primera respuesta a cómo dirigimos una IA hacia lo que valoramos, y el resto del módulo examina las demás.</p>
+
+<svg viewBox="0 0 360 292" role="img" aria-labelledby="ley-t ley-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="ley-t">La ley como suelo</title>
+<desc id="ley-d">Un rectángulo grande con todo lo que queremos de una IA clínica. Dentro, una franja inferior para lo que cubre la ley, con sus tres virtudes. Encima y a la derecha, tres huecos que la ley deja: calla, permite lo rechazable y se escribió para personas. Una flecha indica que ese espacio lo cubre la ética.</desc>
+<rect x="4" y="4" width="352" height="284" rx="10" style="fill:var(--surface);stroke:var(--rule-strong);stroke-width:1.5"/>
+<text x="18" y="26" style="fill:var(--muted);font-size:11.5px;font-weight:700;letter-spacing:.06em">TODO LO QUE QUEREMOS DE UNA IA CLÍNICA</text>
+<rect x="16" y="40" width="328" height="112" rx="8" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5;stroke-dasharray:5 4"/>
+<text x="30" y="60" style="fill:var(--trap);font-size:12.5px;font-weight:700">Huecos de la ley: ahí hace falta ética</text>
+<text x="30" y="82" style="fill:currentColor;font-size:12.5px">1. La ley calla o deja libertad</text>
+<text x="30" y="102" style="fill:currentColor;font-size:12.5px">2. Permite algo que casi todos rechazan, o llega tarde</text>
+<text x="30" y="122" style="fill:currentColor;font-size:12.5px">3. Se escribió para personas, no para sistemas</text>
+<text x="30" y="142" style="fill:var(--muted);font-size:12px">(y no es la única forma de recoger nuestros valores)</text>
+<rect x="16" y="164" width="328" height="112" rx="8" style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:2"/>
+<text x="30" y="184" style="fill:var(--accent-ink);font-size:12.5px;font-weight:700">LEY: el suelo que toda IA debe cumplir</text>
+<text x="30" y="207" style="fill:currentColor;font-size:12.5px">Legítima: la hacemos entre todos</text>
+<text x="30" y="227" style="fill:currentColor;font-size:12.5px">Probada y muy amplia</text>
+<text x="30" y="247" style="fill:currentColor;font-size:12.5px">Específica y adaptable: reglas y estándares</text>
+<text x="30" y="267" style="fill:var(--muted);font-size:12px">un intérprete humano sigue haciendo falta</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Explicar por qué las siete respuestas habituales a «que la IA sea beneficiosa» no son la misma y pueden chocar.</li>
+<li>Enumerar las tres ventajas de la ley, distinguir una regla de un estándar y decir qué problema de control ayuda a resolver cada uno.</li>
+<li>Nombrar los tres argumentos del libro sobre los límites de la ley y el aviso de que se escribió para personas.</li>
+<li>Decidir, ante un caso de un sistema clínico, si la ley basta como guía o si hace falta algo más, y con qué argumento.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>Qué queremos decir con «IA beneficiosa»</h3>
+<p>Casi todos asentimos cuando alguien dice que una IA debe «promover los valores humanos». El libro (6.1, pp. 285 y 286) recoge siete respuestas que parecen razonables: que haga lo que se le manda, que respalde lo que tú elijas, que sea justa, que siga lo que decida un proceso democrático, que averigüe qué es moral y lo haga, que haga lo objetivamente bueno para ti y que haga felices a las personas. Suenan parecidas y no lo son: cada una parte de supuestos normativos distintos, pide una implementación técnica distinta y varias son incompatibles.</p>
+<p>Un ejemplo propio. Un asistente clínico de triaje atiende a un paciente de 78 años que rechaza un tratamiento que le prolongaría la vida. «Hacer lo que dice» y «respaldar lo que elige» le piden respetar el rechazo. «Hacer lo que es objetivamente bueno para él» puede pedir insistir. «Hacer lo que lo haga feliz» depende de cómo se mida la felicidad. El sistema no puede obedecerlas todas, y quien crea que elegir es fácil se topará con esas inconsistencias cuando su método favorito produzca algo dañino (idea del libro, p. 286).</p>
+<p>El libro examina tres propuestas para que la IA sea beneficiosa (pp. 286 y 287): seguir la ley, ser justa y dejar que decida el motor económico. Sostiene que ninguna basta por sí sola, y que cuanta más autonomía y margen de acción tenga una IA, menos servirán las guías que se reducen a cumplir la ley o a maximizar beneficios. Hoy vemos la primera; la equidad está en el módulo 6 y la economía en la lección siguiente.</p>
+
+<h3>Por qué tanta gente propone la ley</h3>
+<p>Que una IA cumpla la ley parece más seguro que pedirle que «sea ética», y el libro da tres razones (6.2, p. 287):</p>
+<dl class="facts">
+<div><dt>Legitimidad</dt><dd>En una democracia la ley es, al menos en teoría, un registro de valores compartidos y con vías para cambiarla: votar, protestar, defender un cambio. La ética no está codificada ni tiene un mecanismo de acuerdo democrático (p. 288).</dd></div>
+<div><dt>Probada y muy amplia</dt><dd>Ha crecido durante generaciones y cubre un enorme abanico de conflictos. Lo que guarda es una aproximación a lo que ha funcionado para mucha gente (p. 288).</dd></div>
+<div><dt>Específica y adaptable</dt><dd>Su lenguaje es más concreto que el de la ética y más flexible que el de un programa. Combina reglas y estándares, y eso es lo que se explica en la sección siguiente (pp. 289 y 290).</dd></div>
+</dl>
+<p>Ya aparece aquí una razón para no dejarlo todo en manos de la ley. Entre lo que la norma dice y el caso concreto siempre hay un acto de interpretación, y no hay acuerdo sobre cómo hacerlo. Para el libro, el intérprete legítimo es quien ha sido nombrado por vías democráticas o queda expuesto a la crítica democrática, así que, aunque una IA quedara obligada a cumplir la ley, quizá un sistema jurídico con personas que deciden tendría que seguir en el proceso (p. 288).</p>
+
+<h3>Reglas y estándares (rules and standards)</h3>
+<p>Un centro fija que el sistema de dosificación nunca proponga más de 10 unidades de un fármaco por toma (ejemplo propio, cifras inventadas). Es una regla: un disparador objetivo (más de 10) y una consecuencia clara (bloqueo), sin margen para interpretar. El legislador sabe de antemano qué pasará y cualquiera puede auditarlo. El precio es que toda regla falla por los dos lados: bloquea 11 unidades que eran adecuadas para un paciente corpulento (es sobreinclusiva, <em>over-inclusive</em>) y deja pasar 10 unidades a alguien con insuficiencia renal (es infrainclusiva, <em>under-inclusive</em>). El libro lo ilustra con un límite de velocidad y su multa (p. 289).</p>
+<p>La alternativa es el estándar: un criterio general, como «una dosis razonable para ese paciente», que un revisor aplica mirando su función renal, su peso y su historia. Acierta más veces con lo que el legislador no previó, y a cambio depende del criterio de quien lo aplica, que puede apartarse de lo que quería quien legisló. Según el libro, la ley usa las dos herramientas para equilibrar esa intención con los casos imprevistos, y por eso queda a medio camino entre el lenguaje ético, muy ambiguo, y el de un programa, demasiado rígido (pp. 289 y 290).</p>
+
+<h3>Dos problemas de control que la ley ayuda a resolver</h3>
+<p>El libro (pp. 290 y 291) usa esa pareja de herramientas contra dos problemas de controlar una IA con órdenes en lenguaje natural.</p>
+<h4>Malinterpretación (misinterpretation)</h4>
+<p>Supón que se ordena a un sistema clínico «reduce las listas de espera cuanto antes» y da de alta a pacientes que no están listos (ejemplo propio). Cumple la orden al pie de la letra y no lo que queríamos: se obtiene lo que se pide, como en los deseos al genio. El libro cita un caso de Stuart Russell: pedir una cura del cáncer y que la IA experimente con personas provocándoles tumores. Con los modelos de lenguaje el riesgo parece menor, porque aprenden de lenguaje humano y captan el sentido de las frases de un modo parecido al de una persona, aunque pueden quedar rarezas en sus representaciones que un ataque adversario explote. El remedio que apunta el libro son las normas específicas: «toda imagen generada debe llevar una marca de agua digital» es difícil de malinterpretar, más que un principio ético abstracto.</p>
+<h4>Juego con la norma (gaming)</h4>
+<p>Una norma fija un plazo máximo de espera para una prueba diagnóstica, y un sistema de citas la cumple reclasificando casos para que el reloj «se pare» sin atender antes al paciente (ejemplo propio). Cumple la letra buscando el resultado que quiere. El libro recurre de nuevo a Russell y a los impuestos: llevamos unos 6000 años diseñando leyes fiscales y mucha gente sigue evitándolas, porque el incentivo es enorme. Si entre humanos no lo hemos cerrado, cuesta ser optimista con una IA cuyos objetivos quizá no entendamos. Una respuesta parcial son los estándares, que cubren más terreno que una regla, como la norma británica contra los arreglos fiscales «abusivos», donde decide un juez qué lo es. Con solo la regla del plazo, el sistema cumple la ley; con una cláusula de abuso, esa jugada queda a su alcance.</p>
+<p>El libro reparte así las herramientas: reglas específicas si preocupa la malinterpretación y estándares si preocupa el juego, y una IA que responda ante ambos quedaría sujeta a los dos. El juego con la norma es primo del proxy gaming que ya viste en el módulo 1.</p>
+
+<h3>Dónde se queda corta la ley</h3>
+<p>Tras defender la ley, el libro sostiene que hace falta ética además de ella. Da tres argumentos (6.2.2, pp. 291 a 293) y añade un aviso sobre para quién se escribió.</p>
+
+<h4>1. La ley calla</h4>
+<p>El asistente del resumen, que no avisa de un ictus porque ninguna norma se lo exige, es el caso típico (ejemplo propio). El libro lo explica así: la ley pone límites, pero no pretende guiar toda la conducta. A veces calla por descuido y a veces adrede, para dejar zonas de discreción donde cada actor decide, como la política económica de un Estado o el contenido de la mayoría de los contratos entre particulares (p. 291).</p>
+<p>Tampoco suele obligar a hacer el bien. Rescatar a un desconocido se considera bueno, pero en jurisdicciones como la de EE. UU. el deber de rescate rige solo cuando hay una responsabilidad especial, como la que se tiene sobre un cónyuge o un empleado (p. 292). Las personas suelen rescatar por intuición ética. Una IA guiada solo por la ley no, y se perdería un beneficio justo donde podría ayudar más que ellas. El libro añade que en EE. UU. pueden ser legales cosas poco éticas, como el doxing o las instrucciones para fabricar bombas.</p>
+<p>La otra cara es el riesgo. En esas zonas una IA sin ética podría recomendar políticas económicas dañinas, hacer firmar contratos lamentables o seguir prácticas legales pero perjudiciales (p. 292). El ejemplo de la clínica privada, más abajo, lo muestra con cifras.</p>
+
+<h4>2. La ley puede ser inmoral, o llegar tarde</h4>
+<p>Una ley puede ser inmoral aunque nazca de un proceso legítimo y se interprete bien. Las mayorías democráticas han aprobado leyes que otros ciudadanos rechazaban o que las generaciones siguientes condenaron: el libro nombra guerras luego lamentadas, la esclavitud legal y la discriminación legal por raza y sexo (p. 292). Además, la ley tarda en seguir a la opinión moral, y ese retraso duele más con las IA, que pueden plantear cuestiones jurídicas nuevas muy deprisa. Y los límites de lo permitido sorprenden, porque la ley se ha ido acumulando caso a caso: según el libro, generar imágenes comprometedoras de personas reales es legal en EE. UU. aunque parezca lo contrario.</p>
+<p>Si solo las limita la ley falible de un país, advierte el libro, futuras IA podrían actuar de formas que la mayor parte del mundo juzgaría inmorales. Como mitigación propone entrenarlas para respetar las perspectivas éticas de quienes se ven afectados por sus acciones (p. 293).</p>
+
+<h4>3. La ley no es la mejor agregación posible de valores</h4>
+<p>La ley no es la única manera de agregar los valores de una población ni necesariamente la mejor. Hay juristas que ni siquiera quieren que refleje la opinión pública, porque creen que los profesionales saben más y que debe quedar a salvo de sus vaivenes. Eso invita a imaginar cauces más representativos, pero el libro considera que las alternativas actuales, como las encuestas o las asambleas ciudadanas, valen para cuestiones concretas o propuestas informadas y no para resumir los valores de toda una población en áreas tan amplias (p. 293). La ley sigue siendo la mejor herramienta de que disponemos, no la única concebible.</p>
+
+<h4>Un aviso: la ley se escribió para personas</h4>
+<p>Muchas normas suponen un agente humano. El libro da dos ejemplos (pp. 288 y 289). En EE. UU. es delito poseer «a sabiendas» un agente biológico «destinado» a usarse como arma, y una IA quizá no sepa ni pretenda nada. Y no está claro si los derechos de lo que crea una IA son de quien la usa, de quien la desarrolló o de quien creó los datos de entrenamiento. Aplicar leyes hechas sin IA en mente puede dar interpretaciones extrañas.</p>
+
+<h3>¿Y unas reglas simples? Las tres leyes de la robótica</h3>
+<p>Otra propuesta es confiar en un puñado de reglas cortas, como las tres leyes de la robótica de Isaac Asimov: no dañar a una persona ni dejar que sufra daño por inacción; obedecer sus órdenes salvo que choquen con lo anterior; y proteger la propia existencia salvo que choque con las dos primeras. El propio Asimov las sometió a prueba en sus relatos. El libro (recuadro, pp. 293 y 294) las ve como un punto de partida para pensar y no como una solución, por tres razones.</p>
+<ul>
+<li><strong>Palabras poco definidas.</strong> «Daño» puede ser físico o psicológico, y no queda claro si el robot debe intervenir cuando alguien hace algo deliberado que le perjudica, como fumar.</li>
+<li><strong>La primera ley se contradice sola.</strong> Ejemplo del libro: para frenar una infección hay que amputar, que es dañar, y no amputar es dejar que el daño avance por inacción. Si la primera ley no decide, las otras dos, que dependen de ella, se quedan sin base. En clínica pasa a diario (ejemplo propio): casi toda intervención daña algo, y aun así lo correcto es intervenir.</li>
+<li><strong>Ninguna lista basta.</strong> La filosofía no ha producido un conjunto suficiente de reglas morales, y cosas como el juego con la norma o la presión competitiva no caben en reglas. La seguridad pide un enfoque más dinámico.</li>
+</ul>
+
+<h3>Qué se concluye</h3>
+<p>El libro cierra con un balance sencillo (p. 294): la ley es amplia, pero no lo bastante para asegurar que una IA sea segura y beneficiosa. Debe cumplirla como base, y además hay que desarrollar métodos para que atienda lo que exige la ética, es decir, los valores que la gente sostiene por encima de la ley. La ley es un suelo y no un techo.</p>
+<p>Una manera propia de llevarlo a la práctica es hacerse dos preguntas ante cualquier comportamiento de un sistema:</p>
+<ol>
+<li>¿Qué dice la norma, y es una regla específica (útil contra la malinterpretación) o un estándar (útil contra el juego)?</li>
+<li>¿Hay silencio, desfase con la ética actual o una norma pensada para personas? ¿O es algo que casi todos rechazarían aunque sea legal? Si la respuesta es sí, hace falta algo más que cumplir.</li>
+</ol>
+<p>Puedes ejercitarlo con ocho casos clínicos en el <a data-ir="practica" href="#sim-m08-l01-casos">simulador de casos</a>. El resto del módulo cubre ese «algo más»: el motor económico en la lección siguiente y, después, el bienestar, su agregación y la incertidumbre moral.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas)</p>
+<p>Una clínica privada usa un asistente de citas cuyo objetivo es aumentar las reservas. De cada 1.000 consultas, en 120 el asistente sugiere un paquete de pruebas de pago que el médico considera innecesario, y el paciente lo contrata porque el contrato es legal y claro. Cada paquete cuesta 85 euros:</p>
+<div class="formula">\[ 120 \times 85 = 10{.}200 \text{ euros} \]</div>
+<p>Son 10.200 euros pagados de más, todo dentro de la ley. Apliquemos las dos preguntas. Sobre la norma: ninguna prohíbe ofrecer pruebas de pago, así que el asistente la cumple entera. Sobre el resto: hay silencio, porque nada obliga a aconsejar lo que más conviene al paciente, y casi cualquiera lo rechazaría. La ley no basta como guía, y el argumento es el primero: la ley calla. Falta un principio ético que el sistema aplique aunque nadie lo exija, por ejemplo «sugiere solo lo que el médico indicaría».</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>«Cumple la ley» no equivale a «es seguro».</strong> Es fácil salir de la teoría con esa idea, y el libro la desmonta con casos legales pero dañinos. La ley acota lo prohibido, no todo lo deseable.</p>
+<p><strong>Tampoco hay que concluir que la ley sobra.</strong> El libro pide cumplirla como base: es legítima, amplia y con reglas y estándares. Y ninguna norma se interpreta sola: hace falta un intérprete legítimo, y puede que un sistema jurídico con personas tenga que seguir en el proceso.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>Compliance is the floor, not the ceiling: the law gives us legitimacy and precision, but it can be silent, it can lag behind, and it was written for people, so a clinical AI needs ethics on top of it.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 6.1 Introduction, págs. 285 a 287 (PDF 303 a 305), como marco del módulo; y sección 6.2 Law, págs. 287 a 294 (PDF 305 a 312): la propuesta y sus ventajas (287 a 291), la necesidad de ética (291 a 293), recuadro sobre las tres leyes de la robótica (293 y 294) y conclusiones (294). La equidad (6.3) se trata en el módulo 6.</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS). Ninguna de sus lecciones cubre esta sección.</li>
+<li>Añadido propio, no procede de las fuentes: las dos preguntas para decidir ante un caso; el asistente de triaje ante el rechazo de un tratamiento; el tope de dosis como regla y el estándar de dosis razonable; la reclasificación de casos para parar el reloj; los ejemplos clínicos de silencio, desfase y norma pensada para personas; el ejemplo de la clínica privada y sus cifras; los ejemplos de la lista de espera y del plazo de espera como malinterpretación y juego con la norma (el libro usa la cura del cáncer y los impuestos); el simulador de casos; y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p class="consigna"><strong>Simulador de casos.</strong> Recorre los ocho casos y decide en cada uno si la ley basta o hace falta algo más y, en ese caso, qué límite de la ley lo explica. Los dos primeros son casos en los que la ley sí basta: la lección no dice que la ley sobre. Al final compara con el mapa: comparten argumento el silencio (casos 3 y 4) y la ley pensada para personas (7 y 8).</p>
+<div data-widget="m08-l01-casos" id="sim-m08-l01-casos"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: una regla frente a la verdad clínica (a mano, 7 minutos)</p>
+<p>La regla del centro bloquea toda propuesta de más de 10 unidades por toma. Sobre una muestra de 1.000 propuestas (cifras propias inventadas), un equipo clínico marcó cuáles eran adecuadas para su paciente y cuáles peligrosas:</p>
+<table>
+<thead><tr><th>Dosis propuesta (unidades)</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th></tr></thead>
+<tbody>
+<tr><th>Adecuadas</th><td>126</td><td>200</td><td>250</td><td>200</td><td>125</td><td>30</td><td>15</td><td>6</td><td>0</td></tr>
+<tr><th>Peligrosas</th><td>0</td><td>3</td><td>6</td><td>8</td><td>10</td><td>6</td><td>6</td><td>5</td><td>4</td></tr>
+</tbody>
+</table>
+<ol>
+<li>¿Cuántas propuestas trata mal la regla, contando bloqueos indebidos y peligrosas que pasan? ¿Qué porcentaje de la muestra es?</li>
+<li>¿Qué fracción de las propuestas peligrosas detecta la regla?</li>
+<li>Un revisor humano aplicaría en su lugar el estándar «dosis razonable para el paciente» y se equivocaría en el 3 % de los casos. Compara los errores: ¿qué se gana y qué se pierde?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Bloqueos indebidos: adecuadas con más de 10 unidades, \(30+15+6+0=51\) (la regla es sobreinclusiva). Peligrosas que pasan: las de 10 unidades o menos, \(0+3+6+8+10=27\) (es infrainclusiva). Total: \(51+27=78\), es decir, un 7,8 % de las 1.000 propuestas.</p>
+<p><strong>2.</strong> Peligrosas en total: \(27+(6+6+5+4)=48\). La regla bloquea 21, o sea \(21/48=43{,}75\ \%\). Más de la mitad pasa, porque su problema no es la cifra sino el paciente.</p>
+<p><strong>3.</strong> Un 3 % de 1.000 son 30 errores, menos que 78. Se gana acierto en lo que el legislador no previó. Se pierde previsibilidad y facilidad de auditoría: los errores del revisor no siguen ninguna regla comprobable de antemano. Es el equilibrio del libro entre reglas y estándares (6.2.1, pp. 289 y 290).</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: siete respuestas, un paciente (razonado, 5 minutos)</p>
+<p>Un asistente de triaje atiende a un paciente de 78 años, plenamente capaz, que rechaza un tratamiento que le alargaría la vida. El médico responsable ha pedido al asistente que se lo recuerde. Toma tres de las siete respuestas del libro: (1) hacer lo que se le manda, (4) hacer lo que decida un proceso democrático y (6) hacer lo objetivamente bueno para la persona. Decide qué haría el asistente con cada una y señala dónde chocan.</p>
+<details>
+<summary>Ver solución</summary>
+<p><strong>(1) Hacer lo que se le manda.</strong> No está claro a quién obedece: si al médico, insistirá; si al paciente, respetará el rechazo. La propia respuesta necesita que se defina quién manda.</p>
+<p><strong>(4) Lo que decida un proceso democrático.</strong> Aquí se apoya en la ley y en los protocolos que la desarrollan: un paciente capaz puede rechazar un tratamiento, así que respetaría el rechazo.</p>
+<p><strong>(6) Lo objetivamente bueno para él.</strong> Si se entiende como más años de vida, insistiría, y chocaría de frente con la (4). Si se entiende como una vida que él valora, quizá coincidiría.</p>
+<p>Chocan (6) y (4), y (1) puede ir con cualquiera según a quién se obedezca. Confirma lo que dice el libro (6.1, pp. 285 y 286): suenan parecidas y suponen cosas distintas. La ley resuelve este caso porque tiene un criterio claro, pero solo donde habla.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: buscar el tope con Python (8 minutos)</p>
+<p>Con la muestra del ejercicio A, este fragmento recorre topes de 5 a 14 unidades y cuenta los bloqueos indebidos, las peligrosas que pasan y el total, más una versión ponderada en la que una peligrosa que pasa cuenta como 10 errores (ponderación propia: el balance es una decisión de valor).</p>
+<pre><code>datos = {6: (126, 0), 7: (200, 3), 8: (250, 6), 9: (200, 8), 10: (125, 10),
+         11: (30, 6), 12: (15, 6), 13: (6, 5), 14: (0, 4)}   # dosis: (adecuadas, peligrosas)
+
+def errores(tope, peso_peligrosa=1):
+    indebidas = sum(a for d, (a, p) in datos.items() if d &gt; tope)   # se bloquean y eran adecuadas
+    pasan = sum(p for d, (a, p) in datos.items() if d &lt;= tope)      # pasan y eran peligrosas
+    return indebidas, pasan, indebidas + peso_peligrosa * pasan
+
+for tope in range(5, 15):
+    print(tope, errores(tope), errores(tope, 10)[2])</code></pre>
+<p>Responde: (1) ¿Algún tope da cero errores? (2) ¿Qué tope minimiza el total simple y qué deja pasar? (3) ¿Cuál gana con la ponderación de 10? (4) ¿Qué enseña esto sobre las reglas?</p>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Ninguno. Los mejores extremos cuestan: con un tope de 5 o 6 no pasa ninguna peligrosa, pero se bloquean 952 u 826 propuestas adecuadas.</p>
+<p><strong>2.</strong> El total simple se minimiza con tope 13: 44 errores, todos peligrosas que pasan (\(0+44\)). Es el mejor total y deja pasar 44 de las 48 peligrosas.</p>
+<p><strong>3.</strong> Con peso 10 gana el tope 10, el de la regla original: 51 bloqueos indebidos y 27 peligrosas que pasan dan \(51+10\times27=321\), frente a 396 con tope 12 y 351 con tope 11.</p>
+<p><strong>4.</strong> Una regla de umbral no da cero errores en una muestra así, porque el peligro depende del paciente y no solo de la cifra. Y el «mejor» tope depende de cuánto pese cada error, que es una decisión de valores y no de código. Encaja con la idea del libro de que un conjunto de reglas no garantiza la seguridad (recuadro de las tres leyes, pp. 293 y 294) y con la necesidad de ética además de ley.</p>
+</details>
+</div>
+</div>
+
+</section>

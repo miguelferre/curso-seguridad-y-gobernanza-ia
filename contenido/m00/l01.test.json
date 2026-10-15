@@ -1,0 +1,111 @@
+[
+  {
+    "id": "m00l01-q01",
+    "tipo": "unica",
+    "enunciado": "Al describir un sistema de IA con dos ejes, ¿qué mide la generalidad?",
+    "opciones": [
+      "Cuán bien hace una tarea comparado con personas cualificadas",
+      "En cuántos dominios distintos puede aprender a rendir bien",
+      "Cuánto cómputo necesitó su entrenamiento",
+      "Cuántas personas lo usan"
+    ],
+    "correcta": 1,
+    "explicacion": "La habilidad mide cuán bien se hace una tarea, y la generalidad, el rango de dominios en los que el sistema puede aprender a rendir bien. Son ejes relacionados pero distintos: un gran maestro de ajedrez artificial es muy hábil y nada general."
+  },
+  {
+    "id": "m00l01-q02",
+    "tipo": "unica",
+    "enunciado": "En la tabla 2.1 del libro, ¿en qué casilla se coloca Deep Blue, el sistema que venció a Kaspárov en ajedrez?",
+    "opciones": [
+      "Sobrehumano y general",
+      "Experto y general",
+      "Virtuoso y estrecho",
+      "Emergente y estrecho"
+    ],
+    "correcta": 2,
+    "explicacion": "Deep Blue es virtuoso (percentil 99 o más de adultos cualificados) y estrecho: solo sirve para ajedrez. Una casilla general y virtuosa el libro la da por no lograda."
+  },
+  {
+    "id": "m00l01-q03",
+    "tipo": "unica",
+    "enunciado": "¿Cómo se define la IA transformadora (TAI)?",
+    "opciones": [
+      "Por igualar a las personas en todas las tareas al menos igual de bien y a menor coste",
+      "Por superar a las personas en prácticamente todos los dominios",
+      "Por tener cuerpo y actuar sobre el mundo físico",
+      "Por sus consecuencias en la sociedad, comparables a las de la Revolución Industrial"
+    ],
+    "correcta": 3,
+    "explicacion": "La TAI se define por el impacto, no por el diseño ni por la habilidad. Por eso un sistema estrecho, si abaratara mucho una tarea básica, podría ser transformador, y uno muy potente podría tardar años en notarse por el retardo de difusión. Las dos primeras opciones describen la HLAI y la ASI."
+  },
+  {
+    "id": "m00l01-q04",
+    "tipo": "unica",
+    "enunciado": "Según el cuadro histórico de la lección, ¿qué ocurrió en 2012?",
+    "opciones": [
+      "AlexNet ganó el concurso de ImageNet y mostró la superioridad del aprendizaje profundo en visión",
+      "Deep Blue venció al campeón mundial de ajedrez",
+      "McCarthy acuñó el término inteligencia artificial en Dartmouth",
+      "Apareció la arquitectura Transformer"
+    ],
+    "correcta": 0,
+    "explicacion": "AlexNet ganó ImageNet en 2012. Deep Blue es de 1997, Dartmouth de 1956 y el Transformer de 2018."
+  },
+  {
+    "id": "m00l01-q05",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estos sistemas son sobrehumanos en su tarea sin ser una superinteligencia?",
+    "opciones": [
+      "AlphaFold, que predice estructuras de proteínas",
+      "Una calculadora, en aritmética",
+      "Un chatbot de propósito general",
+      "Un sistema que superara a las personas en prácticamente todos los dominios"
+    ],
+    "correcta": [0, 1],
+    "explicacion": "AlphaFold y la calculadora superan a las personas en una tarea, pero no en la amplitud que exige la superinteligencia. El chatbot no es sobrehumano en general y el último sistema sería una ASI."
+  },
+  {
+    "id": "m00l01-q06",
+    "tipo": "multiple",
+    "enunciado": "¿Qué condiciones exigen algunas definiciones de IA de nivel humano (HLAI)?",
+    "opciones": [
+      "Poder realizar cada tarea que hacen las personas",
+      "Hacerla al menos igual de bien que ellas",
+      "Hacerla a menor coste",
+      "Tener un cuerpo físico",
+      "Superar a todas las personas en cada tarea"
+    ],
+    "correcta": [0, 1, 2],
+    "explicacion": "Las tres condiciones son cubrir todas las tareas humanas, hacerlas al menos igual de bien y a menor coste. El cuerpo no es una de ellas, y superar a todos sería ya la ASI."
+  },
+  {
+    "id": "m00l01-q07",
+    "tipo": "vf",
+    "enunciado": "Un sistema de IA estrecha puede ser una amenaza seria si es sobrehumano en un dominio de riesgo alto, como la virología o el ciberataque.",
+    "correcta": true,
+    "explicacion": "Verdadero. Estrecha no significa inofensiva: el libro señala que los sistemas estrechos y sobrehumanos en dominios de alto riesgo son relevantes para el riesgo catastrófico."
+  },
+  {
+    "id": "m00l01-q08",
+    "tipo": "vf",
+    "enunciado": "Si un sistema supera a todas las personas en una tarea concreta, ya es una superinteligencia.",
+    "correcta": false,
+    "explicacion": "Falso. Lo que separa a la superinteligencia de un sistema estrecho sobrehumano es la amplitud: superar a los humanos en prácticamente todos los dominios y no en uno solo."
+  },
+  {
+    "id": "m00l01-q09",
+    "tipo": "numerica",
+    "enunciado": "El libro indica que los usuarios de internet crecieron un 2100 % entre 1995 y 2000. ¿Por qué factor se multiplicó su número?",
+    "correcta": 22,
+    "tolerancia": 0.01,
+    "explicacion": "Un crecimiento del 2100 % suma 21 veces el valor inicial a ese mismo valor: 1 + 21 = 22. Se multiplicó por 22, no por 21."
+  },
+  {
+    "id": "m00l01-q10",
+    "tipo": "numerica",
+    "enunciado": "Un modelo que lee electrocardiogramas está en el percentil 99 de un grupo de 2000 cardiólogos cualificados, es decir, supera al 99 % de ellos. ¿Cuántos cardiólogos del grupo lo superan a él?",
+    "correcta": 20,
+    "tolerancia": 0.5,
+    "explicacion": "Lo superan el 1 % restante: 0,01 × 2000 = 20 cardiólogos. Ejemplo propio con cifras inventadas."
+  }
+]

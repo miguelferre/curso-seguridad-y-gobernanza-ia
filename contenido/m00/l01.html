@@ -1,0 +1,199 @@
+<section class="leccion" data-id="m00/l01">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>"Inteligencia artificial" es una etiqueta muy ancha: sirve para un corrector ortográfico, para el asistente que redacta informes y, en las películas, para una máquina que nos supera en todo. Esta lección pone orden.</p>
+<p>Verás de dónde viene la IA desde 1956, por qué nadie la define igual y cómo se describen sus "tipos". Los tipos no forman una escalera limpia: mezclan dos preguntas distintas. Cuánta habilidad tiene un sistema y cuántas cosas distintas sabe hacer. Por eso un programa que solo juega al ajedrez puede ser brillante sin ser general.</p>
+<p>La idea que conviene llevarse: en seguridad, más útil que preguntar "¿es una AGI?" es preguntar "¿qué sabe hacer exactamente, y cuán bien?".</p>
+
+<svg viewBox="0 0 360 336" role="img" aria-labelledby="ti-t ti-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="ti-t">Habilidad y generalidad</title>
+<desc id="ti-d">Plano con la generalidad en horizontal, de estrecha a general, y la habilidad en vertical. A la izquierda, en columna, de abajo arriba: calculadora, asistente de voz, Deep Blue y AlphaFold. A la derecha, un chatbot general a media altura y, arriba del todo, una superinteligencia hipotética. Debajo, cinco etiquetas: estrecha, AGI, HLAI, TAI y ASI.</desc>
+<rect x="50" y="14" width="145" height="216" style="fill:var(--surface)"/>
+<rect x="195" y="14" width="145" height="216" style="fill:var(--accent-soft)"/>
+<path d="M50 230 V10 M46 18 L50 8 L54 18 M50 230 H346 M336 226 L346 230 L336 234" style="fill:none;stroke:var(--rule-strong);stroke-width:1.5"/>
+<text x="16" y="122" transform="rotate(-90 16 122)" text-anchor="middle" style="fill:var(--muted);font-size:12px;font-weight:700;letter-spacing:.06em">HABILIDAD</text>
+<text x="122" y="248" text-anchor="middle" style="fill:var(--muted);font-size:12px">estrecha</text>
+<text x="268" y="248" text-anchor="middle" style="fill:var(--muted);font-size:12px">general</text>
+<circle cx="72" cy="214" r="6" style="fill:var(--surface);stroke:var(--faint);stroke-width:2"/>
+<text x="84" y="218" style="fill:currentColor;font-size:12px">Calculadora</text>
+<circle cx="72" cy="164" r="6" style="fill:var(--accent);stroke:var(--accent-ink);stroke-width:1.5"/>
+<text x="84" y="168" style="fill:currentColor;font-size:12px">Asistente de voz</text>
+<circle cx="72" cy="92" r="6" style="fill:var(--accent);stroke:var(--accent-ink);stroke-width:1.5"/>
+<text x="84" y="96" style="fill:currentColor;font-size:12px">Deep Blue</text>
+<circle cx="72" cy="40" r="6" style="fill:var(--accent);stroke:var(--accent-ink);stroke-width:1.5"/>
+<text x="84" y="44" style="fill:currentColor;font-size:12px">AlphaFold</text>
+<circle cx="216" cy="176" r="6" style="fill:var(--accent);stroke:var(--accent-ink);stroke-width:1.5"/>
+<text x="228" y="180" style="fill:currentColor;font-size:12px">Chatbot general</text>
+<circle cx="216" cy="40" r="6" style="fill:none;stroke:var(--trap);stroke-width:2;stroke-dasharray:3 2"/>
+<text x="228" y="44" style="fill:currentColor;font-size:12px">ASI (hipotética)</text>
+<rect x="4" y="262" width="66" height="26" rx="6" style="fill:var(--surface);stroke:var(--accent);stroke-width:1.5"/>
+<text x="37" y="279" text-anchor="middle" style="fill:currentColor;font-size:12px">Estrecha</text>
+<rect x="76" y="262" width="66" height="26" rx="6" style="fill:var(--surface);stroke:var(--accent);stroke-width:1.5"/>
+<text x="109" y="279" text-anchor="middle" style="fill:currentColor;font-size:12px">AGI</text>
+<rect x="148" y="262" width="66" height="26" rx="6" style="fill:var(--surface);stroke:var(--accent);stroke-width:1.5"/>
+<text x="181" y="279" text-anchor="middle" style="fill:currentColor;font-size:12px">HLAI</text>
+<rect x="220" y="262" width="66" height="26" rx="6" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5"/>
+<text x="253" y="279" text-anchor="middle" style="fill:currentColor;font-size:12px">TAI</text>
+<rect x="292" y="262" width="64" height="26" rx="6" style="fill:var(--surface);stroke:var(--accent);stroke-width:1.5"/>
+<text x="324" y="279" text-anchor="middle" style="fill:currentColor;font-size:12px">ASI</text>
+<text x="180" y="308" text-anchor="middle" style="fill:var(--muted);font-size:11.5px">Las cinco etiquetas del libro. TAI (ámbar) no mide habilidad:</text>
+<text x="180" y="324" text-anchor="middle" style="fill:var(--muted);font-size:11.5px">mide las consecuencias que el sistema tiene en la sociedad.</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Explicar por qué "IA" e "inteligencia" no tienen una definición única y qué ventaja tiene describir las capacidades de un sistema en un continuo.</li>
+<li>Situar en el tiempo los hitos y los inviernos de la IA y nombrar los tres factores que explican su despegue: algoritmos, datos y cómputo.</li>
+<li>Colocar un sistema en la matriz de habilidad y generalidad y decir si es IA estrecha, AGI o ASI.</li>
+<li>Distinguir las cinco etiquetas (estrecha, AGI, HLAI, TAI y ASI) y explicar por qué un sistema puede ser peligroso sin ser general ni superinteligente.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>Para qué sirve el módulo 0</h3>
+<p>Los módulos siguientes hablan de riesgos, monitorización, alineamiento y gobernanza, y para discutirlos con criterio hace falta un vocabulario común: qué es un sistema de IA, cómo aprende, por qué mejora con más datos y cómputo y a qué ritmo avanza. El módulo 0 lo reparte en cinco lecciones: esta y la siguiente, sobre IA y aprendizaje automático (<em>machine learning</em>); dos sobre aprendizaje profundo (<em>deep learning</em>); y una sobre leyes de escala y velocidad del progreso. Conviene no saltárselo: un sistema autónomo con objetivos propios y de interior opaco solo se vigila bien si se entiende cómo está hecho.</p>
+
+<h3>¿Qué se entiende por "IA", si nadie la define igual?</h3>
+<p>En general, un sistema de inteligencia artificial (<em>artificial intelligence</em>, AI) es un sistema informático que realiza tareas que asociamos a seres inteligentes: resolver problemas, tomar decisiones, prever lo que va a pasar. Más allá de esa idea, no hay definición universal, y la palabra se aplica a cosas muy dispares: un campo de la ingeniería informática, un producto concreto, un componente de un plan de negocio o un debate filosófico sobre qué significa pensar. El libro emplea "IA" casi siempre para un sistema informático inteligente.</p>
+<p>Un caso propio: en un hospital, "vamos a poner IA en urgencias" puede ser una regla clínica programada a mano, un modelo entrenado con miles de historias o un asistente conversacional. Los riesgos, los datos que exige y la forma de vigilarlo cambian en cada caso, así que antes de opinar conviene preguntar de cuál se habla.</p>
+
+<h3>¿Qué es inteligencia, y basta con ganar a las personas?</h3>
+<p>Tampoco hay consenso sobre qué es la inteligencia. Una definición de trabajo: la capacidad de aprender y de conseguir objetivos ante situaciones cambiantes que no se anticipan bien, resolviendo problemas por el camino. Dónde acaba lo inteligente y empieza lo que no lo es se discute, y hay quien llama inteligente a un chatbot y quien no.</p>
+<p>Dos avisos evitan confusiones. Primero, superar a las personas en una tarea no basta: una calculadora hace aritmética mejor que cualquiera y nadie la llamaría inteligente en sentido amplio (ejemplo del libro). Segundo, no hace falta ser inteligente en general para ser peligroso: el libro cita los drones armados, que no son generalistas y aun así pueden causar daño grave.</p>
+<p>De ahí sale un cambio de pregunta. En lugar de clasificar un sistema como "IA" o "no IA", es más útil colocarlo en un continuo de capacidades, como hacemos con los animales, que son inteligentes en grados muy distintos. Ejemplo propio: una bomba de insulina que ajusta la dosis con una fórmula fija no aprende ni se adapta, y aun así un fallo suyo puede matar. Medir su riesgo exige mirar qué hace, no si "es inteligente".</p>
+
+<h3>¿De dónde viene todo esto?</h3>
+<p>Los sueños de máquinas inteligentes son antiguos: los griegos imaginaban autómatas, como el gigante de bronce Talos. La investigación con computadores empezó en los años cincuenta del siglo XX. Este cuadro resume el recorrido, con las fechas del libro y una lectura de cada etapa (la columna de la derecha es síntesis propia).</p>
+<div class="tw"><table>
+<thead><tr><th>Etapa</th><th>Qué pasó</th><th>Qué enseña</th></tr></thead>
+<tbody>
+<tr><td>1936 a 1956</td><td>Turing formaliza el computador (1936) y aparecen los primeros computadores digitales. Turing propone su "juego de la imitación" (<em>Turing test</em>).</td><td>Imitar una conversación no es entender.</td></tr>
+<tr><td>1956 a 1974</td><td>McCarthy acuña "inteligencia artificial" en Dartmouth (1956). Domina la IA simbólica, con reglas escritas a mano. Perceptrón (1958) y el chatbot ELIZA (1966).</td><td>Las reglas sirven en tareas formales y fallan con la ambigüedad. Con ELIZA hubo quien creyó que entendía, aunque su autor lo negaba.</td></tr>
+<tr><td>1974 a 1995</td><td>Primer invierno de la IA (hacia 1974 a 1980). En los ochenta resurgen los sistemas expertos, también para diagnóstico médico. Segundo invierno desde 1987: cierran empresas y la asistencia a congresos cae dos tercios. Termina hacia 1995.</td><td>Las promesas incumplidas recortan la financiación. Codificar a mano el saber experto era caro y rígido.</td></tr>
+<tr><td>1995 a 2012</td><td>Internet (los usuarios crecen un 2100 % entre 1995 y 2000), más cómputo, Deep Blue vence a Kaspárov (1997). Se popularizan los bosques aleatorios y el <em>gradient boosting</em>, entre otros métodos. A comienzos de los 2010 se empieza a entrenar con GPU.</td><td>Datos y cómputo empiezan a pesar más que las reglas. Con datos en tablas, el <em>gradient boosting</em> sigue siendo el mejor método y suele ganar al aprendizaje profundo.</td></tr>
+<tr><td>2012 a hoy</td><td>AlexNet gana ImageNet (2012), AlphaGo vence a un campeón mundial de Go (2016), aparece el Transformer (2018) y ChatGPT llega en noviembre de 2022: 100 millones de usuarios en dos meses.</td><td>El aprendizaje profundo domina la investigación y las aplicaciones. Es el tema de las lecciones 3 y 4 de este módulo.</td></tr>
+</tbody></table></div>
+<p>Tres lecturas del cuadro. La IA avanza a golpes de entusiasmo y decepción. El giro fue pasar de escribir reglas a aprender de datos, asunto de la próxima lección. Y el libro atribuye el despegue a la suma de mejores algoritmos, más datos y mucho más cómputo. Una cifra para tomar la medida: un crecimiento del 2100 % significa multiplicar por 22, no por 21, porque hay que sumar el valor de partida: \(1+21=22\) (cálculo propio). Otro apunte propio: los datos clínicos estructurados, como analíticas o constantes, suelen estar en tablas, y para ellas el <em>gradient boosting</em> es un buen punto de partida.</p>
+
+<h3>Dos preguntas, no una escalera: habilidad y generalidad</h3>
+<p>Para hablar de "tipos de IA" el libro introduce cinco etiquetas, pero avisa de que se solapan, de que ninguna está bien formalizada y de que llamar "débil" a un sistema no lo explica: hay que añadir qué sabe hacer y por qué está limitado. Tampoco forman una escala limpia, porque mezclan dos ejes:</p>
+<dl class="facts">
+<div><dt>Habilidad</dt><dd>Cuán bien hace una tarea. Se mide contra personas cualificadas: al menos la mediana (percentil 50), al menos el percentil 90, al menos el 99, o mejor que todas.</dd></div>
+<div><dt>Generalidad</dt><dd>En cuántos dominios distintos puede aprender a rendir bien.</dd></div>
+</dl>
+<p>Ejemplo del libro: un sistema que juega al ajedrez como un gran maestro es muy hábil en un dominio y nada general, mientras que un chatbot avanzado puede tener algo de generalidad y ser mediocre en ajedrez. La tabla 2.1 del libro cruza los dos ejes con seis niveles de habilidad: sin IA, emergente, competente, experto, virtuoso y sobrehumano. Es un enfoque posible, no una terminología que el libro aplique en todo el texto, y sus ejemplos concretos envejecen deprisa: interesa la estructura. En la columna estrecha, de arriba abajo, caben una calculadora (sin IA), un sistema simple de reglas (emergente), un asistente de voz (competente), un corrector gramatical (experto), Deep Blue (virtuoso) y AlphaFold (sobrehumano). En la columna general la tabla pone una plataforma que reparte tareas entre personas (sin IA), los chatbots de propósito general (emergente) y, en la última fila, la superinteligencia; las casillas competente, experta y virtuosa las da por no logradas en todas las tareas. Ojo con la orientación: en la tabla y en el simulador la habilidad crece hacia abajo, y en el esquema del principio hacia arriba. Puedes ponerlo a prueba con once sistemas en el <a data-ir="practica" href="#sim-m00-l01-tipos-ia">clasificador de la Práctica</a>.</p>
+
+<h3>Las cinco etiquetas, una a una</h3>
+
+<h4>IA estrecha (narrow AI)</h4>
+<p>También llamada IA débil, está diseñada para un dominio concreto. Puede igualar o superar a las personas en su tarea, pero tiene poca flexibilidad de conducta: aprende mal tareas nuevas y generaliza mal a situaciones que no ha visto. Ejemplos del libro: un asistente de voz o un programa que resume noticias. Deep Blue, que venció a Kaspárov en 1997, lo ilustra bien: sacado del tablero, no sabría hacer nada más.</p>
+<p>"Estrecha" no quiere decir "inofensiva". Un sistema sobrehumano en un terreno de riesgo alto, como la virología o el ciberataque, podría ser una amenaza seria, y el libro lo señala para el riesgo catastrófico.</p>
+
+<h4>Inteligencia artificial general (AGI)</h4>
+<p>Es un sistema capaz de aprender y de hacer muchas tareas cognitivas en varios dominios, sin entrenamiento especializado para cada uno. El término se estira: a veces significa generalidad y adaptabilidad, y otras es un atajo para "rinde como una persona". No hay definición común. Unos exigen que tenga cuerpo, otros no; algunos consideran que un chatbot actual ya es AGI porque no es estrecho, y otros no.</p>
+<p>Predecir cuándo llegará es difícil: se esperaba que las máquinas dominaran antes lo físico que programar o escribir, y ha ocurrido en parte lo contrario (el libro apunta que lo cognitivo evita el cuerpo robótico y tiene muchos datos). De ahí una consecuencia práctica. En vez de preguntar "¿cuándo llegará la AGI?", rinde más preguntar cuándo podrá un sistema hacer una tarea concreta que preocupa, como investigación científica, hackeo o fabricación de armas biológicas. Ejemplo propio: "¿cuándo habrá una AGI médica?" no orienta a nadie, pero "¿cuándo podrá un sistema redactar prescripciones sin revisión con menos errores que el personal?" permite diseñar pruebas.</p>
+
+<h4>IA de nivel humano (HLAI)</h4>
+<p>Ejemplo propio: un sistema que lee analíticas como un especialista, pero tarda horas y cuesta más que él, no lo sustituye por muy capaz que sea. De ahí que el libro recoja definiciones de IA de nivel humano (<em>human-level AI</em>) con tres requisitos a la vez: cobertura (todas las tareas humanas), calidad (no peor que las personas) y precio (menor). La diferencia con la AGI es de alcance: en algunas lecturas la AGI hace varias tareas humanas y la HLAI, todas (hay quien la limita a las cognitivas). Y evaluarla trae un sesgo: solemos menospreciar las inteligencias que no se parecen a la nuestra.</p>
+
+<h4>IA transformadora (TAI)</h4>
+<p>La IA transformadora (<em>transformative AI</em>) se define por sus efectos, no por su diseño: consecuencias sociales al menos comparables a las de la Revolución Industrial. Por eso no exige nivel humano. El libro razona que sistemas estrechos podrían transformar la sociedad si abaratan mucho tareas básicas, por ejemplo la producción de energía limpia. Y, al revés, un sistema muy potente puede tardar años en notarse en la economía (retardo de difusión, <em>diffusion lag</em>). Un caso propio: una IA estrecha que abaratara drásticamente el diagnóstico por imagen cambiaría la sanidad sin ser general en absoluto.</p>
+
+<h4>Superinteligencia artificial (ASI)</h4>
+<p>La superinteligencia (<em>artificial superintelligence</em>) supera a las personas en prácticamente todos los dominios que importan. Lo decisivo es la amplitud. Una calculadora es sobrehumana en aritmética y AlphaFold predice la estructura 3D de las proteínas, un problema que desconcertó a los bioquímicos durante décadas (dos ejemplos del libro), y ninguna de las dos es una ASI. Tampoco hay que imaginarla omnipotente ni omnisciente: no predice con exactitud el futuro lejano, y muchos problemas piden experimentos físicos, que son lentos. Se sabe muy poco de lo que haría, y conviene desconfiar de las afirmaciones seguras. Sí se admite que sería más difícil de controlar y podría plantear riesgos existenciales.</p>
+
+<h3>Qué llevarse</h3>
+<p>El libro remata la idea con una recomendación práctica. Las etiquetas orientan, pero pesa más describir capacidades concretas de sistemas concretos. Y un sistema no necesita ser ASI, ni AGI, ni siquiera de nivel humano para ser peligroso.</p>
+
+<h3>Lo que viene: cómo aprenden los sistemas</h3>
+<p>El cuadro histórico mostraba un giro: de programar reglas a que el sistema extraiga patrones de los datos. Ese enfoque, el aprendizaje automático (<em>machine learning</em>), mueve la mayor parte de la IA actual y es el tema de la lección siguiente.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Un hospital estudia tres sistemas y quiere saber cómo colocarlos y qué implica para vigilarlos.</p>
+<ul>
+<li><strong>Calculadora de dosis de heparina por peso, con reglas fijas.</strong> Emergente y estrecha: un sistema simple de reglas (si fuera solo una fórmula aritmética, sería "sin IA", como la calculadora, y la frontera entre ambos es difusa). No aprende. Si la regla tiene un error, lo repite igual con todos los pacientes, y se controla revisando la regla.</li>
+<li><strong>Modelo que lee electrocardiogramas y, en las pruebas, iguala o supera al 92 % de los cardiólogos cualificados.</strong> Está por encima del percentil 90 y por debajo del 99: experto y estrecho. Si de 200 cardiólogos lo supera el 8 %, son \(0{,}08\times200=16\). Vale para esta tarea y para ninguna otra.</li>
+<li><strong>Asistente conversacional que resume historias, traduce y contesta dudas de programación, con errores frecuentes.</strong> Emergente y general: sabe hacer muchas cosas, ninguna con fiabilidad de experto.</li>
+</ul>
+<p>Ninguno llega al nivel humano general (HLAI) ni es una ASI, y el tercero sería, como mucho, una AGI emergente. Los tres piden vigilancia. La etiqueta no dice cuánto riesgo hay. Lo que decide los controles es qué hace el sistema, con qué datos y qué pasa si falla.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Creer que solo importa la AGI o la ASI.</strong> Si "estrecha" se lee como "débil" y "débil" como "sin riesgo", se ignora justo lo que el libro advierte: un sistema puede ser peligroso a cualquier nivel de habilidad o de generalidad, por ejemplo un sistema estrecho sobrehumano en un dominio de riesgo alto.</p>
+<p><strong>Confundir sobrehumano con general.</strong> Superar a todas las personas en una tarea, como hacen la calculadora en aritmética o AlphaFold con las proteínas, no convierte a un sistema en general ni en superinteligente. Se puede ser sobrehumano en un dominio y nulo en el resto.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>Instead of asking when we will get AGI, I ask which specific capability worries me, how good the system is at it, and how many other things it can do.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 2.1 Introduction, págs. 51 y 52 (PDF 69 y 70) para el objetivo del módulo. Sección 2.2 Artificial Intelligence &amp; Machine Learning: subsección 2.2.1 Artificial Intelligence, págs. 53 a 58 (PDF 71 a 76), y subsección 2.2.2 Types of AI, págs. 58 a 64 (PDF 76 a 82), con la tabla 2.1 en la pág. 60. Las subsecciones Machine Learning y Types of Machine Learning se tratan en la lección siguiente.</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS). No hay lección equivalente a esta.</li>
+<li>Añadido propio, no procede de las fuentes: la columna "qué enseña" del cuadro histórico; el factor 22; el apunte sobre datos clínicos en tablas; los ejemplos sanitarios; el simulador, sus tres sistemas hipotéticos y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: primero un simulador para explorar, después tres ejercicios.</p>
+
+<p class="consigna"><strong>Clasificador de sistemas de IA.</strong> Empieza con la calculadora, que ya está elegida, y pulsa la casilla donde la pondrías. Después ve a por el chatbot general, Deep Blue y AlphaFold. Observa dónde falla la intuición: con la calculadora, en la fila (es rapidísima, pero no es IA) y con Deep Blue, en la columna (es virtuoso, pero solo sirve para el ajedrez). Con la casilla de etiquetas activada verás qué nombre corresponde a cada zona; desmárcala y pruébalo de memoria. Fíjate sobre todo en la columna de la izquierda: hay un sistema sobrehumano que no es ASI, y una esquina, abajo a la derecha, que exige habilidad y amplitud a la vez.</p>
+<div data-widget="m00-l01-tipos-ia" id="sim-m00-l01-tipos-ia"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: clasificar sistemas sanitarios (a mano, 6 minutos)</p>
+<p>Coloca cada sistema en la matriz (nivel de habilidad y estrecho o general) y di qué etiqueta de las cinco le cuadra o no. Las cifras son de práctica.</p>
+<ol>
+<li>Un sistema de facturación del hospital con reglas fijas de codificación.</li>
+<li>Un modelo que clasifica lesiones de piel y en las pruebas supera al 99 % de los dermatólogos cualificados, y no hace nada más.</li>
+<li>Un asistente que atiende preguntas de cualquier especialidad con una redacción correcta, pero que rinde como una persona sin formación sanitaria y a menudo inventa referencias.</li>
+<li>Un sistema solo de imagen diagnóstica que iguala al especialista medio y cuesta un 95 % menos que hoy.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Emergente y estrecho (sistema simple de reglas). Si solo aplicara una fórmula fija, sería "sin IA", como la calculadora: el límite es difuso y cualquiera de las dos respuestas se defiende si se razona. No hay aprendizaje ni generalidad. No es AGI ni ninguna de las otras etiquetas.</p>
+<p><strong>2.</strong> Virtuoso y estrecho (percentil 99 o más en una tarea). Es IA estrecha. Lo importante: ser virtuoso no lo hace general.</p>
+<p><strong>3.</strong> Emergente y general, como el chatbot de la tabla. Ser general no lo hace competente: rinde como una persona sin formación. Como mucho, y según quién lo defina, sería una AGI emergente. No es HLAI, porque no hace todo lo humano a un nivel humano.</p>
+<p><strong>4.</strong> Competente (igual al especialista medio, percentil 50) y estrecho, porque solo hace una familia de tareas. Aun así podría ser transformador (TAI): abaratar tanto una tarea básica cambiaría la sanidad sin ninguna generalidad. La etiqueta TAI no depende de la casilla, sino de las consecuencias.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: de "cuándo llega la AGI" a capacidades concretas (5 minutos)</p>
+<p>Alguien afirma: "Hasta que no llegue la AGI no hay que preocuparse por la seguridad de la IA en el hospital". En tres líneas, explica por qué el planteamiento falla y sustitúyelo por dos preguntas de capacidad concretas sobre un sistema clínico. Añade quién saldría perjudicado si esas capacidades llegaran antes de tiempo.</p>
+<details>
+<summary>Ver solución</summary>
+<p>Un modelo de respuesta, no el único válido. La pregunta trata la AGI como un umbral único, pero las etiquetas se solapan y los riesgos no esperan a ninguna: un sistema estrecho ya puede hacer daño si es potente en un dominio de riesgo. Dos preguntas mejores: "¿cuándo podrá un sistema recomendar cambios de dosis sin revisión humana con menos errores graves que el personal?" y "¿cuándo podrá un sistema extraer datos de pacientes de la red del hospital sin que nadie lo note?". En el primer caso pagarían los pacientes, por errores sistemáticos que nadie revisa; en el segundo, también el hospital. Lo importante: una capacidad concreta se puede medir, y una etiqueta general no.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: crecimientos y percentiles, con Python (3 minutos)</p>
+<p>(1) El libro dice que los usuarios de internet crecieron un 2100 % entre 1995 y 2000. ¿Por cuánto se multiplicó la cifra? (2) ¿A cuántos cardiólogos supera un modelo del percentil 92 en un grupo de 250?</p>
+<pre><code>crecimiento = 21.00          # 2100 %
+print("factor:", 1 + crecimiento)
+
+grupo, percentil = 250, 92
+print("supera a:", grupo * percentil / 100)</code></pre>
+<details>
+<summary>Ver solución</summary>
+<p>(1) Factor \(1+21=22\): se multiplicó por 22, no por 21. (2) \(250\times0{,}92=230\) cardiólogos superados. Lección: "crece un X %" y "se multiplica por X" no son lo mismo, y un percentil es una posición dentro de un grupo, no una nota.</p>
+</details>
+</div>
+
+</div>
+
+</section>
+

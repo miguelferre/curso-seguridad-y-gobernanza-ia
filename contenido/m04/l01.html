@@ -1,0 +1,250 @@
+<section class="leccion" data-id="m04/l01">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Un modelo que acierta casi siempre puede fallar a propósito. Un ejemplo adversarial (<em>adversarial example</em>) es una entrada retocada un poquito, con un método que averigua en qué dirección se equivoca más el modelo, para que cruce su frontera sin que a una persona le parezca otra cosa. En el dibujo, el punto está cerca de la frontera: mover cada coordenada lo mínimo, todas hacia el lado malo, basta para pasar al otro lado.</p>
+<p>Se fabrican con un truco: en vez de entrenar el modelo, se "entrena" la entrada. FGSM da un solo paso; PGD da varios y, tras cada uno, comprueba que sigue dentro del cambio permitido. Cuantas más componentes tiene la entrada, más fácil es que muchos cambios diminutos sumen uno enorme.</p>
+<p>Defenderse es difícil. Entrenar con ejemplos atacados ayuda contra ese ataque, pero no garantiza nada frente a otros, y probar con un único ataque débil da una falsa tranquilidad. Importa para la seguridad de la IA porque las salvaguardas (rechazar peticiones dañinas, vigilar a otro modelo) también son modelos y también se pueden atacar.</p>
+
+<svg viewBox="0 0 260 252" role="img" aria-labelledby="ra-t ra-d" style="display:block;width:100%;max-width:380px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="ra-t">Un ataque acotado cruza la frontera</title>
+<desc id="ra-d">Un plano con la clase A a la izquierda y la clase B a la derecha, separadas por una frontera inclinada. Un punto de la clase A cercano a la frontera, una caja cuadrada de lado dos epsilon a su alrededor y una flecha hacia la esquina de la caja, que queda al otro lado de la frontera.</desc>
+<polygon points="8,28 168,28 98,228 8,228" style="fill:var(--accent-soft);stroke:none"/>
+<polygon points="168,28 252,28 252,228 98,228" style="fill:var(--trap-bg);stroke:none"/>
+<rect x="8" y="28" width="244" height="200" rx="4" style="fill:none;stroke:var(--rule-strong);stroke-width:1.5"/>
+<line x1="168" y1="28" x2="98" y2="228" style="stroke:var(--ink);stroke-width:2;stroke-dasharray:6 4"/>
+<text x="16" y="222" style="fill:var(--accent-ink);font-size:13px;font-weight:700">clase A</text>
+<text x="246" y="222" text-anchor="end" style="fill:var(--trap);font-size:13px;font-weight:700">clase B</text>
+<text x="130" y="20" text-anchor="middle" style="fill:var(--muted);font-size:11.5px">frontera de decisión</text>
+<rect x="80" y="120" width="60" height="60" style="fill:none;stroke:var(--ink);stroke-width:1.4;stroke-dasharray:4 3"/>
+<line x1="110" y1="150" x2="136" y2="124" style="stroke:var(--ink);stroke-width:2.4"/>
+<circle cx="110" cy="150" r="6" style="fill:var(--accent);stroke:var(--surface);stroke-width:1.5"/>
+<line x1="134" y1="114" x2="146" y2="126" style="stroke:var(--trap);stroke-width:3.5"/>
+<line x1="134" y1="126" x2="146" y2="114" style="stroke:var(--trap);stroke-width:3.5"/>
+<text x="102" y="172" text-anchor="end" style="fill:currentColor;font-size:12px">x</text>
+<text x="150" y="104" style="fill:currentColor;font-size:12px">x + cambio</text>
+<text x="12" y="196" style="fill:var(--muted);font-size:11px">caja de lado 2ε</text>
+<text x="130" y="246" text-anchor="middle" style="fill:var(--muted);font-size:11.5px">Cada coordenada se mueve como mucho ε</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Definir ejemplo adversarial y presupuesto ε en normas L\(\infty\) y L2, y distinguir un ataque dirigido de uno no dirigido.</li>
+<li>Aplicar FGSM a un clasificador lineal: calcular cuánto sube el logit y a partir de qué ε se cruza la frontera.</li>
+<li>Explicar en qué se diferencia PGD de FGSM y por qué evaluar una defensa con un solo ataque débil engaña.</li>
+<li>Nombrar las defensas y sus límites (entrenamiento adversarial, certificado en el caso lineal) y situar el problema en la seguridad de la IA.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>Qué es un ejemplo adversarial</h3>
+<p>Los modelos se equivocan por azar, y eso lo medimos con datos de prueba. Aquí el error no es azar: hay alguien que busca la entrada que hace fallar al modelo. Un ataque adversarial (<em>adversarial attack</em>) es cualquier técnica que consigue que un sistema de aprendizaje automático se comporte mal, y un ejemplo adversarial es la entrada diseñada para lograrlo.</p>
+<p>El capítulo 3 del libro sitúa este problema dentro de la seguridad de un solo agente, junto a la monitorización, el alineamiento y la seguridad sistémica (sección 3.1). Su idea de fondo es la presión de optimización (<em>optimization pressure</em>): el esfuerzo total que un optimizador dedica a maximizar algo. Un ataque adversarial es esa presión dirigida contra un modelo concreto, con un optimizador que en la práctica suele ser el descenso de gradiente. Se parece al <em>proxy gaming</em> en que explota el hueco entre lo que el sistema mide y lo que queríamos, pero difiere en el blanco: el ataque suele buscar el error del modelo respecto a la tarea real, mientras que en el <em>proxy gaming</em> se maximiza el proxy aunque se aleje del objetivo. Ese segundo fenómeno se ve en la lección "Comportamiento emergente y proxy gaming" (m05/l06).</p>
+
+<h4>Un presupuesto de cambio</h4>
+<p>Para que el problema tenga interés hay que limitar lo que puede hacer el atacante. El planteamiento clásico, el paradigma \(L_p\), exige que el ejemplo adversarial \(g_{adv}(x)\) esté cerca de la entrada original \(x\), y mide esa cercanía con una norma:</p>
+<div class="formula">\[ \lVert g_{adv}(x)-x\rVert_p\le\varepsilon \]</div>
+<p>El número \(\varepsilon\) es el presupuesto y se fija antes de elegir el ataque. La norma \(L_2\) es la distancia euclídea; la norma \(L_\infty\) es el mayor cambio en cualquier componente, así que "\(\varepsilon = 8/255\)" en una imagen significa que ningún píxel cambia más de 8 niveles sobre 255. Ejemplos del libro: un gato al que unos cambios calculados llevan a clasificar como guacamole (p. 144) y, en el notebook del curso, un panda que pasa a leerse como gibón con un 99,3 % de confianza.</p>
+<p>Ojo: el libro subraya que el ejemplo no tiene por qué ser imperceptible (p. 145). Buscar "el cambio mínimo que provoca el error" es una convención de la investigación, no la definición del ataque. Según el libro, los modelos actuales pueden defenderse de perturbaciones imperceptibles, pero no necesariamente de las mayores.</p>
+<p>Tampoco es cosa solo de visión. Imagina (ilustración propia) pedirle a un asistente algo que debería rechazar y pegar al final una tirada de caracteres sin sentido aparente, hallada por un algoritmo de búsqueda: el asistente responde. El libro recoge esta clase de ataques contra modelos de lenguaje y señala que los sufijos también funcionaron con modelos que no se habían usado para fabricarlos (p. 146).</p>
+
+<h3>Cómo se fabrica uno: FGSM</h3>
+<p>Entrenar un modelo consiste en mover sus pesos siguiendo el gradiente de la pérdida \(\ell\) para bajarla. Atacarlo es lo simétrico: con los pesos ya fijos, se calcula el gradiente de la pérdida respecto a la entrada y se mueve la entrada en el sentido que la sube. El método rápido del signo del gradiente (<em>Fast Gradient Sign Method</em>, FGSM), de 2015, da un único paso:</p>
+<div class="formula">\[ x_{adv}=x+\varepsilon\,\operatorname{sign}\!\big(\nabla_x\,\ell(f(x),y)\big) \]</div>
+<p>Aquí \(y\) es la clase verdadera y el signo vale +1 o −1 en cada componente. Tomar el signo tiene dos efectos: cada componente se mueve exactamente \(\varepsilon\), así que el ejemplo cumple por construcción la restricción \(L_\infty\), y se aprovecha el presupuesto entero en todas las direcciones a la vez. Las notas del curso añaden que el signo funciona mejor que el gradiente sin más cuando el modelo se comporta casi como una función lineal cerca de la entrada.</p>
+<p>FGSM es rápido y sirve como línea base, pero es un ataque flojo: una defensa cualquiera lo detiene con facilidad. Aun así, a un modelo sin ninguna defensa suele engañarlo.</p>
+
+<h4>No dirigido y dirigido</h4>
+<p>El ataque de la fórmula es no dirigido (<em>untargeted</em>): solo sube la pérdida de la clase verdadera, sea cual sea la clase por la que el modelo acabe decidiéndose. El ataque dirigido (<em>targeted</em>) fija de antemano la clase que se quiere provocar, \(y_{obj}\), y en lugar de subir una pérdida baja la de esa clase:</p>
+<div class="formula">\[ x_{adv}=x-\varepsilon\,\operatorname{sign}\!\big(\nabla_x\,\ell(f(x),y_{obj})\big) \]</div>
+<p>Con dos clases los dos ataques coinciden, porque solo hay una clase a la que ir. Con muchas, el dirigido es más exigente, y el notebook advierte de que FGSM, con un solo paso, rara vez consigue una clase concreta con confianza alta.</p>
+
+<h3>Varios pasos: PGD</h3>
+<p>FGSM equivale a un paso de ascenso por gradiente. El descenso de gradiente proyectado (<em>Projected Gradient Descent</em>, PGD), que Madry y otros adaptaron a los ataques, da varios pasos pequeños de tamaño \(\alpha\) y, después de cada uno, devuelve el punto al conjunto permitido con una proyección \(\Pi\). En norma \(L_\infty\) y con signo, como en el notebook:</p>
+<div class="formula">\[ x_{i+1}=\Pi_{\varepsilon}\Big(x_i+\alpha\,\operatorname{sign}\!\big(\nabla_x\,\ell(f(x_i),y)\big)\Big),\qquad i=0,\dots,n-1 \]</div>
+<p>Proyectar en \(L_\infty\) es recortar cada componente para que no se aleje de la original más de \(\varepsilon\). El notebook añade un inicio aleatorio dentro de la bola de radio \(\varepsilon\), y una variante \(L_2\): en lugar del signo, divide el gradiente por su norma y, si el punto se sale de la esfera, lo reescala hasta ella.</p>
+<p>Con muchos pasos PGD genera ejemplos muy fuertes. Las notas del curso señalan que hay defensas que se rompen solo con subir el número de pasos \(n\), y esa misma fuerza es lo que permite usarlo para entrenar modelos más robustos.</p>
+<div class="tw"><table>
+<thead><tr><th></th><th>FGSM</th><th>PGD</th></tr></thead>
+<tbody>
+<tr><td>Pasos</td><td>Uno, de tamaño ε</td><td>n pasos de tamaño α, con proyección en cada uno</td></tr>
+<tr><td>Coste</td><td>Un cálculo del gradiente</td><td>n cálculos del gradiente</td></tr>
+<tr><td>Fuerza</td><td>Baja: línea base</td><td>Alta, y crece con n</td></tr>
+<tr><td>Para qué sirve</td><td>Comprobación rápida y punto de comparación</td><td>Evaluar defensas y generar ejemplos para entrenar</td></tr>
+<tr><td>En un modelo lineal</td><td colspan="2">Llegan al mismo punto (observación propia)</td></tr>
+</tbody></table></div>
+<p>Una observación propia que el simulador hace visible: si el modelo es lineal, el signo del gradiente respecto a la entrada es el mismo en todo el plano, y PGD acaba en la misma esquina de la caja que FGSM. La ventaja de PGD aparece cuando la frontera se curva: un paso grande en línea recta se pasa de largo, y varios pasos pequeños con la dirección recalculada no. Pruébalo en el <a data-ir="practica" href="#sim-m04-l01-ataque">simulador del ataque</a>.</p>
+<p>Todo esto necesita gradientes, es decir, acceso al modelo (caja blanca, <em>white box</em>). Sin acceso hay otra vía, que se ve más abajo.</p>
+
+<h3>Por qué un cambio minúsculo basta: el caso lineal</h3>
+<p>Para entender el riesgo hace falta poco más que un clasificador lineal, y así lo hace el libro (pp. 145 y 146). Sea un logit \(z=w^{\top}x+b\) y la probabilidad de la clase B, \(p=\sigma(z)\). Si el atacante quiere subir \(z\) y puede cambiar cada componente en \(\varepsilon\) como mucho, lo mejor es mover cada una en el sentido de su peso, \(\delta_i=\varepsilon\,\operatorname{sign}(w_i)\). Esa elección es justo la de FGSM, y el efecto es:</p>
+<div class="formula">\[ z_{adv}=z+\varepsilon\sum_i |w_i| = z+\varepsilon\,\lVert w\rVert_1 \]</div>
+<p>Cada componente aporta \(\varepsilon|w_i|\) y todas las aportaciones suman, sin que ninguna coordenada se mueva más de \(\varepsilon\). La suma es la palanca. Hay dos formas de aumentarla: subir \(\varepsilon\) o tener más grados de libertad (más componentes). Una imagen tiene miles de píxeles, y por eso un cambio invisible en cada uno puede acumular un desplazamiento enorme del logit.</p>
+<p>Ejemplo del libro: diez componentes con \(|w_i|=1\), \(\varepsilon=0{,}5\) y un logit de partida de \(-3\). El desplazamiento es \(0{,}5\times10=5\), el logit pasa a \(2\) y la probabilidad de la clase atacada sube de \(0{,}05\) a \(0{,}88\). Con un solo componente, el mismo \(\varepsilon\) desplaza el logit solo \(0{,}5\): en el libro el logit va de 2 a 1,5 y la probabilidad de 0,88 a 0,82 (p. 146; allí el cambio baja el logit en vez de subirlo, y lo que importa es su tamaño). Los dos se pueden recorrer en el <a data-ir="practica" href="#sim-m04-l01-dimensiones">simulador de dimensiones</a>.</p>
+
+<h4>Un certificado en el caso lineal</h4>
+<p>Como \(\delta=\varepsilon\,\operatorname{sign}(w)\) es el peor cambio posible dentro de la caja, sabemos exactamente cuánto puede desplazar el logit cualquier atacante con ese presupuesto: como mucho \(\varepsilon\lVert w\rVert_1\). Un punto con \(|z|>\varepsilon\lVert w\rVert_1\) queda entonces a salvo de cualquier ataque de ese tamaño, y el radio certificado es \(r=|z|/\lVert w\rVert_1\). Es una derivación propia (no viene del libro ni de las notas), y sirve para entender qué es un certificado de robustez (<em>robustness certificate</em>): una garantía demostrada, no una prueba con ataques concretos. El curso incluye los certificados entre sus temas, pero sus notas no los desarrollan. En redes profundas no hay una fórmula así de sencilla.</p>
+
+<h3>Ataques fuera del laboratorio</h3>
+<p>Las notas del curso recogen dos hechos que cambian la imagen de "necesito el modelo para atacarlo".</p>
+<ul>
+<li><strong>Transferibilidad (<em>transferability</em>).</strong> Si no tienes acceso al modelo, entrenas uno parecido con tus propios datos, lo atacas a él y pruebas el resultado contra el real. Suele funcionar en parte porque un ejemplo hecho contra un modelo engaña también a otros, incluso a los entrenados con datos distintos. Es el ataque de caja negra por modelo sustituto.</li>
+<li><strong>Mundo físico.</strong> Se han imprimido ejemplos que engañan a un sistema a través de una cámara, parches adversariales que confunden a cualquier clasificador que mire el vídeo, señales de tráfico manipuladas contra la conducción autónoma, pegatinas contra el reconocimiento facial y jerséis contra los detectores de objetos.</li>
+</ul>
+<p>Con esto encaja la idea de que no hace falta un cambio invisible: un parche visible que el modelo lee mal también es un ejemplo adversarial. Ordenado por lo que necesita el atacante (organización propia, con los hechos de las notas y del libro):</p>
+<div class="tw"><table>
+<thead><tr><th>Escenario</th><th>Qué necesita el atacante</th><th>Ejemplo</th></tr></thead>
+<tbody>
+<tr><td>Caja blanca</td><td>Los pesos y los gradientes del modelo</td><td>FGSM y PGD sobre imágenes</td></tr>
+<tr><td>Caja negra por transferencia</td><td>Datos para entrenar un modelo sustituto; ningún acceso al real</td><td>Atacar el sustituto y confiar en que el ejemplo se transfiera</td></tr>
+<tr><td>Físico</td><td>Poder imprimir o colocar un objeto ante la cámara</td><td>Parche o señal manipulada</td></tr>
+<tr><td>Texto</td><td>Poder añadir caracteres a la petición</td><td>Sufijo que fuerza una respuesta dañina y que se transfiere (libro, p. 146)</td></tr>
+</tbody></table></div>
+
+<h3>Defensas y cómo saber si funcionan</h3>
+<p>La defensa más conocida es el entrenamiento adversarial (<em>adversarial training</em>): durante el entrenamiento se fabrican ejemplos atacados y la pérdida castiga al modelo cuando falla en ellos. Las notas del curso lo escriben como una pérdida con dos términos, donde \(\lambda\) fija cuánto pesa el segundo:</p>
+<div class="formula">\[ \mathcal{L}=\mathbb{E}_{(x,y)}\Big[\,\mathrm{CE}\big(f(x),y\big)+\lambda\,\mathrm{CE}\big(f(g_{adv}(x)),y\big)\Big] \]</div>
+<p>Suele costar algo de precisión limpia y da robustez frente al ataque con el que se entrena. La robustez no se traslada sola: según las notas, un modelo entrenado con FGSM no aguanta un PGD de 10 pasos, mientras que el entrenado con PGD sí resiste una clase entera de ejemplos. El libro es más escéptico: las defensas suponen atacantes demasiado simples, pueden dañar el rendimiento fuera del ataque para el que se diseñaron y avanzan despacio (p. 146).</p>
+<p>De ahí sale un criterio de evaluación. Una precisión alta en el conjunto de prueba no garantiza robustez (p. 146). Hay que atacar al propio modelo con ataques fuertes y probar varios presupuestos y varios números de pasos. El notebook lo hace midiendo la exactitud frente al número de pasos de PGD: si una defensa parece buena con FGSM y se hunde con 20 pasos, no era una defensa. Es una recomendación de método propia, coherente con la observación de las notas de que muchas defensas caen al aumentar \(n\).</p>
+
+<h3>Por qué es un problema de seguridad de la IA</h3>
+<p>Piensa en el "no puedo ayudarte con eso" de un asistente de propósito general ante una petición de fraude o de ciberataque. Esa negativa la decide un modelo, y un modelo es atacable: según el libro, ya existen ataques adversariales que esquivan las salvaguardas de los modelos de lenguaje actuales, así que no conviene apoyarse solo en ellas para frenar el mal uso (p. 147).</p>
+<p>Más grave es que el modelo atacado sea el que hace de vigilante. Si algún día una IA supervisa a otra y la supervisada aprende a fabricar ejemplos adversariales contra ella, la vigilancia deja de valer: el libro lo resume en que un vigilante que se deja engañar no vigila (pp. 148 y 149). No sabemos quién saldrá ganando; si sirve de indicio, la historia de estos ejemplos favorece al atacante, porque hasta ahora ha sido más fácil vulnerar sistemas que volverlos robustos (p. 149).</p>
+<p>Queda fuera de esta lección lo que no es un adversario buscando el fallo: la robustez ante cambios de distribución y sucesos raros, que es el tema de la lección siguiente. Las puertas traseras (<em>trojans</em>) se ven en el módulo de monitorización técnica.</p>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Una aplicación de cribado dermatológico resume cada foto en 200 características y las pasa por un modelo lineal, muy simplificado, que devuelve un logit \(z\) de "lesión sospechosa". Todos los pesos valen \(|w_i|=0{,}1\), así que \(\lVert w\rVert_1=200\times0{,}1=20\). Una lesión maligna tiene \(z=2\), es decir, una probabilidad de sospecha de \(\sigma(2)=0{,}88\).</p>
+<p>Alguien que quiere que la aplicación diga "benigno" retoca cada característica en \(\varepsilon=0{,}15\), un cambio pequeño frente a su rango habitual, siempre en el sentido que baja el logit. El logit se desplaza \(0{,}15\times20=3\) y queda en \(2-3=-1\): la probabilidad de sospecha cae a \(\sigma(-1)=0{,}27\) y la foto se lee como benigna.</p>
+<ul>
+<li>El radio certificado de esa lesión es \(r=2/20=0{,}10\): con cualquier \(\varepsilon\) menor de \(0{,}10\) nadie puede darle la vuelta. Con \(0{,}15\) ya no hay garantía.</li>
+<li>Con el mismo modelo pero 800 características de peso \(0{,}1\), \(\lVert w\rVert_1=80\) y el radio baja a \(2/80=0{,}025\): cuatro veces más dimensiones, cuatro veces menos margen.</li>
+</ul>
+<p>Es un modelo de juguete: en una red profunda real las cuentas no son tan limpias, pero la lógica de acumular pequeñas aportaciones es la misma.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>"Con un ε pequeño no pasa nada."</strong> Un cambio pequeño en cada componente no es un cambio pequeño en el logit: se acumula con las dimensiones. Y "pequeño" no es la condición del ataque, solo la del planteamiento clásico (p. 145).</p>
+<p><strong>"Aguanta FGSM, luego es robusto."</strong> FGSM es un ataque débil. Una defensa que solo se ha probado con él puede caer con PGD y más pasos. Hay que evaluarla con ataques fuertes y varios presupuestos (aviso propio a partir de las notas).</p>
+<p><strong>"El entrenamiento adversarial lo resuelve."</strong> Protege frente al ataque con el que se entrena, cuesta precisión y no se traslada por sí solo a otros ataques (notas y p. 146).</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>High accuracy on a clean test set doesn't mean a model is robust: an adversary can spend a small, bounded budget of changes that adds up across many input dimensions, so I evaluate defenses against strong, iterated attacks and several budgets, not against a single weak one.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 3.3 Robustness, en particular 3.3.3 Adversarial Examples, págs. 143 a 147 (PDF 161 a 165): definición, ejemplos no imperceptibles, ejemplo lineal (145 y 146), grados de libertad (146), modelos de lenguaje (146), defensas (146) y riesgos (147); y 3.3.5 Tail Risk: AI Evaluator Gaming, págs. 148 y 149. La presión de optimización se toma de 3.3.2 (p. 139) y el marco de la sección 3.1 Introduction (p. 117). Los proxies, el <em>proxy gaming</em> (3.3.1 y 3.3.2) y los troyanos (3.3.4) se ven en otras lecciones.</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS), lección L6 Adversarial Robustness, notas del repositorio (paradigma \(L_p\), FGSM, PGD, entrenamiento adversarial, transferibilidad y ejemplos físicos) y notebook de la lección. Las notas dejan vacía la sección "Unforeseen Attacks" y no desarrollan los certificados de robustez, que solo aparecen como tema declarado del curso.</li>
+<li>Añadido propio, no procede de las fuentes: la fórmula \(z_{adv}=z+\varepsilon\lVert w\rVert_1\) y su lectura como palanca de las dimensiones; el certificado y el radio \(|z|/\lVert w\rVert_1\) para el caso lineal; la observación de que PGD y FGSM coinciden en un modelo lineal; el ejemplo de cribado dermatológico y sus cifras; el criterio de evaluación con varios presupuestos y pasos; los simuladores, los ejercicios y sus datos. El ejemplo lineal del libro llama A a la clase cuya probabilidad es la sigmoide, y aquí se llama B (solo cambia el nombre). Además, en la página 145 del PDF de arXiv 2411.01042 (comprobado en la página renderizada, no solo en el texto extraído) la quinta casilla de la fila "Adv Input" vale 1,5, mientras que la suma que da el libro en la página 146 (un logit de 2) exige 2,5: con 1,5 la suma sería 1. No he podido comprobar si la edición impresa lo corrige. Aquí se usa el resultado, ε·‖w‖₁ = 5, y no la tabla.</li>
+</ul>
+</aside>
+
+</div>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: dos simuladores para explorar, tres ejercicios y, aparte, un notebook opcional con imágenes reales. El notebook no cuenta en los 30 minutos de la lección.</p>
+
+<p class="consigna"><strong>Simulador del ataque.</strong> Empieza con el modelo lineal y FGSM con ε = 0,5: cambian de clase 5 de los 48 puntos (10 %) y el panel de resultados marca 43 de 48 puntos certificados, porque con ese ε solo caen los puntos cuyo margen es menor que ε·‖w‖₁ = 1,35. Sube ε a 1,0: cambian 20 de 48 (42 %). Cambia a PGD y observa que da la misma cifra y que las dos curvas coinciden, con 1 paso o con 30: en un modelo lineal, el signo del gradiente no cambia de un punto a otro. Pasa ahora al modelo del anillo (frontera curva) con FGSM y ε = 1,3: cambian 31 de 46 (67 %). Con PGD de 10 pasos suben a 45 de 46 (98 %). Con 3 pasos, 38 de 46 (83 %), y con 1 solo paso vuelves a la cifra de FGSM. Mira la curva: FGSM llega al 98 % con ε = 1,0 y luego baja al 61 % con ε = 1,5, porque a los puntos de la clase A un paso grande los hace atravesar el anillo y salir por el otro lado, otra vez en la clase A (con ε = 1,5 solo cambian 8 de los 24 puntos A). Elige un punto A y observa dónde queda la ×: con ε grande, FGSM lo deja al otro lado del anillo (si venía de fuera) o más allá de él (si venía del centro), y PGD, que corrige el rumbo en cada paso, suele dejarlo sobre la banda del anillo, donde el modelo dice B.</p>
+<div data-widget="m04-l01-ataque" id="sim-m04-l01-ataque"></div>
+
+<p class="consigna"><strong>Simulador de dimensiones.</strong> Los valores iniciales son el ejemplo del libro: con n = 10 y ε = 0,5 el logit sube de −3 a 2 (de 4,7 % a 88,1 % de probabilidad) y el ε mínimo para cruzar es 0,3. Pulsa "Un solo componente": el mismo ε desplaza el logit solo 0,5 (de 4,7 % a 7,6 %). Ahora pon n = 200 y baja ε a 0,02: cada componente cambia una cantidad minúscula, pero el logit sube 4, pasa a 1 y la decisión cambia (P(B) = 73,1 %). Fíjate en la norma L2 del cambio, ε·√n = 0,28, y en que la norma L∞ sigue siendo 0,02. Con n = 200, el ε mínimo para cruzar baja a 0,015.</p>
+<div data-widget="m04-l01-dimensiones" id="sim-m04-l01-dimensiones"></div>
+
+<div class="notebook" style="background:var(--surface);border:1px solid var(--rule);border-left:4px solid var(--accent);border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0">
+<p class="label">Notebook: ataques FGSM y PGD sobre imágenes</p>
+<p>Es el notebook de la lección L6 del curso Intro to ML Safety, adaptado al español. Con una red ya entrenada sobre ImageNet, implementas FGSM no dirigido y dirigido, los dos auxiliares de la variante PGD en \(L_2\) (normalizar el gradiente y recortar a la esfera), y comparas ataques contra un modelo normal y contra uno con entrenamiento adversarial (una ResNet18 robusta en \(L_\infty\) con \(\varepsilon=8/255\)). Termina con una gráfica de la exactitud frente al número de pasos de PGD. Las celdas que dicen "Escribe aquí tu código" ("Enter Your Code Here" en el original) están vacías a propósito. Tiempo estimado por este curso, no medido: una hora larga si haces todos los apartados.</p>
+<ul>
+<li><strong>Necesita GPU y PyTorch,</strong> y descargar material que no está en este curso: el original clonaba el repositorio <code>oliverzhang42/safety</code> (rama <code>adversarial</code>), que aporta los paquetes <code>safety.utils</code> y <code>safety.lesson1</code>, el lote de imágenes y el modelo con entrenamiento adversarial. Hace falta conexión para clonarlo.</li>
+<li><strong>Las versiones fijadas son antiguas</strong> (<code>robustness==1.2.1.post2</code> y <code>torchvision==0.10.0</code>) y es probable que no se instalen con Python 3.13 (sin verificar). Conviene un entorno aparte con las versiones del original.</li>
+<li><strong>No se ha ejecutado.</strong> La adaptación conserva el código y solo se ha comprobado que el fichero es un JSON válido y que las celdas de código se pueden analizar como Python.</li>
+</ul>
+<p><strong>Enlace:</strong> <a href="../notebooks/m04-l01-robustez-adversarial.ipynb"><code>notebooks/m04-l01-robustez-adversarial.ipynb</code></a></p>
+</div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: FGSM en un clasificador lineal (a mano, 8 minutos)</p>
+<p>Un modelo lineal de cuatro características (datos propios de práctica) tiene pesos \(w=(2,\,-1,\,3,\,-2)\) y sesgo \(b=0{,}5\). Devuelve el logit \(z=w^{\top}x+b\) y la probabilidad \(\sigma(z)\) de la clase "urgente". Un caso no urgente tiene \(x=(1,\,2,\,-1,\,0{,}5)\). Un atacante puede cambiar cada característica en \(\varepsilon\) como mucho.</p>
+<ol>
+<li>Calcula \(z\) y la probabilidad de "urgente".</li>
+<li>Aplica FGSM con \(\varepsilon=0{,}3\) para subir el logit. Da el vector atacado, su logit y su probabilidad.</li>
+<li>¿A partir de qué \(\varepsilon\) cruza la frontera este caso? ¿Qué radio certificado tiene?</li>
+<li>Se añaden 20 características nuevas de peso \(0{,}5\) y valor 0, de modo que \(z\) no cambia. ¿Cuál es ahora el \(\varepsilon\) mínimo?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> \(z=2\cdot1-1\cdot2+3\cdot(-1)-2\cdot0{,}5+0{,}5=2-2-3-1+0{,}5=-3{,}5\). Probabilidad \(\sigma(-3{,}5)=0{,}029\), un 2,9 %.</p>
+<p><strong>2.</strong> El signo de \(w\) es \((+,-,+,-)\). Con \(\varepsilon=0{,}3\), \(x_{adv}=(1{,}3,\;1{,}7,\;-0{,}7,\;0{,}2)\). Su logit: \(2{,}6-1{,}7-2{,}1-0{,}4+0{,}5=-1{,}1\), que coincide con \(z+\varepsilon\lVert w\rVert_1=-3{,}5+0{,}3\times8\). Probabilidad \(\sigma(-1{,}1)=0{,}25\): sube mucho, pero sigue por debajo de 0,5.</p>
+<p><strong>3.</strong> Cruza cuando \(\varepsilon\lVert w\rVert_1>3{,}5\), es decir \(\varepsilon>3{,}5/8=0{,}4375\). Ese mismo número es el radio certificado: por debajo, ningún ataque \(L_\infty\) de ese tamaño lo cambia.</p>
+<p><strong>4.</strong> Ahora \(\lVert w\rVert_1=8+20\times0{,}5=18\) y \(\varepsilon_{min}=3{,}5/18=0{,}194\): menos de la mitad. Añadir características inofensivas a la vista abre más palancas al atacante.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: FGSM, PGD y certificado con Python (10 minutos)</p>
+<p>Ejecuta este fragmento. Genera un clasificador lineal de 100 características que acierta todos sus puntos y compara tres cifras para cada \(\varepsilon\): el porcentaje que cambia con FGSM, con PGD de 10 pasos y el porcentaje de puntos no certificados (los que cumplen \(|z|\le\varepsilon\lVert w\rVert_1\)).</p>
+<pre><code>import numpy as np
+
+rng = np.random.default_rng(0)
+n, m = 100, 1000
+w = rng.normal(size=n)
+X = rng.normal(size=(m, n))
+y = np.where(X @ w &gt; 0, 1, -1)   # etiquetas que el modelo acierta al 100 %
+z = X @ w                         # logit de cada punto (b = 0)
+
+def fgsm(X, y, eps):
+    # el signo del gradiente de la pérdida respecto a x es -y * sign(w)
+    return X + eps * (-y[:, None]) * np.sign(w)[None, :]
+
+def pgd(X, y, eps, pasos=10):
+    alfa = 2.5 * eps / pasos
+    Xa = X.copy()
+    for _ in range(pasos):
+        Xa = Xa + alfa * (-y[:, None]) * np.sign(w)[None, :]
+        Xa = np.clip(Xa, X - eps, X + eps)   # proyección a la caja L-infinito
+    return Xa
+
+def cambia(Xa):
+    return np.mean(np.sign(Xa @ w) != y)
+
+l1 = np.abs(w).sum()
+for eps in (0.02, 0.05, 0.1, 0.2):
+    no_cert = 1 - np.mean(np.abs(z) &gt; eps * l1)
+    print(eps, cambia(fgsm(X, y, eps)), cambia(pgd(X, y, eps)), no_cert)</code></pre>
+<p>Responde: (1) ¿Qué observas al comparar las tres columnas y por qué? (2) Cambia a <code>n = 400</code> y mira \(\varepsilon=0{,}05\): ¿qué le pasa al porcentaje y qué dice sobre las dimensiones?</p>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Las tres columnas son iguales: 13,3 %, 30,5 %, 58,4 % y 90,5 % para \(\varepsilon=0{,}02;\,0{,}05;\,0{,}1;\,0{,}2\). En un modelo lineal, el mejor ataque dentro de la caja mueve cada componente \(\varepsilon\) en el sentido del signo de \(w\). FGSM lo hace de una vez y PGD, con pasos que siempre empujan hacia el mismo lado y se recortan a la caja, llega al mismo punto. Y el desplazamiento máximo del logit es \(\varepsilon\lVert w\rVert_1\), así que cambia justo lo que no está certificado.</p>
+<p><strong>2.</strong> Con \(n=400\) y \(\varepsilon=0{,}05\) cambia el 59,2 % de los puntos, el doble que con \(n=100\) (30,5 %). El desplazamiento crece con \(n\), cerca de \(0{,}8\,n\,\varepsilon\), mientras que el margen \(|z|\) crece solo como \(\sqrt{n}\). Con más dimensiones el mismo \(\varepsilon\) es mucho más peligroso.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: evaluar una defensa (decisión, 6 minutos)</p>
+<p>El proveedor de un clasificador de radiografías dice que es "robusto" y aporta un dato: exactitud del 91 % bajo un ataque FGSM con \(\varepsilon=2/255\), frente al 93 % sin ataque. No hay más información. Escribe al menos cuatro cosas que pedirías antes de creerlo.</p>
+<details>
+<summary>Ver solución</summary>
+<p>Cualquier lista razonable incluye varias de estas:</p>
+<ul>
+<li><strong>Un ataque fuerte:</strong> PGD con muchos pasos, con inicio aleatorio, y la curva de exactitud frente al número de pasos. Si cae al subir los pasos, FGSM daba una falsa tranquilidad.</li>
+<li><strong>Varios presupuestos:</strong> otros valores de \(\varepsilon\), también mayores, y otras normas como \(L_2\).</li>
+<li><strong>Ataques que conozcan la defensa:</strong> si la defensa es una capa o un preprocesado, un atacante que la conoce puede saltársela.</li>
+<li><strong>Con qué se entrenó:</strong> si hubo entrenamiento adversarial, con qué ataque, y si la evaluación usó uno distinto. La robustez no se traslada sola.</li>
+<li><strong>Amenaza real:</strong> si se defiende también de ataques de caja negra por transferencia y de cambios físicos, como una etiqueta o un parche en la imagen.</li>
+<li><strong>Coste:</strong> cuánta exactitud limpia se pierde y en qué subgrupos.</li>
+</ul>
+<p>Con FGSM y un solo \(\varepsilon\) pequeño, la cifra del 91 % no dice apenas nada sobre lo que haría un adversario decidido.</p>
+</details>
+</div>
+
+</div>
+
+</section>

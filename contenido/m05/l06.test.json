@@ -1,0 +1,117 @@
+[
+  {
+    "id": "m05l06-q01",
+    "tipo": "unica",
+    "enunciado": "¿Cuál de estas situaciones es un caso de grokking?",
+    "opciones": [
+      "Un modelo de lenguaje aprende a sumar números de tres dígitos al crecer en parámetros",
+      "Tras memorizar los datos de entrenamiento, el modelo pasa de pronto a generalizar al seguir entrenando más pasos",
+      "Un clasificador de imágenes mejora gradualmente su exactitud al añadir datos",
+      "Un agente aprende a manipular su métrica cuando se le aprieta más"
+    ],
+    "correcta": 1,
+    "explicacion": "El grokking es un salto de generalización que llega al aumentar los pasos de optimización, tras una fase de memorización. La suma de tres dígitos es conducta no anticipada por escala."
+  },
+  {
+    "id": "m05l06-q02",
+    "tipo": "numerica",
+    "enunciado": "Un modelo acierta cada token de una respuesta con probabilidad 0,9, de forma independiente. ¿Qué probabilidad hay de acertar por completo una respuesta de 8 tokens (acierto exacto)? Responde como número entre 0 y 1.",
+    "correcta": 0.43,
+    "tolerancia": 0.005,
+    "explicacion": "Es q elevado a L: 0,9 elevado a 8 vale unos 0,4305. Con q = 0,6 sería 0,017: una mejora del 50 % por token da un acierto exacto unas 25 veces mayor."
+  },
+  {
+    "id": "m05l06-q03",
+    "tipo": "unica",
+    "enunciado": "Un modelo mejora de forma suave la log-verosimilitud por token con la escala, pero su acierto exacto en respuestas largas parece saltar. ¿Cuál es la explicación que da el debate de la lección?",
+    "opciones": [
+      "Los modelos grandes memorizan las respuestas del banco de pruebas",
+      "La log-verosimilitud está mal calculada",
+      "El acierto exacto exige todos los tokens correctos a la vez, lo que convierte una mejora suave en un despegue brusco",
+      "El acierto exacto mide una capacidad distinta que la log-verosimilitud, y por eso no se pueden comparar"
+    ],
+    "correcta": 2,
+    "explicacion": "Elevar la probabilidad por token a la longitud de la respuesta aplasta los valores pequeños y estira los grandes. La mejora subyacente es la misma."
+  },
+  {
+    "id": "m05l06-q04",
+    "tipo": "vf",
+    "enunciado": "El artículo de Schaeffer, Miranda y Koyejo demuestra que toda la emergencia, incluido el grokking, es un artefacto de cómo se mide.",
+    "correcta": false,
+    "explicacion": "No. Sus autores cuestionan las habilidades emergentes ya publicadas como saltos frente a la escala, por la métrica y por pocos ejemplos de prueba, pero aclaran que no niegan que los modelos puedan mostrarlas, y no tratan el grokking. Además hay posturas contrarias, como la de Caballero y colaboradores."
+  },
+  {
+    "id": "m05l06-q05",
+    "tipo": "multiple",
+    "enunciado": "Según las notas, ¿cuáles de estos ejemplos son conducta no anticipada en modelos de lenguaje que crecen en parámetros?",
+    "opciones": [
+      "Sumar números de tres dígitos",
+      "Responder test de muchas materias (MMLU)",
+      "Escribir código",
+      "Bajar la pérdida media de entrenamiento con una ley de potencias"
+    ],
+    "correcta": [
+      0,
+      1,
+      2
+    ],
+    "explicacion": "Son tareas para las que no se entrenó de forma explícita. La bajada de la pérdida media es la mejora suave con la que se contrastan."
+  },
+  {
+    "id": "m05l06-q06",
+    "tipo": "unica",
+    "enunciado": "¿Qué es una meta instrumentalmente convergente?",
+    "opciones": [
+      "Una meta que el diseñador fija y que todos los modelos comparten",
+      "Una meta tan útil para casi cualquier objetivo que agentes avanzados muy distintos tienden a adquirirla, como la autoconservación o el poder",
+      "Una meta intrínseca que se ha vuelto un fin en sí misma",
+      "Una meta que solo aparece en modelos de lenguaje"
+    ],
+    "correcta": 1,
+    "explicacion": "Es una meta instrumental tan útil que muchos agentes avanzados tenderían a buscarla. No es la intrinsificación, en la que un medio pasa a ser fin."
+  },
+  {
+    "id": "m05l06-q07",
+    "tipo": "unica",
+    "enunciado": "Una unidad vigila las infecciones de herida quirúrgica contando solo las que aparecen en los 7 primeros días tras el alta, y muchas surgen a las tres semanas. ¿Qué clase de desajuste de las tres del banco de Pan y colaboradores es?",
+    "opciones": [
+      "De ponderación",
+      "Ontológico",
+      "De alcance",
+      "Ninguno: no es un desajuste, es ruido de medida"
+    ],
+    "correcta": 2,
+    "explicacion": "La magnitud es la misma, las infecciones, pero el proxy la mide solo en una parte del dominio (los 7 primeros días). Si se midiera otra magnitud para el mismo concepto, como las readmisiones en lugar de las infecciones, sería ontológico."
+  },
+  {
+    "id": "m05l06-q08",
+    "tipo": "vf",
+    "enunciado": "Según las notas, con la definición estricta de proxy \"no manipulable\" (subir su retorno esperado nunca baja el real), optimizar un proxy parece casi siempre malo, así que la optimización se ve más como una heurística que como un fin.",
+    "correcta": true,
+    "explicacion": "Es la lectura de las notas, que advierten de que la definición es estricta y quizá no la correcta: no conviene sobreoptimizar un proxy."
+  },
+  {
+    "id": "m05l06-q09",
+    "tipo": "numerica",
+    "enunciado": "Un detector de proxy gaming se prueba con 8 políticas manipuladoras y 32 sanas. Marca 5 de las manipuladoras y 6 de las sanas. ¿Cuál es su tasa de falsas alarmas (FPR)? Responde como número entre 0 y 1, con dos decimales.",
+    "correcta": 0.19,
+    "tolerancia": 0.005,
+    "explicacion": "FPR = 6/32 = 0,1875. El TPR sería 5/8 = 0,625 y la precisión 5/11 ≈ 0,45."
+  },
+  {
+    "id": "m05l06-q10",
+    "tipo": "multiple",
+    "enunciado": "Sobre el uso de \"políticas como detectores\" para el proxy gaming, ¿qué es cierto?",
+    "opciones": [
+      "Se mide la distancia entre una política de confianza y la aprendida, y esa distancia hace de puntuación de anomalía",
+      "No necesita ninguna política de referencia",
+      "Se evalúa con indicadores como el AUROC y el F1 máximo",
+      "Desviarse de la referencia siempre demuestra que hay manipulación"
+    ],
+    "correcta": [
+      0,
+      2
+    ],
+    "explicacion": "Depende de una referencia fiable y se evalúa con AUROC y F1 máximo. Desviarse no siempre es manipular: la política aprendida podría ser mejor."
+  }
+]

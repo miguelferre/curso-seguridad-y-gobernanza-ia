@@ -1,0 +1,122 @@
+[
+  {
+    "id": "m11l04-q01",
+    "tipo": "unica",
+    "enunciado": "¿Cuál de estas afirmaciones es normativa, y no empírica?",
+    "opciones": [
+      "El modelo de triaje acierta el 88 % de las veces en el conjunto de validación",
+      "Un 12 % de los pacientes de la muestra son mayores de 80 años",
+      "Un hospital no debería usar un modelo que puntúa peor a un grupo por su discapacidad",
+      "El sistema tardó 3 segundos en responder"
+    ],
+    "correcta": 2,
+    "explicacion": "Las afirmaciones normativas dicen cómo debería ser el mundo y usan «debería», «debe» u «obligación». Las otras tres son verdaderas o falsas según cómo sea el mundo y se pueden comprobar."
+  },
+  {
+    "id": "m11l04-q02",
+    "tipo": "vf",
+    "enunciado": "Si las sociedades tienen reglas morales distintas (relativismo descriptivo), se sigue lógicamente que nada es correcto o incorrecto en general (relativismo normativo).",
+    "correcta": false,
+    "explicacion": "Falso. Son tesis independientes: que las sociedades difieran es un hecho, y que la moral sea relativa a cada cultura es una tesis aparte. En la práctica se usa la primera como si probara la segunda, pero no lo hace."
+  },
+  {
+    "id": "m11l04-q03",
+    "tipo": "unica",
+    "enunciado": "Una de las objeciones del libro al relativismo normativo es que, para evitar contradicciones, obliga a leer «esto está mal» como «mi sociedad no lo aprueba». ¿Qué consecuencia extrae el libro?",
+    "opciones": [
+      "Que todas las culturas acabarán coincidiendo",
+      "Que no hay desacuerdo moral real entre culturas ni posibilidad de progreso moral",
+      "Que la tolerancia queda garantizada en todas las sociedades",
+      "Que las leyes dejan de ser necesarias"
+    ],
+    "correcta": 1,
+    "explicacion": "Si «esto está mal» solo significa «mi sociedad no lo aprueba», dos personas de culturas distintas no discrepan de verdad, y ningún reformador puede tener razón frente a su época. El relativismo tampoco garantiza la tolerancia: en una sociedad intolerante no puede reclamarla."
+  },
+  {
+    "id": "m11l04-q04",
+    "tipo": "multiple",
+    "enunciado": "Según el libro, ¿cuáles son razones por las que la ética importa en el campo de la IA? Marca todas las correctas.",
+    "opciones": [
+      "La IA se integra en ámbitos como la salud y puede amplificar sesgos o causar daños evitables",
+      "Plantea preguntas nuevas sobre privacidad, consentimiento y el estatus moral de los sistemas",
+      "Es difícil fijar objetivos para sistemas muy potentes sin consecuencias muy malas, y las teorías morales ayudan a entender por qué",
+      "Las leyes ya cubren todos los casos, así que la ética solo sirve para justificarlas",
+      "Los sistemas de IA son neutrales, de modo que el diseñador no toma decisiones morales"
+    ],
+    "correcta": [0, 1, 2],
+    "explicacion": "Son las tres razones del libro: impacto en la vida humana, preguntas nuevas por su naturaleza técnica y dificultad de especificar objetivos. La cuarta es un distractor que el libro no trata, y la quinta contradice lo que sostiene: quien diseña debe asumir que sus decisiones pueden plantear cuestiones éticas difíciles."
+  },
+  {
+    "id": "m11l04-q05",
+    "tipo": "unica",
+    "enunciado": "Contra la teoría del mandato divino, el libro razona que si seguimos a Dios porque es bueno, entonces...",
+    "opciones": [
+      "la bondad existe con independencia de lo que Dios ordene, y la teoría no se sostiene",
+      "la religión debe ser abandonada por quienes estudian ética",
+      "solo los creyentes pueden actuar moralmente",
+      "las órdenes de Dios cambian lo que es bueno"
+    ],
+    "correcta": 0,
+    "explicacion": "Si obedecemos porque Dios es bueno, hay una cualidad, la bondad, que no depende de sus órdenes. El libro aclara que no es un argumento contra creer, sino contra igualar fe y moral: creyentes y no creyentes pueden actuar bien o mal."
+  },
+  {
+    "id": "m11l04-q06",
+    "tipo": "unica",
+    "enunciado": "Una quimioterapia agresiva provoca efectos tóxicos duros, pero prolonga la vida del paciente. Según la distinción entre bienes, ¿cómo se describe mejor?",
+    "opciones": [
+      "Es un bien intrínseco, porque prolonga la vida",
+      "Es instrumentalmente buena, pese a que sus efectos sean dañinos en sí mismos",
+      "Es un derecho negativo del paciente",
+      "Es un acto supererogatorio del médico"
+    ],
+    "correcta": 1,
+    "explicacion": "Vale por lo que consigue, no por sí misma: es un bien instrumental, aunque sea a costa de algo malo en sí. Es uno de los ejemplos del libro. Lo intrínsecamente bueno aquí sería la vida y el bienestar del paciente."
+  },
+  {
+    "id": "m11l04-q07",
+    "tipo": "multiple",
+    "enunciado": "Según los ejemplos del libro, ¿cuáles de estos son derechos negativos, es decir, exigen que otros se abstengan de actuar? Marca todos los correctos.",
+    "opciones": [
+      "La privacidad",
+      "La libertad de expresión",
+      "No sufrir discriminación",
+      "El derecho a la educación",
+      "El derecho a la vivienda"
+    ],
+    "correcta": [0, 1, 2],
+    "explicacion": "Privacidad, libertad de expresión y no discriminación piden que otros se abstengan de espiar, censurar o discriminar. La educación y la vivienda son los ejemplos del libro de derechos positivos: exigen que otros provean algo, por ejemplo a través de los impuestos."
+  },
+  {
+    "id": "m11l04-q08",
+    "tipo": "unica",
+    "enunciado": "Un equipo de datos revisa por su cuenta, en horas libres, cómo rinde su modelo en poblaciones minoritarias, sin que nadie se lo exija. ¿Cómo se clasifica esa acción?",
+    "opciones": [
+      "Obligatoria, porque es buena",
+      "Impermisible, porque nadie se lo pidió",
+      "Supererogatoria: buena y permitida, pero no exigida",
+      "Moralmente neutral, porque no cambia nada"
+    ],
+    "correcta": 2,
+    "explicacion": "Es buena, se alaba a quien la hace y no se censura a quien no. Eso es lo supererogatorio. Si el contrato o el hospital la exigieran, pasaría a ser obligatoria. No es neutral, porque tiene un valor moral positivo."
+  },
+  {
+    "id": "m11l04-q09",
+    "tipo": "vf",
+    "enunciado": "Según el libro, toda acción permisible es moralmente buena.",
+    "correcta": false,
+    "explicacion": "Falso. Permisible es toda acción que no es impermisible, así que incluye lo obligatorio, lo supererogatorio y lo moralmente neutral, como comer un bocadillo o dar un paseo. Una acción neutral es permisible sin ser buena ni mala."
+  },
+  {
+    "id": "m11l04-q10",
+    "tipo": "unica",
+    "enunciado": "Un desarrollador dice: «Cada país tiene su moral, así que no me corresponde decidir cómo debe comportarse mi sistema». ¿Qué respondería el libro?",
+    "opciones": [
+      "Tiene razón: sin consenso universal, la decisión queda en manos del mercado",
+      "La variación cultural es real, pero hace falta un enfoque amplio y representativo, no renunciar a la responsabilidad",
+      "Debe aplicar las normas de su propio país en todas partes",
+      "Debe esperar a que los filósofos se pongan de acuerdo"
+    ],
+    "correcta": 1,
+    "explicacion": "El libro avisa de no confundir la observación de que las culturas difieren con el relativismo normativo. Quien desarrolla sigue siendo responsable de que los valores de su sistema sean beneficiosos, y la variedad cultural obliga a consultar de forma globalmente representativa. Si renuncia, deciden fuerzas amorales como el interés propio o el mercado."
+  }
+]

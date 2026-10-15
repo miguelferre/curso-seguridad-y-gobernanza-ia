@@ -1,0 +1,263 @@
+<section class="leccion" data-id="m00/l03">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Una red neuronal es una cadena de cálculos muy sencillos. Cada neurona multiplica sus entradas por unos números (los pesos), los suma y decide cuánto pasa a la siguiente. Apiladas por miles, reconocen imágenes o escriben texto.</p>
+<p>Nadie escribe a mano esos pesos. Se aprenden con un bucle: la red predice, una cifra (la pérdida) mide cuánto se ha equivocado y un método matemático (el descenso de gradiente) empuja cada peso un poco en la dirección que reduce el error. Se repite millones de veces.</p>
+<p>Para el resto del curso: el comportamiento de un modelo sale de sus datos, de su pérdida y de cómo se ajustó, no de reglas programadas a mano.</p>
+
+<svg viewBox="0 0 360 250" role="img" aria-labelledby="rd-t rd-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="rd-t">El bucle de entrenamiento</title>
+<desc id="rd-d">Cuatro cajas en círculo: predecir, medir el error, calcular hacia dónde corregir y actualizar los pesos. Una flecha vuelve de la última a la primera y indica que se repite muchas veces.</desc>
+<defs><marker id="rd-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" style="fill:var(--accent)"/></marker></defs>
+<rect x="6" y="8" width="156" height="86" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="30" style="fill:var(--accent-ink);font-weight:700;font-size:12.5px">1. PREDECIR</text>
+<text x="18" y="50" style="fill:currentColor;font-size:12px">La entrada atraviesa las</text>
+<text x="18" y="66" style="fill:currentColor;font-size:12px">capas y sale una respuesta</text>
+<text x="18" y="82" style="fill:var(--muted);font-size:11.5px">(hacia delante)</text>
+<rect x="198" y="8" width="156" height="86" rx="10" style="fill:var(--surface);stroke:var(--trap);stroke-width:2"/>
+<text x="210" y="30" style="fill:var(--trap);font-weight:700;font-size:12.5px">2. MEDIR EL ERROR</text>
+<text x="210" y="50" style="fill:currentColor;font-size:12px">La pérdida compara la</text>
+<text x="210" y="66" style="fill:currentColor;font-size:12px">respuesta con la correcta</text>
+<text x="210" y="82" style="fill:var(--muted);font-size:11.5px">(un solo número)</text>
+<rect x="198" y="140" width="156" height="86" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="210" y="162" style="fill:var(--ex);font-weight:700;font-size:12.5px">3. REPARTIR LA CULPA</text>
+<text x="210" y="182" style="fill:currentColor;font-size:12px">Cuánto influyó cada peso</text>
+<text x="210" y="198" style="fill:currentColor;font-size:12px">en el error</text>
+<text x="210" y="214" style="fill:var(--muted);font-size:11.5px">(retropropagación)</text>
+<rect x="6" y="140" width="156" height="86" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="162" style="fill:var(--accent-ink);font-weight:700;font-size:12.5px">4. AJUSTAR</text>
+<text x="18" y="182" style="fill:currentColor;font-size:12px">Cada peso se mueve un</text>
+<text x="18" y="198" style="fill:currentColor;font-size:12px">poco cuesta abajo</text>
+<text x="18" y="214" style="fill:var(--muted);font-size:11.5px">(descenso de gradiente)</text>
+<path d="M164 51 H194" style="fill:none;stroke:var(--accent);stroke-width:2;marker-end:url(#rd-a)"/>
+<path d="M276 96 V136" style="fill:none;stroke:var(--accent);stroke-width:2;marker-end:url(#rd-a)"/>
+<path d="M196 183 H166" style="fill:none;stroke:var(--accent);stroke-width:2;marker-end:url(#rd-a)"/>
+<path d="M84 138 V98" style="fill:none;stroke:var(--accent);stroke-width:2;marker-end:url(#rd-a)"/>
+<text x="180" y="244" text-anchor="middle" style="fill:var(--muted);font-size:12px">Se repite miles o millones de veces</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Calcular a mano la salida de una neurona (suma ponderada, sesgo y activación) y explicar el papel de cada pieza.</li>
+<li>Explicar por qué sin funciones de activación no lineales apilar capas no aporta nada, y contar los parámetros de una red densa sencilla.</li>
+<li>Calcular una pérdida (error cuadrático medio o entropía cruzada) y un paso de descenso de gradiente, y razonar qué pasa con una tasa de aprendizaje muy grande o muy pequeña.</li>
+<li>Ordenar los pasos del bucle de entrenamiento y distinguir entrenar, ajustar (fine-tuning) e inferir.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>¿Qué hace una neurona artificial y qué aprende?</h3>
+<p>Una red neuronal (<em>neural network</em>) se construye con piezas modestas, las neuronas (<em>neurons</em>). El nombre viene de la biología, pero la analogía es corta: una neurona real solo se activa si las señales que recibe superan cierto umbral, y la artificial imita apenas eso. Es una función matemática, no un modelo del cerebro.</p>
+<p>Una neurona con entradas \(x_1,\dots,x_n\) hace tres cosas: pondera cada entrada con un peso (<em>weight</em>) \(w_i\) que dice cuánto cuenta, suma el resultado con un sesgo (<em>bias</em>) \(b\) y pasa la suma por una función de activación (<em>activation function</em>) \(g\):</p>
+<div class="formula">\[ z=\sum_{i} w_i x_i + b \qquad\qquad a=g(z) \]</div>
+<p>Los pesos y los sesgos son los parámetros del modelo, lo que cambia al aprender. La estructura, la activación y la pérdida las decide una persona antes de empezar.</p>
+<p>Ejemplo propio, con cifras inventadas. Una neurona decide si dar una alerta a partir de dos medidas normalizadas: el lactato \(x_1\) y la frecuencia cardiaca \(x_2\). Con \(w=(0{,}4;\,0{,}3)\), \(b=-0{,}5\) y un paciente con \(x=(1;\,2)\), la suma es \(z=0{,}4+0{,}6-0{,}5=0{,}5\). Cuanto mayor es un peso, más manda esa variable; el sesgo fija cuánto hace falta para que \(z\) sea positivo.</p>
+<p>Con dos entradas, los puntos donde \(z=0\) forman una recta en el plano, y la neurona responde distinto a cada lado. Los pesos giran la recta y el sesgo la desplaza; puedes moverla <a data-ir="practica" href="#sim-m00-l03-neurona">en el simulador de Práctica</a>.</p>
+
+<h3>¿Por qué hace falta una activación no lineal?</h3>
+<p>Si la neurona diera \(z\) tal cual, una red de varias capas seguiría siendo una operación lineal. Con dos capas, por ejemplo, la salida es \(W_2(W_1x)=(W_2W_1)x\): el producto de dos matrices es otra matriz, y las dos capas se comprimen en una sola. Añadir capas no añade capacidad. La función de activación rompe esa trampa porque introduce una curvatura entre capa y capa.</p>
+<p>Un caso que una recta no resuelve es el patrón cruzado (el clásico XOR): dos clases que ocupan esquinas opuestas de un cuadrado. Ninguna recta deja una clase a cada lado. Con una capa oculta (<em>hidden layer</em>), la red combina varias rectas y sí puede; el libro añade que las capas ocultas permiten aprender representaciones jerárquicas, cada una sobre la anterior. En el <a data-ir="practica" href="#sim-m00-l03-neurona">simulador</a> una sola neurona se atasca y una red con capa oculta lo separa.</p>
+
+<h3>¿Qué activaciones se usan y para qué sirve cada una?</h3>
+<div class="tw"><table>
+<thead><tr><th>Activación</th><th>Fórmula</th><th>Qué hace</th></tr></thead>
+<tbody>
+<tr><td>ReLU (<em>rectified linear unit</em>)</td><td>\(\max(0,x)\)</td><td>deja pasar lo positivo y corta lo negativo, como una puerta que abre según el signo</td></tr>
+<tr><td>GELU (<em>Gaussian error linear unit</em>)</td><td>\(x\,\Phi(x)\)</td><td>una ReLU suavizada, sin esquina en el cero (\(\Phi\) es la función de distribución de la normal estándar); frecuente en los Transformers</td></tr>
+<tr><td>Sigmoide (<em>sigmoid</em>)</td><td>\(\dfrac{1}{1+e^{-x}}\)</td><td>comprime cualquier número a (0, 1); útil como probabilidad, pero en redes profundas provoca gradientes que se desvanecen</td></tr>
+<tr><td>Softmax</td><td>\(\dfrac{e^{x_i}}{\sum_j e^{x_j}}\)</td><td>convierte un vector en una distribución de probabilidad; se usa en la última capa para elegir entre varias clases</td></tr>
+</tbody></table></div>
+<p>La softmax generaliza la sigmoide: con dos valores, \(\text{softmax}(x,y)\) para la primera clase es \(\sigma(x-y)\), según las notas del curso. Ejemplo propio con tres niveles de gravedad y salidas crudas (<em>logits</em>) \((2;\,1;\,0)\): las exponenciales valen 7,39; 2,72 y 1; suman 11,11; y las probabilidades son 0,665; 0,245 y 0,090. Siempre suman 1 y la mayor sigue al mayor logit.</p>
+
+<h3>¿Cómo se apilan las neuronas en una red?</h3>
+<p>El diseño más básico es el perceptrón multicapa (<em>multi-layer perceptron</em>, MLP), una red hacia delante (<em>feedforward</em>): la información fluye en un solo sentido, de una capa a la siguiente. Tiene capas de entrada (<em>input layer</em>, que solo reparte los datos), ocultas (<em>hidden layers</em>, con representaciones internas que no se observan desde fuera) y de salida (<em>output layer</em>, con una neurona por clase en un clasificador).</p>
+<p>Ejemplo del libro: reconocer dígitos escritos a mano (MNIST, imágenes de 28 × 28 píxeles). La entrada tiene 784 nodos, uno por píxel, y la salida diez, una por dígito, con la probabilidad de cada uno.</p>
+<p>Todas las neuronas de una capa se calculan a la vez, así que la capa entera es una multiplicación de matrices seguida de una activación aplicada elemento a elemento. Una red con dos capas ocultas es la composición \(W_3\,g(W_2\,g(W_1x))\). Como la multiplicación de matrices se reparte bien entre muchos procesadores, las GPU encajan con el entrenamiento (lo señala el libro; aquí se omiten los sesgos).</p>
+<p>Contar parámetros ayuda a calibrar el tamaño. Ejemplo propio: un MLP de \(784\to128\to10\) tiene \(784\cdot128+128\) parámetros en la capa oculta (pesos y sesgos) y \(128\cdot10+10\) en la salida: <strong>101 770</strong> en total.</p>
+
+<h3>¿Qué otros bloques hay además de las capas densas?</h3>
+<p>Al MLP se le han ido añadiendo piezas. Aquí solo se presentan; su historia y sus usos están en la lección siguiente.</p>
+<dl class="facts">
+<div><dt>Conexión residual (<em>residual connection</em>)</dt><dd>Suma la entrada de un bloque a su salida. Si el bloque no aporta, queda la identidad: una red profunda puede emular una más superficial y se entrena mejor.</dd></div>
+<div><dt>Normalización y dropout</dt><dd>La primera estandariza datos o activaciones internas para facilitar el descenso. El segundo apaga activaciones al azar mientras se entrena, y se desactiva al evaluar (notas del curso).</dd></div>
+<div><dt>Convolución (<em>convolution</em>)</dt><dd>Desliza un filtro pequeño por la entrada y detecta patrones locales. Al reutilizar el filtro en todas las posiciones, usa muchos menos parámetros que una capa densa.</dd></div>
+<div><dt>Autoatención (<em>self-attention</em>)</dt><dd>Cada elemento de una secuencia decide a cuáles de los demás prestar atención, aunque estén lejos. Un bloque Transformer la combina con un MLP, conexiones residuales y normalización.</dd></div>
+</dl>
+
+<h3>¿Cómo se mide el error?</h3>
+<p>Para aprender, la red necesita una cifra que diga cuánto se equivoca. Es la pérdida (<em>loss</em>), calculada por una función de pérdida (<em>loss function</em>) que compara lo predicho con lo correcto. Entrenar consiste en minimizarla. Dos funciones habituales:</p>
+<p><strong>Error cuadrático medio</strong> (<em>mean squared error</em>, MSE), para predecir números. Promedia los errores elevados al cuadrado, así que un error grande pesa mucho más que uno pequeño. Eso lo hace muy sensible a los valores atípicos.</p>
+<div class="formula">\[ \text{MSE}=\frac1n\sum_{i=1}^{n}\left(y_i-\hat y_i\right)^2 \]</div>
+<p><strong>Entropía cruzada</strong> (<em>cross-entropy</em>), para clasificar. Compara la distribución de probabilidad que predice el modelo, \(q\), con la correcta, \(p\). Con una sola clase correcta se reduce a menos el logaritmo de la probabilidad que el modelo dio a esa clase:</p>
+<div class="formula">\[ H(p;q)=-\sum_i p_i\log q_i \]</div>
+<div class="formula">\[ \text{pérdida}=-\ln q_{\text{clase correcta}} \]</div>
+<p>Ejemplo propio, con logaritmo natural. Si el modelo da 0,9 a la clase correcta, la pérdida es \(-\ln0{,}9=0{,}105\). Con 0,5 (adivinar entre dos) es 0,693. Con 0,01 (muy seguro y equivocado) sube a 4,61: la entropía cruzada penaliza sobre todo la confianza equivocada, y con probabilidad 0 a la clase correcta sería infinita (notas del curso).</p>
+<p>La regularización \(\ell_2\) (<em>weight decay</em>) suma a la pérdida \(\lambda\|\theta\|_2^2\), los pesos al cuadrado (las notas escriben la norma sin el cuadrado), para castigar los pesos grandes: reparte el trabajo entre muchos pesos parecidos, simplifica el modelo y reduce el sobreajuste (notas del curso).</p>
+
+<h3>¿Cómo se ajustan los pesos? El descenso de gradiente</h3>
+<p>Una vez que hay una pérdida, hay que encontrar los pesos que la hacen pequeña. El libro usa la imagen de un excursionista con los ojos vendados que baja un valle palpando la pendiente bajo sus pies. La pérdida es el terreno y los pesos son la posición: el descenso de gradiente (<em>gradient descent</em>) es ese excursionista, y el gradiente \(\nabla L\) (el vector de derivadas de la pérdida respecto a cada parámetro) es la pendiente que nota:</p>
+<div class="formula">\[ \theta_{k+1}=\theta_k-\alpha\,\nabla L(\theta_k) \]</div>
+<p>El número \(\alpha\) es la tasa de aprendizaje (<em>learning rate</em>), un hiperparámetro: se elige antes de entrenar, no se aprende. Marca cuánto avanza el excursionista por paso. Con una tasa alta, los pasos saltan por encima del valle y pueden deshacer más de lo que enseñan; con una baja, el descenso casi no avanza.</p>
+<p>Ejemplo propio, con una pérdida de un solo peso, \(L(w)=(w-3)^2\), cuyo mínimo está en \(w=3\). Su derivada es \(2(w-3)\), y cada paso multiplica el error \(w-3\) por \((1-2\alpha)\) (el factor de la tabla). Desde \(w=0\):</p>
+<div class="tw"><table>
+<thead><tr><th>α</th><th>Pesos tras 1, 2, 3 y 4 pasos</th><th>Qué pasa</th></tr></thead>
+<tbody>
+<tr><td>0,1</td><td>0,6; 1,08; 1,46; 1,77</td><td>se acerca despacio (factor 0,8)</td></tr>
+<tr><td>0,5</td><td>3; 3; 3; 3</td><td>llega al mínimo de un salto (factor 0)</td></tr>
+<tr><td>1</td><td>6; 0; 6; 0</td><td>rebota sin acercarse (factor −1)</td></tr>
+<tr><td>1,1</td><td>6,6; −1,32; 8,18; −3,22</td><td>diverge (factor −1,2)</td></tr>
+</tbody></table></div>
+<p>En una red real el terreno tiene millones de dimensiones, con valles estrechos y puntos de silla. Por eso el gradiente se suele calcular con minilotes (<em>mini-batch</em>, un grupo pequeño de ejemplos: más rápido, con más ruido) y se usan variantes (notas del curso):</p>
+<ul>
+<li><strong>Momento</strong> (<em>momentum</em>). Mantiene una velocidad, \(v_{t+1}=\rho v_t+\nabla L\) y \(\theta_{t+1}=\theta_t-\alpha v_{t+1}\), que promedia los gradientes recientes: suaviza el ruido y evita rebotar en los valles estrechos.</li>
+<li><strong>Adam y AdamW.</strong> Adam es de los optimizadores más usados: combina el momento con una tasa efectiva propia para cada parámetro, según lo grandes que fueron sus gradientes pasados. AdamW añade el decaimiento de pesos aplicado aparte del gradiente. Además, la tasa puede bajar durante el entrenamiento según un calendario, lineal o en coseno.</li>
+</ul>
+<p>Las notas del curso traen erratas de fondo, no solo de notación, en las fórmulas de AdaGrad, RMSProp, Adam y AdamW (por ejemplo, el paso de AdaGrad lleva el gradiente al cuadrado en el numerador), así que aquí solo se describen. El <a data-ir="practica" href="#sim-m00-l03-neurona">simulador</a> permite probar el descenso simple y el momento.</p>
+
+<h3>¿Cómo sabe cada peso hacia dónde moverse? La retropropagación</h3>
+<p>El descenso necesita la pendiente respecto a cada uno de los millones de pesos. La retropropagación (<em>backpropagation</em>) la calcula: manda el error desde la salida hacia la entrada, capa a capa, y dice cuánto contribuyó cada parámetro. Por debajo es la regla de la cadena. Solo calcula gradientes; actualizar los pesos toca al optimizador.</p>
+<p>Para la neurona sigmoide con entropía cruzada, que es la del simulador, el resultado es limpio (cálculo propio, resultado estándar). Con \(a=\sigma(z)\) y \(y\in\{0,1\}\):</p>
+<div class="formula">\[ \frac{\partial L}{\partial z}=a-y \qquad \frac{\partial L}{\partial b}=a-y \]</div>
+<div class="formula">\[ \frac{\partial L}{\partial w_i}=(a-y)\,x_i \]</div>
+<p>El gradiente es el error de la predicción multiplicado por cada entrada. Si la neurona ya acierta (\(a\) cerca de \(y\)), casi no se mueve; si falla mucho, se mueve con fuerza, más los pesos de las entradas grandes.</p>
+
+<h3>El bucle completo, y qué es inferir</h3>
+<p>Juntas, las piezas forman este proceso, con los siete pasos que enumera el libro:</p>
+<div class="tw"><table>
+<thead><tr><th>Paso</th><th>Qué se hace</th></tr></thead>
+<tbody>
+<tr><td>1. Inicialización</td><td>los pesos parten de valores pequeños y aleatorios, y el punto de partida influye en el resultado</td></tr>
+<tr><td>2. Propagación hacia delante</td><td>una entrada, o un lote, atraviesa las capas y da una salida</td></tr>
+<tr><td>3. Pérdida</td><td>se compara la salida con la respuesta correcta</td></tr>
+<tr><td>4. Retropropagación</td><td>se calcula el gradiente de cada parámetro</td></tr>
+<tr><td>5. Actualización</td><td>el optimizador mueve los pesos</td></tr>
+<tr><td>6. Iteración</td><td>se repiten los pasos 2 a 5, a veces miles de millones de veces</td></tr>
+<tr><td>7. Parada</td><td>cuando la pérdida deja de bajar o tras un número fijado de pasadas por los datos</td></tr>
+</tbody></table></div>
+<p>Cuando el entrenamiento termina, el modelo se usa. Eso es la inferencia (<em>inference</em>): aplicar lo aprendido a datos nuevos, con los pesos congelados. Entrenar aprende; inferir ejecuta.</p>
+
+<h3>Preentrenar, ajustar y aprender al vuelo</h3>
+<p>Casi nunca se entrena de cero para cada tarea. Hay tres maneras de dar capacidades a un modelo:</p>
+<ul>
+<li><strong>Preentrenamiento</strong> (<em>pre-training</em>). Es el grueso del entrenamiento, con muchísimos datos, y da representaciones generales; por eso a menudo se llama simplemente "entrenamiento".</li>
+<li><strong>Ajuste fino</strong> (<em>fine-tuning</em>). Cuando la tarea es concreta, como resumir informes clínicos, se sigue entrenando desde los pesos preentrenados con datos de esa tarea y una tasa de aprendizaje menor. Se pueden congelar capas (no entrenarlas) para conservar lo general y adaptar sobre todo las últimas.</li>
+<li><strong>Aprendizaje con pocos ejemplos</strong> (<em>few-shot</em>) y sin ejemplos (<em>zero-shot</em>). Ocurre al inferir y no cambia los pesos: en un modelo de lenguaje se ponen en la petición unos pocos ejemplos, o solo una instrucción. Según el libro, algunos modelos grandes adquirieron esta capacidad al crecer, aunque solo se les entrenó para predecir la palabra siguiente, y el libro plantea la pregunta de qué la hace posible.</li>
+</ul>
+<p>Ejemplo propio: un hospital parte de un modelo de lenguaje preentrenado, lo ajusta con sus informes de alta anonimizados y, al usarlo, incluye dos ejemplos de resumen en la petición (few-shot). Preentrenar y ajustar cambian los pesos; los ejemplos de la petición, no. Que puedan aparecer capacidades sin entrenarlas explica en parte la atención que la seguridad de la IA presta a la escala (reflexión propia).</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Un paso completo del bucle con la neurona de alerta. Entrada \(x=(1;\,2)\), caso con alerta, \(y=1\), pesos \(w=(0{,}4;\,0{,}3)\), sesgo \(b=-0{,}5\) y \(\alpha=0{,}5\).</p>
+<ol>
+<li><strong>Hacia delante.</strong> \(z=0{,}4+0{,}6-0{,}5=0{,}5\) y \(a=\sigma(0{,}5)=0{,}6225\).</li>
+<li><strong>Pérdida.</strong> \(-\ln0{,}6225=0{,}474\). Acierta, pero con poca confianza.</li>
+<li><strong>Gradiente.</strong> \(a-y=-0{,}3775\); por tanto \(\partial L/\partial w=(-0{,}3775;\,-0{,}755)\) y \(\partial L/\partial b=-0{,}3775\).</li>
+<li><strong>Actualización.</strong> \(w=(0{,}4+0{,}189;\,0{,}3+0{,}3775)=(0{,}589;\,0{,}678)\) y \(b=-0{,}5+0{,}189=-0{,}311\).</li>
+<li><strong>Otra vez hacia delante.</strong> \(z=0{,}589+1{,}355-0{,}311=1{,}633\), \(a=0{,}8366\) y la pérdida baja a \(0{,}179\).</li>
+</ol>
+<p>Un solo paso ha dejado la pérdida en algo más de un tercio, y el peso de la frecuencia cardiaca ha crecido más que el del lactato porque su entrada era mayor.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Subir la tasa de aprendizaje "para ir más rápido".</strong> Hasta cierto punto acelera, pero pasado ese punto la pérdida puede rebotar o subir, como en la tabla con \(\alpha=1{,}1\).</p>
+<p><strong>Leer la salida de softmax como certeza (aviso propio).</strong> Las probabilidades suman 1 por construcción, no porque el modelo sepa cuán seguro debe estar. Para una decisión clínica hay que comprobar su calibración (módulo de monitorización en producción).</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>A neural network is just layers of weighted sums and nonlinearities, and training nudges the weights downhill on a loss, using gradients computed by backpropagation.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 2.3 Deep Learning, subsecciones Model Building Blocks (págs. 82 a 93; PDF 100 a 111) y Training and Inference (págs. 93 a 99; PDF 111 a 117): neuronas y MLP (82 a 86), activaciones (86 a 89), bloques (89 a 92), pérdida (94), descenso de gradiente y retropropagación (95 y 96), pasos del entrenamiento (96) y preentrenamiento, ajuste fino y few-shot (96 a 99).</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS), lección L2 Deep Learning Review (notas de Nathaniel Li): normalización, dropout, activaciones, entropía cruzada, regularización \(\ell_2\), optimizadores y calendarios.</li>
+<li>Añadido propio, no procede de las fuentes: la neurona de alerta y todos los ejemplos con cifras (parámetros, softmax, pérdidas, tabla del descenso con \(L(w)=(w-3)^2\)); el argumento de que las capas lineales se comprimen; el gradiente de la neurona sigmoide; el simulador y los ejercicios. Son del libro el ejemplo de MNIST y la imagen del excursionista.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: primero un simulador para explorar, después tres ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de la neurona.</strong> Empieza con "Una neurona" y datos separables. (1) Arrastra w1, w2 y b para girar y desplazar la recta: ¿logras bajar la pérdida de 0,3? (2) Pulsa "Reiniciar pesos" y da pasos de descenso con α = 0,3, uno a uno y de 10 en 10: la recta gira y la curva cae (unos 0,29 a los 10 pasos). (3) Reiniciando cada vez, compara α = 0,01, muy lenta (0,60 tras 50 pasos), con α = 3, que baja a 0,12 en 10. (4) Reinicia, activa el momento con α = 0,3 y da 10 pasos: 0,11. Sube ahora α a 30 y da otros 10: la pérdida sube hasta unos 0,85, por encima de los 0,79 iniciales, porque los pasos se pasan de largo. Sin momento, α = 30 no la hace subir en esta neurona: que una tasa grande diverja depende de la forma de la pérdida. (5) Con datos cruzados y una neurona, la pérdida no baja de 0,69. (6) Con "Red 2-4-1", 100 pasos y α = 0,3, la pérdida baja a 0,15 y la frontera se curva. Pulsa "Reiniciar pesos", sube α a 100 y da 100 pasos: la red no aprende y la pérdida sigue por encima de 4.</p>
+<div data-widget="m00-l03-neurona" id="sim-m00-l03-neurona"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: neurona, softmax y pérdida (a mano, 8 minutos)</p>
+<p>Una neurona con activación ReLU tiene pesos \(w=(2;\,1)\) y sesgo \(b=0{,}5\). Sus entradas son la temperatura y la saturación de oxígeno, normalizadas (cifras propias de práctica).</p>
+<ol>
+<li>Calcula la salida para el paciente P1, \(x=(0{,}5;\,-1)\), y para P2, \(x=(-1;\,0{,}5)\).</li>
+<li>Otra parte de la red da a tres clases de gravedad los logits \((1;\,0;\,-1)\). Calcula la softmax y compárala con la de la teoría, de logits \((2;\,1;\,0)\).</li>
+<li>Si la clase correcta es la segunda, ¿cuánto vale la entropía cruzada (logaritmo natural)?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> P1: \(z=2\cdot0{,}5+1\cdot(-1)+0{,}5=0{,}5\), y ReLU deja \(0{,}5\). P2: \(z=-2+0{,}5+0{,}5=-1\), y ReLU da \(0\): la neurona no se activa.</p>
+<p><strong>2.</strong> Exponenciales: \(2{,}718;\ 1;\ 0{,}368\), suman \(4{,}086\). Probabilidades: \(0{,}665;\ 0{,}245;\ 0{,}090\), las mismas que con \((2;\,1;\,0)\). La softmax solo depende de las diferencias entre logits: sumar una constante a todos no cambia nada.</p>
+<p><strong>3.</strong> \(-\ln0{,}245=1{,}41\). Es una pérdida alta porque el modelo daba mucha más probabilidad a otra clase.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: descenso y tamaño de la red (a mano, 8 minutos)</p>
+<p>Sea \(L(w)=(w-3)^2\), como en la teoría, y \(\alpha=0{,}25\).</p>
+<ol>
+<li>Calcula \(w\) tras tres pasos partiendo de \(w=0\).</li>
+<li>El error \(w-3\) se multiplica en cada paso por \(1-2\alpha\). ¿Para qué valores de \(\alpha\) converge el descenso, y para cuáles alterna de signo?</li>
+<li>Una red de alerta tiene 20 entradas, una capa oculta de 16 neuronas, otra de 8 y una salida. ¿Cuántos parámetros tiene, con sesgos?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> El gradiente es \(2(w-3)\), y con \(\alpha=0{,}25\) cada paso deja el error a la mitad: \(w=1{,}5;\ 2{,}25;\ 2{,}625\).</p>
+<p><strong>2.</strong> Converge cuando \(|1-2\alpha|<1\), es decir, \(0<\alpha<1\). Con \(0<\alpha<0{,}5\) el factor es positivo y el peso se acerca sin cruzar el mínimo; con \(0{,}5<\alpha<1\) es negativo y el peso salta al otro lado en cada paso, con saltos cada vez más cortos. En \(\alpha=1\) rebota sin converger y para \(\alpha>1\) diverge.</p>
+<p><strong>3.</strong> \(20\cdot16+16=336\), \(16\cdot8+8=136\) y \(8\cdot1+1=9\). Total: \(481\).</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: una neurona y las compuertas AND y XOR (Python, 10 minutos)</p>
+<p>Este fragmento entrena una neurona sigmoide con descenso de gradiente (el mismo cálculo del simulador) sobre las cuatro combinaciones de dos entradas 0 y 1. Predice qué saldrá con AND y con XOR antes de ejecutarlo.</p>
+<pre><code>import math, random
+
+def sig(z):
+    return 1 / (1 + math.exp(-z))
+
+def entrena(datos, alfa=0.5, pasos=5000):
+    random.seed(0)
+    w1, w2, b = random.uniform(-1, 1), random.uniform(-1, 1), 0.0
+    n = len(datos)
+    for _ in range(pasos):
+        g1 = g2 = gb = 0.0
+        for (x1, x2), y in datos:
+            a = sig(w1 * x1 + w2 * x2 + b)
+            e = a - y                      # dL/dz para entropía cruzada
+            g1 += e * x1; g2 += e * x2; gb += e
+        w1 -= alfa * g1 / n
+        w2 -= alfa * g2 / n
+        b  -= alfa * gb / n
+    return [round(sig(w1 * x1 + w2 * x2 + b), 2) for (x1, x2), _ in datos]
+
+AND = [((0, 0), 0), ((0, 1), 0), ((1, 0), 0), ((1, 1), 1)]
+XOR = [((0, 0), 0), ((0, 1), 1), ((1, 0), 1), ((1, 1), 0)]
+print(entrena(AND))
+print(entrena(XOR))</code></pre>
+<p>Responde: ¿qué salidas da con cada compuerta y por qué? ¿Qué habría que cambiar para que aprendiera XOR?</p>
+<details>
+<summary>Ver solución</summary>
+<p>Con AND salen valores casi 0 en las tres primeras combinaciones y cerca de 1 en la última (entre 0,00 y 0,01 y 0,99). Con XOR salen cuatro 0,5: la mejor recta posible no distingue nada y los pesos se quedan en cero, con la pérdida en \(\ln2=0{,}693\). Una sola neurona solo dibuja una recta, y las esquinas de XOR no se separan con una. Habría que añadir una capa oculta con activación no lineal (dos o cuatro neuronas con tanh o ReLU) y su retropropagación, o usar una librería.</p>
+</details>
+</div>
+
+</div>
+
+</section>
+

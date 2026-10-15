@@ -1,0 +1,105 @@
+[
+  {
+    "id": "m02l02-q01",
+    "tipo": "unica",
+    "enunciado": "Un hospital guarda copias de las imágenes en dos servidores distintos para que la caída de uno no deje el servicio sin datos. ¿Qué principio de diseño seguro ilustra?",
+    "opciones": [
+      "Redundancia",
+      "Mínimo privilegio",
+      "Transparencia",
+      "Antifragilidad"
+    ],
+    "correcta": 0,
+    "explicacion": "Aquí el servidor único era un punto único de fallo. Con una copia lista para asumir su trabajo, la redundancia evita que un componente averiado pare el servicio."
+  },
+  {
+    "id": "m02l02-q02",
+    "tipo": "unica",
+    "enunciado": "Los frenos de un ascensor se cierran solos sobre los raíles si se pierde la tensión de los cables. ¿Qué principio ilustran?",
+    "opciones": [
+      "Separación de funciones",
+      "Defensa en profundidad",
+      "A prueba de fallos (fail-safe)",
+      "Retroalimentación negativa"
+    ],
+    "correcta": 2,
+    "explicacion": "Un mecanismo fail-safe busca que el sistema quede en un estado seguro aunque falle. Aquí los frenos actúan justo cuando falla la tensión del cable, y deberían impedir la caída de la cabina."
+  },
+  {
+    "id": "m02l02-q03",
+    "tipo": "vf",
+    "enunciado": "La separación de funciones y el mínimo privilegio son el mismo principio con dos nombres.",
+    "correcta": false,
+    "explicacion": "Son complementarios, no iguales. La separación reparte las tareas entre varios agentes para que ninguno controle todo. El mínimo privilegio limita el acceso de cada agente a lo que necesita. Repartir tareas sirve de poco si cada agente puede acceder a todo."
+  },
+  {
+    "id": "m02l02-q04",
+    "tipo": "multiple",
+    "enunciado": "Un asistente de IA gestiona citas en un hospital. ¿Qué medidas aplican el mínimo privilegio?",
+    "opciones": [
+      "No darle acceso a la historia clínica, solo a la agenda",
+      "No conectarlo a internet, porque no lo necesita",
+      "Darle permisos de administrador por si algún día hacen falta",
+      "Permitirle escribir solo en el módulo de citas"
+    ],
+    "correcta": [0, 1, 3],
+    "explicacion": "El mínimo privilegio da a cada agente solo el acceso y el poder que necesita para su tarea. Los permisos de administrador por si acaso hacen justo lo contrario: amplían lo que puede dañar un fallo o un abuso."
+  },
+  {
+    "id": "m02l02-q05",
+    "tipo": "unica",
+    "enunciado": "Un chatbot que sigue aprendiendo de los usuarios en un entorno abierto empieza a producir contenido ofensivo. ¿Qué enseña este caso (el de Tay, en 2016) sobre la antifragilidad?",
+    "opciones": [
+      "Que aprender solo en un entorno abierto puede dar conductas no previstas",
+      "Que la antifragilidad nunca es útil en IA",
+      "Que el problema se resuelve con más datos",
+      "Que el fallo viene de la falta de redundancia"
+    ],
+    "correcta": 0,
+    "explicacion": "La adaptación continua puede permitir que el sistema aprenda a evitar peligros, pero también que desarrolle conductas indeseadas y sea más difícil de controlar. No significa que la antifragilidad sea inútil: significa que conviene decidir con cuidado dónde se aplica."
+  },
+  {
+    "id": "m02l02-q06",
+    "tipo": "unica",
+    "enunciado": "¿Cuál de estos es un ejemplo de bucle de retroalimentación negativa, el que estabiliza?",
+    "opciones": [
+      "El deshielo: menos hielo refleja menos sol y se derrite más hielo",
+      "El cuerpo suda al subir la temperatura y se enfría",
+      "Un rumor que se difunde más cuanta más gente lo repite",
+      "Un modelo que gana poder y con él consigue todavía más"
+    ],
+    "correcta": 1,
+    "explicacion": "Un bucle negativo amortigua el cambio inicial y lleva al equilibrio, como el sudor o el temblor en el cuerpo. Los otros tres amplifican el cambio y escalan sin freno: son bucles positivos."
+  },
+  {
+    "id": "m02l02-q07",
+    "tipo": "vf",
+    "enunciado": "Vacunarse es una medida protectora, porque reduce la gravedad de la infección si esta ocurre.",
+    "correcta": true,
+    "explicacion": "Las medidas protectoras reducen el daño si el accidente ocurre, es decir, la severidad o la vulnerabilidad. Las preventivas reducen su probabilidad o la exposición, como evitar aglomeraciones."
+  },
+  {
+    "id": "m02l02-q08",
+    "tipo": "numerica",
+    "enunciado": "Cuatro capas de defensa independientes fallan cada una el 10 % de las veces. ¿Con qué probabilidad fallan las cuatro a la vez? Responde en tanto por ciento.",
+    "correcta": 0.01,
+    "tolerancia": 0.001,
+    "explicacion": "Con independencia se multiplican: 0,1 x 0,1 x 0,1 x 0,1 = 0,0001, es decir, un 0,01 %."
+  },
+  {
+    "id": "m02l02-q09",
+    "tipo": "numerica",
+    "enunciado": "Tres capas fallan con probabilidades 0,20, 0,10 y 0,05. Con el modelo de correlación de la lección, P = (1 - c) por el producto + c por la menor probabilidad, y c = 0,5, ¿con qué probabilidad fallan todas? Responde en tanto por ciento.",
+    "correcta": 2.55,
+    "tolerancia": 0.05,
+    "explicacion": "El producto es 0,001 y la menor probabilidad es 0,05. Entonces P = 0,5 x 0,001 + 0,5 x 0,05 = 0,0005 + 0,025 = 0,0255, es decir, un 2,55 %."
+  },
+  {
+    "id": "m02l02-q10",
+    "tipo": "numerica",
+    "enunciado": "Tres capas independientes tienen cada una una fiabilidad del 90 %. ¿Cuántos nueves de fiabilidad tiene el conjunto? Llamando r a la fiabilidad del conjunto, k = -log10(1 - r).",
+    "correcta": 3,
+    "tolerancia": 0.01,
+    "explicacion": "La probabilidad de que fallen las tres es 0,1 x 0,1 x 0,1 = 0,001, así que la fiabilidad del conjunto es 0,999 y k = -log10(0,001) = 3. Con independencia, cada capa del 10 % añade un nueve."
+  }
+]

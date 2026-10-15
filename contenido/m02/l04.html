@@ -1,0 +1,241 @@
+<section class="leccion" data-id="m02/l04">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>En la lección anterior mirábamos las piezas: qué componente falló y en qué orden. Esta lección cambia la pregunta: por qué el sistema llegó a un estado en el que un fallo pequeño bastaba. Casi nunca hay una sola causa. Hay presiones (competencia, costes, prisa), una cultura de seguridad mejor o peor, y una erosión lenta: cada pequeña relajación parece inofensiva y, como no pasa nada, la relajación se convierte en costumbre.</p>
+<p>A ese deslizamiento lo llama el libro deriva al fallo (<em>drift into failure</em>). Ninguna decisión suelta lo provoca, y a menudo solo se advierte cuando el accidente ya ha ocurrido. Lo mismo vale para los riesgos de la IA: muchos riesgos moderados pueden combinarse hasta producir uno grave, y por eso conviene intervenir de forma amplia y no solo sobre el peligro más llamativo.</p>
+
+<svg viewBox="0 0 360 300" role="img" aria-labelledby="rs4-t rs4-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="rs4-t">Dos formas de mirar un accidente y la escalera de la deriva</title>
+<desc id="rs4-d">Arriba, el modelo por piezas pregunta qué componente falló y el modelo de sistema pregunta por qué se llegó a ese estado. Abajo, una escalera desciende hacia el límite de seguridad: cada escalón es una relajación pequeña que nadie nota, hasta que un evento menor provoca el accidente.</desc>
+<rect x="4" y="4" width="352" height="58" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="27" style="fill:var(--accent-ink);font-weight:700;font-size:14.5px">POR PIEZAS (lección anterior)</text>
+<text x="18" y="48" style="fill:currentColor;font-size:13px">¿Qué componente falló? Cadena de eventos.</text>
+<rect x="4" y="70" width="352" height="58" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="18" y="93" style="fill:var(--ex);font-weight:700;font-size:14.5px">POR SISTEMA (esta lección)</text>
+<text x="18" y="114" style="fill:currentColor;font-size:13px">¿Por qué se llegó a ese estado? Presiones y deriva.</text>
+<polyline points="20,150 96,150 96,176 172,176 172,202 248,202 248,228 300,228" style="fill:none;stroke:var(--accent);stroke-width:3;stroke-linejoin:round"/>
+<line x1="20" x2="340" y1="262" y2="262" style="stroke:var(--trap);stroke-width:2;stroke-dasharray:6 4"/>
+<text x="20" y="279" style="fill:var(--trap);font-size:12px">límite de seguridad</text>
+<text x="24" y="143" style="fill:currentColor;font-size:12px">diseño</text>
+<text x="100" y="169" style="fill:currentColor;font-size:12px">un poco menos</text>
+<text x="176" y="195" style="fill:currentColor;font-size:12px">y no pasa nada</text>
+<text x="252" y="221" style="fill:currentColor;font-size:12px">norma nueva</text>
+<line x1="300" x2="300" y1="228" y2="258" style="stroke:var(--trap);stroke-width:2.5"/>
+<circle cx="300" cy="262" r="6" style="fill:var(--trap)"/>
+<text x="312" y="252" style="fill:var(--trap);font-size:12px;font-weight:700">fallo</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Explicar por qué los modelos por componentes no bastan y qué añaden los modelos sistémicos (Rasmussen, STAMP, deriva de Dekker).</li>
+<li>Reconocer los seis factores sistémicos (regulación, presión social, tecnosolucionismo, presión competitiva, costes de seguridad y cultura) en un caso concreto.</li>
+<li>Contrastar la teoría de accidentes normales con las organizaciones de alta fiabilidad, con sus cinco rasgos y sus críticas.</li>
+<li>Describir el mecanismo de la deriva al fallo (presión, relajación, "no pasa nada", nueva norma) y aplicarlo con las cuatro ideas del libro sobre riesgos que escalan y se combinan.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>Qué se les escapa a los modelos por componentes</h3>
+<p>El queso suizo, la pajarita y el árbol de fallos (lección anterior) son buenos para localizar causas directas y proponer arreglos concretos. Su límite es que solo ven lo que está en el diagrama. Se les escapan las fuentes de riesgo difusas: una presión de costes que empuja a saltarse comprobaciones, un clima de trabajo en el que nadie avisa, una norma que se fue aflojando durante años.</p>
+<p>Comparar la IA con un cohete o con una central nuclear tiene un límite, según el libro: hay parecidos, pero también diferencias, y trasladar sin más las estrategias de seguridad de una tecnología a otra puede engañar. A la IA la operan organizaciones humanas, y con ellas forma un sistema sociotécnico (<em>sociotechnical system</em>), donde lo social y lo técnico dependen el uno del otro.</p>
+<p>Conviene retomar dos extremos, con vocabulario de la lección anterior. El extremo agudo (<em>sharp end</em>) es donde ocurre el hecho visible: el operador, el componente, la acción. El extremo romo (<em>blunt end</em>) es lo que condiciona la operación desde lejos: normas, dirección, cultura. Los factores sistémicos viven en el extremo romo, y su efecto es difuso: no causan un accidente concreto, sino que cambian cuán probable es cualquiera.</p>
+
+<h3>Seis factores sistémicos</h3>
+<div class="tw"><table>
+<thead><tr><th>Factor</th><th>Qué hace</th><th>Ejemplo</th></tr></thead>
+<tbody>
+<tr><td>Regulación de seguridad</td><td>Exige estándares (formación, mantenimiento). Pública o interna. Cuanto más exigente y bien dirigida, más seguridad.</td><td>Ejemplo propio: un hospital que exige por política interna revisar cada trimestre sus modelos clínicos.</td></tr>
+<tr><td>Presión social</td><td>La actitud del público hacia una tecnología cambia la actitud de la organización. Con mucha atención hay más escrutinio; con poca, más relajación.</td><td>Ejemplo propio: una noticia sobre errores de un modelo clínico lleva al hospital a revisar su uso.</td></tr>
+<tr><td>Tecnosolucionismo (<em>technosolutionism</em>)</td><td>Querer arreglar un problema solo con una pieza tecnológica. Hace olvidar el sistema entero y cómo la pieza afecta a los demás componentes y a los operadores.</td><td>Ejemplo del libro: la geoingeniería climática, con efectos laterales que no sabemos prever, frente a medidas no técnicas como conservar bosques.</td></tr>
+<tr><td>Presión competitiva</td><td>Quien compite por llegar antes o ofrecer más funciones tiene un incentivo a recortar. A gran escala es una carrera armamentista: si uno baja el listón, los demás sienten que deben hacerlo también.</td><td>Ejemplo del libro: carreras entre empresas y entre países.</td></tr>
+<tr><td>Costes de seguridad</td><td>No solo dinero: también retrasos y menos rendimiento del producto. Cuanto más caro sale, más reticencia a adoptarlo.</td><td>Ejemplo del libro: transparencia e interpretabilidad de la IA, que cuestan personal y cómputo, retrasan y pueden limitar al modelo a acciones explicables.</td></tr>
+<tr><td>Cultura de seguridad</td><td>La actitud general de las personas hacia la seguridad: cuánto se la toman en serio y cómo se traduce en actos.</td><td>Ver los rasgos de las HRO, más abajo.</td></tr>
+</tbody></table></div>
+<p>Lectura propia: la mayoría de estos factores empujan en la misma dirección, porque hacen que la seguridad parezca cara y el accidente lejano. Son justo las condiciones en las que una organización empieza a relajarse.</p>
+
+<h3>Accidentes normales: complejidad y acoplamiento</h3>
+<p>La teoría de accidentes normales (<em>Normal Accident Theory</em>, NAT) sostiene que, si un sistema reúne dos propiedades, los accidentes son inevitables por bien gestionado que esté:</p>
+<ul>
+<li><strong>Complejidad:</strong> muchas interacciones entre componentes, con bucles de retroalimentación. Hace inviable entender el sistema del todo o prever cada modo de fallo.</li>
+<li><strong>Acoplamiento estrecho (<em>tight coupling</em>):</strong> un componente afecta a otros con rapidez, así que un suceso pequeño puede escalar a uno grande.</li>
+</ul>
+<p>Según NAT, el accidente sale de las interacciones y no de una pieza ni de un error humano aislado. Tiene además una consecuencia incómoda: algunas medidas de seguridad añaden complejidad. La redundancia, que vimos como principio de diseño seguro, da respaldo a un componente crítico, pero añade interacciones que nadie previó. Imagina, como ejemplo propio, dos sistemas de alerta que se contradicen de madrugada: el operador pierde un tiempo precioso decidiendo a cuál hacer caso.</p>
+<p>Eso no lleva a rendirse. Reducir la complejidad o el acoplamiento sí baja el riesgo. El libro pone el ejemplo de los colores y los conectores macho/hembra en instalaciones eléctricas, que evitan errores de cableado. No eliminan el accidente, pero bajan su frecuencia.</p>
+
+<h3>Organizaciones de alta fiabilidad (HRO)</h3>
+<p>La respuesta optimista viene de observar organizaciones que operan tecnologías peligrosas con pocos accidentes: el control del tráfico aéreo, los portaaviones, las centrales nucleares. La teoría de las organizaciones de alta fiabilidad (<em>high reliability organizations</em>, HRO) atribuye su resultado a cinco rasgos de gestión, y el libro apunta cómo podría ayudar la IA en cada uno (en el quinto, al cierre de la lista):</p>
+<div class="tw"><table>
+<thead><tr><th>Rasgo</th><th>En la práctica</th><th>Papel posible de la IA</th></tr></thead>
+<tbody>
+<tr><td>Obsesión por el fallo</td><td>Notificar y estudiar errores y casi accidentes, y pensar en modos de fallo aún no vistos.</td><td>Buena detectando anomalías, peor con los casi accidentes.</td></tr>
+<tr><td>Resistencia a simplificar</td><td>Varias lecturas de un incidente, perfiles diversos, reciclaje periódico.</td><td>Generar explicaciones alternativas o revisarlas de forma adversaria.</td></tr>
+<tr><td>Sensibilidad a las operaciones</td><td>Saber en continuo cómo va el sistema para corregir pronto.</td><td>Agregar información en tiempo real.</td></tr>
+<tr><td>Compromiso con la resiliencia</td><td>Entrenar la improvisación ante lo nunca visto.</td><td>Crear situaciones sorpresa para entrenar.</td></tr>
+<tr><td>Estructuras poco especificadas</td><td>Cualquiera puede dar la alarma sea cual sea su rango, y decide quien sabe.</td><td>Encaminar cada asunto a quien tiene la experiencia.</td></tr>
+</tbody></table></div>
+<h4>Cuatro reservas sobre las HRO</h4>
+<ul>
+<li><strong>Conocimiento casi completo.</strong> Los casos de estudio manejaban procesos muy bien entendidos y casi inmutables durante décadas. Con una tecnología nueva, esas condiciones no se dan.</li>
+<li><strong>La seguridad no siempre es la misión.</strong> Una aerolínea no existe sin seguridad, pero en una empresa que maximiza beneficio la seguridad choca con la productividad.</li>
+<li><strong>No todas son de acoplamiento estrecho.</strong> En el control aéreo se deja tiempo extra entre aterrizajes: hay holgura, así que no es un contraejemplo claro de NAT.</li>
+<li><strong>La deferencia a la experiencia tiene límite.</strong> Quien decide en local no siempre ve el sistema entero, y un cambio en una parte puede tener efectos en otras.</li>
+</ul>
+<p>El debate sigue abierto. Las HRO han tenido casi accidentes: para NAT, suerte; para la teoría HRO, prueba de que las defensas funcionan. El libro no zanja la cuestión. De cada escuela se conserva algo útil: de NAT, que complejidad y acoplamiento son factores de riesgo; de las HRO, principios de cultura organizativa.</p>
+
+<h3>Rasmussen: límites y migración</h3>
+<p>Piensa en un accidente hospitalario y en todos los que decidieron algo antes de que ocurriera: quien legisló, quien inspeccionó, quien presupuestó, quien organizó el servicio, quien atendía y el propio diseño del trabajo. Esa cadena de decisiones es lo que ordena el marco de gestión del riesgo de Rasmussen (<em>Risk Management Framework</em>, RMF), que ve el riesgo como un problema de control: la operación debe mantenerse dentro de unos límites de seguridad. Sus seis niveles son gobierno, reguladores, empresa, dirección, trabajadores de primera línea y el trabajo en sí. Rasmussen propone dibujar esa jerarquía en un AcciMap para ver quién comparte cada responsabilidad y qué condiciones influyen; con el mapa delante, la responsabilidad se reparte entre niveles y no recae toda en quien estaba junto al paciente.</p>
+<p>Un límite que solo se fija al diseñar acaba erosionándose. Rasmussen describe cómo las presiones del entorno van desplazando (migrando) la práctica real hasta acercarla a estados inseguros. En ese punto basta un suceso menor de primera línea para desencadenar el accidente, y por eso los límites hay que reafirmarlos de forma continua.</p>
+
+<h3>STAMP: seguridad como control</h3>
+<p>Si un hospital tiene todos sus equipos certificados y aun así ocurre un accidente, ¿qué ha fallado? El modelo STAMP (<em>System-Theoretic Accident Model and Processes</em>) responde desde la teoría de sistemas: la seguridad no es la suma de piezas fiables, sino una propiedad emergente del conjunto, y cada nivel de la organización tiene rasgos propios que no se ven analizando el nivel inferior. Por eso mide la seguridad y no solo la fiabilidad de los componentes: un sistema puede tener lo segundo y carecer de lo primero.</p>
+<p>El mecanismo que propone es el control descendente. En el hospital: la ley limita al centro, el centro a la jefatura y la jefatura al turno. Cada nivel pone límites al inferior para impedir estados peligrosos. Un análisis STAMP modela cuatro cosas:</p>
+<ol>
+<li><strong>Estructura de seguridad:</strong> la lista de condiciones inseguras que se quieren evitar y quién o qué vigila cada una (por ejemplo, que ninguna alerta grave quede sin revisar).</li>
+<li><strong>Deterioro dinámico:</strong> la estructura anterior no es fija. Con el tiempo se desgasta el equipo o, más a menudo, la presión lleva a saltarse un control "solo esta vez". Si no pasa nada, la omisión se vuelve costumbre y acaba creyéndose que el control era innecesario: el mismo círculo que reproduce el simulador.</li>
+<li><strong>Modelos de proceso:</strong> lo que el operador, persona o programa, necesita saber para decidir bien: en qué condiciones se diseñó el sistema y cuándo dejan de valer, cómo encaja su parte con las demás y cómo se le mantiene informado.</li>
+<li><strong>Contexto cultural y político:</strong> quién tiene intereses en el sistema y qué prioriza cada uno; por ejemplo, un regulador exigente y un cliente con prisa empujan en sentidos opuestos.</li>
+</ol>
+<p>El método asociado, STPA (<em>System-Theoretic Process Analysis</em>), se aplica ya al diseñar: identifica los peligros y construye la estructura de control que los contenga.</p>
+<p>La tabla resume en qué difiere STAMP de los modelos por componentes (reformulada a partir de la tabla 4.2 del libro, p. 215):</p>
+<div class="tw"><table>
+<thead><tr><th>Modelos por componentes suponen que</th><th>STAMP supone que</th></tr></thead>
+<tbody>
+<tr><td>Un accidente es el final de una cadena de sucesos ligados.</td><td>Es un proceso complejo que involucra a todo el sistema sociotécnico, y la cadena lo simplifica demasiado.</td></tr>
+<tr><td>Más fiabilidad en las piezas equivale a más seguridad.</td><td>Una fiabilidad alta no garantiza la seguridad.</td></tr>
+<tr><td>El operador suele ser la causa.</td><td>Su error es consecuencia de las condiciones en que trabaja.</td></tr>
+<tr><td>Sin culpable no se aprende.</td><td>Se aprende entendiendo cómo el sistema propició el accidente.</td></tr>
+<tr><td>Los accidentes graves son coincidencias de sucesos aleatorios.</td><td>Los sistemas van derivando hacia estados de más riesgo.</td></tr>
+</tbody></table></div>
+<p>El libro añade una observación sobre la búsqueda de un culpable o una causa raíz: a menudo responde al deseo de sentir que se controla la situación.</p>
+
+<h3>Deriva al fallo de Dekker</h3>
+<p>Piensa en un procedimiento que se acorta un poco, un control que pasa de semanal a mensual, una alerta que deja de revisarse. Cada decisión, sola, parece irrelevante. Dekker describe esa erosión como decrementalismo (<em>decrementalism</em>), una serie de cambios pequeños que degradan la seguridad, y la llama deriva al fallo (<em>Drift into Failure</em>, DIF). Es el tercer modelo sistémico, centrado en la migración que ya recogían Rasmussen y STAMP. Su punto de fondo es que los cambios no se suman: se combinan, y en un sistema complejo nadie puede calcular de antemano cómo. El riesgo resultante puede ser mucho mayor que el de cada cambio, y muchas veces solo se comprueba cuando llega el accidente.</p>
+<p>Puedes ver el mecanismo funcionando en el <a data-ir="practica" href="#sim-deriva-al-fallo">simulador de deriva</a>. Es un modelo propio, muy simplificado, cuyas reglas son estas:</p>
+<ul>
+<li>El margen de seguridad \(m\) empieza en 100 (el margen de diseño). Cada periodo, la presión lo reduce en \(0{,}5\) puntos por cada unidad de presión, y la relajación se mantiene: es la nueva norma.</li>
+<li>La probabilidad de accidente en un periodo crece con lo relajado, y crece cada vez más deprisa:</li>
+</ul>
+<div class="formula">\[ p(m)=0{,}0005+0{,}2495\left(1-\frac{m}{100}\right)^{3} \]</div>
+<ul>
+<li>Cada cierto número de periodos, una revisión recupera una fracción de lo relajado. Es el equivalente a hacer valer los límites (Rasmussen) o a mantener la obsesión por el fallo (HRO).</li>
+</ul>
+<p>La curva cúbica es una elección propia para que la probabilidad sea casi inapreciable al principio y explote al final: durante mucho tiempo, relajar parece gratis.</p>
+
+<h3>De los accidentes a los riesgos existenciales (4.6)</h3>
+<p>La sección 4.6 lleva la misma lógica a la escala mayor. Los escenarios con los que se explica cada riesgo de la IA son versiones limpias de algo mucho más enredado: muchos sucesos menores pueden acumularse hasta acercarnos a un riesgo existencial por rutas que no podemos prever, y los riesgos, aunque se estudien por separado, conviven. Cuatro ideas:</p>
+<ol>
+<li><strong>Un riesgo que hoy no parece catastrófico puede escalar.</strong> La desigualdad de poder, la desinformación y la automatización ya causan daño sin ser existenciales. Si la IA las lleva a un extremo, el libro advierte de que podrían desembocar en regímenes totalitarios o en una humanidad debilitada. Por eso un daño moderado merece una valoración cuidadosa antes de archivarlo como no existencial.</li>
+<li><strong>Riesgos menores pueden combinarse.</strong> Ejemplo propio: un hospital con el presupuesto justo recorta en seguridad informática y sufre una fuga de datos; ni el recorte ni la fuga son catastróficos. El libro lo escala así (ejemplo del libro): una carrera entre empresas lleva a una a gastar menos en proteger su IA, esta se filtra y alguien la usa para crear un patógeno. Ninguna pieza es catastrófica por sí sola, y la carrera empuja la cadena sin ser su causa inmediata.</li>
+<li><strong>Los conflictos y la turbulencia global favorecen la deriva.</strong> Un entorno inestable, como una guerra, pone a los sistemas en condiciones que no vieron al desarrollarse, así que su comportamiento es menos predecible. Además, quienes gestionan la crisis tienen la atención en lo inmediato y dejan la seguridad de la IA para después, y si la IA les ayuda pueden ceder poder con prisa.</li>
+<li><strong>Las intervenciones amplias pueden rendir más que las estrechas.</strong> Se ha atacado el problema sobre todo con investigación técnica y mirando solo los riesgos directos de la IA. Tiene más sentido cubrir todo el panorama de riesgos, incluidas las medidas sociotécnicas.</li>
+</ol>
+<p>En resumen: no podemos separar de forma limpia los riesgos que contribuyen a una amenaza existencial de los que no, y por eso hacen falta intervenciones amplias además de las dirigidas.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas)</p>
+<p>Un servicio de cardiología usa un modelo que puntúa el riesgo de reingreso. Al implantarlo se fijan tres normas: ante una alerta alta, enfermería revisa al paciente en 30 minutos; las alertas de nivel medio no se silencian; y el modelo se recalibra cada trimestre con los datos del propio hospital. Con el tiempo, cada norma cede un poco:</p>
+<ul>
+<li>Hay turnos saturados, y el plazo pasa de 30 a 45 minutos "de forma provisional".</li>
+<li>Las alertas medias generan ruido, así que se permite silenciarlas si hay más de diez en un turno.</li>
+<li>La recalibración pasa de trimestral a anual porque el equipo de datos está con otro proyecto.</li>
+</ul>
+<p>Ninguna decisión, por sí sola, hace saltar una alarma, y durante un año no ocurre nada, de modo que el plazo largo y las alertas silenciadas se vuelven lo habitual. Después cambia la población atendida (llega un grupo de pacientes que el modelo apenas había visto) y el modelo infravalora a varios pacientes graves, que además se revisan tarde. Un análisis por componentes señalaría el modelo o a la enfermera del turno. Un análisis sistémico ve los tres deslizamientos, la presión de carga que los motivó y que nadie tenía asignada la vigilancia de esos límites. En términos de la lección 1, los tres recortes aumentaron a la vez la exposición (más alertas sin atender) y la vulnerabilidad (menos tiempo para corregir).</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Buscar el error humano final y darlo por causa raíz.</strong> Es tentador cerrar el análisis con "la enfermera no revisó a tiempo". STAMP y Rasmussen dicen lo contrario: el error del operador suele ser producto del entorno, y señalarlo da sensación de control sin corregir lo que lo hizo probable.</p>
+<p><strong>Otra trampa: "llevamos un año sin incidentes, luego el margen sobraba".</strong> Con margen reducido el riesgo por periodo sube, pero sigue siendo pequeño durante mucho tiempo, y esa calma se interpreta como prueba de que la relajación era segura. En el simulador, con presión 2 y sin reacción, varias historias llegan a los 60 periodos sin accidente con un riesgo acumulado del 58,5 %: no haber tenido un accidente no demuestra que el sistema fuera seguro. Lectura propia: conviene tratar los casi accidentes como aviso, aunque el libro deja abierto si son suerte (según NAT) o prueba de que las defensas funcionan (según las HRO).</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>I don't stop at the operator's mistake: I ask which pressures were quietly eroding the safety margin, and whether anyone was checking that we were still inside the limits.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 4.5 Systemic Factors, págs. 206 a 216 (PDF 224 a 234), y sección 4.6 Drift into Failure and Existential Risks, págs. 216 a 218 (PDF 234 a 236).</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS), sin lección propia para estas secciones.</li>
+<li>Añadido propio, no procede de las fuentes: el ejemplo de cardiología, la lectura sobre la dirección común de los factores sistémicos, el modelo del simulador con su fórmula de probabilidad y sus cifras, y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: primero el simulador de deriva, después tres ejercicios (uno de análisis, uno de cálculo a mano y uno con Python).</p>
+
+<p class="consigna"><strong>Simulador de deriva.</strong> Pon la presión en 2 y la reacción en 0 %, y pulsa "Otra historia" varias veces: compara cuándo llega el accidente y cuántas historias acaban sin él, con el mismo riesgo acumulado (58,5 %). Después pulsa "Revisión firme cada 4 periodos" y observa qué le pasa a la línea del margen.</p>
+<div data-widget="deriva-al-fallo" id="sim-deriva-al-fallo"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: quién vigila cada límite (análisis, 8 minutos)</p>
+<p>Vuelve al servicio de cardiología del ejemplo. Rasmussen distingue seis niveles: gobierno, reguladores, empresa (el hospital), dirección (jefatura del servicio), primera línea y el trabajo en sí. Estas seis frases son cifras y hechos propios de práctica.</p>
+<ol>
+<li>Una norma nacional exige registrar las decisiones asistidas por IA.</li>
+<li>Una agencia audita si los hospitales recalibran sus modelos.</li>
+<li>El hospital, como organización, recorta el presupuesto del equipo de datos.</li>
+<li>La jefatura de servicio acepta que el plazo de revisión de alertas pase de 30 a 45 minutos.</li>
+<li>Una enfermera silencia alertas medias en un turno saturado.</li>
+<li>La configuración del modelo y el diseño del puesto de trabajo generan 40 alertas por turno.</li>
+</ol>
+<p>a) Asigna cada frase a uno de los seis niveles. b) Elige tres de ellas y di qué límite de seguridad debería vigilar ese nivel. c) ¿Qué factor sistémico de la tabla de la teoría se ve en la frase 3?</p>
+<details>
+<summary>Ver solución</summary>
+<p><strong>a)</strong> 1 gobierno; 2 reguladores; 3 empresa (el hospital); 4 dirección; 5 primera línea; 6 el trabajo en sí (el modelo y su configuración).</p>
+<p><strong>b)</strong> Es válida cualquier elección razonable. Ejemplos: el gobierno vigila que exista trazabilidad, el regulador que la recalibración se cumpla, y la dirección que el plazo de revisión de alertas no se relaje sin una evaluación previa. Lo importante es que cada límite tenga un nivel responsable: un límite que nadie vigila es el que migra.</p>
+<p><strong>c)</strong> Costes de seguridad (dinero y tiempo del equipo de datos) y, por detrás, la presión competitiva o de recursos que empuja a recortar. La frase 5 es el extremo agudo: si el análisis se queda ahí, se pierde el resto.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: dos números de la deriva (a mano, 6 minutos)</p>
+<p>Usa el modelo del simulador con presión 4 y sin reacción. El margen pierde 2 puntos por periodo. Recuerda \(p(m)=0{,}0005+0{,}2495\,(1-m/100)^3\).</p>
+<ol>
+<li>¿En qué periodo llega el margen a 50 y cuál es entonces la probabilidad de accidente por periodo?</li>
+<li>En ese periodo se hace una revisión que recupera el 60 % de lo relajado. ¿Cuánto vale el margen después y cuántas veces baja la probabilidad?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> \(100-2t=50\) da \(t=25\). Con \(m=50\): \(p=0{,}0005+0{,}2495\times0{,}5^3=0{,}0005+0{,}0312=0{,}0317\), es decir, un 3,2 % por periodo.</p>
+<p><strong>2.</strong> Lo relajado son 50 puntos y se recupera el 60 %: 30 puntos. El margen pasa a 80. Entonces \(p=0{,}0005+0{,}2495\times0{,}2^3=0{,}0005+0{,}0020=0{,}0025\), un 0,25 %. Baja unas 12,7 veces (0,0317 entre 0,0025). Es el efecto de la curva cúbica: pasar de 50 puntos relajados a 20 divide la probabilidad por unas 13.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: cuánta reacción hace falta (con Python, 10 minutos)</p>
+<p>Copia este fragmento, que reproduce el modelo del simulador, y ejecútalo.</p>
+<pre><code>def p(m):
+    return 0.0005 + 0.2495 * (1 - m / 100) ** 3
+
+def acumulado(presion, reaccion, cada, T=60):
+    m, vivo = 100.0, 1.0
+    for t in range(1, T + 1):
+        m = max(0.0, m - 0.5 * presion)
+        if reaccion &gt; 0 and t % cada == 0:
+            m += reaccion / 100 * (100 - m)
+        vivo *= 1 - p(m)
+    return 1 - vivo
+
+for r in range(0, 101, 10):
+    print(r, round(acumulado(4, r, 4) * 100, 1))</code></pre>
+<ol>
+<li>Con presión 4 y revisión cada 4 periodos, ¿cuál es la reacción mínima (en pasos de 10 %) que deja la probabilidad acumulada por debajo del 5 %?</li>
+<li>Cambia la revisión a cada 12 periodos. ¿Qué acumulado da una reacción del 60 %? ¿Qué te dice sobre frecuencia frente a fuerza de la revisión?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Con 40 % el acumulado es de un 6,9 % y con 50 % de un 4,8 %. La reacción mínima es 50 %.</p>
+<p><strong>2.</strong> Con <code>acumulado(4, 60, 12)</code> sale un 23 %, unas seis veces más que con revisión cada 4 periodos y el mismo 60 %. A igual fuerza, la frecuencia pesa mucho: entre revisiones el margen tiene tiempo de caer. Pero no es una regla general: con reacción del 20 % cada 4 periodos el acumulado sale un 29,6 %, peor que el 23 % de 60 % cada 12. Frecuencia y fuerza se compensan, y con una fuerza pequeña ni revisar a menudo salva. Esto es lo que buscan las HRO con la obsesión por el fallo y la sensibilidad a las operaciones: vigilar de forma continua. Recuerda que es un modelo propio, no un dato del libro.</p>
+</details>
+</div>
+</div>
+
+</section>

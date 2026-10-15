@@ -1,0 +1,110 @@
+[
+  {
+    "id": "m10l03-q01",
+    "tipo": "unica",
+    "enunciado": "¿Qué distingue una norma (standard) de una regulación?",
+    "opciones": [
+      "La norma es obligatoria y la regulación es voluntaria",
+      "La norma describe una buena práctica y no obliga por sí misma; la regulación es un requisito legal vinculante",
+      "Las normas las dicta siempre el legislativo y las regulaciones, las empresas",
+      "No hay diferencia práctica: son sinónimos en política de IA"
+    ],
+    "correcta": 1,
+    "explicacion": "Una norma es una especificación escrita de mejores prácticas, redactada por organismos de normalización, y no es vinculante por sí sola. La regulación es un requisito legal que establece el gobierno."
+  },
+  {
+    "id": "m10l03-q02",
+    "tipo": "multiple",
+    "enunciado": "¿De qué maneras puede una norma voluntaria acabar teniendo fuerza práctica, según la lección?",
+    "opciones": [
+      "Una ley la incorpora por referencia y se hace obligatoria",
+      "Moldea lo que se considera práctica razonable, porque la publican organismos con autoridad",
+      "El Estado la exige para contratar con la administración o la acepta como defensa en una demanda",
+      "Se convierte en delito por el mero hecho de publicarse"
+    ],
+    "correcta": [0, 1, 2],
+    "explicacion": "Las tres primeras son las vías que describe el libro: la incorporación por referencia, el efecto sobre las normas sociales y los incentivos no regulatorios. Una norma no se convierte en delito por publicarse."
+  },
+  {
+    "id": "m10l03-q03",
+    "tipo": "unica",
+    "enunciado": "¿Qué es la captura regulatoria (regulatory capture)?",
+    "opciones": [
+      "Que una agencia se queda sin presupuesto y no puede vigilar",
+      "Que un tribunal anula una regulación por defecto de forma",
+      "Que la agencia acaba priorizando a un grupo pequeño, sobre todo el sector regulado, frente al interés público",
+      "Que el legislativo retira la autoridad de una agencia"
+    ],
+    "correcta": 2,
+    "explicacion": "La falta de recursos es otro problema de las agencias, distinto de la captura. En la captura se favorece a un interés particular, típicamente la industria a la que se supone que vigila."
+  },
+  {
+    "id": "m10l03-q04",
+    "tipo": "numerica",
+    "enunciado": "Un desarrollador puede pagar como máximo 2.000 millones de euros y su producto causa 40.000 millones de daño (cifras propias de práctica). ¿Qué fracción del daño internaliza? Responde como número entre 0 y 1.",
+    "correcta": 0.05,
+    "tolerancia": 0.001,
+    "explicacion": "La fracción internalizada es el mínimo entre 1 y la capacidad de pago dividida por el daño: 2.000 / 40.000 = 0,05, un 5 %."
+  },
+  {
+    "id": "m10l03-q05",
+    "tipo": "vf",
+    "enunciado": "Para que la responsabilidad legal pueda aplicarse a daños de la IA hace falta una ley específica de IA.",
+    "correcta": false,
+    "explicacion": "Falso. En sistemas como el de EE. UU. o el del Reino Unido ya existen la negligencia y la responsabilidad objetiva por productos defectuosos, que podrían aplicarse. Una ley específica solo evitaría depender de cómo las interpreten los jueces."
+  },
+  {
+    "id": "m10l03-q06",
+    "tipo": "unica",
+    "enunciado": "En el ejemplo del libro, el Superfund estadounidense limpia vertidos peligrosos abandonados. ¿Cómo se financia?",
+    "opciones": [
+      "Con impuestos especiales sobre los productos químicos",
+      "Con las indemnizaciones que fijan los tribunales en cada caso",
+      "Con la venta de acciones de las empresas químicas",
+      "Con un seguro voluntario de los propietarios de los terrenos"
+    ],
+    "correcta": 0,
+    "explicacion": "El Superfund se financia con impuestos especiales (excise taxes) sobre los productos químicos, de modo que la industria que generó el problema paga su gestión. Es el modelo que el libro propone para un impuesto sobre la IA."
+  },
+  {
+    "id": "m10l03-q07",
+    "tipo": "numerica",
+    "enunciado": "Un impuesto especial del 2 % se aplica a la facturación anual por servicios de IA, que suma 50.000 millones de euros (cifras propias de práctica). ¿Cuántos millones de euros recauda al año? Escribe la cifra sin separador de miles (por ejemplo, 2500 y no 2.500).",
+    "correcta": 1000,
+    "tolerancia": 1,
+    "explicacion": "El 2 % de 50.000 millones son 1.000 millones de euros: 50.000 × 0,02 = 1.000."
+  },
+  {
+    "id": "m10l03-q08",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles son límites de la responsabilidad legal, según el libro?",
+    "opciones": [
+      "Un desarrollador solo puede pagar hasta donde alcanzan sus activos, y un seguro tampoco cubre cualquier daño",
+      "Las catástrofes muy graves podrían alterar el propio sistema legal",
+      "Disuade poco a quien no espera que su desarrollo cause grandes daños",
+      "Solo funciona si la agencia reguladora tiene presupuesto y personal"
+    ],
+    "correcta": [0, 1, 2],
+    "explicacion": "Los tres primeros son límites que señala el libro. El cuarto es al revés: una de las ventajas de la responsabilidad legal es que da rendición de cuentas sin depender de una agencia."
+  },
+  {
+    "id": "m10l03-q09",
+    "tipo": "unica",
+    "enunciado": "¿Cuál es la idea central de la resiliencia como herramienta nacional?",
+    "opciones": [
+      "Impedir que ningún sistema de IA llegue a desplegarse",
+      "Que quien causa el daño lo pague en su totalidad",
+      "Repartir los ingresos de la IA entre toda la población",
+      "Subir el nivel de capacidad de IA necesario para provocar una catástrofe, con lo que se gana tiempo"
+    ],
+    "correcta": 3,
+    "explicacion": "La resiliencia actúa cuando el sistema ya está desplegado: defensas en ciberseguridad, bioseguridad y vigilantes de IA exigen más capacidad al atacante y compran tiempo para desarrollar más seguridad."
+  },
+  {
+    "id": "m10l03-q10",
+    "tipo": "vf",
+    "enunciado": "El libro considera improbable que se roben o se filtren los pesos de los modelos más avanzados.",
+    "correcta": false,
+    "explicacion": "Falso. Cree que la probabilidad parece alta por tres razones: son muy valiosos, hay fuertes incentivos para robarlos y su cadena de software y hardware ofrece una gran superficie de ataque."
+  }
+]

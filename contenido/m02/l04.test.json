@@ -1,0 +1,112 @@
+[
+  {
+    "id": "m02l04-q01",
+    "tipo": "unica",
+    "enunciado": "¿Qué añaden los modelos sistémicos de accidente a los modelos por componentes?",
+    "opciones": [
+      "Sustituyen la cadena de eventos por un árbol de fallos más detallado",
+      "Analizan la estructura y las interacciones del sistema completo, incluidos factores humanos y organizativos difusos",
+      "Buscan al responsable individual del error para poder sancionarlo",
+      "Solo tratan la fiabilidad de cada pieza por separado"
+    ],
+    "correcta": 1,
+    "explicacion": "Los modelos por componentes localizan causas directas, pero pasan por alto fuentes de riesgo difusas. Los sistémicos miran las interacciones, la retroalimentación, los factores humanos y las presiones que dan forma al sistema."
+  },
+  {
+    "id": "m02l04-q02",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estos son factores sistémicos según el libro?",
+    "opciones": [
+      "Presión competitiva",
+      "Costes de seguridad",
+      "Tecnosolucionismo",
+      "El desgaste de un componente concreto",
+      "Añadir un tercer respaldo redundante"
+    ],
+    "correcta": [0, 1, 2],
+    "explicacion": "Los factores sistémicos son la regulación, la presión social, el tecnosolucionismo, la presión competitiva, los costes de seguridad y la cultura de seguridad. El desgaste de una pieza es un fallo de componente, y la redundancia es un principio de diseño, no un factor sistémico."
+  },
+  {
+    "id": "m02l04-q03",
+    "tipo": "unica",
+    "enunciado": "Según la teoría de accidentes normales (NAT), ¿qué dos propiedades hacen inevitables los accidentes?",
+    "opciones": [
+      "Redundancia y separación de funciones",
+      "Complejidad y acoplamiento estrecho",
+      "Presión competitiva y costes de seguridad",
+      "Baja fiabilidad y falta de formación"
+    ],
+    "correcta": 1,
+    "explicacion": "NAT sostiene que un sistema muy complejo (muchas interacciones) y de acoplamiento estrecho (un suceso pequeño escala rápido) sufrirá accidentes por bien gestionado que esté."
+  },
+  {
+    "id": "m02l04-q04",
+    "tipo": "vf",
+    "enunciado": "Según NAT, añadir redundancia siempre reduce el riesgo, porque cada respaldo es una barrera más.",
+    "correcta": false,
+    "explicacion": "Falso. La redundancia también añade complejidad e interacciones imprevistas, y puede confundir, por ejemplo si dos respaldos se contradicen entre sí. Es un ejemplo de medida de seguridad que puede ser contraproducente."
+  },
+  {
+    "id": "m02l04-q05",
+    "tipo": "unica",
+    "enunciado": "¿Cuál de estos es uno de los cinco rasgos de las organizaciones de alta fiabilidad (HRO)?",
+    "opciones": [
+      "Cadenas de comunicación rígidas que respetan siempre la jerarquía",
+      "Preferir la explicación más simple de un incidente",
+      "Obsesión por el fallo: notificar y estudiar errores y casi accidentes",
+      "Confiar en la redundancia para no tener que vigilar"
+    ],
+    "correcta": 2,
+    "explicacion": "Los cinco rasgos son obsesión por el fallo, resistencia a simplificar interpretaciones, sensibilidad a las operaciones, compromiso con la resiliencia y estructuras poco especificadas (deferencia a la experiencia). Los otros enunciados son lo contrario de esos rasgos."
+  },
+  {
+    "id": "m02l04-q06",
+    "tipo": "unica",
+    "enunciado": "¿Qué es el decrementalismo en el modelo de deriva al fallo de Dekker?",
+    "opciones": [
+      "La reducción planificada del presupuesto de seguridad",
+      "El deterioro de la seguridad por una serie de cambios pequeños que parecen inofensivos por separado",
+      "La caída súbita de fiabilidad de un componente",
+      "El descenso del número de operadores en un sistema"
+    ],
+    "correcta": 1,
+    "explicacion": "Cada decisión parece no afectar a la seguridad, pero muchas juntas pueden interactuar de formas imprevistas y elevar mucho el riesgo. Suele advertirse cuando ya ha ocurrido el accidente."
+  },
+  {
+    "id": "m02l04-q07",
+    "tipo": "multiple",
+    "enunciado": "Sobre los riesgos existenciales y la deriva (sección 4.6), ¿cuáles de estas ideas defiende el libro?",
+    "opciones": [
+      "Un riesgo que hoy no parece catastrófico puede escalar",
+      "Varios riesgos menores pueden combinarse hasta producir una catástrofe",
+      "Los conflictos y la turbulencia global aumentan la probabilidad de deriva",
+      "Conviene ignorar los riesgos que no sean claramente existenciales para concentrar recursos",
+      "Las intervenciones amplias pueden ser más eficaces que las estrechamente dirigidas"
+    ],
+    "correcta": [0, 1, 2, 4],
+    "explicacion": "El libro sostiene que no se pueden aislar con limpieza los riesgos que contribuyen a una amenaza existencial de los que no, por lo que descartar los demás es un error. Hacen falta intervenciones amplias además de las dirigidas."
+  },
+  {
+    "id": "m02l04-q08",
+    "tipo": "vf",
+    "enunciado": "Si todos los componentes de un sistema son muy fiables, el sistema no puede sufrir un accidente por deriva.",
+    "correcta": false,
+    "explicacion": "Falso. STAMP recuerda que la alta fiabilidad no basta para la seguridad: un sistema puede ser fiable y aun así migrar hacia estados inseguros, porque la deriva viene de presiones y decisiones acumuladas, no de una pieza que se rompe."
+  },
+  {
+    "id": "m02l04-q09",
+    "tipo": "numerica",
+    "enunciado": "Modelo propio de la lección: el margen empieza en 100 y la presión (valor 4) lo reduce 0,5 puntos por unidad de presión y periodo, sin revisiones. ¿En qué periodo llega el margen a 40?",
+    "correcta": 30,
+    "tolerancia": 0.01,
+    "explicacion": "La presión 4 resta 0,5 × 4 = 2 puntos por periodo. Hay que perder 60 puntos, así que 60 / 2 = 30 periodos."
+  },
+  {
+    "id": "m02l04-q10",
+    "tipo": "numerica",
+    "enunciado": "Con el modelo propio de la lección, la probabilidad de accidente por periodo es \\(p(m)=0{,}0005+0{,}2495\\,(1-m/100)^3\\). ¿Cuánto vale con margen \\(m=50\\), expresada en porcentaje (redondeado a dos decimales)?",
+    "correcta": 3.17,
+    "tolerancia": 0.05,
+    "explicacion": "\\((1-0{,}5)^3=0{,}125\\) y \\(0{,}2495\\times0{,}125=0{,}0312\\). Sumando \\(0{,}0005\\) sale \\(0{,}0317\\), es decir, un 3,17 % por periodo."
+  }
+]

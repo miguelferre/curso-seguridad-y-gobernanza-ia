@@ -1,0 +1,108 @@
+[
+  {
+    "id": "m00l05-q01",
+    "tipo": "unica",
+    "enunciado": "En una gráfica con los dos ejes en escala logarítmica, una ley de potencias \\(y=b\\,x^{a}\\) aparece como una recta. ¿Qué representa la pendiente de esa recta?",
+    "opciones": [
+      "El exponente \\(a\\)",
+      "La constante \\(b\\)",
+      "El valor de \\(y\\) cuando \\(x=1\\)",
+      "El suelo de error irreducible"
+    ],
+    "correcta": 0,
+    "explicacion": "Al tomar logaritmos queda \\(\\log y=a\\log x+\\log b\\): una recta cuya pendiente es el exponente \\(a\\). La constante \\(b\\) fija el punto donde corta el eje, no la inclinación."
+  },
+  {
+    "id": "m00l05-q02",
+    "tipo": "numerica",
+    "enunciado": "Una cantidad sigue \\(y=b\\,x^{0{,}5}\\). Si multiplicas \\(x\\) por 100, ¿por cuánto se multiplica \\(y\\)?",
+    "correcta": 10,
+    "tolerancia": 0.01,
+    "explicacion": "Al multiplicar \\(x\\) por \\(k\\), \\(y\\) se multiplica por \\(k^{a}\\): \\(100^{0{,}5}=10\\)."
+  },
+  {
+    "id": "m00l05-q03",
+    "tipo": "numerica",
+    "enunciado": "La parte de la pérdida debida a los parámetros baja como \\(N^{-0{,}34}\\). ¿Por cuánto hay que multiplicar el número de parámetros para dividir ese término por dos? Responde con un decimal.",
+    "correcta": 7.7,
+    "tolerancia": 0.1,
+    "explicacion": "Se resuelve \\(k^{-0{,}34}=1/2\\), es decir \\(k=2^{1/0{,}34}=2^{2{,}94}\\approx7{,}7\\)."
+  },
+  {
+    "id": "m00l05-q04",
+    "tipo": "unica",
+    "enunciado": "En la ecuación de Chinchilla, \\(L(N,D)=406{,}4\\,N^{-0{,}34}+410{,}7\\,D^{-0{,}28}+1{,}69\\), ¿qué representa el 1,69?",
+    "opciones": [
+      "El error irreducible, un suelo que no baja al aumentar N y D",
+      "El número de parámetros óptimo",
+      "El exponente de los datos",
+      "La pérdida que se obtiene con un token de datos"
+    ],
+    "correcta": 0,
+    "explicacion": "Los dos primeros términos bajan al crecer N y D. El 1,69 es el error irreducible: por mucho que escales, la pérdida no baja de ahí."
+  },
+  {
+    "id": "m00l05-q05",
+    "tipo": "vf",
+    "enunciado": "Chinchilla, con 70.000 millones de parámetros, superó a modelos mayores porque se entrenó con muchos más tokens de lo habitual.",
+    "correcta": true,
+    "explicacion": "Verdadero. La enseñanza es que, con un cómputo dado, importa el reparto entre parámetros y datos: los modelos mayores de entonces estaban entrenados con pocos datos para su tamaño."
+  },
+  {
+    "id": "m00l05-q06",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas afirmaciones sobre los límites de las leyes de escala son correctas?",
+    "opciones": [
+      "Los modelos generativos, como los de lenguaje, siguen leyes de escala regulares",
+      "Los clasificadores de imágenes siguen hoy leyes de escala claras y nunca se estancan",
+      "Un algoritmo mejor puede subir la constante de la ley y dar mejor resultado con los mismos parámetros y datos",
+      "Las ecuaciones concretas están tan asentadas como las de la termodinámica"
+    ],
+    "correcta": [
+      0,
+      2
+    ],
+    "explicacion": "Los generativos siguen leyes regulares y un algoritmo mejor desplaza la curva. En los discriminativos, como los clasificadores, hoy no se ven leyes claras y el rendimiento puede estancarse, y las ecuaciones concretas están menos asentadas que las de la termodinámica."
+  },
+  {
+    "id": "m00l05-q07",
+    "tipo": "numerica",
+    "enunciado": "Si el cómputo de entrenamiento se multiplica por 4 cada año, ¿por cuánto se multiplica en 3 años?",
+    "correcta": 64,
+    "tolerancia": 0.5,
+    "explicacion": "\\(4^{3}=64\\). Es una extrapolación de la tendencia del libro, no una garantía."
+  },
+  {
+    "id": "m00l05-q08",
+    "tipo": "unica",
+    "enunciado": "¿Cuál de estos NO es un obstáculo posible para llegar a una IA de nivel humano según el libro?",
+    "opciones": [
+      "Que hagan falta avances conceptuales que aún no conocemos",
+      "Que se agoten los datos de entrenamiento de alta calidad",
+      "Que la inversión caiga si los ingresos no siguen al coste",
+      "Que una ley internacional prohíba fabricar procesadores"
+    ],
+    "correcta": 3,
+    "explicacion": "El libro señala los avances conceptuales, la falta de datos de calidad y un retorno económico decepcionante. Una prohibición internacional de procesadores no figura entre ellos."
+  },
+  {
+    "id": "m00l05-q09",
+    "tipo": "vf",
+    "enunciado": "Según el libro, una IA solo puede suponer una amenaza seria una vez que alcance el nivel humano en todas las tareas.",
+    "correcta": false,
+    "explicacion": "Falso. Un sistema muy competente en una sola área ya puede causar mucho daño, así que centrarse solo en el hito del nivel humano puede llevar a error."
+  },
+  {
+    "id": "m00l05-q10",
+    "tipo": "unica",
+    "enunciado": "Un modelo tiene una pérdida total de 1,94 y un error irreducible de 1,69. ¿Puede llegar a una pérdida de 1,0 solo con más parámetros y más datos?",
+    "opciones": [
+      "Sí, con suficiente escala la pérdida baja hasta cero",
+      "Sí, pero solo si se escalan los parámetros y no los datos",
+      "No, porque la pérdida no puede bajar del suelo de 1,69 con esta ley",
+      "No, porque las leyes de potencias dejan de valer a los 1,94"
+    ],
+    "correcta": 2,
+    "explicacion": "La ley solo hace bajar la parte reducible, que aquí es 0,25. El error irreducible se queda en 1,69, así que 1,0 queda fuera de alcance mientras valga esa ecuación."
+  }
+]

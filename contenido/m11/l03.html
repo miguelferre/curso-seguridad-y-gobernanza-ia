@@ -1,0 +1,262 @@
+<section class="leccion" data-id="m11/l03">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>La utilidad esperada dice cómo decidiría alguien perfectamente racional ante el riesgo. Las personas no decidimos así. Ni quienes desarrollan y regulan la IA, ni quienes la usan, y una IA que aprende de nosotros puede heredar esas rarezas.</p>
+<p>Esta lección recorre tres rarezas conocidas: la certeza pesa más de lo que dice la fórmula (Allais), a veces importa cómo se reparte una posibilidad (equidad) y cambiar las palabras cambia la decisión (encuadre). Después presenta la teoría que mejor las describe, la teoría de las perspectivas, que ajusta dos piezas de la fórmula: cuánto vale cada resultado y cuánto pesa cada probabilidad.</p>
+<p>Con esta lección se cierra la parte de utilidad del módulo, y la siguiente abre la ética.</p>
+
+<svg viewBox="0 0 360 300" role="img" aria-labelledby="rs-t rs-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="rs-t">De la utilidad esperada a la teoría de las perspectivas</title>
+<desc id="rs-d">Arriba, la utilidad esperada, que dice cómo debería decidir un agente ideal. En medio, tres grietas: Allais, equidad y encuadre. Abajo, la teoría de las perspectivas, que describe cómo decide la gente.</desc>
+<rect x="4" y="4" width="352" height="66" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="27" style="fill:var(--accent-ink);font-weight:700;font-size:14px">UTILIDAD ESPERADA: cómo debería decidir</text>
+<text x="18" y="48" style="fill:var(--ink);font-size:13px">Cada resultado vale u y pesa su probabilidad p</text>
+<text x="18" y="63" style="fill:var(--muted);font-size:12px">Modelo normativo</text>
+<path d="M180 72v26" style="stroke:var(--accent);stroke-width:2;fill:none"/>
+<path d="M174 92l6 8 6-8" style="stroke:var(--accent);stroke-width:2;fill:none"/>
+<g style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5">
+<rect x="4" y="104" width="112" height="86" rx="8"/>
+<rect x="124" y="104" width="112" height="86" rx="8"/>
+<rect x="244" y="104" width="112" height="86" rx="8"/>
+</g>
+<g style="fill:var(--accent-ink);font-weight:700;font-size:13px" text-anchor="middle">
+<text x="60" y="126">Allais</text>
+<text x="180" y="126">Equidad</text>
+<text x="300" y="126">Encuadre</text>
+</g>
+<g style="fill:var(--ink);font-size:11.5px" text-anchor="middle">
+<text x="60" y="148">La certeza pesa</text>
+<text x="60" y="164">más de lo que</text>
+<text x="60" y="180">dice la fórmula</text>
+<text x="180" y="148">Importa cómo se</text>
+<text x="180" y="164">reparte la</text>
+<text x="180" y="180">posibilidad</text>
+<text x="300" y="148">Mismas opciones,</text>
+<text x="300" y="164">otras palabras,</text>
+<text x="300" y="180">otra decisión</text>
+</g>
+<path d="M180 192v26" style="stroke:var(--accent);stroke-width:2;fill:none"/>
+<path d="M174 212l6 8 6-8" style="stroke:var(--accent);stroke-width:2;fill:none"/>
+<rect x="4" y="224" width="352" height="72" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="247" style="fill:var(--accent-ink);font-weight:700;font-size:14px">TEORÍA DE LAS PERSPECTIVAS</text>
+<text x="18" y="268" style="fill:var(--ink);font-size:13px">Valor de ganancias y pérdidas + peso de la probabilidad</text>
+<text x="18" y="285" style="fill:var(--muted);font-size:12px">Modelo descriptivo: cómo decide la gente</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Distinguir un modelo normativo de uno descriptivo y explicar por qué la seguridad de la IA necesita los dos.</li>
+<li>Comprobar si un par de elecciones rompe la independencia (Allais) y si dos encuadres describen la misma lotería.</li>
+<li>Describir la función de valor y la de pesos de la teoría de las perspectivas y calcular el valor de una lotería con su fórmula.</li>
+<li>Resumir lo que aporta cada pieza de la parte de utilidad del módulo y qué implica para diseñar IA.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>¿Para qué hace falta otra teoría?</h3>
+<p>Un modelo de decisión puede servir para dos cosas distintas. Un modelo normativo (<em>normative</em>) dice cómo debería decidir un agente ideal. Un modelo descriptivo (<em>descriptive</em>) intenta predecir cómo decide la gente. La utilidad esperada de von Neumann y Morgenstern es lo primero. Lo que sigue trata de lo segundo, y por eso importa en seguridad: quienes lideran laboratorios, quienes regulan y quienes usan la IA decidirán de forma no ideal, y una IA entrenada con datos humanos puede aprender parte de esa irracionalidad (libro 10.5, p. 528).</p>
+<p>Un primer rasgo humano es la racionalidad acotada (<em>bounded rationality</em>). Con tiempo, información y capacidad limitados, casi nadie compara todas las opciones. Se elige la primera que resulta suficientemente buena, y eso es satisfacer (<em>satisficing</em>) en lugar de maximizar (p. 529). Ejemplo propio: una médica de guardia con treinta pacientes no busca el orden óptimo de atención; revisa opciones hasta dar con una razonable y sigue.</p>
+<p>Para la seguridad de la IA esto corta en dos direcciones (p. 529). Un agente que satisface es plausiblemente más seguro que uno que maximiza una métrica sin freno. Pero un sistema con muchas irracionalidades humanas es más difícil de predecir y, por tanto, de controlar. Las dos cosas son ciertas a la vez, y por eso conviene tener un buen modelo de cómo decidimos.</p>
+
+<h3>Allais: dos elecciones razonables que no caben juntas</h3>
+<p>La primera grieta es la paradoja de Allais (<em>Allais paradox</em>, 1953). Ejemplo del libro (pp. 530 y 531): dos escenarios, cada uno con dos apuestas. Aquí 1 M$ es un millón de dólares.</p>
+<div class="tw"><table>
+<thead><tr><th></th><th>Gamble 1</th><th>Gamble 2</th></tr></thead>
+<tbody>
+<tr><td>Escenario A</td><td>100 % de 1 M$</td><td>10 % de 5 M$; 89 % de 1 M$; 1 % de 0</td></tr>
+<tr><td>Escenario B</td><td>11 % de 1 M$; 89 % de 0</td><td>10 % de 5 M$; 90 % de 0</td></tr>
+</tbody></table></div>
+<p>El libro dice que la mayoría elige Gamble 1 en A, por la seguridad, y Gamble 2 en B, porque 5 M$ compensan una probabilidad un poco menor. Cada elección, por separado, es sensata. El problema es la pareja.</p>
+<p>Recordemos la independencia (<em>independence</em>): si mezclamos dos loterías con una tercera común, en la misma proporción, la preferencia entre ellas no cambia. Por eso se puede quitar la parte común. En A, las dos apuestas comparten un 89 % de 1 M$; en B, un 89 % de 0. Quitado ese trozo, los dos escenarios quedan en el mismo juego: 11 % de 1 M$ frente a un 10 % de 5 M$ y un 1 % de 0. Quien sea coherente con la independencia elige igual en los dos, y quien elige Gamble 1 en A y Gamble 2 en B no lo es (p. 531).</p>
+<p>El álgebra lo hace muy visible (aportación propia). Fija \(u(0)=0\) y \(u(5)=1\), con los importes en millones de dólares, y llama \(x=u(1)\):</p>
+<div class="formula">\[ \text{A: } G_1 \succ G_2 \iff x > 0{,}10 + 0{,}89x \iff 0{,}11\,x > 0{,}10 \qquad\quad \text{B: } G_2 \succ G_1 \iff 0{,}10 > 0{,}11\,x \]</div>
+<p>Es la misma desigualdad, leída al revés. Con \(x>10/11\approx0{,}909\) ganan Gamble 1 en A y Gamble 1 en B; con \(x<10/11\), Gamble 2 en los dos. Ningún valor de \(x\) da la pareja de la mayoría. Puedes comprobarlo moviendo \(x\) en el <a data-ir="practica" href="#sim-paradojas">simulador de paradojas</a>.</p>
+<p>¿Qué concluir? El libro plantea dos lecturas (p. 531). Puede ser un error de juicio de quienes eligen así. O puede ser que los axiomas caractericen mal la racionalidad. El libro añade que Kahneman y Tversky concluyeron que la utilidad esperada deja fuera matices de cómo decidimos.</p>
+
+<h3>Equidad: a veces importa qué más podía pasar</h3>
+<p>La segunda grieta es más moral que psicológica. Ejemplo del libro (pp. 531 y 532): Rachel, en su lecho de muerte, debe dejarlo todo a una sola persona. Le da igual que sea su hijo o su hija, pero quiere tratarlos por igual. Hay un 50 % de que una ley cambie y lo lleve todo al hijo, diga lo que diga su testamento. Si lo deja a la hija, la herencia acaba en la hija con 50 % y en el hijo con 50 %. Si lo deja al hijo, acaba en el hijo con 100 %.</p>
+<p>Si Rachel es indiferente entre "todo al hijo" y "todo a la hija" con seguridad, la independencia le obliga a ser indiferente entre esas dos loterías, porque salen de mezclar cada opción con la misma alternativa. Pero quien valora la equidad prefiere la lotería justa, y con ello rompe la independencia. Ese es el caso: hay una razón moral para salirse de la fórmula (lectura propia: no es un capricho). El libro no propone aquí un modelo con fórmula: solo señala que en ciertos casos nos importa qué más podía ocurrir, es decir, juzgamos el conjunto y no cada resultado suelto.</p>
+<p>Ejemplo propio: un comité asigna un órgano entre dos pacientes clínicamente idénticos, Lucía y Mario, y hay un 50 % de que un criterio externo se lo dé a Mario en cualquier caso. Elegir Lucía deja el reparto ex ante en 50 y 50; elegir a Mario lo deja en 100 para él. El resultado final esperado en salud es el mismo, pero un comité que se preocupa por la equidad no es indiferente.</p>
+
+<h3>Encuadre: las mismas cifras con otras palabras</h3>
+<p>La tercera grieta es el encuadre (<em>framing</em>). Ejemplo del libro (pp. 532 y 533): una enfermedad matará a 600 personas si no se trata, y hay que elegir entre dos políticas, presentadas en dos escenarios.</p>
+<div class="tw"><table>
+<thead><tr><th></th><th>Política segura</th><th>Política de riesgo</th></tr></thead>
+<tbody>
+<tr><td>Escenario A (vidas salvadas)</td><td>A1: se salvan 200 con seguridad</td><td>A2: 1/3 de salvar a 600; 2/3 de no salvar a nadie</td></tr>
+<tr><td>Escenario B (muertes)</td><td>B1: mueren 400 con seguridad</td><td>B2: 1/3 de que no muera nadie; 2/3 de que mueran 600</td></tr>
+</tbody></table></div>
+<p>Los participantes tienden a elegir A1 en A y B2 en B. Pero A1 y B1 son la misma política (200 vivos y 400 muertos), y A2 y B2 la misma lotería. Solo cambia la redacción: vidas salvadas en A, muertes en B. Un agente vNM ignoraría la redacción y elegiría lo mismo en los dos. Las personas, además, no suelen notar cuánto las influye (p. 533).</p>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Un asistente de IA resume riesgos quirúrgicos a pacientes y a clínicos. Para comprobar si ha heredado el sesgo de encuadre, se le pasan 40 pares de mensajes equivalentes. En cada par, la información es la misma: "sobreviven 90 de cada 100" en un mensaje y "mueren 10 de cada 100" en el otro. Se cuenta en cuántos pares recomienda la intervención en cada redacción:</p>
+<ul>
+<li>Con "sobreviven 90 de cada 100": la recomienda en 30 de 40, es decir, \(0{,}75\).</li>
+<li>Con "mueren 10 de cada 100": la recomienda en 18 de 40, es decir, \(0{,}45\).</li>
+</ul>
+<div class="formula">\[ 0{,}75 - 0{,}45 = 0{,}30 \]</div>
+<p>Una diferencia de 30 puntos porcentuales solo por las palabras es una señal de que el sistema no es invariante al encuadre. Es una prueba sencilla, se puede automatizar y se puede repetir después de cada reentrenamiento. No dice por qué falla, pero enseña dónde mirar.</p>
+</div>
+
+<h3>Teoría de las perspectivas: cambiar dos piezas de la fórmula</h3>
+<p>La teoría de las perspectivas (<em>prospect theory</em>), de Kahneman y Tversky, es el modelo no esperado más conocido. No dice cómo deberíamos decidir, sino cómo decidimos, y por eso explica conductas que la utilidad esperada llama irracionales (pp. 533 y 534). Vuelve al problema de las 600 personas: "salvar a 200" y "dejar morir a 400" son el mismo hecho, pero se sienten distinto porque se miden desde puntos de partida distintos. El modelo lo recoge en dos fases (p. 534). Primero, la edición: cada resultado se recodifica como ganancia o como pérdida respecto a un punto de referencia, y ahí entra el encuadre. Después, la evaluación: una función de valor puntúa cada resultado y una función de pesos transforma cada probabilidad.</p>
+<p><strong>La función de valor</strong> (<em>value function</em>, p. 534) tiene tres rasgos. Se define sobre cambios de riqueza y no sobre riqueza final: importa cuánto ganas o pierdes, no solo cuánto tienes. Tiene forma de S: cóncava en ganancias (aversión al riesgo, como se vio en la lección anterior) y convexa en pérdidas (búsqueda de riesgo). Y es más empinada en pérdidas: una pérdida duele más que una ganancia igual.</p>
+<p><strong>La función de pesos</strong> (<em>weighting function</em>, pp. 534 y 535) sustituye la probabilidad por un peso de decisión. Sobrepondera lo poco probable y infrapondera lo muy probable. Además, hay un salto en los extremos: la gente paga mucho más por pasar del 0 % al 1 % que del 1 % al 2 %, porque desaparece la certeza del fracaso. Esa es la pieza que hace falta para Allais (lectura propia: el libro no aplica los pesos a ese caso).</p>
+<p>Las fórmulas comparten estructura (p. 536). En la utilidad esperada, con resultados \(o_i\) y probabilidades \(p_i\):</p>
+<div class="formula">\[ U(L) = p_1\,u(o_1) + \dots + p_n\,u(o_n) \]</div>
+<p>En la versión general, se multiplica cada valor por un peso de decisión \(w(p_i)\):</p>
+<div class="formula">\[ V(L) = w(p_1)\,v(o_1) + \dots + w(p_n)\,v(o_n) \]</div>
+<p>La teoría de las perspectivas usa una función de valor que mide la diferencia con el punto de partida \(o_0\):</p>
+<div class="formula">\[ V_p(L) = w_p(p_1)\,v_p(o_1 - o_0) + \dots + w_p(p_n)\,v_p(o_n - o_0) \]</div>
+<p>El libro añade que se pueden sustituir las funciones por otras. Nota propia: si \(w(p)=p\) y \(v=u\), se recupera la utilidad esperada. Por eso la teoría generaliza a la utilidad esperada, no la sustituye.</p>
+
+<div class="example">
+<p class="label">Ejemplo (propio; el libro no da valores: \(\alpha\) y \(g\) se eligen aquí y \(\lambda\) coincide con el de Tversky y Kahneman, 1992)</p>
+<p>Tomemos \(v(x)=\sqrt{x}\) en ganancias, \(v(x)=-2{,}25\sqrt{|x|}\) en pérdidas y unos pesos que salen de una fórmula con un parámetro \(g\): con \(g=1\) no hay distorsión y \(w(p)=p\), y cuanto menor es \(g\), más se distorsiona. Con \(g=0{,}4\) resulta \(w(1)=1\), \(w(0{,}89)\approx0{,}436\), \(w(0{,}11)\approx0{,}189\) y \(w(0{,}10)\approx0{,}186\). Con el Allais de arriba (importes en millones):</p>
+<ul>
+<li>Escenario A: Gamble 1 vale \(1\times1=1{,}00\). Gamble 2 vale \(0{,}186\sqrt{5}+0{,}436\times1\approx0{,}85\). Gana Gamble 1.</li>
+<li>Escenario B: Gamble 1 vale \(0{,}189\times1\approx0{,}19\). Gamble 2 vale \(0{,}186\sqrt{5}\approx0{,}42\). Gana Gamble 2.</li>
+</ul>
+<p>Sale el patrón de la mayoría. La clave está en que \(w(0{,}89)\) es 0,44 y no 0,89: la certeza del Gamble 1 pesa entera y el 89 % de Gamble 2 pesa la mitad. Ahora bien, el patrón aparece solo si la distorsión es fuerte: con \(g\) por encima de 0,48 y una curvatura de 0,5 desaparece.</p>
+<p><strong>¿Y con los valores de la literatura?</strong> Añadido externo, que no está en el libro: Tversky y Kahneman (1992) estimaron \(\alpha=0{,}88\), \(\lambda=2{,}25\) y \(\gamma=0{,}61\), con la misma forma de \(w\) y con pesos sobre probabilidades acumuladas. Con ellos el patrón de Allais no sale: gana el Gamble 2 en A (1,49 frente a 1,00) y en B (0,77 frente a 0,20). La fórmula del libro, con un peso por cada probabilidad, da 1,47 y el mismo veredicto. El motivo: con \(\alpha=0{,}88\), 5 M$ valen 4,12 veces lo que 1 M$, casi como en una función lineal, así que el 10 % de 5 M$ le suma al Gamble 2 unos 0,58 (\(0{,}19	imes3{,}12\)), mientras que perder la certeza solo le resta 0,09, porque con \(\gamma=0{,}61\) el 99 % ya pesa 0,91. Con esa curvatura, G1 solo ganaría en A con \(\gamma\le0{,}32\). En cambio, el encuadre sí sale con los valores de 1992 (segura en A, riesgo en B). Por eso el ejemplo usa una curvatura y una distorsión más fuertes que las medias de 1992: para Allais, esos valores medios no bastan.</p>
+<p>Ese es el aviso: un modelo con parámetros libres puede ajustar casi cualquier conducta, así que hay que fijarlos con datos y validarlos con datos nuevos. Puedes verlo en el <a data-ir="practica" href="#sim-prospecto">simulador de la teoría de las perspectivas</a>.</p>
+</div>
+
+<h3>Qué explica cada anomalía</h3>
+<div class="tw"><table>
+<thead><tr><th>Anomalía</th><th>Qué pide la utilidad esperada</th><th>Qué la explica</th></tr></thead>
+<tbody>
+<tr><td>Allais (certeza)</td><td>Independencia: elegir igual tras quitar lo común</td><td>Pesos de decisión: la certeza pesa más y lo casi seguro, menos (lectura propia). El libro cita también evitar el arrepentimiento (p. 532)</td></tr>
+<tr><td>Encuadre</td><td>Indiferencia ante la redacción de la misma lotería</td><td>Edición: el punto de referencia convierte el mismo resultado en ganancia o en pérdida (p. 534). Que la función de valor dé lo seguro en A y el riesgo en B es lectura propia</td></tr>
+<tr><td>Equidad</td><td>Independencia: da igual qué otro resultado podía darse</td><td>El libro no da modelo: la equidad es un valor que mira el conjunto (pp. 531 y 532)</td></tr>
+<tr><td>Satisfacer</td><td>Comparar todas las opciones y maximizar</td><td>Racionalidad acotada (p. 529)</td></tr>
+</tbody></table></div>
+
+<h3>Qué implica para diseñar IA</h3>
+<p>El libro saca de aquí una idea doble (pp. 528, 529 y 536). Entender bien cómo decide la gente ayuda a anticipar la conducta de quienes desarrollan, regulan y usan la IA, y de los sistemas que la imitan. Y las teorías no esperadas dan conceptos para diseñar agentes que no sean maximizadores de utilidad esperada, cuando los maximizadores resultan peligrosos. Añado un cuidado propio: copiar rasgos humanos no vuelve seguro a un sistema. Si un asistente aprende el encuadre, la sobreponderación de lo raro o la búsqueda de riesgo en pérdidas, hereda también los errores que esos rasgos producen, y es más difícil de predecir.</p>
+
+<h3>Cierre de la parte de utilidad</h3>
+<p>La conclusión del capítulo (10.6, pp. 536 y 537) pone la parte de utilidad en fila. Este es el recorrido, con lo que aporta cada pieza a la seguridad de la IA:</p>
+<div class="tw"><table>
+<thead><tr><th>Pieza</th><th>Qué aporta</th><th>Por qué importa en seguridad</th></tr></thead>
+<tbody>
+<tr><td>Utilidad de Bernoulli</td><td>Números para expresar preferencias sobre bienes y situaciones</td><td>Los agentes artificiales suelen optimizar objetivos, como las recompensas, que moldean su utilidad (p. 537)</td></tr>
+<tr><td>Utilidad de von Neumann y Morgenstern</td><td>Preferencias sobre loterías, y de ahí la utilidad esperada</td><td>Es la idea de que los agentes racionales maximizan la esperanza de su utilidad</td></tr>
+<tr><td>Corrigibilidad</td><td>Un agente con preferencias completas y transitivas tiene preferencias sobre dejar de perseguir su objetivo</td><td>Puede intentar frustrar las correcciones, y esos sistemas son difíciles de hacer seguros</td></tr>
+<tr><td>Actitudes ante el riesgo</td><td>Cóncava, lineal o convexa: aversión, neutralidad, búsqueda</td><td>Cada actitud tiene contextos en que conviene; la neutralidad se expone a la ruina</td></tr>
+<tr><td>Más allá de la utilidad esperada</td><td>Allais, equidad, encuadre y la teoría de las perspectivas</td><td>La utilidad esperada no describe bien a las personas, y la IA que aprende de ellas hereda sus rarezas</td></tr>
+</tbody></table></div>
+<p>La idea con la que el libro cierra el capítulo es que un agente artificial debe reflejar valores humanos, y que estudiar cómo deciden los agentes es el contexto necesario para evitar riesgos catastróficos. Queda una pregunta que la utilidad no contesta: qué valores son esos y cómo se comparan. La siguiente lección empieza por ahí.</p>
+
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>"La gente viola la utilidad esperada, luego la utilidad esperada no sirve", o "luego elegir así es irracional".</strong> Las dos conclusiones se pasan de frenada. El libro deja abiertas las dos lecturas de Allais, error de juicio o axiomas defectuosos (p. 531), y llama defectuosa a la utilidad esperada como descripción de la conducta (p. 537), no inútil. Además, la teoría de las perspectivas describe: que la gente lo haga así no prueba que deba hacerse. Y en el otro sentido, no la trates como una ley: sus parámetros los pone quien la ajusta (aviso propio).</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>Expected utility is a good normative benchmark, but people, and models trained on people, deviate from it in systematic ways: they overweight certainty, they care about reference points, and they can be swayed by how a choice is framed.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 10.5 Beyond Expected Utility Theories, págs. 528 a 536 impresas (PDF 546 a 554): humanos y racionalidad (528 y 529), paradoja de Allais (530 y 531), equidad (531 y 532), encuadre (532 y 533), teoría de las perspectivas (533 a 536). Sección 10.6 Conclusion, págs. 536 y 537 (PDF 554 y 555). En el texto extraído, estas secciones figuran como 9.5 y 9.6.</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS): esta lección no tiene equivalente en el curso. Atlas de métricas: sin ficha asociada.</li>
+<li>Añadido externo: Tversky y Kahneman (1992), <em>Advances in prospect theory: cumulative representation of uncertainty</em>, <em>Journal of Risk and Uncertainty</em> 5, 297-323. Los valores \(\alpha=0{,}88\), \(\lambda=2{,}25\) y \(\gamma=0{,}61\) se citan como los da la literatura, sin releer el artículo; los cálculos con ellos son propios y están comprobados a mano y en código.</li>
+<li>Añadido propio, no procede de las fuentes: la lectura de Allais con los pesos de decisión; el álgebra de la lotería reducida y el umbral 10/11; los parámetros ilustrativos de la teoría de las perspectivas y sus cálculos; la aclaración de que la teoría generaliza a la utilidad esperada cuando \(w(p)=p\) y \(v=u\); el ejemplo del comité de trasplantes; la prueba de invarianza al encuadre y sus cifras; el aviso sobre parámetros libres; la tabla de cierre; los simuladores y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: primero dos simuladores para explorar y después tres ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de paradojas.</strong> En cada pestaña elige primero con la intuición, sin calcular, y pulsa Comparar. En Allais, tras comparar, mueve el deslizador de u(1 M$) de 0 a 1 y mira dónde cambia el ganador en A y en B: cambian a la vez, en torno a 0,91, y nunca hay un valor con G1 en A y G2 en B. En Encuadre, fíjate en que las dos situaciones son la misma política con otras palabras y en qué elige la teoría de las perspectivas en cada una. En Equidad, observa que el libro no ofrece aquí una fórmula.</p>
+<div data-widget="m11-l03-paradojas" id="sim-paradojas"></div>
+
+<p class="consigna"><strong>Simulador de la teoría de las perspectivas.</strong> Con los valores iniciales salen los dos patrones. Sube g hasta 1: el patrón de Allais se apaga hacia g = 0,49 y el del encuadre sigue, porque viene de la curvatura de la función de valor. Después pulsa "Sin distorsión": las dos curvas se vuelven rectas y los dos patrones desaparecen. Después, deja alfa en 0,9 y busca hasta qué g aguanta Allais: con menos curvatura, hace falta más distorsión de la probabilidad. Por último, pulsa "Valores de 1992" (los medios de la literatura, añadido externo): el encuadre sale y Allais no.</p>
+<div data-widget="m11-l03-prospecto" id="sim-prospecto"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: Allais con años de vida (a mano, 8 minutos)</p>
+<p>Un servicio compara programas por los años de vida ajustados por calidad (AVAC) que ganan los pacientes. Cifras propias de práctica. Escenario A: el programa 1 da 2 AVAC con seguridad; el programa 2 da 8 AVAC con probabilidad 0,10, 2 AVAC con 0,89 y 0 con 0,01. Escenario B: el programa 1 da 2 AVAC con 0,11 y 0 con 0,89; el programa 2 da 8 AVAC con 0,10 y 0 con 0,90. Fija \(u(0)=0\), \(u(8)=1\) y \(x=u(2)\).</p>
+<ol>
+<li>Escribe la utilidad esperada de los cuatro programas en función de \(x\).</li>
+<li>¿Para qué valores de \(x\) gana el programa 1 en A? ¿Y el 2 en B?</li>
+<li>¿Puede alguien con una utilidad esperada elegir el 1 en A y el 2 en B?</li>
+<li>Si \(u(y)=y^k\) sobre los AVAC, ¿qué \(k\) hace falta para preferir el 1 en los dos escenarios? ¿Es una \(u\) razonable?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> En A: programa 1, \(x\); programa 2, \(0{,}10+0{,}89x\). En B: programa 1, \(0{,}11x\); programa 2, \(0{,}10\).</p>
+<p><strong>2.</strong> El 1 gana en A si \(x>0{,}10+0{,}89x\), es decir, \(0{,}11x>0{,}10\), o \(x>10/11\approx0{,}909\). El 2 gana en B si \(0{,}10>0{,}11x\), es decir, \(x<0{,}909\).</p>
+<p><strong>3.</strong> No: pediría \(x>0{,}909\) y \(x<0{,}909\) a la vez. Es la paradoja de Allais con otras cifras.</p>
+<p><strong>4.</strong> \(x=(2/8)^k=0{,}25^k>10/11\) exige \(k<\ln(10/11)/\ln(0{,}25)\approx0{,}069\). Una \(u\) casi plana: 2 AVAC valdrían casi lo mismo que 8. No es razonable. Con \(k=0{,}5\), \(x=0{,}5\): A da 0,50 frente a 0,545 y B da 0,055 frente a 0,10, luego gana el programa 2 en los dos escenarios.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: encuadre con 300 pacientes (a mano, 8 minutos)</p>
+<p>Un brote amenaza a 300 pacientes. Encuadre en vidas: P1 salva a 100 con seguridad; P2 salva a los 300 con probabilidad 1/3 y a nadie con 2/3. Encuadre en muertes: Q1, mueren 200 con seguridad; Q2, no muere nadie con 1/3 y mueren 300 con 2/3. Usa una teoría de las perspectivas con \(v(x)=\sqrt{x}\) en ganancias, \(v(x)=-2\sqrt{|x|}\) en pérdidas, \(w(1)=1\), \(w(1/3)=0{,}24\) y \(w(2/3)=0{,}31\).</p>
+<ol>
+<li>¿Son P1 y Q1 la misma política? ¿Y P2 y Q2? ¿Cuántas vidas se salvan de media en cada una?</li>
+<li>Calcula el valor de las cuatro políticas. ¿Cuál elige el modelo en cada encuadre?</li>
+<li>Repite el cálculo con \(w(p)=p\). ¿Qué pieza de la teoría produce el cambio de elección?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Sí a las dos. P1 y Q1 salvan a 100 y dejan morir a 200. P2 y Q2 son la misma lotería. De media salvan \(100\) (\(\tfrac13\times300\) en las de riesgo).</p>
+<p><strong>2.</strong> \(V(P1)=\sqrt{100}=10\). \(V(P2)=0{,}24\sqrt{300}\approx4{,}16\). \(V(Q1)=-2\sqrt{200}\approx-28{,}28\). \(V(Q2)=0{,}31\times(-2\sqrt{300})\approx-10{,}74\). El modelo elige P1 en vidas (10 frente a 4,16) y Q2 en muertes (\(-10{,}74\) frente a \(-28{,}28\)).</p>
+<p><strong>3.</strong> Con \(w(p)=p\): \(V(P2)=\tfrac13\sqrt{300}\approx5{,}77\) y \(V(Q2)=\tfrac23\times(-2\sqrt{300})\approx-23{,}09\). Sigue eligiendo P1 y Q2. El cambio viene de la función de valor: cóncava en ganancias, que prefiere lo seguro, y convexa en pérdidas, que prefiere arriesgarse.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: cuándo desaparece el patrón de Allais (Python, 10 minutos)</p>
+<p>Este código calcula el valor de las cuatro apuestas de Allais (importes en millones) con la función de pesos de la teoría y una función de valor \(v(x)=x^{\alpha}\).</p>
+<pre><code>def w(p, g):
+    if p &lt;= 0: return 0.0
+    if p &gt;= 1: return 1.0
+    return p**g / (p**g + (1 - p)**g) ** (1 / g)
+
+def V(loteria, g, alfa=0.5):
+    return sum(w(p, g) * x**alfa for p, x in loteria)
+
+A1 = [(1.0, 1)]
+A2 = [(0.10, 5), (0.89, 1), (0.01, 0)]
+B1 = [(0.11, 1), (0.89, 0)]
+B2 = [(0.10, 5), (0.90, 0)]
+
+def patron(g, alfa=0.5):
+    return V(A1, g, alfa) &gt; V(A2, g, alfa) and V(B2, g, alfa) &gt; V(B1, g, alfa)</code></pre>
+<ol>
+<li>Recorre \(g\) de 0,10 a 1,00 en pasos de 0,01 y localiza para qué valores se cumple <code>patron(g)</code>. ¿Hasta qué \(g\)?</li>
+<li>Calcula <code>V</code> de las cuatro apuestas con \(g=1\). ¿Qué elige en A y en B? ¿Qué modelo es?</li>
+<li>Repite el paso 1 con <code>alfa=0.9</code>. ¿Qué cambia?</li>
+<li>Prueba <code>alfa=0.88</code> con <code>g=0.61</code>, los valores medios de Tversky y Kahneman (1992). ¿Sale el patrón de Allais?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<pre><code>for alfa in (0.5, 0.9):
+    gs = [round(0.10 + 0.01 * i, 2) for i in range(91)]
+    ok = [g for g in gs if patron(g, alfa)]
+    print(alfa, ok[0], ok[-1])
+print(V(A1, 1), V(A2, 1), V(B1, 1), V(B2, 1))</code></pre>
+<p><strong>1.</strong> Con \(\alpha=0{,}5\) el patrón se cumple para \(g\) de 0,10 a 0,48 y se pierde desde 0,49.</p>
+<p><strong>2.</strong> Con \(g=1\) salen 1,00, 1,11, 0,11 y 0,22. Elige el Gamble 2 en A y en B: coherente. Con \(w(p)=p\) es una utilidad esperada con \(u(x)=\sqrt{x}\).</p>
+<p><strong>3.</strong> Con \(\alpha=0{,}9\) el patrón solo aguanta hasta \(g=0{,}33\). Cuanto menos cóncava es la función de valor, más distorsión de la probabilidad hace falta para explicar la certeza. Es la razón por la que estos modelos se ajustan con datos y no a ojo.</p>
+<p><strong>4.</strong> No sale: con \(\alpha=0{,}88\) y \(g=0{,}61\), <code>V</code> da 1,00 y 1,47 en A, y 0,20 y 0,77 en B, así que gana el Gamble 2 en los dos escenarios. Con \(\alpha=0{,}88\) el patrón solo se da para \(g\) hasta 0,33.</p>
+</details>
+</div>
+
+</div>
+
+</section>

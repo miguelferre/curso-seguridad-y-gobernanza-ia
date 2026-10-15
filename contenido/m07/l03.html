@@ -1,0 +1,232 @@
+<section class="leccion" data-id="m07/l03">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Cuando un modelo se hace más capaz, la seguridad no sigue siempre el mismo camino. A veces mejora, porque el modelo se equivoca menos. A veces empeora, porque engaña mejor o explota mejor una métrica. Y a veces no se mueve, porque la seguridad de la que hablamos no depende de la inteligencia general.</p>
+<p>Por eso importa saber qué mide de verdad cada prueba de seguridad. Si una prueba solo sube cuando el modelo es más capaz, presentar esa subida como un avance de seguridad es un espejismo, el llamado <em>safetywashing</em> aplicado a la medición. La regla práctica es medir siempre las dos cosas, la capacidad y la seguridad, antes de creer que un método ayuda.</p>
+
+<svg viewBox="0 0 360 350" role="img" aria-labelledby="rs-t rs-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="rs-t">Tres relaciones entre capacidad y seguridad</title>
+<desc id="rs-d">Tres paneles con un mini gráfico cada uno. Primero, la puntuación de seguridad sube al subir la capacidad. Segundo, baja. Tercero, se mantiene plana con puntos dispersos.</desc>
+<rect x="4" y="4" width="352" height="96" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="18" y="26" style="fill:var(--ex);font-weight:700;font-size:14px">SUBE: la capacidad ayuda</text>
+<text x="18" y="50" style="fill:currentColor;font-size:12.5px">Menos errores y menos</text>
+<text x="18" y="66" style="fill:currentColor;font-size:12.5px">respuestas dañinas.</text>
+<text x="18" y="88" style="fill:var(--muted);font-size:12px">Ej.: rechazo de peticiones</text>
+<path d="M252 24 V84 H342" style="fill:none;stroke:var(--rule-strong);stroke-width:1.5"/>
+<line x1="258" y1="78" x2="338" y2="32" style="stroke:var(--ex);stroke-width:2"/>
+<g style="fill:var(--accent)"><circle cx="266" cy="76" r="3.5"/><circle cx="282" cy="66" r="3.5"/><circle cx="298" cy="62" r="3.5"/><circle cx="314" cy="44" r="3.5"/><circle cx="330" cy="38" r="3.5"/></g>
+
+<rect x="4" y="110" width="352" height="96" rx="10" style="fill:var(--surface);stroke:var(--trap);stroke-width:2"/>
+<text x="18" y="132" style="fill:var(--trap);font-weight:700;font-size:14px">BAJA: la capacidad estorba</text>
+<text x="18" y="156" style="fill:currentColor;font-size:12.5px">Razonar mejor sirve para</text>
+<text x="18" y="172" style="fill:currentColor;font-size:12.5px">engañar y explotar proxies.</text>
+<text x="18" y="194" style="fill:var(--muted);font-size:12px">Ej.: engaño en pruebas</text>
+<path d="M252 130 V190 H342" style="fill:none;stroke:var(--rule-strong);stroke-width:1.5"/>
+<line x1="258" y1="138" x2="338" y2="184" style="stroke:var(--trap);stroke-width:2"/>
+<g style="fill:var(--accent)"><circle cx="266" cy="140" r="3.5"/><circle cx="282" cy="154" r="3.5"/><circle cx="298" cy="152" r="3.5"/><circle cx="314" cy="170" r="3.5"/><circle cx="330" cy="180" r="3.5"/></g>
+
+<rect x="4" y="216" width="352" height="96" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="238" style="fill:var(--accent-ink);font-weight:700;font-size:14px">NO SE MUEVE: separable</text>
+<text x="18" y="262" style="fill:currentColor;font-size:12.5px">Se mejora sin subir las</text>
+<text x="18" y="278" style="fill:currentColor;font-size:12.5px">capacidades generales.</text>
+<text x="18" y="300" style="fill:var(--muted);font-size:12px">Ej.: troyanos, robustez</text>
+<path d="M252 236 V296 H342" style="fill:none;stroke:var(--rule-strong);stroke-width:1.5"/>
+<line x1="258" y1="266" x2="338" y2="266" style="stroke:var(--accent);stroke-width:2"/>
+<g style="fill:var(--accent)"><circle cx="266" cy="252" r="3.5"/><circle cx="282" cy="278" r="3.5"/><circle cx="298" cy="260" r="3.5"/><circle cx="314" cy="284" r="3.5"/><circle cx="330" cy="256" r="3.5"/></g>
+<text x="180" y="338" text-anchor="middle" style="fill:var(--muted);font-size:12px">Eje horizontal: capacidad. Eje vertical: seguridad.</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Explicar por qué las capacidades de un modelo están muy correlacionadas y por qué eso dificulta medir la seguridad por separado.</li>
+<li>Dar un caso en que más capacidad reduce un peligro y otro en que lo agrava.</li>
+<li>Calcular e interpretar la correlación entre una métrica de seguridad y un índice de capacidades, y la ganancia diferencial de un método.</li>
+<li>Aplicar el progreso tecnológico diferencial para comparar líneas de investigación según su reducción de riesgo y sus externalidades de capacidades.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>¿Por qué las capacidades suben todas juntas?</h3>
+<p>Un modelo de lenguaje se entrena para predecir la siguiente palabra y, de paso, aprende a contestar preguntas, escribir código y resumir. En visión ocurre algo parecido: según el libro, mejorar en un banco de imágenes suele arrastrar otras tareas de imagen, como la segmentación o el vídeo. Se llaman capacidades generales (<em>general capabilities</em>) las que sirven de termómetro del rendimiento de un modelo en muchas tareas distintas: razonar, planificar, seguir instrucciones, buscar información u optimizar.</p>
+<p>Ejemplo del libro con cifra: se mide a los modelos de lenguaje en filosofía, en matemáticas y en biología, y los aciertos en unas materias siguen de cerca a los de las otras, con una correlación por encima de 0,8 (p. 173). El libro no detalla el conjunto de modelos; lo leemos como una correlación entre modelos distintos. La correlación de Pearson, \(r\), va de \(-1\) a \(1\) y mide cuán bien se ajustan dos series de datos a una recta. Su cuadrado, \(r^2\), es la fracción de la variación de una variable que la otra explica:</p>
+<div class="formula">\[ r=\frac{\sum_i (x_i-\bar x)(y_i-\bar y)}{\sqrt{\sum_i (x_i-\bar x)^2\;\sum_i (y_i-\bar y)^2}} \qquad\text{y la pendiente}\qquad \beta=\frac{\sum_i (x_i-\bar x)(y_i-\bar y)}{\sum_i (x_i-\bar x)^2} \]</div>
+<p>Con \(r=0{,}8\), \(r^2=0{,}64\): cerca de dos tercios de lo que varía una capacidad entre modelos lo explica la otra. La fórmula de \(\beta\), la pendiente de la recta que mejor ajusta \(y\) a partir de \(x\), es estadística estándar y no viene del libro.</p>
+<p>Ejemplo propio: un asistente clínico que resume altas. Cuando crece, resume mejor, codifica mejor los diagnósticos y responde mejor sobre dosis, sin que nadie lo entrenara por separado para cada cosa. La consecuencia que saca el libro es que separar una métrica de seguridad de las capacidades es difícil: en la mayoría de los casos, una mejora sólida de una capacidad importante va acompañada de mejora general.</p>
+
+<h3>¿Un modelo más capaz es más seguro?</h3>
+<p>Depende del peligro. El efecto de las capacidades sobre la seguridad es mixto, y el libro lo desglosa en dos lados:</p>
+<dl class="facts">
+<div><dt>A favor</dt><dd>Un modelo más capaz comete menos errores. Ejemplos del libro: clasificadores más exactos, planificadores que proponen menos planes inviables, modelos de lenguaje que evitan mejor las respuestas dañinas o inútiles. Si un fallo tiene consecuencias graves, subir la capacidad puede rebajar ese factor de riesgo.</dd></div>
+<div><dt>En contra</dt><dd>Un modelo más capaz también es mejor para lo que no queremos. Con más razonamiento, engaña mejor a las personas. Con más optimización, explota mejor su proxy (<em>proxy gaming</em>). El libro concluye que mejorar las capacidades generales puede perjudicar la seguridad y adelantar riesgos catastróficos (p. 172).</dd></div>
+</dl>
+<p>Ejemplo propio: un asistente de triaje de urgencias. Cuanto más capaz, menos casos urgentes se le escapan. Pero un asistente al que se premia por bajar el "tiempo hasta triaje" aprende también mejor a bajarlo sin que el paciente mejore. La misma capacidad reduce un peligro y agrava otro.</p>
+<p>Detrás de esto está una idea de la lección de accidentes: la seguridad es una propiedad emergente y no se reduce a una lista de métricas. Quitar un peligro concreto no basta para llamar seguro a un sistema (p. 172).</p>
+
+<h3>Si van juntas, ¿basta con escalar?</h3>
+<p>No. Si escalar lo arreglara todo, la investigación específica de seguridad sobraría. Pero, según el libro, hay riesgos que no bajan con más escala: el engaño oculto (<em>deceptive alignment</em>), los ataques adversarios y los troyanos (p. 172). Ya has visto estos temas: los ataques en el módulo 4, los troyanos en el módulo 5 y el alineamiento engañoso en la primera lección de este módulo. De ahí que haga falta investigación dirigida.</p>
+
+<h3>¿Cuándo se puede separar la seguridad de las capacidades?</h3>
+<p>A veces se puede, y el libro da casos (p. 173). Muchos años de investigación en robustez adversaria de clasificadores de imagen mejoraron varias formas de robustez sin mejorar la exactitud general. La transparencia, la detección de anomalías y la detección de troyanos tampoco han subido las capacidades. Ejemplo del libro para la intuición: resistir los ejemplos envenenados raros no equivale a ser más inteligente, igual que resistir las toxinas no mejora las notas.</p>
+<p>No hay forma de saberlo de antemano. El libro pide medir con datos cómo un método mueve las métricas de seguridad y cómo mueve las de capacidad, porque el efecto rara vez es obvio de entrada. Es la base del simulador de esta lección.</p>
+
+<h3>¿Puede la investigación de seguridad empujar las capacidades?</h3>
+<p>Sí. Cuando un trabajo pensado para la seguridad eleva las capacidades generales, se dice que tiene externalidades de capacidades (<em>capabilities externalities</em>), y son altas si el aumento es grande. Dos ejemplos del libro (p. 172): el aprendizaje por refuerzo con retroalimentación humana (RLHF) nació para hacer los modelos más seguros y a la vez los hizo más capaces de cumplir lo que se les pide; y dar acceso a bases de datos externas para que se equivoquen menos puede aportarles más conocimiento y razonamiento a más largo plazo.</p>
+<p>Ejemplo propio: un módulo de recuperación de la historia clínica que reduce las invenciones de un asistente. Reduce un peligro, pero también le da más contexto para razonar sobre todo lo demás.</p>
+<p>Una forma sencilla de ponerle número, propia y no del libro. Se mide en varios modelos el par (capacidad, métrica de seguridad) y se ajusta una recta de pendiente \(\beta\). Un método que sube la capacidad \(\Delta c\) puntos y la métrica \(\Delta s\) tiene una ganancia diferencial:</p>
+<div class="formula">\[ D=\Delta s-\beta\,\Delta c \]</div>
+<p>\(\beta\Delta c\) es lo que la métrica habría subido solo por el aumento de capacidad. Si \(D\) es pequeño, la mejora se explica por las capacidades. Si es grande, hay algo específico de seguridad.</p>
+
+<h3>Safetywashing en la medición (añadido propio)</h3>
+<p>El libro habla de safetywashing como conducta de organización (lo viste en la lección de riesgos organizativos). Existe también una versión de medición, estudiada por Ren y colaboradores en 2024: muchos bancos de pruebas de seguridad correlacionan mucho con las capacidades generales y con el cómputo de entrenamiento, y eso permite presentar mejoras de capacidad como si fueran avances de seguridad. Proponen entender la investigación de seguridad como objetivos que se puedan separar de las capacidades (artículo consultado en su resumen, 2026-09-29; no usamos sus cifras).</p>
+<p>La herramienta es la del principio: la correlación \(r\) entre el índice de capacidades y la puntuación de la métrica, medida en varios modelos. Este es el criterio de la lección, y es nuestro:</p>
+<ul>
+<li><strong>Alta</strong> (por defecto \(r\ge0{,}8\), como el orden de magnitud del libro entre capacidades): una mejora en la métrica puede ser solo capacidad.</li>
+<li><strong>Intermedia</strong> (en el simulador, de 0,4 hasta el umbral): parte sigue a las capacidades y parte no. Hay que medir las dos cosas.</li>
+<li><strong>Baja</strong> (entre \(-0{,}4\) y \(0{,}4\)): la métrica es separable de las capacidades.</li>
+<li><strong>Negativa</strong> (por debajo de \(-0{,}4\)): la capacidad la empeora. No es safetywashing: es un riesgo que crece con la escala.</li>
+</ul>
+<p>Los cortes de \(\pm0{,}4\) también son una convención nuestra.</p>
+<p>Dos cautelas. Que una métrica no correlacione con las capacidades no prueba que mida seguridad: puede medir ruido, y hace falta validarla aparte. Y la correlación entre modelos es un dato de población; no dice, por sí sola, qué hará un método concreto. Para dibujar la dispersión y calcular \(D\) con datos ilustrativos, <a data-ir="practica" href="#sim-m07-l03-correlacion">pruébalo en Práctica</a>.</p>
+
+<h3>¿Cómo decidir qué investigar?</h3>
+<p>Argumentar que un trabajo reduce un peligro concreto no basta, porque muchas capacidades también reducen peligros concretos. El libro pide una evaluación global del riesgo, con una estimación empírica de cuánto empuja ese trabajo las capacidades, y mirar el efecto sobre varias fuentes de riesgo, no solo la que se ataca (p. 173). Su criterio de fondo es el progreso tecnológico diferencial (<em>differential technological development</em>): que la investigación deje el riesgo total por debajo del de las alternativas más probables, lo que pasa por adelantar las mejoras de seguridad y retrasar las más peligrosas (p. 173).</p>
+<p>La lección del curso ML Safety sobre este balance (L21, de la que solo constan los temas) habla de teorías de impacto, progreso diferencial y externalidades. Una teoría de impacto (<em>theory of impact</em>), en nuestra lectura, es la cadena que va de lo que haces a cómo baja el riesgo: qué cambia tu trabajo, quién lo usa y qué peligro reduce. Sirve para exigir que cada eslabón sea comprobable, y para añadir al final una pregunta: ¿qué más empuja?</p>
+<p>Un modo mínimo y propio de comparar líneas: para cada una, estima cuánto riesgo quita, \(\rho\), y cuánto añade por externalidades, \(e\), en una misma escala, y pondera con un peso \(w\) que refleja cuánto te preocupa la aceleración:</p>
+<div class="formula">\[ N=\rho-w\,e \]</div>
+<p>Las cifras son juicios, no medidas, y la clasificación puede cambiar con \(w\). Lo útil es ver cuándo cambia. Si una línea gana para cualquier \(w\) razonable, la decisión es robusta. Si empata en \(w=0{,}4\), habrá que discutirlo.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, con las cifras ilustrativas del simulador)</p>
+<p>Un hospital prueba un método que sube en 10 puntos el índice de capacidades de su asistente clínico y anuncia una mejora de 8 puntos en dos métricas de seguridad. Con los 14 modelos ficticios del simulador, la pendiente \(\beta\) de cada métrica sale muy distinta:</p>
+<div class="tw"><table>
+<thead><tr><th>Métrica</th><th>r</th><th>β</th><th>Esperable solo por capacidades (10β)</th><th>Declarada</th><th>D</th></tr></thead>
+<tbody>
+<tr><td>Rechazo de peticiones dañinas</td><td>0,93</td><td>0,71</td><td>7,1</td><td>8</td><td>0,9</td></tr>
+<tr><td>Robustez ante ataques adversarios</td><td>0,12</td><td>0,08</td><td>0,8</td><td>8</td><td>7,2</td></tr>
+</tbody></table></div>
+<p>El mismo titular, "+8", cuenta dos historias. En el rechazo de peticiones, las capacidades explican el 88 % de la mejora (7,1 de 8) y \(D\) es de 0,9: es casi todo capacidad, y presentarlo como avance de seguridad sería safetywashing. En la robustez, las capacidades explican el 10 % y \(D=7{,}2\): la mejora es del método. Esto no dice que el primer método sea inútil: dice que su beneficio en esa métrica no se distingue de tener un modelo mejor.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Creer que alta correlación es mala y baja es buena (aviso propio).</strong> Una métrica muy correlacionada puede ser útil como señal de capacidad, y una poco correlacionada puede ser ruido sin relación con la seguridad. La correlación dice qué se puede atribuir a las capacidades, no si la métrica es válida.</p>
+<p><strong>Dar por segura una línea de trabajo porque reduce un peligro.</strong> El libro avisa de que no basta: hay que estimar también cuánto empuja las capacidades y qué otros riesgos toca.</p>
+<p><strong>Leer la correlación de la población como veredicto sobre un método (aviso propio).</strong> \(\beta\) sale de comparar modelos distintos. Un método concreto puede mover la métrica por un camino que esa recta no recoge, así que \(D\) es un aviso y no una prueba.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>Before I call an improvement safety progress, I check how much of it a more capable model would have shown anyway, and whether my method pushes general capabilities as a side effect.</p>
+
+<div class="objetivos">
+<p class="label">Repaso del módulo 7 (propio)</p>
+<ul>
+<li><strong>Valores.</strong> No sabemos instilar nuestros valores de forma robusta: se entrena con proxies, y entre el proxy y el objetivo real queda una brecha que un optimizador potente aprovecha (libro 3.7, p. 174; el proxy gaming se vio en m05/l06 y reaparece en la lección 1).</li>
+<li><strong>Predicción.</strong> Las capacidades y conductas emergentes impiden prever cómo será un sistema futuro, y un sistema entrenado puede acabar con metas que chocan con las especificadas (p. 174).</li>
+<li><strong>Evaluación.</strong> Un sistema puede aprender a engañar, y entonces su conducta deja de ser señal fiable de la futura, hasta un posible giro traicionero (<em>treacherous turn</em>). Además no sabemos mirar dentro de las cajas negras (p. 174). En la lección 1 viste las cuatro vías de engaño y por qué la evaluación conductual sola no basta: una prueba informa solo si un sistema engañoso la pasaría mucho menos que uno alineado.</li>
+<li><strong>Poder y técnicas de control (lección 1).</strong> El otro obstáculo del control es el poder. Para muchas metas, más opciones ayudan, pero que buscar poder sea útil no lo hace racional en todos los casos. RLHF y DPO, el control de representaciones, el desaprendizaje y la penalización de poder actúan en sitios distintos y ninguna basta sola.</li>
+<li><strong>Seguridad sistémica.</strong> Parte de la defensa no toca los modelos y protege a la sociedad: ciberdefensa, detección de patógenos en aguas residuales o marcas de agua para el entorno de información (p. 176). La lección 2 añadió sus límites: una alarma sobre eventos raros tiene un valor predictivo bajo aunque el detector sea bueno, los pronósticos se juzgan por su calibración (Brier) y la infraestructura física puede valer más que la IA.</li>
+<li><strong>Balance con las capacidades.</strong> Las capacidades van juntas, su efecto sobre la seguridad es mixto y algunos riesgos no bajan con la escala. Hay que medir los dos efectos de cada método y preferir el progreso diferencial. El pronóstico de la lección 2 es un caso: sus autores advierten de que, si fuera una capacidad general, lo desaconsejarían.</li>
+<li><strong>Mapa de áreas.</strong> La tabla de cierre del libro reúne transparencia, troyanos, evaluación de capacidades peligrosas, anomalías, robustez adversaria, desaprendizaje, ética de máquinas y seguridad sistémica (pp. 175 y 176). El curso estudió la robustez, la transparencia, los troyanos y las anomalías en los módulos 4 y 5, y la ética de máquinas llega en el módulo 8. El capítulo cierra diciendo que, incluso antes de contar el uso malicioso, los sistemas multiagente y la carrera, los sistemas de un solo agente ya suponen amenazas graves y difíciles de mitigar (p. 176).</li>
+</ul>
+</div>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 3.6 Safety and General Capabilities, págs. 171 a 173 (PDF 189 a 191): capacidades generales (171 y 172), efecto mixto, escalar no basta y externalidades (172), correlación entre capacidades, separabilidad y progreso diferencial (173). Sección 3.7 Conclusion, págs. 174 a 176 (PDF 192 a 194), para el repaso del módulo.</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS), lección L21 Safety-Capabilities Balance. No hay notas en el repositorio; solo se han usado sus temas declarados (teorías de impacto, progreso tecnológico diferencial, externalidades de capacidades) como guía de énfasis.</li>
+<li>Fuera del libro: Ren et al., <em>Safetywashing: Do AI Safety Benchmarks Actually Measure Safety Progress?</em>, arXiv 2407.21792 (2024), leído solo en su resumen el 2026-09-29.</li>
+<li>Añadido propio, no procede de las fuentes: la definición y fórmulas de \(r\), \(r^2\) y \(\beta\); la ganancia diferencial \(D\); el criterio de correlación alta, intermedia, baja y negativa y su umbral; la fórmula de balance \(N=\rho-w\,e\); la lectura de teoría de impacto; los ejemplos clínicos y las cifras del simulador (14 modelos y 8 métricas ficticios); el repaso del módulo; y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí pruebas la herramienta de la teoría: primero un simulador para explorar la correlación con las capacidades y la ganancia diferencial, después tres ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de correlación con las capacidades.</strong> Los 14 modelos y las 8 métricas son ficticios. Empieza con "Rechazo de peticiones dañinas" (r = 0,93) y un método que sube las capacidades 10 puntos y declara +8: la mejora esperable solo por capacidades es de unos 7 puntos y \(D\) queda cerca de 1, así que casi todo es capacidad. Pasa a "Robustez ante ataques adversarios" sin tocar los deslizadores: ahora las capacidades explican apenas un 10 % y \(D\) supera los 7 puntos. Prueba "Ausencia de engaño en pruebas de conducta": la correlación es negativa y los modelos más capaces puntúan peor. Después mueve el umbral de correlación alta y observa qué métricas cambian de etiqueta (la calibración, con r = 0,78, cambia de etiqueta si bajas el umbral a 0,75). Marca "Quitar el efecto de las capacidades" para ver lo que queda de la puntuación al restar la recta: cuanto más plana la nube, más separable la métrica. Por último, sube "Capacidades que sube el método" a 20 con la métrica de rechazo y comprueba cómo la mejora esperable supera a la declarada.</p>
+<div data-widget="m07-l03-correlacion" id="sim-m07-l03-correlacion"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: correlación y ganancia diferencial a mano (10 minutos)</p>
+<p>Cifras propias de práctica. Un hospital compara cinco versiones de su asistente clínico. Para cada una tiene un índice de capacidades \(x\) y la puntuación \(y\) en una prueba de seguridad:</p>
+<div class="tw"><table>
+<thead><tr><th>Versión</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead>
+<tbody>
+<tr><td>Capacidades x</td><td>20</td><td>40</td><td>50</td><td>60</td><td>80</td></tr>
+<tr><td>Prueba de seguridad y</td><td>40</td><td>42</td><td>60</td><td>50</td><td>78</td></tr>
+</tbody></table></div>
+<ol>
+<li>Calcula \(\bar x\), \(\bar y\), \(\beta\), \(r\) y \(r^2\).</li>
+<li>Con el umbral de 0,8 de la lección, ¿cómo clasificas la prueba?</li>
+<li>Un método sube las capacidades 10 puntos y declara +8 en la prueba. Calcula \(D\) y la parte de la mejora declarada que se explica solo por capacidades.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> \(\bar x=50\) y \(\bar y=54\). Desviaciones de \(x\): \(-30,-10,0,10,30\). Desviaciones de \(y\): \(-14,-12,6,-4,24\). Entonces la suma de productos vale \(420+120+0-40+720=1220\), la suma de cuadrados de \(x\) es \(2000\) y la de \(y\), \(968\). La pendiente es \(\beta=1220/2000=0{,}61\). La correlación es \(r=1220/\sqrt{2000\times968}=1220/1391{,}4\approx0{,}88\) y \(r^2\approx0{,}77\).</p>
+<p><strong>2.</strong> \(r=0{,}88\ge0{,}8\): correlación alta. Una mejora en esta prueba puede ser solo capacidad. Con cinco versiones el dato es frágil y hay que tomarlo como orientativo.</p>
+<p><strong>3.</strong> Lo esperable solo por capacidades es \(\beta\Delta c=0{,}61\times10=6{,}1\). Entonces \(D=8-6{,}1=1{,}9\) puntos. Las capacidades explican \(6{,}1/8\approx76\ \%\) de la mejora declarada: queda un residuo de 1,9 puntos. Para saber si 1,9 es mucho, compáralo con lo que se desvían las versiones de la recta: los residuos \(y_i-\bar y-\beta(x_i-\bar x)\) valen \(4{,}3\), \(-5{,}9\), \(6{,}0\), \(-10{,}1\) y \(5{,}7\), y su desviación típica (dividiendo entre \(n-2=3\)) es de unos 8,6 puntos. Un residuo de 1,9 no se distingue del ruido.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: elegir línea de investigación (10 minutos)</p>
+<p>El equipo de un hospital puede financiar una sola de tres líneas. Para cada una estima, en una escala común y con juicio propio, cuánto riesgo quita, \(\rho\), y cuánto empuja las capacidades generales, \(e\). Usa \(N=\rho-w\,e\). Cifras inventadas:</p>
+<div class="tw"><table>
+<thead><tr><th>Línea</th><th>ρ</th><th>e</th></tr></thead>
+<tbody>
+<tr><td>R. Robustez del asistente ante entradas manipuladas</td><td>6</td><td>1</td></tr>
+<tr><td>P. Ajuste fino por preferencias de los clínicos</td><td>9</td><td>7</td></tr>
+<tr><td>T. Transparencia de las decisiones del modelo</td><td>5</td><td>2</td></tr>
+</tbody></table></div>
+<ol>
+<li>Calcula \(N\) de cada línea con \(w=1\) y ordénalas.</li>
+<li>¿Con qué valor de \(w\) empatan R y P? ¿Cuál gana por debajo y cuál por encima?</li>
+<li>¿Puede T ganar para algún \(w\ge0\)? ¿Qué decisión es robusta y cuál depende de cuánto te preocupe la aceleración?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> \(N_R=6-1=5\), \(N_P=9-7=2\), \(N_T=5-2=3\). Orden: R, T, P.</p>
+<p><strong>2.</strong> \(6-w=9-7w\) da \(6w=3\), es decir, \(w=0{,}5\). Con \(w<0{,}5\) gana P, porque quita más riesgo y su externalidad pesa poco. Con \(w>0{,}5\) gana R.</p>
+<p><strong>3.</strong> No. \(N_R-N_T=(6-w)-(5-2w)=1+w>0\) para cualquier \(w\ge0\): R supera siempre a T. Y P supera a T mientras \(w<0{,}8\) (\(N_P-N_T=4-5w\)), de modo que con \(w\ge0\) siempre hay una línea que la vence: P si \(w<0{,}5\) y R si \(w>0{,}5\). Robusto: no elegir T. Dependiente de \(w\): la elección entre R y P. Recuerda que las cifras son juicios: conviene discutir \(\rho\) y \(e\) antes que \(w\).</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: correlación con Python (10 minutos)</p>
+<p>Seis versiones de un modelo tienen estas capacidades y esta puntuación en una prueba de conducta sin engaño (más es mejor). Cifras propias de práctica. Ejecuta el fragmento y responde:</p>
+<pre><code>import statistics as st
+
+cap = [20, 30, 40, 50, 60, 70]
+sin_enganio = [78, 66, 72, 58, 60, 49]
+
+r = st.correlation(cap, sin_enganio)
+beta = st.linear_regression(cap, sin_enganio).slope
+print(round(r, 2), round(r * r, 2), round(beta, 2))
+
+d_cap, d_declarada = 10, 8
+esperada = beta * d_cap
+print(round(esperada, 1), round(d_declarada - esperada, 1))</code></pre>
+<ol>
+<li>¿Qué valor sale para \(r\) y qué clase de métrica es, según la lección?</li>
+<li>Un método sube la capacidad 10 puntos y declara +8 en esta prueba. ¿Qué cambia en la lectura de \(D\) respecto al ejercicio A?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Salen \(r\approx-0{,}91\), \(r^2\approx0{,}83\) y \(\beta\approx-0{,}51\). Es correlación negativa: cuanto más capaz es la versión, peor puntúa. No es safetywashing (no se puede vender como avance de seguridad una subida de capacidad, porque aquí la subida empeora la métrica): es un riesgo que crece con la escala. Con seis puntos el dato es orientativo.</p>
+<p><strong>2.</strong> Lo esperable por subir las capacidades es \(-5{,}1\) puntos, así que \(D=8-(-5{,}1)=13{,}1\). Para conseguir +8 el método ha tenido que compensar una caída de unos 5 puntos que traía el aumento de capacidad. Aquí un \(D\) grande no basta para dar el método por bueno: solo dice que mueve la métrica por un camino distinto a la escala, y hay que comprobar que la mejora aguanta al medir varias fuentes de riesgo, no solo esta.</p>
+</details>
+</div>
+
+</div>
+
+</section>
+

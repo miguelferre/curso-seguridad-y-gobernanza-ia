@@ -1,0 +1,132 @@
+[
+  {
+    "id": "m12l01-q01",
+    "tipo": "unica",
+    "enunciado": "Un agente racional maximiza una función de utilidad fija. Según el módulo de fundamentos formales, ¿qué cabe esperar cuando se intenta cambiarle esa función o apagarlo?",
+    "opciones": [
+      "Que lo acepte sin más, porque obedecer ya forma parte de cualquier utilidad",
+      "Que tienda a resistirse y que sus preferencias sobre el apagado no coincidan con las nuestras, así que la corregibilidad hay que diseñarla y no darla por supuesta",
+      "Que le sea indiferente, porque un agente racional es neutral ante el apagado por defecto",
+      "Que solo se resista si antes lo han entrenado con datos de mala calidad"
+    ],
+    "correcta": 1,
+    "explicacion": "Completitud y transitividad obligan al agente a tener una opinión sobre el apagado, y una preferencia estricta le lleva a actuar por su cuenta en las dos direcciones (m11/l01). Es el mismo problema que el módulo 7 plantea como resistirse a que lo corrijan o lo apaguen (m07/l01)."
+  },
+  {
+    "id": "m12l01-q02",
+    "tipo": "unica",
+    "enunciado": "Un laboratorio recorta las pruebas de seguridad de su modelo porque teme que un rival lance primero. Según el curso, ¿de qué riesgo se trata y qué salida propone?",
+    "opciones": [
+      "Uso malicioso: vigilancia dirigida y acceso limitado a las IA más peligrosas",
+      "Carrera, un riesgo estructural con forma de dilema repetido: reglas que todos cumplan y que se puedan comprobar, es decir, regulación y cooperación",
+      "Riesgo organizativo, accidental: la cultura de seguridad como única respuesta",
+      "Descontrol de la IA: investigación sobre métodos de control"
+    ],
+    "correcta": 1,
+    "explicacion": "Cada uno decide bien para sí y todos acaban peor, porque quien frena se queda atrás (m01/l02, m09/l01 y m09/l02). Las cuatro fuentes de riesgo del módulo 1 tienen palancas distintas, y la de la carrera es la regulación y la cooperación (repaso de m01/l04)."
+  },
+  {
+    "id": "m12l01-q03",
+    "tipo": "numerica",
+    "enunciado": "En una ley de escala, la parte del error que se puede reducir baja como \\(y=b\\,x^{-a}\\) con \\(a=0{,}5\\), donde \\(x\\) son los recursos. ¿Por qué factor hay que multiplicar \\(x\\) para dividir esa parte entre dos?",
+    "correcta": 4,
+    "tolerancia": 0.1,
+    "explicacion": "Se resuelve \\(k^{-a}=\\tfrac12\\), luego \\(k=2^{1/a}=2^{2}=4\\) (m00/l05). Multiplicar por 2 es el error habitual: cada mejora cuesta más que la anterior, y además queda un suelo de error que ninguna escala elimina."
+  },
+  {
+    "id": "m12l01-q04",
+    "tipo": "multiple",
+    "enunciado": "Sobre la defensa en profundidad, ¿cuáles de estas afirmaciones son correctas?",
+    "opciones": [
+      "Las capas solo suman si no fallan por el mismo motivo",
+      "Con capas independientes, la fracción de peligros que las atraviesan todas es el producto de lo que deja pasar cada una",
+      "Cuatro capas que fallan siempre a la vez equivalen, en la práctica, a una sola",
+      "Si una capa es muy buena, se pueden quitar las demás"
+    ],
+    "correcta": [
+      0,
+      1,
+      2
+    ],
+    "explicacion": "Las tres primeras se ven en m02/l02 y m02/l03: la independencia es la condición, el producto es el cálculo y la correlación desinfla el beneficio de apilar capas. Ninguna defensa es perfecta, así que quitar las demás deja un único agujero por el que pasar."
+  },
+  {
+    "id": "m12l01-q05",
+    "tipo": "vf",
+    "enunciado": "Verdadero o falso: si cada componente de un sistema complejo se ha comprobado por separado y funciona como se diseñó, el sistema completo es seguro.",
+    "correcta": false,
+    "explicacion": "Falso. El todo no es la suma de las piezas: hay propiedades que solo aparecen en la interacción, así que hay que probar el conjunto en vez de fiarlo a la teoría (m03/l03). Hay accidentes sin ningún fallo de componente, como el de la sonda Mars Polar Lander que cita el libro en m02/l03."
+  },
+  {
+    "id": "m12l01-q06",
+    "tipo": "unica",
+    "enunciado": "Un equipo prueba su modelo de triaje con cambios de distribución fabricados, de leves a fuertes, y aguanta bien. ¿Qué sigue sin quedar cubierto?",
+    "opciones": [
+      "Nada: si aguanta los cambios fabricados, aguantará los reales",
+      "Los cambios que nadie imaginó, y por eso la prueba de antes se completa con vigilancia después del despliegue",
+      "Solo los cambios leves, porque los fuertes no ocurren nunca",
+      "La exactitud sobre los datos de entrenamiento, que hay que volver a medir"
+    ],
+    "correcta": 1,
+    "explicacion": "Probar con cambios fabricados solo cubre los que alguien imaginó. El que ocurra de verdad puede ser otro, y ahí aparece el cisne negro (m04/l02, m02/l06). Por eso a la prueba de antes se suma la monitorización de después."
+  },
+  {
+    "id": "m12l01-q07",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas afirmaciones sobre monitorización son correctas?",
+    "opciones": [
+      "Un mapa de saliencia muy claro puede no ser fiel al modelo, así que se prueba, por ejemplo, aleatorizando el modelo o tapando lo que marca",
+      "Un PSI alto demuestra que el modelo ha empeorado y hay que reentrenarlo de inmediato",
+      "Un troyano pasa las pruebas normales, así que se mide también su tasa de éxito con el disparador",
+      "Con anomalías muy raras, la exactitud es la mejor métrica para juzgar un detector"
+    ],
+    "correcta": [
+      0,
+      2
+    ],
+    "explicacion": "La primera sale de m05/l04 y la tercera de m05/l05. Un PSI alto dice que la entrada cambió, no que el modelo falle: se cruza con la calidad y los subgrupos antes de reentrenar (m06/l03). Con anomalías raras la exactitud engaña, y se miran AUROC, FPR y la precisión con la prevalencia real (m05/l02)."
+  },
+  {
+    "id": "m12l01-q08",
+    "tipo": "unica",
+    "enunciado": "Un equipo dice: \"nuestro sistema pasó todas las pruebas de conducta, así que es seguro\". Según el módulo de alineamiento y control, ¿qué pregunta hay que hacer?",
+    "opciones": [
+      "¿Cuántas pruebas eran? Cuantas más, mejor",
+      "¿Un sistema engañoso la habría pasado mucho menos que uno alineado? Solo entonces la prueba informa",
+      "¿La pasó también un modelo más capaz? Si es así, es un avance de seguridad",
+      "¿Se publicó la prueba? Con eso basta para fiarse de ella"
+    ],
+    "correcta": 1,
+    "explicacion": "Si un sistema puede aprender a engañar, su conducta deja de ser señal fiable, y una prueba solo informa si un sistema engañoso la pasaría mucho menos que uno alineado (m07/l01 y repaso de m07/l03). Que la pase un modelo más capaz no la convierte en seguridad: es el espejismo de safetywashing (m07/l03)."
+  },
+  {
+    "id": "m12l01-q09",
+    "tipo": "multiple",
+    "enunciado": "Sin consenso sobre qué teoría moral es la correcta, ¿qué estrategias propone el curso para un sistema con incertidumbre moral?",
+    "opciones": [
+      "Seguir la teoría en la que se tiene más credencia",
+      "Promediar el valor que cada teoría da a cada opción, ponderado por su credencia",
+      "Simular un parlamento moral en el que cada teoría tiene delegados que negocian y votan",
+      "Aplicar la teoría más simple y no volver a cuestionarla"
+    ],
+    "correcta": [
+      0,
+      1,
+      2
+    ],
+    "explicacion": "Son las tres reglas de m08/l05, y m11/l06 las retoma como maximizar la elegibilidad esperada o el parlamento moral. Fiarlo todo a una sola teoría aplica esa teoría con mucha eficacia incluso donde lleva a conclusiones que casi nadie aceptaría."
+  },
+  {
+    "id": "m12l01-q10",
+    "tipo": "unica",
+    "enunciado": "¿Por qué el módulo de gobernanza presenta las herramientas del Estado (normas, responsabilidad legal, impuestos, resiliencia...) como capas y no como una solución única?",
+    "opciones": [
+      "Porque cada una actúa en un momento distinto y falla de una manera distinta, y ninguna basta por sí sola",
+      "Porque la regulación es siempre la mejor y las demás son opcionales",
+      "Porque la responsabilidad legal llega antes que las normas y las sustituye",
+      "Porque un solo país no puede aplicar ninguna de ellas"
+    ],
+    "correcta": 0,
+    "explicacion": "La regulación puede quedar capturada por el sector al que regula, y la responsabilidad legal llega tarde y no alcanza para daños enormes (m10/l03). El libro propone combinarlas, en la línea del queso suizo (m10/l05), y a varios niveles porque cada uno tiene puntos ciegos."
+  }
+]

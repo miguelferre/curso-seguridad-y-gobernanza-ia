@@ -1,0 +1,212 @@
+<section class="leccion" data-id="m03/l01">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Hay sistemas que entiendes desmontándolos: miras cada pieza, ves cómo empuja a la siguiente y recompones la máquina. Otros, con muchísimas piezas que no se influyen, se entienden con promedios. Pero hay un tercer tipo, el de los sistemas complejos, donde las piezas se influyen mucho y de forma desordenada. Ahí, lo interesante aparece en el conjunto y no está en ninguna pieza suelta.</p>
+<p>Un hormiguero, una economía, un cerebro y una red neuronal profunda son de ese tercer tipo. Por eso, para la seguridad de la IA, no basta con revisar componentes uno a uno: hay que mirar también cómo interactúan.</p>
+
+<svg viewBox="0 0 360 292" role="img" aria-labelledby="ri-t ri-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="ri-t">Tres formas de entender un sistema</title>
+<desc id="ri-d">Mecanismo: cuatro cajas encadenadas con flechas, se entiende siguiendo la cadena. Promedio: muchos puntos sin conexión, se entiende con una media. Complejo: puntos unidos por muchas líneas con un halo alrededor del conjunto, lo nuevo aparece en el conjunto.</desc>
+<rect x="4" y="4" width="352" height="82" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="26" style="fill:var(--accent-ink);font-weight:700;font-size:14px">MECANISMO: una cadena que se sigue</text>
+<g style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5">
+<rect x="20" y="42" width="44" height="26" rx="5"/><rect x="100" y="42" width="44" height="26" rx="5"/><rect x="180" y="42" width="44" height="26" rx="5"/><rect x="260" y="42" width="44" height="26" rx="5"/>
+</g>
+<g style="stroke:var(--accent);stroke-width:2;fill:none">
+<path d="M66 55h32M146 55h32M226 55h32"/>
+</g>
+<g style="fill:var(--accent)"><path d="M98 50l8 5-8 5z"/><path d="M178 50l8 5-8 5z"/><path d="M258 50l8 5-8 5z"/></g>
+<text x="316" y="59" style="fill:var(--muted);font-size:11px">pedales</text>
+
+<rect x="4" y="96" width="352" height="82" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="18" y="118" style="fill:var(--ex);font-weight:700;font-size:14px">PROMEDIO: muchas piezas independientes</text>
+<g style="fill:var(--ex);opacity:.75">
+<circle cx="30" cy="140" r="3"/><circle cx="52" cy="158" r="3"/><circle cx="74" cy="138" r="3"/><circle cx="96" cy="160" r="3"/><circle cx="118" cy="142" r="3"/><circle cx="140" cy="156" r="3"/><circle cx="162" cy="139" r="3"/><circle cx="184" cy="161" r="3"/><circle cx="206" cy="143" r="3"/><circle cx="228" cy="157" r="3"/>
+</g>
+<text x="250" y="152" style="fill:var(--muted);font-size:11px">gas: presión</text>
+<text x="250" y="166" style="fill:var(--muted);font-size:11px">y temperatura</text>
+
+<rect x="4" y="188" width="352" height="100" rx="10" style="fill:var(--surface);stroke:var(--trap);stroke-width:2"/>
+<text x="18" y="210" style="fill:var(--trap);font-weight:700;font-size:14px">COMPLEJO: piezas que se influyen</text>
+<ellipse cx="110" cy="250" rx="86" ry="30" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5;stroke-dasharray:5 4"/>
+<g style="stroke:var(--trap);stroke-width:1.2;opacity:.8">
+<path d="M52 250L80 232M80 232L110 256M110 256L52 250M80 232L128 236M128 236L110 256M128 236L168 246M168 246L110 256M168 246L150 268M150 268L110 256M52 250L82 272M82 272L110 256"/>
+</g>
+<g style="fill:var(--trap)">
+<circle cx="52" cy="250" r="4"/><circle cx="80" cy="232" r="4"/><circle cx="110" cy="256" r="4"/><circle cx="128" cy="236" r="4"/><circle cx="168" cy="246" r="4"/><circle cx="150" cy="268" r="4"/><circle cx="82" cy="272" r="4"/>
+</g>
+<text x="216" y="244" style="fill:var(--muted);font-size:11px">lo nuevo aparece</text>
+<text x="216" y="258" style="fill:var(--muted);font-size:11px">en el conjunto</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Distinguir el enfoque mecanicista y el estadístico, y decir qué supone cada uno para funcionar.</li>
+<li>Definir un sistema complejo y explicar la emergencia con un ejemplo que no sea el de la lección.</li>
+<li>Explicar por qué la complejidad depende de la escala y del conocimiento, y no es un sí o no.</li>
+<li>Argumentar por qué una red neuronal profunda no se explica bien neurona a neurona.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>¿Qué sistemas se entienden pieza a pieza?</h3>
+<p>El libro llama paradigma reduccionista (<em>reductionist paradigm</em>) a la idea de que un sistema no es más que la suma de sus partes y se puede describir con ecuaciones o relaciones lógicas sencillas. Tiene dos variantes.</p>
+<p>La primera es el enfoque mecanicista (<em>mechanistic approach</em>). Se identifican los componentes, se estudia cada uno por separado y se recompone el conjunto como una cadena de causa y efecto, como fichas de dominó. Ejemplo del libro: una bicicleta, donde pedalear tira de la cadena, la cadena gira la rueda y la bicicleta avanza. También entran los programas de ordenador con bucles y condicionales: dada una entrada, se puede seguir el código y predecir la salida.</p>
+<p>La segunda es el enfoque estadístico (<em>statistical approach</em>). Cuando hay demasiadas piezas para seguirlas una a una, se resume el conjunto con promedios. Ejemplo del libro: un gas en una caja tiene del orden de 10<sup>23</sup> partículas, imposibles de rastrear, pero su presión y su temperatura salen de promedios sobre ellas.</p>
+<p>Dos ejemplos propios, en clave clínica:</p>
+<dl class="facts">
+<div><dt>Mecanicista (propio)</dt><dd>Una bomba de infusión calcula su caudal como dosis entre concentración: 20 mg/h a 2 mg/ml son 10 ml/h. Conoces la entrada, conoces la fórmula y controlas la salida.</dd></div>
+<div><dt>Estadístico (propio)</dt><dd>A urgencias llegan de media 200 pacientes al día. Si cada llegada es independiente de las demás, el día concreto varía en torno a 200 con una desviación de unos 14 (la raíz de 200), sin seguir a ningún paciente.</dd></div>
+</dl>
+<p>Los dos enfoques tienen una condición. El mecanicista pide una cadena trazable. El estadístico pide que las piezas sean lo bastante independientes, o lo bastante aleatorias, como para que promediarlas tenga sentido.</p>
+
+<h3>¿Cuándo deja de servir esa forma de mirar?</h3>
+<p>Piensa en un ecosistema, en el clima o en una sociedad. Hay demasiadas piezas para seguir una cadena, y además cada pieza se comporta de forma distinta dentro del sistema que aislada, porque depende de las demás. Sin cadena rígida no vale el mecanismo, y sin independencia no vale el promedio. Por eso el libro dice que ahí el todo es más que la suma de las partes.</p>
+<p>Esto no vuelve imposible predecir nada. Ejemplo del libro: podemos afirmar con confianza que un día de enero será más frío que uno de junio en el hemisferio norte. Lo que se escapa es el detalle (la temperatura exacta, si lloverá ese día) y la trayectoria a siglos vista. Con los sistemas nuevos es peor: del tiempo atmosférico hay mucha experiencia acumulada y de la IA integrada en la sociedad casi ninguna, así que conviene estudiar otros sistemas complejos y aprender de lo que comparten.</p>
+<p>Un ejemplo propio con el mismo patrón: mañana llegarán unos 200 pacientes a urgencias (el promedio funciona), pero cuánto se saturará el servicio depende de camas, altas y derivaciones que se influyen entre sí, y ahí la media no predice el resultado.</p>
+<p>Para ver cómo se rompe el promedio cuando las piezas se influyen, <a data-ir="practica" href="#sim-m03-l01-interdependencia">pruébalo en Práctica</a>.</p>
+
+<h3>¿Qué es entonces un sistema complejo?</h3>
+<p>El libro da una definición de trabajo (<em>working definition</em>): un sistema complejo tiene muchos componentes interconectados que, juntos, muestran rasgos emergentes que en la práctica no se pueden derivar de analizar los componentes por separado. La emergencia (<em>emergence</em>) es la aparición de rasgos de todo el sistema que no se encuentran en ninguna de sus piezas.</p>
+<p>Ejemplos del libro: las corrientes atmosféricas no están en ninguna molécula de nitrógeno ni de oxígeno; la inteligencia flexible de una persona no está en una neurona; la inflación o un índice de bolsa no los produce ningún agente económico suelto, sino la red de transacciones entre todos.</p>
+<p>El caso más claro del libro es el hormiguero. Fíjate en la memoria: la de una hormiga dura unos días como mucho, y sin embargo la colonia recuerda dónde había comida durante años. Ese recuerdo no reside en ningún individuo. Con las decisiones pasa lo mismo: una hormiga es un bicho sencillo que reacciona a olores y roces, pero la colonia, con millones de individuos, elige la mejor fuente de comida, traza pistas y tiende puentes con sus propios cuerpos sobre huecos mucho mayores que una hormiga. Nada de esto se obtiene estudiando una hormiga aislada, por bien que se estudie.</p>
+<p>De ahí sale la idea clave: las propiedades interesantes nacen de las interacciones. Por eso desmontar el sistema para estudiarlo por partes destruye justo lo que se quería entender.</p>
+<p>Un ejemplo propio: un brote epidémico. Su ritmo no es una propiedad de ninguna persona: depende de quién contacta con quién y con qué frecuencia, es decir, de la red. Otro más pequeño, para verlo funcionar, es un autómata muy simple. En el <a data-ir="practica" href="#sim-m03-l01-emergencia">Juego de la vida de Conway</a>, cada celda mira solo a sus vecinas, y aun así aparecen figuras que se desplazan por el tablero.</p>
+
+<h3>¿Lo emergente es siempre un misterio?</h3>
+<p>No. El gas del ejemplo anterior también tiene propiedades emergentes, la presión y la temperatura, y sin embargo no cuenta como complejo: se reducen a estadística sobre las partículas. Pero no siempre fue así, porque costó décadas descubrir la mecánica estadística de los gases. De aquí sale un matiz importante del libro: la complejidad puede estar en nuestro grado de comprensión y no solo en el sistema.</p>
+<p>Ejemplo del libro: la superconductividad. Durante años pareció un fenómeno complejo, nacido de las interacciones de los electrones de un metal. Cuando la teoría BCS mostró que el fenómeno se explica por parejas de electrones, y se tomó la pareja y no el electrón como pieza básica, pasó a ser un sistema conceptualmente simple. Elegir bien la escala de la pieza importa.</p>
+<p>Un ejemplo propio de escala: en epidemiología, un modelo por compartimentos (sanos, infectados, recuperados) trata grupos enteros como pieza y da una ecuación manejable, a costa de perder el detalle de cada persona. Es una elección de escala parecida.</p>
+<p>Por eso el libro no propone una frontera entre sistemas simples y complejos, sino un espectro. Lo que sitúa a un sistema en él es cuánta información hace falta, a una escala dada, para predecir su comportamiento con exactitud. Los sistemas complejos son los que exigen mucha, es decir, los poco comprimibles. Aun así, podrían explicarse de forma mecanicista si los entendiéramos lo bastante bien. Y no existe una definición única que acepten todos los científicos de la complejidad: la del libro es de trabajo.</p>
+
+<h3>¿Y las redes neuronales profundas?</h3>
+<p>Es la tesis central del capítulo: los sistemas de aprendizaje profundo son sistemas complejos. Veamos por qué el enfoque reduccionista se queda corto con ellos.</p>
+<p>Supón que una red acierta al clasificar la foto de un gato y quieres saber cómo. La vía reduccionista sería repartir la tarea en partes (orejas, bigotes y patas, en el ejemplo del libro) y buscar qué neuronas se encargan de cada una. Algo de esto se cumple: las primeras capas suelen captar bordes, las siguientes formas y las últimas combinaciones de formas. Lo que no se cumple es el reparto por nodos, porque ningún nodo carga con un rasgo: cada uno colabora un poco en muchos, y la salida no es la suma de detectores independientes. Los casos en que se ha localizado una parte responsable de una tarea son pocos y han costado un esfuerzo enorme, y para conductas de alto nivel el método no ha funcionado bien.</p>
+<p>Un ejemplo propio: un modelo que detecta neumonía en radiografías de tórax. Nadie puede señalar la neurona que dice "opacidad en la base derecha" y sumarla a otras cuatro para obtener el diagnóstico. El comportamiento sale de miles de millones de operaciones que se influyen (planteamiento ilustrativo, sin un estudio concreto detrás).</p>
+<p>Ojo con la conclusión. El libro no dice que el enfoque de sistemas complejos permita entender del todo estos sistemas. Dice que da un vocabulario que recoge más de su complejidad y enseña lecciones generales para tratar con ellos y evitar peligros. Ese vocabulario, en concreto las señales que delatan un sistema complejo, es lo que trae la siguiente lección.</p>
+
+<h3>Complejo o no: pregunta a qué escala y con cuánta información</h3>
+<p>Resumiendo lo anterior, etiquetar un sistema de "simple" o "complejo" sin más induce a error. Mejor preguntar tres cosas (síntesis propia a partir de la idea del libro):</p>
+<ol>
+<li>¿Puedo seguir una cadena de causa y efecto entre piezas? Entonces basta el mecanismo.</li>
+<li>Si no, ¿las piezas son lo bastante independientes como para promediarlas? Entonces sirve la estadística.</li>
+<li>Si ninguna de las dos, ¿existe una escala de pieza mayor a la que el sistema se vuelva manejable, o necesito la complejidad como marco? Cuanta más información exija predecir el sistema, más cerca estará del extremo complejo.</li>
+</ol>
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Un hospital tiene 10&nbsp;000 pacientes ingresados en un año y cada uno tiene una probabilidad independiente del 2 % de sufrir una caída. La estadística basta: se esperan 200 caídas, con una desviación de unos 14. Un año con 172 a 228 caídas (dos desviaciones) es normal, y un año con 260 es una alarma.</p>
+<p>Ahora supón que las caídas no fueran independientes: un turno con poco personal aumenta el riesgo de todos a la vez, y eso empuja a los demás a relevos peores. La desviación de 14 ya no vale. Habrá años de 120 caídas y años de 400, y la media de 200 describe un año que casi nunca ocurre. Es exactamente lo que ves en el simulador de interdependencia: la media se queda igual, pero los resultados se abren en abanico. Hay que estudiar el sistema de turnos, no solo a los pacientes.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Confundir complejo con complicado (aviso propio).</strong> Un reloj mecánico, un motor de avión o un programa con miles de líneas tienen muchísimas piezas, pero se pueden analizar por mecanismo: cada pieza actúa sobre otra en una cadena trazable. "Complejo", en el sentido del libro, no es "con muchas piezas", sino "con piezas que se influyen de forma que el conjunto muestra rasgos que no salen de mirarlas aisladas".</p>
+<p><strong>Creer que emergente es misterioso o irreducible para siempre.</strong> Lo emergente puede acabar explicándose, como la superconductividad o los gases. Que un sistema sea complejo hoy depende también de cuánto lo entendemos y de la escala en que lo miramos.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>I don't treat the model as a sum of parts: I check where its behavior emerges from interactions between components, and at what scale it becomes predictable.</p>
+
+<p><strong>Puente hacia la siguiente lección.</strong> Ya tenemos una definición de sistema complejo: piezas interconectadas y rasgos emergentes. Falta saber cómo reconocer uno. La lección siguiente reúne siete rasgos que lo delatan y comprueba cuáles cumple un modelo de aprendizaje profundo. Después mira los sistemas sociales que rodean a la IA, como las empresas que la desarrollan y las estructuras que la regulan, que también encajan en la definición.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 5.1 Overview, págs. 241 y 242, y sección 5.2 Introduction to Complex Systems, págs. 242 a 249 (PDF 260 a 267): paradigma reduccionista (242 a 244), límites y paradigma de los sistemas complejos (244 a 247), aprendizaje profundo como sistema complejo (248) y complejidad como espectro (249). Los siete rasgos y los sistemas sociales, de las págs. siguientes, quedan para la lección 2 del módulo.</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS). Esta lección no tiene notas del curso.</li>
+<li>Añadido propio, no procede de las fuentes: la bomba de infusión, las llegadas a urgencias, el brote epidémico, la radiografía de tórax, el modelo por compartimentos y el ejemplo de las caídas con sus cifras; el aviso sobre complicado y complejo; las tres preguntas de síntesis; los dos simuladores; y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: primero dos simuladores para ver la emergencia y el fallo del promedio, después tres ejercicios.</p>
+
+<p class="consigna"><strong>Simulador del Juego de la vida</strong> (añadido propio, el libro no lo trae). Empieza con el planeador y pulsa "Ejecutar". Fíjate en la forma en las generaciones 0, 4, 8 y 12: es siempre la misma, corrida una celda en diagonal cada cuatro generaciones. Ninguna regla habla de moverse; solo hablan de contar vecinas. Con el tablero de 40 x 40, que se cierra sobre sí mismo, vuelve a su sitio a las 160 generaciones. Cambia a "Parpadeador y bloque": una figura late con periodo 2 y otra no cambia nunca. Pasa a "Sopa aleatoria" con densidad del 30 % y pulsa "10 generaciones" hasta llegar a unas 300: la población cae mucho (de unas 480 celdas a unas 100 de media, con la mayoría de las sopas entre 45 y 165) y dos sopas nunca acaban igual. Por último, cambia la regla a "Sin muerte por aglomeración" y repite la sopa: el tablero se llena hasta cerca del 70 %. Una sola condición de la regla cambia todo el comportamiento del conjunto. Con "Tablero vacío" puedes dibujar tu propia figura y ver qué le pasa.</p>
+<div data-widget="m03-l01-emergencia" id="sim-m03-l01-emergencia"></div>
+
+<p class="consigna"><strong>Simulador de interdependencia</strong> (modelo propio, el libro no lo trae). Con los valores iniciales (50 agentes, 100 generaciones, independientes), lanza 300 simulaciones: la fracción final queda en torno a 0,5 con una desviación de unos 0,07, y alrededor del 80 % de las simulaciones acaban entre 0,4 y 0,6. Cambia a "Se imitan" y lanza otras 300. La media sigue cerca de 0,5, pero el 97 % de las simulaciones acaban en consenso (todos con 0 o todos con 1) y menos del 1 % en el centro. Es la misma media con una realidad completamente distinta. Prueba a bajar T a 20: el consenso todavía no ha llegado a todas. Después sube N a 200 con T = 100: cuantos más agentes, más tarda en llegar.</p>
+<div data-widget="m03-l01-interdependencia" id="sim-m03-l01-interdependencia"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: qué enfoque sirve (a mano, 7 minutos)</p>
+<p>Para cada sistema, decide si se entiende mejor con un enfoque mecanicista, estadístico o de sistemas complejos, y di qué condición se cumple o se rompe:</p>
+<ol>
+<li>Un reloj de cuerda.</li>
+<li>Un gas en una caja cerrada: presión frente a temperatura.</li>
+<li>Una función <code>calcular_dosis(peso, mg_por_kg)</code> que devuelve <code>peso * mg_por_kg</code>.</li>
+<li>Una red neuronal profunda que clasifica imágenes.</li>
+<li>Una economía nacional: inflación y tipos de interés.</li>
+<li>Un superconductor visto como pares de electrones (pregunta con truco: ¿qué pasa con la escala?).</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1. Mecanicista.</strong> Cada pieza actúa sobre otra en una cadena trazable. <strong>2. Estadístico.</strong> Muchísimas partículas cuyo promedio da presión y temperatura. Tiene propiedades emergentes, pero se reducen a estadística, así que no es complejo en el sentido del libro. <strong>3. Mecanicista.</strong> Sigues el código y predices la salida para cualquier entrada.</p>
+<p><strong>4. Complejo.</strong> No hay correspondencia limpia entre un nodo y un rasgo, y la explicación pieza a pieza ha dado pocos resultados, y muy costosos. <strong>5. Complejo.</strong> Inflación e índices no están en ningún agente y surgen de la red de transacciones.</p>
+<p><strong>6. Simple a esa escala.</strong> Como el electrón suelto parecía complejo y el par de electrones es una pieza que explica el fenómeno, la complejidad depende de la escala elegida y de lo que entendemos. Si todavía dudas entre categorías, es normal: el libro habla de un espectro y no de una frontera.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: cuándo el promedio sirve (a mano, 8 minutos)</p>
+<p>Una planta tiene 10&nbsp;000 pacientes al año y cada uno, de forma independiente, tiene una probabilidad del 2 % de sufrir una caída. El número de caídas tiene media \(np\) y desviación típica \(\sqrt{np(1-p)}\).</p>
+<ol>
+<li>Calcula la media y la desviación típica. ¿Entre qué valores cae el número de caídas en un año normal (media más o menos dos desviaciones)?</li>
+<li>Con cuatro veces más pacientes (40&nbsp;000), ¿cuánto valen media y desviación? ¿Qué pasa con la desviación relativa, o sea desviación entre media?</li>
+<li>Una noche de guardia con poco personal sube el riesgo de todos los pacientes a la vez. ¿Por qué deja de ser válida la desviación calculada?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Media: \(10\,000\times0{,}02=200\). Desviación: \(\sqrt{10\,000\times0{,}02\times0{,}98}=\sqrt{196}=14\). Un año normal queda entre \(200\pm28\), es decir, de 172 a 228.</p>
+<p><strong>2.</strong> Media: 800. Desviación: \(\sqrt{40\,000\times0{,}02\times0{,}98}=\sqrt{784}=28\). La desviación relativa baja de \(14/200=7\,\%\) a \(28/800=3{,}5\,\%\): se reduce a la mitad al cuadruplicar los pacientes. Es la razón de que la estadística funcione mejor cuanto más independientes y numerosas son las piezas.</p>
+<p><strong>3.</strong> La fórmula supone independencia. Si un factor común afecta a todos a la vez, los pacientes dejan de ser piezas independientes, los años tienden a ser buenos o malos en bloque y la dispersión real es mucho mayor que 14. Es lo que hace el simulador de interdependencia al pasar de "Independientes" a "Se imitan".</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: emergencia con Python (10 minutos)</p>
+<p>Primero, a mano: en el Juego de la vida (nace con exactamente 3 vecinas, sobrevive con 2 o 3), una fila horizontal de tres celdas vivas, ¿qué se obtiene en la generación siguiente y en la otra? Después ejecuta este fragmento en un tablero de 12 x 12 y responde: ¿se cumple que el planeador se desplaza una celda en diagonal cada cuatro generaciones? ¿Cuántas generaciones tarda en volver a su sitio?</p>
+<pre><code>N = 12  # tablero de 12 x 12 que se cierra sobre sí mismo
+
+def paso(vivas):
+    """Una generación del Juego de la vida (regla de Conway)."""
+    cuenta = {}
+    for (x, y) in vivas:
+        for dx in (-1, 0, 1):
+            for dy in (-1, 0, 1):
+                if dx or dy:
+                    c = ((x + dx) % N, (y + dy) % N)
+                    cuenta[c] = cuenta.get(c, 0) + 1
+    return {c for c, n in cuenta.items()
+            if n == 3 or (n == 2 and c in vivas)}
+
+planeador = {(1, 0), (2, 1), (0, 2), (1, 2), (2, 2)}
+g = planeador
+for _ in range(4):
+    g = paso(g)
+print(g == {((x + 1) % N, (y + 1) % N) for (x, y) in planeador})
+
+g, t = planeador, 0
+while True:
+    g = paso(g)
+    t += 1
+    if g == planeador:
+        break
+print(t)</code></pre>
+<details>
+<summary>Ver solución</summary>
+<p><strong>A mano.</strong> La celda central tiene 2 vecinas vivas y sobrevive; las de los extremos tienen 1 y mueren; las celdas justo encima y debajo del centro tienen 3 y nacen. Resultado: una columna vertical de tres celdas. En la generación siguiente vuelve a la fila horizontal: el parpadeador, con periodo 2.</p>
+<p><strong>Con Python.</strong> La primera línea imprime <code>True</code>: cada cuatro generaciones el planeador es el mismo dibujo una celda más abajo y a la derecha. La segunda imprime <code>48</code>, que es \(4\times12\): 12 celdas de desplazamiento en cada eje, cuatro generaciones por celda. En el tablero de 40 x 40 del simulador serían \(4\times40=160\).</p>
+<p><strong>Lo que enseña.</strong> Ni el código ni la regla contienen la palabra "moverse". El desplazamiento es una propiedad del conjunto de cinco celdas, y solo se descubre ejecutando la regla, no leyéndola celda a celda.</p>
+</details>
+</div>
+
+</div>

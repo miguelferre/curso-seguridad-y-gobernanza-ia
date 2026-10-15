@@ -1,0 +1,43 @@
+INVENTARIO: Intro to ML Safety (CAIS)
+Fuente: course.mlsafety.org | 2026-09-29
+
+N   Leccion                                V  S  R  NB  P
+===========================================================
+1   Introduction                           Y  Y  -  -   -
+2   Deep Learning Review                   Y  Y  -  D*  Y*
+3   Risk Decomposition                     Y  Y  Y  -   -
+4   Accident Models                        Y  Y  -  -   -
+5   Black Swans                            Y  Y  Y  -   -
+6   Adversarial Robustness                 Y  Y  Y  D*  -
+7   Black Swan Robustness                  Y  Y  Y  -   -
+8   Anomaly Detection                      Y  Y  Y  D*  -
+9   Interpretable Uncertainty              Y  Y  Y  -   -
+10  Transparency                           Y  Y  Y  -   -
+11  Trojans                                Y  Y  Y  D*  -
+12  Detecting Emergent Behavior            Y  Y  Y  -   -
+13  Honest Models                          Y  Y  -  -   -
+14  Power Aversion                         -  Y  -  -   -
+15  Machine Ethics                         Y  Y  -  D*  -
+16  ML for Improved Decision-Making        Y  Y  Y  -   -
+17  ML for Cyberdefense                    Y  Y  -  -   -
+18  Cooperative AI                         Y  Y  Y  -   -
+19  X-Risk Overview                        Y  Y  Y  -   -
+20  Possible Existential Hazards           Y  Y  -  -   -
+21  Safety-Capabilities Balance            Y  Y  -  -   -
+22  Natural Selection Favors AIs           Y  Y  -  -   -
+23  Review and Conclusion                  Y  Y  -  -   Y*
+
+Columnas: V=Video (YouTube 303), S=Slides (Google 307), R=Repo MD (GitHub 200), 
+NB=Notebook (D=Drive 303), P=Preguntas (Drive 303)
+
+NO ACCESIBLES SIN SESION:
+- Lec 2,6,8,11,15: Notebooks Colab+Drive
+- Lec 2,23: PDF review questions
+
+ESTADISTICAS:
+23 lecciones | Videos: 22/23 | Slides: 23/23 | Repo MD: 12/23
+Notebooks: 5/23 (todos desde Google Drive) | Preguntas: 2/23 (Drive)
+
+CORRECCION DEL HILO (2026-09-29): las redirecciones 303/307 de Drive y Google Slides NO indican que haga falta sesion.
+Comprobado siguiendo redirecciones: notebook de la leccion 6 (Drive) -> 200, 26 KB; slides de la leccion 6 en /export/pdf -> 200, 4,5 MB.
+Notebooks y slides son descargables sin sesion. Pendiente: confirmar las preguntas de repaso (lecciones 2 y 23).

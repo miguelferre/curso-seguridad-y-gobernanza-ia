@@ -1,0 +1,114 @@
+[
+  {
+    "id": "m10l04-q01",
+    "tipo": "unica",
+    "enunciado": "Científicos y grupos de defensa llaman la atención sobre un problema que los Estados ignoran, y la presión que generan acaba en un protocolo internacional. ¿En qué etapa de la gobernanza están?",
+    "opciones": [
+      "Agenda",
+      "Política",
+      "Aplicación",
+      "Evaluación"
+    ],
+    "correcta": 0,
+    "explicacion": "Es la etapa de agenda: lograr que un asunto se reconozca como problema colectivo. El libro pone el ejemplo de los científicos y el ozono, que llevó al Protocolo de Montreal."
+  },
+  {
+    "id": "m10l04-q02",
+    "tipo": "unica",
+    "enunciado": "Según el libro, ¿cómo se aplica la prohibición de la Convención de Armas Químicas?",
+    "opciones": [
+      "Un organismo internacional la hace cumplir directamente en cada país",
+      "Las empresas se autorregulan sin intervención de los Estados",
+      "Cada país la aplica en su propio derecho interno",
+      "Un ejército internacional castiga a quien la incumple"
+    ],
+    "correcta": 2,
+    "explicacion": "El libro la cita como ejemplo de reglas que cada país aplica en su derecho interno de la manera que le parezca más eficaz. La etapa es la de aplicación, distinta de la de evaluar el cumplimiento."
+  },
+  {
+    "id": "m10l04-q03",
+    "tipo": "unica",
+    "enunciado": "¿Qué significa que la IA fuera una tecnología de defensa dominante?",
+    "opciones": [
+      "Que es más fácil causar un daño que evitarlo",
+      "Que unas IA pueden frenar los daños de otras, y hace falta menos régimen internacional",
+      "Que solo la controlan los ejércitos",
+      "Que solo se usa con fines defensivos"
+    ],
+    "correcta": 1,
+    "explicacion": "Si se pudieran usar unas IA para impedir los daños de otras, el propio desarrollo corregiría los problemas y haría falta menos régimen internacional. El libro cree, sin embargo, que lo probable es que domine el ataque."
+  },
+  {
+    "id": "m10l04-q04",
+    "tipo": "vf",
+    "enunciado": "Verdadero o falso: si el desvío de un solo actor bastara para una catástrofe, el acuerdo tendría que ser más estricto, y eso lo haría más difícil de firmar.",
+    "correcta": true,
+    "explicacion": "Es la tercera pregunta del libro. Un acuerdo sin excepciones ni castigos leves es más difícil de aceptar, mientras que si un desvío no es catastrófico cabe un pacto más blando, basado en vigilar y castigar después."
+  },
+  {
+    "id": "m10l04-q05",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas características describen la certificación de jurisdicciones que cita el libro para la IA civil?",
+    "opciones": [
+      "Comprueba que cada jurisdicción tiene procedimientos de regulación adecuados",
+      "Deja la aplicación en manos de los reguladores nacionales",
+      "El organismo internacional inspecciona directamente a cada empresa",
+      "El incentivo para cumplir viene del ecosistema, como negar el acceso al mercado o al espacio aéreo"
+    ],
+    "correcta": [
+      0,
+      1,
+      3
+    ],
+    "explicacion": "La OACI, la OMI y el GAFI comprueban que los reguladores nacionales tienen buenos procedimientos y dejan en sus manos la aplicación. El incentivo viene del ecosistema: por ejemplo, negar acceso al espacio aéreo o, en IA, al mercado y a los insumos. No inspeccionan a cada empresa."
+  },
+  {
+    "id": "m10l04-q06",
+    "tipo": "unica",
+    "enunciado": "¿Por qué el libro dice que la no proliferación con normas de uso podría ser insuficiente para la IA militar?",
+    "opciones": [
+      "Porque los tratados nucleares nunca funcionaron",
+      "Porque en IA más capacidad sigue dando más ventaja, y quienes ya la tienen seguirán compitiendo",
+      "Porque la IA no representa ningún riesgo militar",
+      "Porque la norma de no primer uso está prohibida por el NPT"
+    ],
+    "correcta": 1,
+    "explicacion": "Con armas nucleares, tener más armas da poca seguridad adicional. Con la IA, la inversión sigue aumentando las capacidades, así que los que ya las tienen mantienen un incentivo fuerte para competir. Además, cuesta decidir qué capacidades prohibir."
+  },
+  {
+    "id": "m10l04-q07",
+    "tipo": "numerica",
+    "enunciado": "Un acuerdo declara 20 centros de datos y un inspector visita 2 al año, elegidos al azar. Una parte incumple usando un solo centro declarado. ¿Qué probabilidad tiene de ser visitada en un año? Responde como número entre 0 y 1.",
+    "correcta": 0.1,
+    "tolerancia": 0.001,
+    "explicacion": "Es \\(p=n/N=2/20=0{,}1\\). Es un cálculo propio de la lección: la probabilidad anual de que caiga justo ese centro entre los declarados."
+  },
+  {
+    "id": "m10l04-q08",
+    "tipo": "numerica",
+    "enunciado": "Con los mismos datos (20 centros, 2 inspecciones al año) y sorteos independientes cada año, ¿qué probabilidad hay de que el incumplidor sea descubierto al menos una vez en 5 años? Responde entre 0 y 1.",
+    "correcta": 0.4095,
+    "tolerancia": 0.001,
+    "explicacion": "Se calcula \\(1-(1-p)^t=1-0{,}9^5=1-0{,}59049\\approx0{,}4095\\). Con inspecciones puntuales, incluso después de cinco años tiene más probabilidad de seguir sin ser descubierto que de ser pillado."
+  },
+  {
+    "id": "m10l04-q09",
+    "tipo": "unica",
+    "enunciado": "Según el libro, ¿qué debe cumplir un monopolio de la computación, como el «CERN para IA», para ser una ruta más fácil hacia una IA segura que la verificación y las normas?",
+    "opciones": [
+      "Verificar cada modelo que se entrene",
+      "Estar centrada en la misión adecuada, con herramientas como las de la gobernanza corporativa",
+      "Que todos los países firmen antes un tratado vinculante",
+      "Que la dirijan solo los ejércitos"
+    ],
+    "correcta": 1,
+    "explicacion": "Al quitar la competencia adversarial, quita el incentivo de asumir riesgos. Pero la organización tiene que centrarse en la misión adecuada, quizá con herramientas de gobernanza corporativa, y el libro reconoce que eso no es trivial."
+  },
+  {
+    "id": "m10l04-q10",
+    "tipo": "vf",
+    "enunciado": "Verdadero o falso: según el libro, si la gobernanza del cómputo ofreciera métodos fiables, por ejemplo mecanismos en los chips, sería más fácil verificar el cumplimiento de acuerdos internacionales sobre IA.",
+    "correcta": true,
+    "explicacion": "El libro lo plantea al hablar de la verificación: los mecanismos en los chips podrían facilitar los acuerdos y su cumplimiento. Es un puente con la lección siguiente, la del cómputo."
+  }
+]

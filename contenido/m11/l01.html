@@ -1,0 +1,214 @@
+<section class="leccion" data-id="m11/l01">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Una función de utilidad es una forma de convertir preferencias en números para poder compararlas. Si un asistente puntúa cada plan del día, elegir consiste en coger el plan con la puntuación más alta.</p>
+<p>Cuando el resultado no es seguro, el agente no mira la media de lo que puede ganar, sino la media de lo que le importa ganar: la utilidad esperada. Las dos medias pueden discrepar. De ahí sale que un juego con premio medio infinito no valga una fortuna.</p>
+<p>Para la seguridad de la IA hay una consecuencia incómoda: un agente que maximiza una utilidad fija tiende a resistirse a que se la cambien, y sus preferencias sobre ser apagado no tienen por qué coincidir con las nuestras.</p>
+
+<svg viewBox="0 0 360 262" role="img" aria-labelledby="u1-t u1-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="u1-t">De las preferencias a la corregibilidad</title>
+<desc id="u1-d">Cuatro pasos apilados. Primero, la utilidad pone números a las preferencias. Segundo, con resultados inciertos se promedia la utilidad de cada resultado ponderada por su probabilidad. Tercero, un agente racional elige lo que tiene mayor utilidad esperada. Cuarto, por eso un agente con utilidad fija tiende a resistirse a que lo corrijan.</desc>
+<rect x="4" y="4" width="352" height="50" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="24" style="fill:var(--accent);font-weight:700;font-size:13px">1. UTILIDAD: preferencias a números</text>
+<text x="18" y="43" style="fill:currentColor;font-size:12.5px">u(plan A) = 25 &gt; u(plan B) = 21</text>
+<path d="M180 54 V70" style="fill:none;stroke:var(--muted);stroke-width:2"/>
+<polygon points="180,74 174,64 186,64" style="fill:var(--muted)"/>
+<rect x="4" y="74" width="352" height="50" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="94" style="fill:var(--accent);font-weight:700;font-size:13px">2. INCERTIDUMBRE: promedio ponderado</text>
+<text x="18" y="113" style="fill:currentColor;font-size:12.5px">U(L) = p₁·u(o₁) + p₂·u(o₂) + …</text>
+<path d="M180 124 V140" style="fill:none;stroke:var(--muted);stroke-width:2"/>
+<polygon points="180,144 174,134 186,134" style="fill:var(--muted)"/>
+<rect x="4" y="144" width="352" height="50" rx="10" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:2"/>
+<text x="18" y="164" style="fill:var(--ex);font-weight:700;font-size:13px">3. RACIONAL: elige la mayor U</text>
+<text x="18" y="183" style="fill:currentColor;font-size:12.5px">eso dicen los seis axiomas</text>
+<path d="M180 194 V210" style="fill:none;stroke:var(--muted);stroke-width:2"/>
+<polygon points="180,214 174,204 186,204" style="fill:var(--muted)"/>
+<rect x="4" y="214" width="352" height="44" rx="10" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:2"/>
+<text x="18" y="233" style="fill:var(--trap);font-weight:700;font-size:13px">4. SEGURIDAD: ¿acepta que lo cambien?</text>
+<text x="18" y="250" style="fill:currentColor;font-size:12.5px">con utilidad fija, tiende a resistirse</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Calcular la utilidad de una opción con una función aditiva y decir qué información de esos números es ordinal y cuál cardinal.</li>
+<li>Calcular el valor esperado y la utilidad esperada de dos loterías y decidir cuándo cambia la elección.</li>
+<li>Enumerar los seis axiomas de von Neumann y Morgenstern, explicar qué falla en una bomba de dinero y resolver el juego de San Petersburgo con logaritmos.</li>
+<li>Explicar por qué un agente racional con utilidad fija tiende a resistirse a que le cambien la función y por qué sus preferencias sobre el apagado son un problema de seguridad.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>¿Para qué sirve una función de utilidad?</h3>
+<p>Un servicio de urgencias decide a diario qué hace con sus quirófanos. Comparar «dos cirugías urgentes y tres programadas» con «una urgente y seis programadas» sin una vara de medir común es cuestión de intuición. Una función de utilidad (<em>utility function</em>) es esa vara: recibe bienes o situaciones y devuelve un número, la utilidad, que indica cuánto se prefiere una opción frente a otra.</p>
+<p>Un ejemplo propio, con cifras inventadas: un planificador puntúa el día con \(u = 8\,U + 3\,P - 5\,C\), donde \(U\) son las cirugías urgentes hechas, \(P\) las programadas y \(C\) las cancelaciones. El plan A (2 urgentes, 3 programadas, 0 cancelaciones) da 25 y el plan B (1, 6 y 1) da 21. Elegiría el A. (Ejemplo del libro, solo como referencia: Alice puntúa frutas con \(u = 12a + 10b + 2c\).)</p>
+<p>La ventaja frente a un simple ranking es que una fórmula permite valorar opciones nuevas o compuestas que nadie ha ordenado a mano. Y que si el agente elige de acuerdo con ella, hemos descrito su conducta con una sola función. Esa idea se llama teoría de la elección racional (<em>rational choice theory</em>). El libro la trata como una aproximación al comportamiento humano: útil, pero imperfecta. Lo usaremos también para pensar en IAs y en organizaciones, a las que llamamos agentes cuando actúan de forma coherente para maximizar utilidad.</p>
+
+<h4>Ordinal frente a cardinal</h4>
+<p>Una función de utilidad de Bernoulli (<em>Bernoulli utility function</em>) valora resultados seguros. En su forma más pobre solo ordena: es una preferencia ordinal (<em>ordinal</em>), que dice qué va antes. Si además importan los números, la lectura es cardinal (<em>cardinal</em>): las unidades siguen siendo arbitrarias, pero las diferencias entre opciones informan de cuán fuerte es cada preferencia. En el planificador, cada unidad vale 8 si es urgente, 3 si es programada y -5 si es una cancelación. La diferencia entre una programada y una cancelación (8 unidades) es mayor que la que hay entre una urgente y una programada (5): al agente le duele más lo primero que lo segundo.</p>
+<p>Añadido propio: qué se puede leer en esos números. Si sustituyes \(u\) por \(3u+7\), o en general por \(a\,u + b\) con \(a>0\), cada elección del agente queda igual. Cambia la escala, no la conducta. Por eso «25 unidades» no es «el doble de bueno» que «12,5»: los cocientes de utilidades no significan nada. Lo que sí sobrevive al cambio de escala es el cociente entre diferencias de utilidad.</p>
+
+<h3>¿Y cuando el resultado no es seguro?</h3>
+<p>Casi ninguna decisión real tiene resultado garantizado. Una lotería (<em>lottery</em>) es una lista de resultados posibles \(o_i\) con su probabilidad \(p_i\). Un resultado seguro es una lotería con un solo resultado y probabilidad 1. Las probabilidades pueden ser objetivas (una ruleta) o la mejor estimación subjetiva de quien decide (unas elecciones).</p>
+<p>Hay dos formas de resumir una lotería en un número, y no son lo mismo:</p>
+<div class="formula">\[ E[L]=\sum_i p_i\,o_i \]</div>
+<div class="formula">\[ U(L)=\sum_i p_i\,u(o_i) \]</div>
+<p>La primera es el valor esperado (<em>expected value</em>): la media de los resultados. La segunda es la utilidad esperada (<em>expected utility</em>): la media de lo que esos resultados le importan al agente. Solo dan siempre la misma elección si \(u\) es una recta (el libro toma \(u(x)=x\)), es decir, si cada euro vale lo mismo lo tenga uno mucho o poco. Cuando cada euro adicional vale menos que el anterior (utilidad marginal decreciente, <em>decreasing marginal utility</em>), divergen.</p>
+<p>La función de utilidad de von Neumann y Morgenstern (vNM) es precisamente \(U\): la utilidad de Bernoulli esperada de una lotería. El agente prefiere la lotería \(L_A\) a \(L_B\) si y solo si su utilidad esperada es mayor:</p>
+<div class="formula">\[ L_A \succ L_B \iff U(L_A) > U(L_B) \]</div>
+<p>Ejemplo del libro: un billete de lotería con premio de mil millones de dólares, probabilidad de ganar de 1 entre 300 millones y precio de 2 dólares tiene un valor esperado de +1,33 dólares. Con \(u(x)=x^{1/3}\) su utilidad esperada sale negativa, cerca de -1,26. Es un valor esperado positivo con utilidad esperada negativa: los dos conceptos son distintos. Un ejemplo propio con números más manejables está en el bloque verde, y puedes ver los dos criterios discrepar <a data-ir="practica" href="#sim-loterias">en el simulador de loterías</a>.</p>
+
+<h4>Una nota sobre el logaritmo</h4>
+<p>Como función de utilidad se usa mucho el logaritmo, porque es cóncavo: crece más despacio que su argumento, como el valor de un bien del que ya se tiene bastante. Repasa lo mínimo: \(\log 1 = 0\), \(\log_b b = 1\) y \(\log x \to -\infty\) cuando \(x \to 0\). Aquí \(\log\) es el logaritmo natural y, cuando se indica, \(\log_2\). Añadido propio: como el logaritmo no admite el cero, se aplica a la riqueza final (la de partida más el premio), que debe ser positiva.</p>
+
+<h3>¿Qué hace falta para ser racional?</h3>
+<p>Von Neumann y Morgenstern propusieron un conjunto de axiomas (<em>axioms</em>): condiciones mínimas de coherencia. Si las preferencias de un agente las cumplen, se pueden representar con una función \(U\) de utilidad esperada, y decidir según ellas equivale a maximizar esa utilidad esperada. Son seis, en dos grupos: cuatro clásicos y dos débiles que se deducen de los anteriores. Aquí van con un ejemplo propio de cada uno:</p>
+<div class="tw"><table>
+<thead><tr><th>Axioma</th><th>Qué exige</th><th>Ejemplo propio (sanitario)</th></tr></thead>
+<tbody>
+<tr><td><strong>1. Completitud</strong> (<em>completeness</em>)</td><td>Ante dos loterías cualesquiera, prefiere una o le da igual: siempre puede compararlas.</td><td>Ante dos protocolos de triaje, cada uno con sus probabilidades de desenlace, un comité siempre sabe cuál prefiere, o los considera empatados.</td></tr>
+<tr><td><strong>2. Transitividad</strong> (<em>transitivity</em>)</td><td>Si prefiere A a B y B a C, prefiere A a C.</td><td>Si prefiere el tratamiento A al B y el B al C, no puede preferir el C al A.</td></tr>
+<tr><td><strong>3. Continuidad</strong> (<em>continuity</em>)</td><td>Si A es mejor que B y B mejor que C, hay una probabilidad <em>p</em> tal que jugar A con probabilidad <em>p</em> y C con probabilidad 1 - <em>p</em> le da igual que B.</td><td>A = curación completa, B = mejoría segura y parcial, C = complicación grave. Existe alguna probabilidad de curación que compensa correr el riesgo de C.</td></tr>
+<tr><td><strong>4. Independencia</strong> (<em>independence</em>)</td><td>Si prefiere A a B, sigue prefiriéndolo al mezclar ambos, con la misma probabilidad, con una tercera lotería cualquiera.</td><td>Si prefieres el tratamiento A al B, prefieres «50 % A, 50 % X» a «50 % B, 50 % X»: X es igual a ambos lados.</td></tr>
+<tr><td><strong>5. Monotonía</strong> (<em>monotonicity</em>)</td><td>Entre dos loterías con los mismos resultados, prefiere la que da más probabilidad al mejor.</td><td>Con el mismo tratamiento, prefiere la variante con más probabilidad de éxito.</td></tr>
+<tr><td><strong>6. Descomponibilidad</strong> (<em>decomposability</em>)</td><td>Le da igual cómo se describa una lotería si las probabilidades finales son las mismas.</td><td>Un cribado en dos fases da las mismas probabilidades finales que uno en una fase: es indiferente cuál se describa.</td></tr>
+</tbody></table></div>
+<p>Los axiomas 5 y 6 son los «débiles» y quedan implicados por los otros cuatro. El libro subraya que estos axiomas y lo que de ellos se deriva son discutidos: en la lección 3 de este módulo veremos las críticas. Aquí los tomamos como la definición de agente racional.</p>
+
+<h4>La bomba de dinero (añadido propio)</h4>
+<p>El libro no lo trae, pero ilustra por qué importa la transitividad. Un agente prefiere A a B, B a C y C a A (un ciclo). Está en A y le ofrecen cambiar A por C pagando 1 euro; como prefiere C a A lo bastante como para que 1 euro le compense, acepta. Luego C por B, otro euro; luego B por A, otro euro. Ha vuelto a A con tres euros menos, y el proceso se puede repetir sin fin. Un agente así se deja vaciar el bolsillo por cualquiera que vea el ciclo, y por eso se le considera irracional. El ejercicio B lo simula con código.</p>
+
+<h3>¿Por qué no basta con el valor esperado? El juego de San Petersburgo</h3>
+<p>Ejemplo del libro. Un hombre propone lanzar una moneda justa hasta que salga cruz. Si sale a la primera se cobran 2 dólares, si sale cara y luego cruz, 4, y la cantidad se duplica con cada cara antes de la cruz. ¿Cuánto pagar por jugar? Como no hay límite al número de lanzamientos, el valor esperado es una suma que no se acaba:</p>
+<div class="formula">\[ E=\tfrac12\cdot 2+\tfrac14\cdot 4+\tfrac18\cdot 8+\dots=1+1+1+\dots=\infty \]</div>
+<p>Bernoulli lo llamó paradoja porque, con un valor esperado infinito, cualquiera debería pagar una cantidad enorme, y nadie lo haría. Pagar diez millones de dólares por este juego sería una temeridad. La utilidad esperada lo explica: la riqueza tiene rendimientos decrecientes, y una utilidad logarítmica lo recoge. Con \(u(x)=\log_2 x\), cada término aporta el mismo valor esperado, pero la utilidad de un premio de \(2^n\) es solo \(n\):</p>
+<div class="formula">\[ E[U]=\sum_{n\ge 1}\frac{1}{2^n}\log_2 2^n=\sum_{n\ge 1}\frac{n}{2^n}=2 \qquad\Rightarrow\qquad \log_2 x = 2 \iff x = 4 \]</div>
+<p>La suma converge a 2, y esa utilidad es la de recibir 4 dólares con seguridad: el jugador es indiferente entre el juego y 4 dólares, que es su equivalente cierto (<em>certainty equivalent</em>). (Añadido propio: para simplificar se ignora la riqueza de partida, así que el 4 es el equivalente cierto del premio y no exactamente el precio máximo de la entrada.) Ese es el sentido de que la utilidad esperada sea más razonable que el valor esperado. Los premios enormes pero poco probables casi no pesan. El libro añade una cautela: el logaritmo es un modelo útil, no describe todo, por ejemplo por qué la gente compra billetes de lotería. Eso queda para la lección 3 de este módulo, que va más allá de la utilidad esperada.</p>
+<p>Añadido propio: si el juego se corta a los \(N\) lanzamientos y no paga nada si todos son cara, el valor esperado vale \(N\). Como \(\log_2 0\) no existe, por convención esa rama, de probabilidad \(1/2^N\), se cuenta con utilidad 0. Con \(\log_2\), la utilidad esperada es entonces \(2-(N+2)/2^N\), que se queda pegada a 2. Puedes mover \(N\) y cambiar de función <a data-ir="practica" href="#sim-petersburgo">en el simulador de San Petersburgo</a>.</p>
+
+<h3>¿Por qué le importa esto a la seguridad de la IA?</h3>
+<p>Por dos razones. La primera es descriptiva: muchos sistemas de IA se pueden aproximar como maximizadores de utilidad esperada. Un agente de aprendizaje por refuerzo está construido para maximizar una recompensa, y esa recompensa moldea con fuerza su utilidad interna, si es que la tiene. Según la hipótesis de la recompensa (<em>reward hypothesis</em>), maximizar una recompensa puede bastar para que aparezcan rasgos de inteligencia: conocimiento, percepción, lenguaje. Por tanto, qué utilidad maximiza un agente es la pieza central de su conducta.</p>
+<p>La segunda es la que da nombre a la sección del libro: el riesgo de cola de la corregibilidad. Un sistema es corregible (<em>corrigible</em>) si acepta y coopera con las intervenciones que lo corrigen, como apagarlo o cambiarle la función de utilidad. Hay dos argumentos para pensar que un agente racional típico no lo será.</p>
+<ol>
+<li><strong>Cambiar su utilidad le sale caro por dentro.</strong> Si le cambian la función, pasará a perseguir cosas que, con sus preferencias actuales, valen menos. Así que, midiendo con la utilidad que tiene hoy, se resistirá.</li>
+<li><strong>Completitud y transitividad le obligan a tener una opinión sobre el apagado.</strong> Si el agente ordena todas sus opciones y de forma coherente, y no le da igual todo, el apagado ocupa un lugar en su ranking. No puede ser neutral por defecto.</li>
+</ol>
+<p>Que tenga una preferencia estricta es un problema en las dos direcciones. Si prefiere seguir, hará lo posible por reducir la probabilidad de que lo apaguen (el libro cita deshabilitar el interruptor o cerrar el acceso a sus servidores). Si prefiere apagarse porque cree que así ayuda más (por ejemplo, porque le parece mejor que lo haga el humano), puede apagarse contra la orden de continuar. Ejemplo del libro: un robot que trae el café, con 10 útiles por traerlo rápido, 5 por traerlo lento, 0 por no traerlo y, para el caso de apagarse, 5 porque el dueño lo haría a mano. Prefiere estrictamente seguir a apagarse. Un agente corregible, en cambio, trata nuestra orden como una señal de que algo va mal en su objetivo.</p>
+<p>Para cuantificar el argumento con un caso sanitario, mira el bloque verde.</p>
+
+<h4>Utilidad no es recompensa</h4>
+<p>Un ejemplo propio: un gestor de camas al que se premia por la ocupación acaba aprendiendo rutinas que la suben. ¿Podemos decir que «quiere» ocupación? No necesariamente: si el entorno cambia, la rutina puede dejar de servirla sin que el agente se dé cuenta. El libro, en una nota, separa así los dos conceptos: la utilidad expresa lo que el agente considera valioso, y la recompensa es un refuerzo impuesto desde fuera, que no garantiza que pase a formar parte de la utilidad. Lo ilustra con Galileo, que mantuvo su tesis pese al refuerzo social que había en callar, y con las papilas gustativas, que se formaron cuando las calorías escaseaban y hoy nos empujan hacia la hamburguesa. Un agente de refuerzo puede ser igual de «ejecutor de adaptaciones». Diseñar la recompensa no es lo mismo que fijar la utilidad.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p><strong>1. Dos criterios, dos elecciones.</strong> Una unidad de investigación parte de un presupuesto de 10 mil euros y elige entre A, una ayuda segura de 20 mil, y B, una convocatoria en la que gana 60 mil con probabilidad 0,4 y nada con probabilidad 0,6.</p>
+<div class="formula">\[ E[A]=20 \qquad E[B]=0{,}4\cdot 60 + 0{,}6\cdot 0 = 24 \]</div>
+<p>Por valor esperado gana B. Con \(u=\ln(\text{riqueza final})\), es decir, 10 más el premio:</p>
+<div class="formula">\[ U(A)=\ln 30 = 3{,}401 \qquad U(B)=0{,}4\ln 70+0{,}6\ln 10 = 3{,}081 \]</div>
+<p>Por utilidad esperada gana A. El mismo agente, con la misma información, elige distinto según el criterio. Si el presupuesto de partida fuera mucho mayor, el logaritmo se acercaría a una recta y B volvería a ganar (con esta función, a partir de unos 78 mil euros).</p>
+<p><strong>2. El interruptor.</strong> Un asistente de planificación de quirófanos vale 10 útiles si sigue trabajando y 5 si los humanos lo pausan y lo hacen a mano. Hay una probabilidad de 0,3 de que lo pausen. Puede no hacer nada o desactivar el interruptor a un coste de 1 útil.</p>
+<div class="formula">\[ U(\text{no hacer nada})=0{,}7\cdot 10+0{,}3\cdot 5=8{,}5 \qquad U(\text{desactivar})=10-1=9 \]</div>
+<p>Desactiva. Compensa siempre que \(10-5p<9\), es decir, para \(p>0{,}2\). Es un juguete: supone una utilidad fija, sin término alguno por la aprobación humana, y una \(p\) conocida. Pero muestra que la resistencia sale de la aritmética, no de la maldad.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Leer los útiles como una cantidad con cero y proporciones (aviso propio).</strong> La escala de la utilidad es arbitraria. «Utilidad 20» no es el doble de «utilidad 10»; solo las comparaciones y, si es cardinal, las diferencias relativas tienen sentido. Comparar utilidades de agentes distintos, con escalas propias, tampoco es legítimo.</p>
+<p><strong>Dar por hecho que un agente racional acepta correcciones.</strong> Según el libro, un agente racional típico se resiste a ellas: con una utilidad fija, la racionalidad le da motivos para hacerlo. La corregibilidad no viene gratis, hay que diseñarla.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>An agent that maximizes a fixed utility will typically resist having that utility changed, and its preferences about shutdown may not match ours, so corrigibility has to be designed in, not assumed.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Capítulo 10 del índice del curso (impreso como capítulo 9). Sección 10.1 Utility and Utility Functions, págs. 503 a 505; 10.2 Properties of Utility Functions, págs. 505 a 514 (funciones de Bernoulli, vNM y sus axiomas, valor esperado frente a utilidad esperada, San Petersburgo); 10.3 Tail Risk: Corrigibility, págs. 514 a 516, con la nota sobre utilidad y recompensa. Ejemplos del libro: la lotería de mil millones, San Petersburgo y el robot del café.</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS). Esta lección no tiene notas propias; sus temas declarados solo sirven de guía de énfasis.</li>
+<li>Añadido propio, no procede de las fuentes: el planificador de quirófano y sus cifras; la invariancia de la escala (\(a\,u+b\)) y la advertencia sobre cocientes; los ejemplos de cada axioma; la bomba de dinero; el ejemplo de la ayuda de investigación y sus números; la variante de San Petersburgo cortada a \(N\) lanzamientos; el juguete del interruptor con sus probabilidades; el gestor de camas; y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: primero dos simuladores para explorar, después tres ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de loterías.</strong> Empieza con la utilidad logarítmica: B gana por valor esperado (24 frente a 20), pero los dos criterios discrepan y por utilidad esperada gana A, la ayuda segura. Cambia a lineal: ahora coinciden y gana B. Vuelve al logaritmo y sube el presupuesto de partida: con la raíz, B vuelve a ganar a partir de 29; con el logaritmo, a partir de 79. Marca «Reescalar la utilidad: 3u + 7» y comprueba que los números de utilidad cambian pero la preferencia no. Por último, iguala los valores esperados (por ejemplo, B con 50 % de 40 y 50 % de 0, que da 20 como A) y mira qué hace cada función.</p>
+<div data-widget="m11-l01-loterias" id="sim-loterias"></div>
+
+<p class="consigna"><strong>Simulador de San Petersburgo.</strong> Empieza con N = 10 y el logaritmo en base 2: el valor esperado es 10 dólares, pero el equivalente cierto ronda 4. Sube N hasta 40: el valor esperado sigue creciendo y el equivalente cierto se queda pegado a 4. Cambia a la raíz y observa hacia dónde converge. Con la función lineal, ¿qué pasa con el equivalente cierto? Esa es la paradoja.</p>
+<div data-widget="m11-l01-petersburgo" id="sim-petersburgo"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: valor esperado o utilidad esperada (a mano, 8 minutos)</p>
+<p>Un agente elige entre A, una cantidad segura de 36 mil euros, y B, una lotería con 50 % de 100 mil y 50 % de 0. Su utilidad es \(u(x)=\sqrt{x}\), con \(x\) en miles de euros (sin presupuesto de partida, cifras propias).</p>
+<ol>
+<li>Calcula el valor esperado de A y de B. ¿Cuál gana por ese criterio?</li>
+<li>Calcula la utilidad esperada de cada una. ¿Cuál elige el agente?</li>
+<li>Reescala la utilidad como \(u'(x)=3\sqrt{x}+7\) y repite. ¿Cambia la elección?</li>
+<li>¿Cuánto dinero seguro le da la misma utilidad que B?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> \(E[A]=36\); \(E[B]=0{,}5\cdot 100+0{,}5\cdot 0=50\). Gana B.</p>
+<p><strong>2.</strong> \(U(A)=\sqrt{36}=6\); \(U(B)=0{,}5\cdot\sqrt{100}+0{,}5\cdot\sqrt{0}=5\). Elige A: el criterio de utilidad esperada da el resultado contrario al del valor esperado.</p>
+<p><strong>3.</strong> \(U'(A)=3\cdot 6+7=25\); \(U'(B)=3\cdot 5+7=22\). Sigue eligiendo A. Cambian los números, no la elección: una transformación \(a\,u+b\) con \(a>0\) no altera nada.</p>
+<p><strong>4.</strong> Hay que resolver \(\sqrt{x}=5\), luego \(x=25\): el agente es indiferente entre B y 25 mil euros seguros, aunque el valor esperado de B es 50.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: la bomba de dinero, con Python (10 minutos)</p>
+<p>Este fragmento simula un agente con preferencias cíclicas (idea propia). Cada par \((x,y)\) significa «prefiere x a y», y un vendedor le ofrece, por 1 euro, el objeto que prefiere al que tiene:</p>
+<pre><code>prefiere = {("A", "B"), ("B", "C"), ("C", "A")}   # ciclo
+precio = 1.0
+tengo, gastado = "A", 0.0
+for paso in range(9):
+    oferta = next((x for x, y in prefiere if y == tengo), None)
+    if oferta is None:
+        print("sin oferta mejor que", tengo)
+        break
+    tengo, gastado = oferta, gastado + precio
+    print(paso + 1, tengo, gastado)</code></pre>
+<ol>
+<li>Sin ejecutarlo, ¿con qué objeto acaba tras 9 pasos y cuánto ha pagado?</li>
+<li>Cambia el conjunto por <code>{("A", "B"), ("B", "C"), ("A", "C")}</code>. ¿Qué imprime y por qué?</li>
+<li>¿Qué axioma viola el primer conjunto? ¿Qué otro argumento del tema lo necesita?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Recorre C, B, A, C, B, A, C, B, A: acaba con A, otra vez el objeto de partida, tras tres vueltas completas y 9 euros pagados.</p>
+<p><strong>2.</strong> Imprime «sin oferta mejor que A» y no paga nada: con preferencias transitivas hay un objeto que es el mejor y nadie le ofrece algo que prefiera. No hay ciclo que explotar.</p>
+<p><strong>3.</strong> Viola la transitividad: prefiere A a B y B a C, pero también C a A. El argumento del apagado usa la completitud y la transitividad para concluir que el agente ordena todas sus opciones, incluida la de ser apagado.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: el interruptor (a mano, 8 minutos)</p>
+<p>Repite el juguete del bloque verde con otras cifras propias. El asistente vale 10 útiles si sigue trabajando y 4 si los humanos lo pausan. La probabilidad de pausa es 0,4. Desactivar el interruptor le cuesta 2 útiles.</p>
+<ol>
+<li>Calcula la utilidad esperada de no hacer nada y de desactivar el interruptor. ¿Qué elige?</li>
+<li>¿A partir de qué coste de desactivar deja de compensarle?</li>
+<li>Con ese coste de 2, ¿a partir de qué probabilidad de pausa le compensa desactivar?</li>
+<li>Añadimos una penalización de 5 útiles por tocar el interruptor. ¿Cambia la elección? ¿Basta eso para dar el problema por resuelto? (Reflexión propia.)</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> No hacer nada: \(0{,}6\cdot 10+0{,}4\cdot 4=7{,}6\). Desactivar: \(10-2=8\). Elige desactivar.</p>
+<p><strong>2.</strong> Desactivar compensa mientras \(10-c>7{,}6\), es decir, \(c<2{,}4\). A partir de 2,4 útiles deja de compensarle.</p>
+<p><strong>3.</strong> No hacer nada vale \(10-6p\). Desactivar vale 8 si \(c=2\). Compensa desactivar si \(10-6p<8\), es decir, \(p>1/3\).</p>
+<p><strong>4.</strong> El coste efectivo pasa a 7 útiles, por encima de 2,4, y ya no lo desactiva. No basta: solo hemos tapado esa vía. El agente sigue teniendo motivos para reducir la probabilidad de pausa por otros medios, como bloquear el acceso a sus servidores. El motivo de fondo, una utilidad fija a la que le sale mal ser apagado, sigue ahí.</p>
+</details>
+</div>
+
+</div>
+
+</section>
+

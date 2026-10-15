@@ -1,0 +1,72 @@
+Licencias de este repositorio
+=============================
+
+Este repositorio no tiene una licencia única. Cada parte tiene la suya.
+
+1. Material del Center for AI Safety (CAIS)
+-------------------------------------------
+
+Las lecciones (contenido/) y los notebooks (notebooks/) adaptan material de CAIS:
+el libro "Introduction to AI Safety, Ethics, and Society" (Dan Hendrycks,
+Taylor & Francis, 2024) y el curso "Intro to ML Safety". Ese material se publica
+con permiso escrito de CAIS:
+
+    Reproduced with permission of Center for AI Safety, Inc.
+
+El material de CAIS NO queda bajo las licencias de los apartados 2 y 3. El
+permiso es para este curso y no se puede sublicenciar. Si quieres reutilizar ese
+material, pide permiso a CAIS. Detalle en NOTICE.md.
+
+2. Texto propio: CC BY-NC-SA 4.0
+--------------------------------
+
+El texto propio del curso, en la parte que no reproduce material de CAIS ni de
+terceros, se publica bajo Creative Commons Atribución-NoComercial-CompartirIgual
+4.0 Internacional (CC BY-NC-SA 4.0). Incluye la redacción de las lecciones, los
+ejemplos, los ejercicios y sus soluciones, los tests (contenido/*.test.json), el
+Atlas de métricas (atlas/atlas.html) y las notas, traducciones y soluciones propias
+de los notebooks.
+
+Copyright (c) 2026 Miguel Ferreiro García.
+Texto legal: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.es
+
+3. Código propio: MIT
+---------------------
+
+El código propio se publica bajo la licencia MIT, cuyo texto sigue. Incluye
+widgets/, app/, build/ y diseno/, y el código propio de los notebooks.
+
+MIT License
+
+Copyright (c) 2026 Miguel Ferreiro García
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+4. Terceros
+-----------
+
+Algunos notebooks contienen código de terceros con su propia licencia (MIT de
+Stanford CS231n, Apache License 2.0 de hendrycks/outlier-exposure). Ese código
+conserva su licencia. Avisos completos en NOTICE.md y LICENSES/.
+
+5. docs/index.html
+------------------
+
+Es el curso compilado en un solo fichero (lo genera build/construir.py). Reúne
+las partes anteriores, y cada una conserva su licencia.

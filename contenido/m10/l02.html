@@ -1,0 +1,188 @@
+<section class="leccion" data-id="m10/l02">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Una empresa que fabrica IA es la primera barrera de seguridad: antes de que intervenga ningún regulador, alguien dentro decide qué se construye, cuándo se lanza y cuánto se gasta en frenar riesgos. La gobernanza corporativa es el conjunto de reglas con las que se dirige y se controla esa empresa.</p>
+<p>Piénsalo como una cadena de mando con dos añadidos. La cadena va de los dueños al consejo, del consejo a la dirección y de la dirección a los equipos. Alrededor hay un marco jurídico, que fija qué puede y qué debe hacer la empresa, y unas garantías, que comprueban desde dentro y desde fuera si todo eso funciona.</p>
+<p>La idea central de la lección es que cada pieza puede dar voz (avisar, asesorar) o dar poder (parar una decisión). Casi todo el arte de diseñar la gobernanza está en que el poder no quede en manos de quien tiene más prisa.</p>
+
+<svg viewBox="0 0 360 330" role="img" aria-labelledby="gc-t gc-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="gc-t">La gobernanza de una empresa de IA</title>
+<desc id="gc-d">Arriba, una banda de marco jurídico con forma jurídica, lugar de constitución y estatutos. En el centro, una cadena de cuatro cajas: accionistas, consejo, directivos y equipos, unidas por flechas hacia abajo. Abajo, una banda de garantías con auditoría interna, que informa al consejo, y examen externo.</desc>
+<rect x="4" y="4" width="352" height="46" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="24" style="fill:var(--accent-ink);font-weight:700;font-size:13px">MARCO JURÍDICO</text>
+<text x="18" y="41" style="fill:var(--muted);font-size:12px">forma jurídica, lugar de constitución, estatutos</text>
+<g style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5">
+<rect x="70" y="62" width="150" height="34" rx="6"/><rect x="70" y="112" width="150" height="34" rx="6"/><rect x="70" y="162" width="150" height="34" rx="6"/><rect x="70" y="212" width="150" height="34" rx="6"/>
+</g>
+<g style="fill:currentColor;font-size:13px;font-weight:600" text-anchor="middle">
+<text x="145" y="84">Accionistas</text><text x="145" y="134">Consejo</text><text x="145" y="184">Dirección</text><text x="145" y="234">Equipos y unidades</text>
+</g>
+<g style="stroke:var(--accent);stroke-width:1.8;fill:none">
+<path d="M145 96 V108 M140 103 L145 110 L150 103"/><path d="M145 146 V158 M140 153 L145 160 L150 153"/><path d="M145 196 V208 M140 203 L145 210 L150 203"/>
+</g>
+<g style="fill:var(--muted);font-size:12px">
+<text x="232" y="107">eligen</text><text x="232" y="157">nombra</text><text x="232" y="207">dirige</text>
+</g>
+<rect x="4" y="262" width="352" height="64" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="18" y="282" style="fill:var(--ex);font-weight:700;font-size:13px">GARANTÍAS</text>
+<text x="18" y="300" style="fill:var(--muted);font-size:12px">Interna: auditoría independiente que informa al consejo</text>
+<text x="18" y="317" style="fill:var(--muted);font-size:12px">Externa: informes, fichas de modelo, terceros que examinan</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Distinguir la teoría del accionista de la de las partes interesadas y explicar por qué cambian las decisiones que parecen obligadas.</li>
+<li>Recorrer los cuatro niveles de la sección 8.4 (jurídico, propiedad, organización y garantías) y nombrar dos mecanismos de cada uno.</li>
+<li>Explicar por qué una forma jurídica, una estructura de propiedad o un comité pueden dar voz sin dar poder, y cuándo un poder no sirve sin información.</li>
+<li>Diseñar y criticar la gobernanza de una empresa de IA sanitaria frente a presiones comerciales concretas.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>¿Para quién trabaja una empresa de IA?</h3>
+<p>Gobernanza corporativa (<em>corporate governance</em>) es todo lo que orienta y controla a una empresa: sus reglas, sus prácticas y sus procesos. El libro se pregunta cómo se gobiernan, o cómo deberían gobernarse, las empresas de IA para servir al interés público (p. 468).</p>
+<p>Antes de mirar los mecanismos hay que decidir para quién trabaja la empresa, porque hay dos respuestas y llevan a diseños distintos.</p>
+<ul>
+<li><strong>Teoría del accionista</strong> (<em>shareholder theory</em>). La empresa debe dar el máximo retorno a quienes la poseen. Gobernar consiste en vigilar que directivos y plantilla, a quienes los accionistas delegan el trabajo, no se aparten de ese fin.</li>
+<li><strong>Teoría de las partes interesadas</strong> (<em>stakeholder theory</em>). La empresa responde también ante empleados, socios y sociedad civil. Gobernar consiste en equilibrar esos intereses con los de los accionistas (p. 468).</li>
+</ul>
+<p>Ejemplo propio: Vitalia IA, una empresa ficticia, vende un modelo de triaje de urgencias. Retrasar el lanzamiento un mes le cuesta ingresos a su accionista. Un falso negativo lo paga una paciente que no es cliente ni accionista. Con la primera teoría esa paciente no entra en la cuenta; con la segunda, sí. Casi todo lo que sigue son maneras de meter intereses ajenos a la cuenta en una decisión.</p>
+
+<h3>¿Qué le permite hacer su forma jurídica?</h3>
+<p>La estructura legal de una empresa (<em>legal structure</em>) tiene tres piezas: su forma jurídica, el lugar donde se constituye y sus estatutos.</p>
+<p><strong>Forma jurídica.</strong> En EE. UU. la más común es la C-corp. Existen también la sociedad de beneficio público (<em>public benefit corporation</em>, PBC), la sociedad de responsabilidad limitada (LLC) y la sociedad en comandita (LP). La diferencia que importa aquí: una C-corp debe maximizar el valor para los accionistas, mientras que una PBC puede perseguir además un beneficio público, lo que permite renunciar a beneficio por otros fines (p. 469). Ejemplos del libro: Google, Microsoft y Meta son C-corp, Anthropic es PBC y OpenAI es una LP propiedad de una organización sin ánimo de lucro (p. 469, según la edición de 2024).</p>
+<p><strong>Lugar de constitución.</strong> La misma Vitalia tendría reglas distintas según dónde se constituya (p. 469). El libro distingue dos familias de países. En unos pesa mucho la jurisprudencia (derecho consuetudinario, <em>common law</em>: EE. UU. y Reino Unido). En otros las leyes escritas son más completas y se interpretan menos (derecho civil: Alemania y Francia). También hay diferencias dentro de un mismo país: OpenAI y Anthropic figuran como ejemplos de empresas constituidas en Delaware, un estado de normativa favorable a los negocios, aunque tengan sedes en otros como California.</p>
+<p><strong>Estatutos y reglamento interno</strong> (<em>statutes and bylaws</em>). Aquí la empresa tiene margen para personalizar. Suelen exigir una misión, y las PBC deben además declarar su beneficio público. Pero los estatutos también admiten reglas concretas: el libro pone como ejemplo dar al consejo el poder de vetar el despliegue de un modelo nuevo (p. 469).</p>
+<p>Aviso propio: estas son formas de EE. UU.; las de España no se tratan aquí. Y el libro es de 2024, así que cómo esté hoy la estructura de cada empresa citada hay que comprobarlo antes de repetirlo.</p>
+
+<h3>¿Quién manda de verdad? La propiedad</h3>
+<p>La cadena formal va de arriba abajo: los accionistas eligen al consejo y el consejo nombra a la dirección (p. 469). Quién ocupa el primer escalón cambia con la vida de la empresa. Una startup como Vitalia (ejemplo propio) empezaría con dinero de particulares, los llamados ángeles. Al crecer entrarían fondos de capital riesgo o una gran tecnológica, como Microsoft en OpenAI (ejemplo del libro), y al salir a bolsa llegarían fondos institucionales, entre ellos los de pensiones. Tampoco es raro que los primeros empleados reciban opciones sobre acciones (pp. 469-470).</p>
+<p>Supón ahora que el consejo de una empresa de IA descuida los riesgos y los accionistas quieren corregirlo. Tienen tres vías (p. 470). Una es sustituir al consejo: en teoría es posible, pero en la práctica se ve muy poco. Otra es tomar la palabra en la junta anual y votar resoluciones; ejemplo del libro: en la junta de Alphabet de 2019 un accionista pidió más supervisión del consejo sobre la IA y propuso un comité de riesgo social. La tercera, más frecuente que la primera, es demandar a los consejeros que incumplen sus obligaciones, y esos pleitos suelen cerrarse con acuerdos que mejoran la gobernanza. Al esfuerzo de los accionistas por orientar la empresa se le llama activismo accionarial (<em>shareholder activism</em>). Lectura propia: ese activismo no tiene por qué ir contra la seguridad.</p>
+<p>La propiedad se puede diseñar. El libro menciona tres soluciones (p. 470):</p>
+<ul>
+<li><strong>Dos clases de acciones.</strong> Las dos dan propiedad, pero solo una da voto. Los fundadores conservan el control y otros aportan capital.</li>
+<li><strong>Beneficio limitado</strong> (<em>capped-profit</em>). El retorno de los inversores tiene un techo, y lo que lo supera va a una entidad sin ánimo de lucro.</li>
+<li><strong>Traspaso condicionado del control.</strong> Si se dan ciertas condiciones, el control pasa a un comité que represente los intereses de la sociedad y no los de los accionistas.</li>
+</ul>
+<p>Lectura propia: ninguna de las tres elimina el riesgo, lo desplaza. Las dos clases descansan en que los fundadores mantengan su misión. El tope modera el incentivo pero no decide nada, y con un techo muy alto casi no cambia. Y el comité social vale lo que valgan las personas que lo componen.</p>
+
+<h3>¿Quién decide dentro? Consejo, dirección y equipos</h3>
+<p><strong>El consejo de administración</strong> (<em>board of directors</em>) es el órgano de gobierno, y a qué se debe depende de la empresa. Sus miembros tienen deberes fiduciarios (<em>fiduciary duties</em>) con ella. Los de Alphabet son los típicos de una C-corp; los de la entidad sin ánimo de lucro de OpenAI consisten en velar por que la IA beneficie a toda la humanidad, no en maximizar valor (p. 470). Con ese mandato puede fijar prioridades, vigilar el riesgo e incluso cambiar al director general, aunque el libro advierte de que su influencia suele ser indirecta. Por eso muchos consejos reparten trabajo en comités, como el de riesgo o el de auditoría (pp. 470-471). Ejemplo del libro: el fideicomiso de beneficio a largo plazo de Anthropic (<em>Long-Term Benefit Trust</em>) puede elegir a miembros del consejo, que en teoría podrían despedir al director general (p. 471).</p>
+<p><strong>La dirección.</strong> ¿Cómo lograr que quienes dirigen cuiden el riesgo? El libro apunta dos herramientas (p. 471). Una es el dinero: como los incentivos económicos explican en parte la conducta de los directivos, la remuneración sirve para alinearlos con la empresa. La otra es la selección: antes de nombrar a alguien, el consejo puede comprobar sus antecedentes y, en una empresa de IA, qué piensa de los riesgos de la IA. El director general (CEO) es quien nombra a los demás altos cargos, como el director técnico, el científico jefe o el director de riesgos (CRO). Nota propia: si a quien vigila el riesgo lo nombra el director general, su independencia tiene un límite.</p>
+<p><strong>Los equipos.</strong> Debajo hay investigación, producto, jurídico, riesgos y finanzas, y en algunas empresas equipos de seguridad y de gobernanza, que deben tener recursos y el respaldo de la dirección. También hay comités de ética que asesoran al consejo y a la dirección, y comités de revisión institucional (<em>institutional review board</em>, IRB) que valoran si publicar cierta investigación puede hacer daño. Ejemplo del libro: un comité de ese tipo en Google DeepMind tuvo un papel clave en el lanzamiento de AlphaFold (p. 471).</p>
+<p>Los riesgos organizativos y la cultura de seguridad se vieron en <a href="#/m01/l03">m01/l03</a> y en <a href="#/m02/l04">m02/l04</a>. Aquí interesa solo la estructura formal: quién puede decidir qué.</p>
+
+<h3>¿Cómo se comprueba que funciona? Las garantías</h3>
+<p>Las garantías (<em>assurance</em>) son las medidas con las que una empresa evalúa y comunica si su gobernanza es adecuada (p. 471).</p>
+<ul>
+<li><strong>Interna.</strong> Los directivos y el consejo necesitan información fiable, así que hacen falta líneas de comunicación claras. El libro menciona además la posibilidad de una auditoría interna organizativamente independiente de la dirección: evalúa la gestión del riesgo, los controles y la gobernanza, e informa directamente al consejo (p. 471).</li>
+<li><strong>Externa.</strong> Muchas empresas deben publicar aspectos de su gobernanza, como si el consejo tiene un comité de auditoría. Las empresas de IA suelen publicar fichas de modelo o de sistema (<em>model cards</em>, <em>system cards</em>) y, algunas, parte de su estrategia de seguridad. Además encargan a terceros auditorías, ejercicios de equipo rojo (<em>red teaming</em>) o programas de recompensa por fallos (<em>bug bounty</em>) (pp. 471-472).</li>
+</ul>
+
+<div class="tw"><table>
+<thead><tr><th>Nivel</th><th>Mecanismo</th><th>Qué permite</th><th>Dónde flaquea (lectura propia)</th></tr></thead>
+<tbody>
+<tr><td>Jurídico</td><td>PBC</td><td>Perseguir un beneficio público además del valor</td><td>Permite, no obliga</td></tr>
+<tr><td>Jurídico</td><td>Veto del consejo en los estatutos</td><td>Parar el despliegue de un modelo</td><td>Solo con información y valentía; en una C-corp choca con maximizar valor</td></tr>
+<tr><td>Propiedad</td><td>Dos clases de acciones</td><td>Control de los fundadores</td><td>Descansa en los fundadores</td></tr>
+<tr><td>Propiedad</td><td>Beneficio limitado</td><td>Techo al retorno de inversores</td><td>Modera el incentivo, no decide</td></tr>
+<tr><td>Organización</td><td>Comité de riesgo o de auditoría</td><td>Criterio y tiempo para el riesgo</td><td>Prepara y asesora; decide el pleno</td></tr>
+<tr><td>Organización</td><td>Director de riesgos</td><td>Una persona responde del riesgo</td><td>Lo nombra el director general</td></tr>
+<tr><td>Garantía interna</td><td>Auditoría independiente</td><td>Información sin filtro al consejo</td><td>Informa, no decide</td></tr>
+<tr><td>Garantía externa</td><td>Auditoría de terceros</td><td>Examen ajeno a la dirección</td><td>La encarga la propia empresa</td></tr>
+</tbody></table></div>
+
+<h3>¿Basta con tener los mecanismos?</h3>
+<p>El libro concluye que las empresas de IA deberían seguir las mejores prácticas de gobernanza y, dado el aumento de los riesgos, valorar soluciones más innovadoras, como el beneficio limitado o el fideicomiso a largo plazo (p. 472). Ahora una advertencia propia: la sección describe mecanismos y ejemplos, pero no aporta datos de cuánto funcionan. Su propia redacción lo sugiere: dice que el consejo podría despedir al director general "en teoría", que su influencia es a menudo indirecta y que sustituir al consejo es raro en la práctica.</p>
+<p>Para pensarlo, esta lección usa un criterio propio: distinguir entre <strong>voz</strong> (avisar, asesorar, informar) y <strong>poder</strong> (parar una decisión). Un diseño con muchas voces y ningún poder falla justo cuando la presión aprieta. Un poder sin información también falla: puedes tener veto y no enterarte. Y, como vimos con las capas del queso suizo en <a href="#/m02/l03">m02/l03</a>, si solo un mecanismo firme frena una presión, ese mecanismo es un punto único de fallo. Para explorarlo con un diseño propio, <a data-ir="practica" href="#sim-diseno">pruébalo en Práctica</a>.</p>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras y empresa inventadas)</p>
+<p>Una auditoría independiente descubre en Vitalia IA que el modelo de triaje pierde sensibilidad en mujeres jóvenes. La dirección prefiere lanzar y corregirlo después. Según cómo esté montada la garantía interna, el mismo hallazgo acaba de cuatro maneras:</p>
+<div class="tw"><table>
+<thead><tr><th>Diseño</th><th>¿A quién llega el informe?</th><th>¿Quién puede parar el lanzamiento?</th><th>Resultado probable</th></tr></thead>
+<tbody>
+<tr><td>Sin auditoría; la dirección decide qué sube</td><td>Solo a la dirección</td><td>La propia dirección</td><td>Se lanza y nadie más lo sabe</td></tr>
+<tr><td>Auditoría dentro del área de producto</td><td>Al director de producto</td><td>La dirección</td><td>Se filtra o se aplaza, según el interés de producto</td></tr>
+<tr><td>Auditoría independiente que informa al consejo, sin veto</td><td>Al consejo</td><td>La dirección; el consejo solo puede sustituirla</td><td>Se sabe, pero la decisión sigue en manos de quien tiene prisa</td></tr>
+<tr><td>Lo anterior más veto del consejo en los estatutos</td><td>Al consejo</td><td>El consejo</td><td>Se retrasa el lanzamiento, si el consejo se atreve a usar el veto</td></tr>
+</tbody></table></div>
+<p>Solo el último diseño junta información y poder.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Confundir tener un órgano con tener poder (aviso propio).</strong> Un comité de ética, un director de riesgos y un equipo de seguridad pueden existir y aun así no poder parar nada. Antes de aceptar un organigrama, pregunta quién puede detener un lanzamiento y si se entera a tiempo.</p>
+<p><strong>Tomar los ejemplos del libro por el estado actual.</strong> Las formas jurídicas, los fideicomisos y los comités que cita son de 2024 y las empresas cambian de estructura. Sirven como ilustración de mecanismos, no como ficha vigente de ninguna empresa.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>I don't just ask whether a company has a safety team or an audit committee: I ask who can actually stop a launch, and whether they hear about the problem in time.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 8.4 Corporate Governance, págs. 468 a 472 (PDF 486 a 490): qué es la gobernanza corporativa (468), estructura legal (468 y 469), estructura de propiedad (469 y 470), estructura organizativa (470 y 471), garantías (471 y 472) y conclusiones (472).</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS). Esta lección no tiene equivalente en el curso.</li>
+<li>Añadido propio, no procede de las fuentes: la empresa Vitalia IA y todas sus cifras y situaciones; el criterio de voz y poder; la tabla de dónde flaquea cada mecanismo; las lecturas de los puntos débiles marcadas como propias; el modelo del simulador (valoración frente a presiones, reglas de interacción, veredictos y fricción); y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: un simulador para diseñar la gobernanza de una empresa y tres ejercicios.</p>
+
+<p class="consigna"><strong>Diseña la gobernanza de Vitalia IA.</strong> Empieza con el punto de partida: una C-corp con comités, director de riesgos, equipo de seguridad y auditoría interna. Fíjate en los tres veredictos distintos: la carrera de lanzamiento sale "Muchas voces, ningún poder", el fallo escondido "Resiste" (porque la auditoría llega a un comité que investiga, aunque no haya veto: discute si eso merece contar como firme) y la ronda de inversión y la compra quedan expuestas. Con 8 puntos de fricción, intenta que las cuatro presiones resistan: pulsa una opción, lee su punto fuerte y su punto débil y mira qué presión mejora. Después prueba los dos diseños ya hechos y busca en qué personas descansa cada uno.</p>
+<div data-widget="m10-l02-diseno" id="sim-diseno"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: clasificar mecanismos (a mano, 6 minutos)</p>
+<p>Coloca cada medida en su nivel (jurídico, propiedad, consejo, dirección, garantía interna o garantía externa) y di si da voz o poder.</p>
+<ol>
+<li>Una cláusula de los estatutos que permite al consejo vetar el despliegue de un modelo.</li>
+<li>Acciones de dos clases, con voto solo en una.</li>
+<li>Un comité de riesgo dentro del consejo.</li>
+<li>Un bono del director general que depende también de un indicador de incidentes de seguridad (lectura propia).</li>
+<li>Un equipo rojo externo contratado antes del lanzamiento.</li>
+<li>Una auditoría interna que informa directamente al consejo.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Jurídico (estatutos). Poder: puede parar. <strong>2.</strong> Propiedad. Poder: fija quién controla. <strong>3.</strong> Consejo. Voz: prepara y asesora, decide el pleno. <strong>4.</strong> Dirección. Ni una cosa ni otra del todo: cambia el incentivo de quien decide. <strong>5.</strong> Garantía externa. Voz: informa, la empresa decide qué hace con lo hallado. <strong>6.</strong> Garantía interna. Voz: informa sin filtro, pero necesita un consejo con poder. De seis medidas, solo dos son poder.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: techo de beneficio y control (a mano, 8 minutos)</p>
+<p>Cifras propias de práctica. Vitalia IA adopta un beneficio limitado: los inversores aportaron 3 M€ y su retorno total tiene un techo de 5 veces lo aportado. Lo que lo supera pasa a la entidad sin ánimo de lucro. A lo largo de los años la empresa reparte 40 M€.</p>
+<ol>
+<li>¿Cuánto cobran los inversores y cuánto recibe la entidad sin ánimo de lucro?</li>
+<li>Si el techo fuera de 20 veces, ¿qué cambiaría? ¿Qué te dice sobre el techo como mecanismo?</li>
+<li>Los fundadores tienen el 10 % del capital, todo en la clase con voto, y los inversores el 90 % en la clase sin voto. Entra una ronda nueva que emite acciones sin voto hasta que los fundadores tienen el 5 % del capital. ¿Qué porcentaje de los votos conservan? ¿Y si las acciones nuevas hubieran sido con voto?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Techo: \(5\times3=15\) M€. Los inversores cobran 15 M€ y la entidad recibe \(40-15=25\) M€.</p>
+<p><strong>2.</strong> Con 20 veces el techo es \(20\times3=60\) M€, mayor que los 40 M€ repartidos: los inversores cobran todo y la entidad sin ánimo de lucro, nada. Un techo alto no limita nada. Lo importante es cuándo se alcanza, no que exista.</p>
+<p><strong>3.</strong> Antes de la ronda hay 100 acciones: 10 de los fundadores, con voto, y 90 de los inversores, sin voto. Para que los fundadores bajen al 5 % del capital hace falta un total de 200, es decir, 100 acciones nuevas. Si no votan, los fundadores siguen teniendo el 100 % de los votos con el 5 % del capital. Si votaran, los únicos votos serían las 10 acciones de los fundadores más las 100 nuevas, y los fundadores tendrían \(10/110\approx9{,}1\) % de los votos: dejarían de controlar. Esa es la ventaja de las dos clases, y su riesgo: todo el control depende de quien está en la clase con voto.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: diagnóstico de una empresa (a mano, 10 minutos)</p>
+<p>Radiolux IA (ficticia) vende un modelo que prioriza estudios de radiología. Es una C-corp con una sola clase de acciones. Su consejo tiene tres miembros, dos del fondo que controla el 60 % del capital, y ningún comité. El director general cobra un bono por facturación. El director de riesgos depende del director de producto. No hay auditoría interna. Solo publica los informes que exige la ley. Encuentra cuatro puntos débiles y propón una mejora para cada uno, con su fricción (baja, media o alta).</p>
+<details>
+<summary>Ver solución</summary>
+<p>Una solución posible, no la única. <strong>1. Incentivo:</strong> el bono solo premia facturación; añadir un indicador de seguridad y limitar la parte variable (fricción baja). <strong>2. Independencia del riesgo:</strong> el director de riesgos depende de producto; que informe a un comité de riesgo del consejo (baja). <strong>3. Información al consejo:</strong> sin auditoría, la dirección filtra lo que llega; crear una auditoría interna independiente que informe al consejo (media). <strong>4. Poder de frenar:</strong> ni la C-corp ni los estatutos permiten al consejo vetar un despliegue, y su composición responde al fondo; estatutos con veto y consejeros independientes, sabiendo que en una C-corp el veto choca con el deber de maximizar valor y que quizá convenga cambiar de forma (alta). Un buen diagnóstico distingue lo que da voz de lo que da poder.</p>
+</details>
+</div>
+
+</div>
+
+</section>

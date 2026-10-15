@@ -1,0 +1,110 @@
+[
+  {
+    "id": "m07l03-q01",
+    "tipo": "unica",
+    "enunciado": "Según el libro, ¿por qué es difícil separar una métrica de seguridad de las capacidades de un modelo?",
+    "opciones": [
+      "Porque la seguridad siempre mejora cuando el modelo es más capaz",
+      "Porque las capacidades de un modelo están muy correlacionadas entre sí, y en la mayoría de los casos una mejora sólida de una capacidad importante va acompañada de mejora general",
+      "Porque las métricas de seguridad no se pueden medir con datos",
+      "Porque cada capacidad se entrena por separado y no comparte nada con las demás"
+    ],
+    "correcta": 1,
+    "explicacion": "El libro cita una correlación superior a 0,8 entre los aciertos de los modelos de lenguaje en materias muy distintas. Si todo sube junto, es fácil que una métrica de seguridad suba solo porque el modelo es mejor en general."
+  },
+  {
+    "id": "m07l03-q02",
+    "tipo": "vf",
+    "enunciado": "Verdadero o falso: como un modelo más capaz comete menos errores, subir las capacidades generales mejora siempre la seguridad.",
+    "correcta": false,
+    "explicacion": "Falso. El efecto es mixto: menos errores reduce ciertos peligros, pero más razonamiento sirve también para engañar mejor y más optimización para explotar mejor un proxy. Mejorar las capacidades generales puede incluso adelantar riesgos catastróficos."
+  },
+  {
+    "id": "m07l03-q03",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estos riesgos NO desaparecen solo con escalar el modelo, según el libro?",
+    "opciones": [
+      "El engaño oculto (deceptive alignment)",
+      "Los ataques adversarios",
+      "Los troyanos",
+      "Los errores de clasificación por falta de precisión general"
+    ],
+    "correcta": [0, 1, 2],
+    "explicacion": "El libro nombra el engaño oculto, los ataques adversarios y los troyanos como riesgos que no bajan con más escala, y por eso hace falta investigación específica de seguridad. Los errores por falta de precisión sí tienden a bajar cuando el modelo es más capaz."
+  },
+  {
+    "id": "m07l03-q04",
+    "tipo": "unica",
+    "enunciado": "El aprendizaje por refuerzo con retroalimentación humana (RLHF) nació para hacer los modelos más seguros y, además, los volvió más capaces de cumplir lo que se les pide. ¿Cómo se llama ese efecto?",
+    "opciones": [
+      "Deriva al fallo",
+      "Externalidad de capacidades generales",
+      "Correlación espuria",
+      "Ganancia diferencial de seguridad"
+    ],
+    "correcta": 1,
+    "explicacion": "Cuando una investigación pensada para la seguridad aumenta las capacidades generales, tiene externalidades de capacidades, que son altas si el aumento es grande. La ganancia diferencial \\(D\\) es otra cosa: la mejora de la métrica que no se explica por las capacidades."
+  },
+  {
+    "id": "m07l03-q05",
+    "tipo": "numerica",
+    "enunciado": "En un conjunto de modelos, una métrica de seguridad sube \\(\\beta=0{,}5\\) puntos por cada punto del índice de capacidades. Un método sube las capacidades 12 puntos y declara una mejora de 9 puntos en la métrica. ¿Cuánto vale la ganancia diferencial \\(D=\\Delta s-\\beta\\,\\Delta c\\), en puntos?",
+    "correcta": 3,
+    "tolerancia": 0.05,
+    "explicacion": "Lo esperable solo por capacidades es \\(0{,}5\\times12=6\\) puntos. Entonces \\(D=9-6=3\\): dos tercios de la mejora declarada se explican por las capacidades y queda un tercio como diferencial."
+  },
+  {
+    "id": "m07l03-q06",
+    "tipo": "unica",
+    "enunciado": "Una métrica de \"ausencia de engaño en pruebas de conducta\" tiene una correlación de \\(-0{,}62\\) con el índice de capacidades en varios modelos. ¿Cómo se lee?",
+    "opciones": [
+      "Es safetywashing: la métrica solo mide capacidades",
+      "La métrica es separable de las capacidades y, por tanto, válida",
+      "Los modelos más capaces puntúan peor: es un riesgo que crece con la escala, no safetywashing",
+      "La correlación negativa indica que la métrica está mal calculada"
+    ],
+    "correcta": 2,
+    "explicacion": "Una correlación negativa alta significa que la capacidad empeora la métrica, algo coherente con que más razonamiento sirva para engañar mejor. No es safetywashing (que exige correlación alta positiva). Tampoco prueba por sí sola que la métrica sea válida."
+  },
+  {
+    "id": "m07l03-q07",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas cautelas sobre la correlación entre una métrica y las capacidades son correctas?",
+    "opciones": [
+      "Que la correlación sea baja no prueba que la métrica mida seguridad: puede medir ruido",
+      "La correlación entre modelos es un dato de población y no dice por sí sola qué hará un método concreto",
+      "Una correlación alta hace la métrica inútil en cualquier contexto",
+      "El umbral de 0,8 para llamarla alta es una convención del curso, no una ley"
+    ],
+    "correcta": [0, 1, 3],
+    "explicacion": "Las tres correctas son cautelas de la lección: la baja correlación no valida la métrica, \\(\\beta\\) sale de comparar modelos y no de un método concreto, y el umbral es una convención. Una métrica muy correlacionada puede servir como señal de capacidad; lo que no permite es atribuir su mejora a la seguridad."
+  },
+  {
+    "id": "m07l03-q08",
+    "tipo": "numerica",
+    "enunciado": "Una línea de investigación quita un riesgo de 9 puntos y tiene una externalidad de capacidades de 6 puntos, en una misma escala. Con un peso \\(w=0{,}75\\) para la aceleración, ¿cuánto vale el balance \\(N=\\rho-w\\,e\\)?",
+    "correcta": 4.5,
+    "tolerancia": 0.05,
+    "explicacion": "\\(N=9-0{,}75\\times6=9-4{,}5=4{,}5\\). Con \\(w=1\\) sería 3 y con \\(w=0\\) sería 9: por eso conviene ver cómo cambia la clasificación de las líneas al variar \\(w\\)."
+  },
+  {
+    "id": "m07l03-q09",
+    "tipo": "unica",
+    "enunciado": "¿Qué propone el progreso tecnológico diferencial (differential technological development)?",
+    "opciones": [
+      "Frenar toda la investigación de capacidades hasta resolver la seguridad",
+      "Adelantar las mejoras de seguridad y retrasar las más peligrosas, de forma que el riesgo total quede por debajo del de las alternativas más probables",
+      "Investigar solo los métodos cuya correlación con las capacidades sea alta",
+      "Publicar únicamente los resultados de seguridad que no toquen las capacidades"
+    ],
+    "correcta": 1,
+    "explicacion": "La idea es mejorar de forma diferencial: no basta con que un trabajo reduzca un peligro, hay que estimar cuánto empuja las capacidades y cómo afecta a varias fuentes de riesgo. No propone frenar toda la investigación, ni usa una alta correlación como criterio."
+  },
+  {
+    "id": "m07l03-q10",
+    "tipo": "vf",
+    "enunciado": "Verdadero o falso (repaso del módulo): según la conclusión del capítulo, los sistemas de un solo agente ya plantean amenazas graves y difíciles de mitigar, incluso antes de considerar el uso malicioso, los sistemas multiagente y la carrera de la IA.",
+    "correcta": true,
+    "explicacion": "Verdadero. Es la frase con la que cierra el capítulo, tras resumir tres problemas: no sabemos instilar nuestros valores de forma robusta, no sabemos predecir los sistemas futuros y no sabemos evaluarlos de forma fiable."
+  }
+]

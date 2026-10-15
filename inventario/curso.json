@@ -1,0 +1,442 @@
+{
+  "fuente": "https://course.mlsafety.org/index.html",
+  "consultado": "2026-09-29",
+  "lecciones": [
+    {
+      "n": 1,
+      "bloque": "Background",
+      "titulo": "Introduction",
+      "temas": "",
+      "video": "https://youtu.be/i_dbiGMHKMA",
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1vP4s1oxomdg3uU5PiV5EnSaiA6kSNcMxtI3L9wRhubQ/edit?usp=sharing",
+        "export_http": 307
+      },
+      "notas_repo": [],
+      "notas_url": null,
+      "preguntas": null,
+      "notebook": null
+    },
+    {
+      "n": 2,
+      "bloque": "Background",
+      "titulo": "Optional",
+      "temas": "building blocks, optimizers, losses, datasets",
+      "video": "https://youtu.be/CDmc6-QyNwI",
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/15yMNlkWAL5cuSHHZe1gy2sM8zcN8gHk9iBVzKKvS9zw/edit?usp=sharing",
+        "export_http": 307
+      },
+      "notas_repo": [],
+      "notas_url": "https://github.com/centerforaisafety/Intro_to_ML_Safety/blob/master/Deep%20Learning%20Review/main.md",
+      "preguntas": {
+        "url": "https://drive.google.com/file/d/1pGSXbv68aHJ-ThLUZzH4D2tzPNaFhVqF/view?usp=sharing",
+        "http": 303
+      },
+      "notebook": {
+        "colab": "https://colab.research.google.com/drive/1AEUEhqVmS4PFl3hPMzs2qPvn38twrQh3?copy",
+        "origen": "drive",
+        "url_descarga": "1AEUEhqVmS4PFl3hPMzs2qPvn38twrQh3",
+        "http": 200
+      }
+    },
+    {
+      "n": 3,
+      "bloque": "Safety Engineering",
+      "titulo": "Risk Decomposition",
+      "temas": "risk analysis definitions, disaster risk equation, decomposition of safety areas, ability to cope and existential risk",
+      "video": "https://youtu.be/fNFIdS1rGq8",
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1RMZ89VHzVnDhugcrrwvHQnRIw366dMr3JYFC3rkxjL0/edit?usp=sharing",
+        "export_http": 307
+      },
+      "notas_repo": [
+        {
+          "fichero": "main.md",
+          "palabras": 1269
+        }
+      ],
+      "notas_url": null,
+      "preguntas": null,
+      "notebook": null
+    },
+    {
+      "n": 4,
+      "bloque": "Safety Engineering",
+      "titulo": "Accident Models",
+      "temas": "FMEA, Bow Tie model, Swiss Cheese model, defense in depth, preventative and protective measures, complex systems, nonlinear causality, emergence, STAMP",
+      "video": "https://youtu.be/Ic_qDqYEJcA",
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1HquuLs0OTVYvuk0QRCG_6aqWhmMEf7sDBFLvRaEAZL4/edit?usp=sharing",
+        "export_http": 307
+      },
+      "notas_repo": [],
+      "notas_url": null,
+      "preguntas": null,
+      "notebook": null
+    },
+    {
+      "n": 5,
+      "bloque": "Safety Engineering",
+      "titulo": "Black Swans",
+      "temas": "unknown unknowns, long tailed distributions, multiplicative processes, extremistan",
+      "video": "https://youtu.be/aX1OPczTxf4",
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1rDWQuwdqFPm1ebqnuM9x_H-2ZYGehj6kSp_5LOi6q5E/edit?usp=sharing",
+        "export_http": 307
+      },
+      "notas_repo": [
+        {
+          "fichero": "main.md",
+          "palabras": 1056
+        }
+      ],
+      "notas_url": null,
+      "preguntas": null,
+      "notebook": null
+    },
+    {
+      "n": 6,
+      "bloque": "Robustness",
+      "titulo": "Adversarial Robustness",
+      "temas": "optimization pressure, PGD, untargeted vs targeted attacks, adversarial evaluation, white box vs black box, transferability, unforeseen attacks, text attacks, robustness certificates",
+      "video": "https://youtu.be/wIX00bZ173k",
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1HzloChC0XElQkCTI181CN6OaYcVNnB5l37sfuANkcq0/edit?usp=sharing",
+        "export_http": 307
+      },
+      "notas_repo": [
+        {
+          "fichero": "main.md",
+          "palabras": 1749
+        }
+      ],
+      "notas_url": "https://github.com/centerforaisafety/Intro_to_ML_Safety/blob/master/Adversarial%20Robustness/main.md",
+      "preguntas": null,
+      "notebook": {
+        "colab": "https://colab.research.google.com/drive/1ezV-jXyPgXDMSo6LqXyRgV_f2ky0cCFH?usp=sharing",
+        "origen": "drive",
+        "url_descarga": "1ezV-jXyPgXDMSo6LqXyRgV_f2ky0cCFH",
+        "http": 200
+      }
+    },
+    {
+      "n": 7,
+      "bloque": "Robustness",
+      "titulo": "Black Swan Robustness",
+      "temas": "stress tests, train-test mismatch, adversarial distribution shifts, simulated scenarios for robustness",
+      "video": "https://youtu.be/9mEp0mk0mpA",
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1uW7hNstJAq7_lSyk3yP8yTSjN85itESbDHFRi1F4wiw/edit?usp=sharing",
+        "export_http": 307
+      },
+      "notas_repo": [
+        {
+          "fichero": "main.md",
+          "palabras": 3315
+        }
+      ],
+      "notas_url": "https://github.com/centerforaisafety/Intro_to_ML_Safety/blob/master/Black%20Swan%20Robustness/main.md",
+      "preguntas": null,
+      "notebook": null
+    },
+    {
+      "n": 8,
+      "bloque": "Monitoring",
+      "titulo": "Anomaly Detection",
+      "temas": "AUROC/AUPR/FPR95, likelihoods and detection, MSP baseline, OE, ViM, anomaly datasets, one-class learning, detecting adversaries, error detection",
+      "video": "https://youtu.be/344sNPH-cSE",
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1WEzSFUbcl1Rp4kQq1K4uONMJHBAUWhCZTzWVHnLcSV8/edit?usp=sharing",
+        "export_http": 307
+      },
+      "notas_repo": [
+        {
+          "fichero": "main.md",
+          "palabras": 3153
+        }
+      ],
+      "notas_url": "https://github.com/centerforaisafety/Intro_to_ML_Safety/blob/master/Anomaly%20Detection/main.md",
+      "preguntas": null,
+      "notebook": {
+        "colab": "https://colab.research.google.com/drive/1oj0HjykyAO9-oC2cJ1KZXPBavEfJ6k14?usp=sharing",
+        "origen": "drive",
+        "url_descarga": "1oj0HjykyAO9-oC2cJ1KZXPBavEfJ6k14",
+        "http": 200
+      }
+    },
+    {
+      "n": 9,
+      "bloque": "Monitoring",
+      "titulo": "Interpretable Uncertainty",
+      "temas": "calibration vs sharpness, proper scoring rules, Brier score, RMS calibration error, reliability diagrams, confidence intervals, quantile prediction",
+      "video": "https://youtu.be/nWfCp7ZN6H8",
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1GHKlv-9UmQdUPracBr09AC2rFZp_GQyJzSQrvSWFjPM/edit?usp=sharing",
+        "export_http": 307
+      },
+      "notas_repo": [
+        {
+          "fichero": "main.md",
+          "palabras": 2394
+        }
+      ],
+      "notas_url": "https://github.com/centerforaisafety/Intro_to_ML_Safety/blob/master/Interpretable%20Uncertainty/main.md",
+      "preguntas": null,
+      "notebook": null
+    },
+    {
+      "n": 10,
+      "bloque": "Monitoring",
+      "titulo": "Transparency",
+      "temas": "saliency maps, token heatmaps, feature visualizations, ProtoPNet",
+      "video": "https://youtu.be/cqMe9E4p7fE",
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1kxgJw31-rH2sZ7z7T9OnaF9YNg9G5t1I1cU1f9UUUe4/edit?usp=sharing",
+        "export_http": 307
+      },
+      "notas_repo": [
+        {
+          "fichero": "Transparency.md",
+          "palabras": 570
+        }
+      ],
+      "notas_url": null,
+      "preguntas": null,
+      "notebook": null
+    },
+    {
+      "n": 11,
+      "bloque": "Monitoring",
+      "titulo": "Trojans",
+      "temas": "hidden functionality from poisoning, treacherous turns",
+      "video": "https://youtu.be/KnA_aTQ9upU",
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/18yWh74a4OANPX1aWhILO5vRjmkTSbcoV9oUZh44D9rg/edit?usp=sharing",
+        "export_http": 307
+      },
+      "notas_repo": [
+        {
+          "fichero": "trojans.md",
+          "palabras": 2316
+        }
+      ],
+      "notas_url": "https://github.com/centerforaisafety/Intro_to_ML_Safety/blob/master/Trojans/trojans.md",
+      "preguntas": null,
+      "notebook": {
+        "colab": "https://colab.research.google.com/drive/1gK943aicv8QrElCBIZPz2CNdtdH1dpA2?copy",
+        "origen": "drive",
+        "url_descarga": "1gK943aicv8QrElCBIZPz2CNdtdH1dpA2",
+        "http": 200
+      }
+    },
+    {
+      "n": 12,
+      "bloque": "Monitoring",
+      "titulo": "Detecting Emergent Behavior",
+      "temas": "emergent capabilities, instrumental convergence, Goodhart’s law, proxy gaming",
+      "video": "https://youtu.be/\\_4qrAck4q18",
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1MGz_eMPQNm5Ov52IZz2vTuTL9IRoABV2tn_MFVrxlQI/edit?usp=sharing",
+        "export_http": 307
+      },
+      "notas_repo": [
+        {
+          "fichero": "main.md",
+          "palabras": 2064
+        }
+      ],
+      "notas_url": "https://github.com/centerforaisafety/Intro_to_ML_Safety/blob/master/Detecting%20Emergent%20Behaviour/main.md",
+      "preguntas": null,
+      "notebook": null
+    },
+    {
+      "n": 13,
+      "bloque": "Control",
+      "titulo": "Honest Models",
+      "temas": "truthful vs. honest, inverse scaling, instances of model dishonesty",
+      "video": "https://youtu.be/r24Gj3quBXc",
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1eVO4-HiPlxkOgySEPBv_H-TKkkZYpC5buySBeo1C6eU/edit?usp=sharing",
+        "export_http": 307
+      },
+      "notas_repo": [],
+      "notas_url": null,
+      "preguntas": null,
+      "notebook": null
+    },
+    {
+      "n": 14,
+      "bloque": "Control",
+      "titulo": "Power Aversion",
+      "temas": "measuring power; the power-seeeking argument; power penalties",
+      "video": null,
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1bI0WNfPg9B0LK7h5Oe6lciminrzsJv_z7anzVV1TO2E/edit?usp=sharing",
+        "export_http": 307
+      },
+      "notas_repo": [],
+      "notas_url": null,
+      "preguntas": null,
+      "notebook": null
+    },
+    {
+      "n": 15,
+      "bloque": "Control",
+      "titulo": "Machine Ethics",
+      "temas": "normative ethics background, human values, value learning with comparisons, translating moral knowledge into action, moral parliament, value clarification",
+      "video": "https://youtu.be/FeX3gOV7Tj0",
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1yibQ-RBSMnejAdEk8iMTTzYyTFmMiRasOLwdvvahZkE/edit?usp=sharing",
+        "export_http": 307
+      },
+      "notas_repo": [],
+      "notas_url": null,
+      "preguntas": null,
+      "notebook": {
+        "colab": "https://colab.research.google.com/drive/1C7pQEsxbIjrRpriqPffCiQW43ffyIi2b?usp=share_link",
+        "origen": "drive",
+        "url_descarga": "1C7pQEsxbIjrRpriqPffCiQW43ffyIi2b",
+        "http": 200
+      }
+    },
+    {
+      "n": 16,
+      "bloque": "Systemic Safety",
+      "titulo": "ML for Improved Decision-Making",
+      "temas": "forecasting, brainstorming",
+      "video": "https://youtu.be/IPFBe465Vrc",
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1HmbLzwmx4IiqoIlhoZ0uDTdLxCP31O3XM9mhJOlJRYM/edit?usp=sharing",
+        "export_http": 307
+      },
+      "notas_repo": [
+        {
+          "fichero": "main.md",
+          "palabras": 881
+        }
+      ],
+      "notas_url": "https://github.com/centerforaisafety/Intro_to_ML_Safety/blob/master/ML%20for%20Improved%20Decision-Making/main.md",
+      "preguntas": null,
+      "notebook": null
+    },
+    {
+      "n": 17,
+      "bloque": "Systemic Safety",
+      "titulo": "ML for Cyberdefense",
+      "temas": "intrusion detection, detecting malicious programs, automated patching, fuzzing",
+      "video": "https://youtu.be/OiPuGPUJpXQ",
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/169h2BwK8U7CvPPYiCMEww3NxvpdKEP-Aes_iE5PS6pA/edit?usp=sharing",
+        "export_http": 307
+      },
+      "notas_repo": [],
+      "notas_url": null,
+      "preguntas": null,
+      "notebook": null
+    },
+    {
+      "n": 18,
+      "bloque": "Systemic Safety",
+      "titulo": "Cooperative AI",
+      "temas": "nash equilibria, dominant strategies, stag hunt, Pareto improvements, cooperation mechanisms, morality as cooperation, cooperative dispositions, collusion externalities",
+      "video": "https://youtu.be/ZUi-kP_X2K4",
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1d5dryLUmW2bqQaCak4PxOPD3gqk2qeeW2ZwAB74ixhQ/edit?usp=sharing",
+        "export_http": 307
+      },
+      "notas_repo": [
+        {
+          "fichero": "main.md",
+          "palabras": 3772
+        }
+      ],
+      "notas_url": "https://github.com/centerforaisafety/Intro_to_ML_Safety/blob/master/Cooperative%20AI/main.md",
+      "preguntas": null,
+      "notebook": null
+    },
+    {
+      "n": 19,
+      "bloque": "Additional Existential Risk Discussion",
+      "titulo": "X-Risk Overview",
+      "temas": "arguments for x-risk",
+      "video": "https://youtu.be/3eP2WcFE20w",
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/19IuBw7GsO6MEeOQIAbY6imDnWLSLT4Fzk2PAW6xq_gA/edit?usp=sharing",
+        "export_http": 307
+      },
+      "notas_repo": [
+        {
+          "fichero": "main.md",
+          "palabras": 1551
+        }
+      ],
+      "notas_url": null,
+      "preguntas": null,
+      "notebook": null
+    },
+    {
+      "n": 20,
+      "bloque": "Additional Existential Risk Discussion",
+      "titulo": "Possible Existential Hazards",
+      "temas": "weaponization, proxy gaming, treacherous turn, deceptive alignment, value lock-in, persuasive AI",
+      "video": "https://youtu.be/k1jV0Mx1xT4",
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1tp65f22ZhWoKdie6VNrh2nY1dWLoK_0WXSSXzdBYLt4/edit?usp=sharing",
+        "export_http": 307
+      },
+      "notas_repo": [],
+      "notas_url": null,
+      "preguntas": null,
+      "notebook": null
+    },
+    {
+      "n": 21,
+      "bloque": "Additional Existential Risk Discussion",
+      "titulo": "Safety-Capabilities Balance",
+      "temas": "theories of impact, differential technological progress, capabilities externalities",
+      "video": "https://youtu.be/sJm7LNMtA4E",
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1P2VsZClM6YsK_vYtO66Yt-JeKlCFBABK-4ieZf0F2B4/edit?usp=sharing",
+        "export_http": 307
+      },
+      "notas_repo": [],
+      "notas_url": null,
+      "preguntas": null,
+      "notebook": null
+    },
+    {
+      "n": 22,
+      "bloque": "Additional Existential Risk Discussion",
+      "titulo": "Natural Selection Favors AIs over Humans",
+      "temas": "Lewontin’s conditions, multiple AI agents, generalized Darwinism, mechanisms for cooperation",
+      "video": "https://youtu.be/48h-ySTggE8",
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1asx5L-tEk5mZTxvO2xzty_YII8fUy7XNgv6Fh55IUBM/edit?usp=sharing",
+        "export_http": 307
+      },
+      "notas_repo": [],
+      "notas_url": null,
+      "preguntas": null,
+      "notebook": null
+    },
+    {
+      "n": 23,
+      "bloque": "Additional Existential Risk Discussion",
+      "titulo": "Review and Conclusion",
+      "temas": "pillars of ML safety research, task-train-deploy pipeline",
+      "video": "https://youtu.be/_fu7lKRt0Ac",
+      "slides": {
+        "url": "https://docs.google.com/presentation/d/1EL9ogIdzapL8_tZMMTw0CfhusRmHtnqA9uh3Wcoutj4/edit?usp=sharing",
+        "export_http": 307
+      },
+      "notas_repo": [],
+      "notas_url": null,
+      "preguntas": {
+        "url": "https://drive.google.com/file/d/1bKAyPeWSz4_jr3vdm2rHKrWu_xe-CNv_/view?usp=sharing",
+        "http": 303
+      },
+      "notebook": null
+    }
+  ]
+}

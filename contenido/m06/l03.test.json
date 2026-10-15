@@ -1,0 +1,110 @@
+[
+  {
+    "id": "m06l03-q01",
+    "tipo": "unica",
+    "enunciado": "¿Qué compara el índice de estabilidad poblacional (PSI)?",
+    "opciones": [
+      "La exactitud de dos versiones del modelo sobre las mismas etiquetas",
+      "El mayor hueco vertical entre dos funciones de distribución acumuladas",
+      "La proporción de casos en cada tramo de una variable, entre la línea base y el lote",
+      "La confianza media del modelo con la exactitud real"
+    ],
+    "correcta": 2,
+    "explicacion": "El PSI suma, tramo a tramo, el cambio de proporción entre la línea base y el lote, ponderado por su logaritmo. El mayor hueco entre CDF es el estadístico D del KS, y no necesita etiquetas ni tramos fijos."
+  },
+  {
+    "id": "m06l03-q02",
+    "tipo": "numerica",
+    "enunciado": "Una variable tiene dos tramos. En la línea base los casos se reparten 0,7 y 0,3; en el lote, 0,5 y 0,5. ¿Cuánto vale el PSI? Responde con tres decimales.",
+    "correcta": 0.1695,
+    "tolerancia": 0.002,
+    "explicacion": "Tramo 1: (0,7 − 0,5) × ln(0,7 / 0,5) = 0,2 × 0,3365 = 0,0673. Tramo 2: (0,3 − 0,5) × ln(0,3 / 0,5) = (−0,2) × (−0,5108) = 0,1022. Total 0,1695: cambio moderado, entre 0,1 y 0,25."
+  },
+  {
+    "id": "m06l03-q03",
+    "tipo": "unica",
+    "enunciado": "El PSI de la edad sale esta semana en 0,31, por encima del umbral de cambio significativo. ¿Cuál es el primer paso razonable?",
+    "opciones": [
+      "Reentrenar el modelo de inmediato",
+      "Retirar el modelo hasta nuevo aviso",
+      "Subir el umbral de la alerta hasta 0,4 para que no vuelva a saltar",
+      "Investigar: cruzar con la calidad, las predicciones y los subgrupos, y comprobar el tamaño del lote"
+    ],
+    "correcta": 3,
+    "explicacion": "La escalera del Atlas empieza siempre por investigar y nunca se actúa sobre una métrica aislada. Un PSI alto dice que la entrada cambió, no que el modelo falle, y con un lote pequeño puede ser ruido."
+  },
+  {
+    "id": "m06l03-q04",
+    "tipo": "vf",
+    "enunciado": "Un PSI de 0,4 en una característica de entrada demuestra que la exactitud del modelo ha caído.",
+    "correcta": false,
+    "explicacion": "Falso. El PSI mide que la entrada cambió, no que el modelo acierte menos: la población nueva puede caer en una zona donde el modelo sigue acertando. Y al revés, un PSI bajo no descarta una deriva de concepto."
+  },
+  {
+    "id": "m06l03-q05",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas señales se pueden calcular sin etiquetas?",
+    "opciones": [
+      "La deriva de características",
+      "La deriva de la confianza del modelo",
+      "La exactitud real del modelo",
+      "La confirmación directa de la deriva de concepto",
+      "La deriva de las predicciones"
+    ],
+    "correcta": [
+      0,
+      1,
+      4
+    ],
+    "explicacion": "Las tres de deriva de Vigía usan solo el payload. La exactitud real y la confirmación directa de la deriva de concepto necesitan la etiqueta (el resultado clínico), que llega tarde."
+  },
+  {
+    "id": "m06l03-q06",
+    "tipo": "unica",
+    "enunciado": "Con 20.000 casos en cada muestra, un KS da p < 0,001 y D = 0,02. ¿Cuál es la lectura correcta?",
+    "opciones": [
+      "Deriva grave: hay que reentrenar",
+      "El resultado es incoherente: un D tan pequeño no puede ser significativo",
+      "Es una diferencia estadísticamente significativa pero pequeña; hay que mirar D y cuánto importa",
+      "Como D es pequeño, el p-valor tenía que ser alto"
+    ],
+    "correcta": 2,
+    "explicacion": "Con muestras enormes el KS detecta diferencias mínimas: el p-valor mide si hay diferencia, no cuánto importa. Por eso se lee D junto al p-valor, y se decide por la magnitud y por la calidad, no por el p-valor solo."
+  },
+  {
+    "id": "m06l03-q07",
+    "tipo": "numerica",
+    "enunciado": "En la línea base el modelo deriva al 22 % de los casos y en el lote de hoy al 35 %. Con la variación total como medida, ¿cuánto vale la deriva de las predicciones? Responde como número entre 0 y 1.",
+    "correcta": 0.13,
+    "tolerancia": 0.001,
+    "explicacion": "Para una variable de dos clases, la variación total es la diferencia de proporciones: |0,35 − 0,22| = 0,13. Con el umbral de 0,08 de la referencia de Vigía estaría en alerta, aunque por sí sola no dice si el cambio es legítimo."
+  },
+  {
+    "id": "m06l03-q08",
+    "tipo": "unica",
+    "enunciado": "Cae la calidad y las características de entrada no se han movido. ¿Qué sospechas primero?",
+    "opciones": [
+      "Deriva de datos",
+      "Deriva de concepto: cambió la relación entre entrada y resultado",
+      "Ruido de una ventana pequeña en el PSI",
+      "Que el umbral de la deriva de confianza está mal puesto"
+    ],
+    "correcta": 1,
+    "explicacion": "Si las entradas son las mismas y el modelo falla más, lo que ha cambiado es la relación entrada-resultado, como con una guía clínica nueva. Es una sospecha: se confirma con etiquetas suficientes y, si se confirma, la acción por defecto es reentrenar."
+  },
+  {
+    "id": "m06l03-q09",
+    "tipo": "vf",
+    "enunciado": "Una ventana de referencia que se actualiza sola con los datos recientes hace invisible la deriva gradual.",
+    "correcta": true,
+    "explicacion": "Verdadero. Si la referencia avanza con los datos, cada comparación ve solo un cambio pequeño respecto a la ventana anterior. Para detectar la deriva lenta hace falta una línea base congelada."
+  },
+  {
+    "id": "m06l03-q10",
+    "tipo": "numerica",
+    "enunciado": "Sin deriva alguna, ¿qué PSI aproximado esperas por puro ruido con 10 tramos y un lote de 300 casos? Usa la aproximación (k − 1) / n de la lección.",
+    "correcta": 0.03,
+    "tolerancia": 0.003,
+    "explicacion": "(10 − 1) / 300 = 0,03. Es pequeño frente a 0,1, pero con 100 casos subiría a 0,09, casi el umbral: por eso el PSI con ventanas pequeñas da falsos positivos."
+  }
+]

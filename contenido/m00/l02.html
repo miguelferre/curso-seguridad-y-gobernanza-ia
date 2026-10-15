@@ -1,0 +1,283 @@
+<section class="leccion" data-id="m00/l02">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>En la lección anterior viste qué entendemos por inteligencia artificial. Hoy baja un peldaño: cómo consigue un sistema hacer algo útil sin que nadie le escriba una regla para cada caso. La respuesta es el aprendizaje automático: se le dan ejemplos, él ajusta unos números internos hasta equivocarse poco y después decide sobre casos nuevos.</p>
+<p>Ese "poco" se mide sobre los ejemplos con los que aprendió, y lo que importa es cómo se comporta con pacientes que no vio. Por eso hay que comprobarlo con datos nuevos, elegir bien la métrica y saber cuánta ayuda humana necesitó para aprender: con respuestas, sin ellas o con premios y castigos.</p>
+
+<svg viewBox="0 0 360 344" role="img" aria-labelledby="rs-t rs-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="rs-t">Cómo aprende un modelo</title>
+<desc id="rs-d">Primer panel: ejemplos entran en un modelo, que da una predicción, y una flecha de vuelta indica que se compara con la respuesta y se ajusta. Segundo panel: dos barras de error, una corta en entrenamiento y una larga en validación; la diferencia es el sobreajuste. Tercer panel: tres formas de aprender, con etiquetas, sin etiquetas y con recompensas.</desc>
+<rect x="4" y="4" width="352" height="112" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="26" style="fill:var(--accent-ink);font-weight:700;font-size:14px">APRENDER DE EJEMPLOS</text>
+<rect x="18" y="38" width="88" height="28" rx="6" style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5"/>
+<text x="62" y="56" text-anchor="middle" style="fill:currentColor;font-size:12.5px">Ejemplos</text>
+<rect x="136" y="38" width="88" height="28" rx="6" style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5"/>
+<text x="180" y="56" text-anchor="middle" style="fill:currentColor;font-size:12.5px">Modelo</text>
+<rect x="254" y="38" width="88" height="28" rx="6" style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5"/>
+<text x="298" y="56" text-anchor="middle" style="fill:currentColor;font-size:12.5px">Predicción</text>
+<path d="M106 52 H130 M224 52 H248" style="fill:none;stroke:var(--accent);stroke-width:1.8"/>
+<polygon points="134,52 127,48 127,56" style="fill:var(--accent)"/>
+<polygon points="252,52 245,48 245,56" style="fill:var(--accent)"/>
+<path d="M298 66 V86 H186 V70" style="fill:none;stroke:var(--trap);stroke-width:1.8"/>
+<polygon points="186,68 182,76 190,76" style="fill:var(--trap)"/>
+<text x="180" y="106" text-anchor="middle" style="fill:var(--muted);font-size:12px">se compara con la respuesta y se ajusta</text>
+
+<rect x="4" y="126" width="352" height="96" rx="10" style="fill:var(--surface);stroke:var(--trap);stroke-width:2"/>
+<text x="18" y="148" style="fill:var(--trap);font-weight:700;font-size:14px">COMPROBAR CON DATOS NUEVOS</text>
+<text x="128" y="170" text-anchor="end" style="fill:currentColor;font-size:12px">entrenamiento</text>
+<rect x="136" y="160" width="46" height="14" rx="3" style="fill:var(--accent);opacity:.85"/>
+<text x="128" y="192" text-anchor="end" style="fill:currentColor;font-size:12px">validación</text>
+<rect x="136" y="182" width="190" height="14" rx="3" style="fill:var(--trap);opacity:.85"/>
+<text x="180" y="212" text-anchor="middle" style="fill:var(--muted);font-size:12px">error: brecha grande = sobreajuste</text>
+
+<rect x="4" y="232" width="352" height="108" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="18" y="254" style="fill:var(--ex);font-weight:700;font-size:14px">TRES FORMAS DE APRENDER</text>
+<g style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5">
+<rect x="14" y="264" width="104" height="68" rx="6"/><rect x="128" y="264" width="104" height="68" rx="6"/><rect x="242" y="264" width="104" height="68" rx="6"/>
+</g>
+<g text-anchor="middle" style="fill:currentColor;font-size:11px">
+<text x="66" y="282" style="font-weight:700">Con etiquetas</text>
+<text x="66" y="300" style="fill:var(--muted);font-size:11px">radiografías con</text>
+<text x="66" y="314" style="fill:var(--muted);font-size:11px">su diagnóstico</text>
+<text x="180" y="282" style="font-weight:700">Sin etiquetas</text>
+<text x="180" y="300" style="fill:var(--muted);font-size:11px">notas clínicas</text>
+<text x="180" y="314" style="fill:var(--muted);font-size:11px">sin marcar</text>
+<text x="294" y="282" style="font-weight:700">Con recompensas</text>
+<text x="294" y="300" style="fill:var(--muted);font-size:11px">probar una acción</text>
+<text x="294" y="314" style="fill:var(--muted);font-size:11px">y ver el resultado</text>
+</g>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Describir cualquier sistema de aprendizaje automático con cuatro preguntas: tarea, entradas, salidas y tipo de aprendizaje.</li>
+<li>Distinguir clasificación, regresión, detección de anomalías y modelado de secuencias con casos clínicos.</li>
+<li>Calcular exactitud, precisión y recall desde una matriz de confusión y explicar por qué la exactitud engaña con clases desequilibradas.</li>
+<li>Reconocer el sobreajuste comparando el error de entrenamiento con el de validación, y distinguir el aprendizaje supervisado, el no supervisado y el de refuerzo.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>¿Qué cambia cuando una máquina aprende?</h3>
+<p>Debajo de casi todos los sistemas de IA actuales (l01) está el aprendizaje automático (<em>machine learning</em>, ML). Una de sus técnicas, las redes profundas, tiene su propia lección (l03). En la programación clásica, una persona escribe las reglas. En el ML, se entregan ejemplos y el sistema extrae las regularidades por su cuenta. Lo aprendido queda guardado en un modelo (<em>model</em>), que luego decide sobre casos que no ha visto. Caso propio: una regla escrita a mano dice "avisa si el lactato pasa de 2 y el pulso de 100". Un modelo de ML ve miles de historias, cada una marcada con si el paciente acabó desarrollando sepsis, y descubre combinaciones de variables que nadie escribió. Ejemplo del libro: un filtro de correo basura mejora cuantos más mensajes ve.</p>
+<p>La ventaja es que automatiza tareas demasiado complejas para describirlas con reglas. El precio es que el comportamiento lo deciden los datos: si son malos, lo aprendido también lo es.</p>
+
+<h3>¿Cómo describo cualquier sistema de ML?</h3>
+<p>Casi todos los modelos se pueden situar con cuatro preguntas. Ejemplo propio, un modelo que estima la estancia de un paciente:</p>
+<div class="tw"><table>
+<thead><tr><th>Pregunta</th><th>Qué responde</th><th>Ejemplo propio</th></tr></thead>
+<tbody>
+<tr><td>Tarea</td><td>qué debe lograr</td><td>estimar cuántos días estará ingresado</td></tr>
+<tr><td>Entradas</td><td>qué datos recibe</td><td>edad, diagnóstico de ingreso, analítica</td></tr>
+<tr><td>Salidas</td><td>qué produce</td><td>un número de días</td></tr>
+<tr><td>Tipo de aprendizaje</td><td>cómo aprende</td><td>supervisado: parte de estancias reales ya registradas</td></tr>
+</tbody></table></div>
+<p>Hay que separar dos fases. En el entrenamiento (<em>training</em>) el modelo aprende de los datos. En la inferencia (<em>inference</em>) usa lo aprendido para producir una salida ante una entrada nueva.</p>
+
+<h3>¿Qué problema resuelve? Cuatro tareas</h3>
+
+<h4>Clasificación: elegir una categoría</h4>
+<p>La clasificación (<em>classification</em>) reparte cada caso en una categoría a partir de sus características. Si hay dos categorías es binaria, y si hay más, multiclase. Ejemplo del libro: decidir si un tumor es benigno o maligno según la edad, el tamaño y el consumo de tabaco. Ejemplos propios: una alerta de sepsis que dice sí o no, o una radiografía que se etiqueta como normal, neumonía o derrame.</p>
+<p>Muchos clasificadores empiezan calculando una puntuación \(z\) que puede valer cualquier número. El libro presenta la función sigmoide (<em>sigmoid</em>) como una de las que la convierten en un valor entre 0 y 1, que se lee como probabilidad. La fórmula y las cifras son añadido propio:</p>
+<div class="formula">\[ \sigma(z)=\frac{1}{1+e^{-z}} \]</div>
+<p>Con \(z=0\) sale 50 %, con \(z=2\) sale 88 % y con \(z=-3\) sale 4,7 %. Como aclara el libro, no es la única vía: otros modelos dan probabilidades sin sigmoide.</p>
+
+<h4>Regresión: estimar un número</h4>
+<p>La regresión (<em>regression</em>) predice una cantidad continua. Ejemplo del libro: el precio de una vivienda. Ejemplo propio: la presión arterial. La regresión lineal supone una recta, \(\hat y = w\,x + b\), donde \(w\) y \(b\) son los números que se ajustan. Es útil, pero esa suposición a menudo falla: en el simulador verás que una recta no sigue una presión que sube con la edad y luego se aplana.</p>
+
+<h4>Detección de anomalías: encontrar lo raro</h4>
+<p>La detección de anomalías (<em>anomaly detection</em>) señala datos que se salen de lo habitual, y por eso sirve para descubrir peligros a tiempo. Ejemplo propio: un monitor de UCI con una lectura imposible porque se ha soltado un sensor, o un paciente cuyo patrón no se parece a ninguno de los vistos. Un caso difícil son los cisnes negros (<em>black swans</em>): sucesos raros y de gran impacto que quizá no estén en los datos de entrenamiento, así que el modelo no tiene de dónde extrapolarlos. Se retoman en el módulo 2.</p>
+
+<h4>Modelado de secuencias: cuando el orden importa</h4>
+<p>El modelado de secuencias (<em>sequence modeling</em>) trata datos donde el orden cuenta, como el texto o las series temporales. El modelo aprende una representación (<em>representation learning</em>): convierte el dato bruto en un formato más útil para la tarea. Dos de sus ramas son la generativa (<em>generative modeling</em>), que crea datos nuevos parecidos a los de entrenamiento, y la decisión secuencial (<em lang="en">sequential decision-making</em>), que elige acciones a lo largo del tiempo, de modo que cada una condiciona las siguientes. Ejemplos propios: redactar un borrador de informe de alta, y proponer ajustes de dosis durante el día, donde cada ajuste cambia el estado del paciente. La segunda enlaza con el aprendizaje por refuerzo, que verás más abajo.</p>
+
+<h3>¿Con qué datos trabaja? Las modalidades</h3>
+<p>Una modalidad (<em>modality</em>) es el tipo de dato de entrada. Un sistema multimodal combina varias, por ejemplo imagen y texto. La lista no es cerrada: ciertos sensores o la resonancia funcional no encajan bien en ella. Con ejemplos clínicos propios:</p>
+<div class="tw"><table>
+<thead><tr><th>Modalidad</th><th>Qué es</th><th>Ejemplo propio</th></tr></thead>
+<tbody>
+<tr><td>Tabular</td><td>filas y columnas</td><td>una analítica: una fila por paciente</td></tr>
+<tr><td>Texto</td><td>lenguaje natural o código</td><td>notas de evolución</td></tr>
+<tr><td>Imagen y vídeo</td><td>información visual, fija o en el tiempo</td><td>radiografía; ecografía en movimiento</td></tr>
+<tr><td>Audio</td><td>sonido</td><td>una tos grabada</td></tr>
+<tr><td>Serie temporal</td><td>observaciones ordenadas en el tiempo</td><td>un electrocardiograma</td></tr>
+<tr><td>Grafo</td><td>nodos y conexiones</td><td>interacciones entre fármacos</td></tr>
+<tr><td>Conjunto</td><td>colección de vectores sin orden</td><td>nube de puntos de un escáner 3D</td></tr>
+</tbody></table></div>
+
+<h3>¿Cómo se construye un modelo?</h3>
+<p>El camino de los datos al uso real se llama cadena o <em>pipeline</em> del ML y tiene seis pasos:</p>
+<ol>
+<li><strong>Recoger datos.</strong> Su cantidad y su calidad ponen el techo de lo que el modelo podrá hacer.</li>
+<li><strong>Elegir características y etiqueta.</strong> Una característica (<em>feature</em>) es una medida que el modelo usa para predecir; la etiqueta (<em>label</em>) es lo que se quiere predecir. En la estancia, la edad es una característica y los días reales son la etiqueta.</li>
+<li><strong>Elegir la arquitectura.</strong> Es la estructura del modelo: el tipo de algoritmo y cómo se organizan sus piezas.</li>
+<li><strong>Entrenar.</strong> Dentro de la arquitectura hay parámetros (<em>parameters</em>), valores ajustables como el peso de cada característica. Entrenar es moverlos para que el modelo se equivoque menos.</li>
+<li><strong>Evaluar</strong> con datos que el modelo no ha visto.</li>
+<li><strong>Desplegar y mantener</strong>: integrarlo en un sistema mayor, usarlo y actualizarlo.</li>
+</ol>
+
+<h4>Cómo se ajustan los parámetros (añadido propio)</h4>
+<p>El libro dice que entrenar es ajustar parámetros para reducir el error, y da el error cuadrático medio como la pérdida más popular en regresión, pero no explica el mecanismo. Lo que sigue es añadido propio. El mecanismo más habitual tiene dos piezas. Una función de pérdida (<em>loss</em>) mide cuánto se equivoca el modelo; en regresión suele ser el error cuadrático medio (ECM, <em>mean squared error</em>). El descenso de gradiente (<em>gradient descent</em>) calcula hacia dónde crece más deprisa la pérdida y da un paso corto en sentido contrario, muchas veces seguidas.</p>
+<div class="formula">\[ \mathrm{ECM}(w)=\frac1n\sum_{i=1}^{n}\bigl(\hat y_i-y_i\bigr)^2 \qquad w\leftarrow w-\eta\,\nabla_w\,\mathrm{ECM}(w) \]</div>
+<p>Aquí \(\hat y_i\) es la predicción para el paciente \(i\), \(y_i\) su valor real y \(\eta\) la tasa de aprendizaje (<em>learning rate</em>), el tamaño del paso. En el primer simulador ajustarás un polinomio \(\hat y=w_0+w_1x+\dots+w_gx^g\): el grado \(g\) es parte de la arquitectura y los \(w\) son los parámetros. El simulador lo escribe en una base equivalente, más estable al calcular.</p>
+<p>Ojo con lo que se minimiza: la pérdida sobre los datos de entrenamiento, un sustituto del objetivo real. Esa distancia reaparece una y otra vez en seguridad de la IA.</p>
+
+<h3>¿Cómo sé que funciona?</h3>
+<p>Se evalúa (<em>evaluation</em>) con datos que el modelo no ha visto, porque solo así se sabe si generaliza. Un modelo muy flexible puede acabar siguiendo el ruido de sus ejemplos: error bajo con los pacientes de entrenamiento y alto con los nuevos. Es el sobreajuste (<em>overfitting</em>), que el libro solo nombra de pasada en su repaso histórico (l01). Lo que sigue es añadido propio: para detectarlo se reserva un conjunto de validación (<em>validation set</em>) y se compara su error con el de entrenamiento. Puedes provocarlo en el <a data-ir="practica" href="#sim-ajuste">simulador de ajuste</a>.</p>
+
+<h4>Exactitud y matriz de confusión</h4>
+<p>La exactitud (<em>accuracy</em>) es la proporción de aciertos. Se ve mejor con la matriz de confusión (<em>confusion matrix</em>), que cuenta los cuatro resultados posibles de una predicción binaria:</p>
+<div class="tw"><table>
+<thead><tr><th></th><th>Predice positivo</th><th>Predice negativo</th></tr></thead>
+<tbody>
+<tr><td>Realmente positivo</td><td>verdadero positivo (VP): acierto</td><td>falso negativo (FN): caso perdido</td></tr>
+<tr><td>Realmente negativo</td><td>falso positivo (FP): falsa alarma</td><td>verdadero negativo (VN): acierto</td></tr>
+</tbody></table></div>
+<div class="formula">\[ \text{exactitud}=\frac{VP+VN}{VP+VN+FP+FN} \]</div>
+<p>La exactitud engaña si una clase es mucho más frecuente que la otra. Ejemplo del libro: si el 95 % de los correos no es basura, un filtro que declara todo legítimo ya acierta el 95 %. Ejemplo propio: en un cribado donde enferma el 2 % de la población, un modelo que dice "sano" a todos acierta el 98 % y no detecta a nadie.</p>
+
+<h4>Precisión y recall</h4>
+<p>Los dos errores no cuestan lo mismo. Ejemplo del libro: en la detección de cáncer, una falsa alarma trae ansiedad y pruebas de más, pero un caso perdido retrasa el tratamiento. Ejemplo propio: en una alerta de sepsis, las falsas alarmas cansan al personal, y una alerta que no llega puede costar un daño grave. Dos métricas separan cada error:</p>
+<div class="formula">\[ \text{precisión}=\frac{VP}{VP+FP} \qquad \text{recall}=\frac{VP}{VP+FN} \]</div>
+<p>La precisión (<em>precision</em>) responde a "de las alarmas que suenan, ¿cuántas eran reales?". El recall (<em>recall</em>, o sensibilidad) responde a "de los enfermos que hay, ¿a cuántos avisa?". Con un mismo modelo, subir una suele bajar la otra: el umbral de alarma decide dónde te colocas, y lo tocarás en el <a data-ir="practica" href="#sim-umbral">simulador del umbral</a>.</p>
+
+<h4>AUROC y error cuadrático medio</h4>
+<p>El AUROC (<em>area under the ROC curve</em>) resume cuánto separa el modelo a los positivos de los negativos sin fijar un umbral. Se lee como la probabilidad de que un positivo elegido al azar puntúe más alto que un negativo elegido al azar. Vale 0,5 si el modelo es un sorteo y 1 si es perfecto, y no depende de cuántos positivos haya. Para regresión se usa el ECM, que penaliza mucho los errores grandes.</p>
+
+<h4>Razonable o fiable</h4>
+<p>Un asistente que resume notas de evolución puede equivocarse de vez en cuando sin dañar a nadie; un sistema que propone una dosis, no. El libro separa esos dos listones: una tarea está resuelta razonablemente (<em>reasonably solved</em>) cuando el modelo ya es útil aunque conserve fallos, y fiablemente (<em>reliably solved</em>) cuando basta para un uso crítico. Además, el modelo persigue metas que compiten entre sí, como la potencia predictiva, la rapidez o la transparencia, y mejorar una puede empeorar otra.</p>
+
+<h3>¿Cuánta ayuda humana necesita? Tipos de aprendizaje</h3>
+<p>La supervisión (<em>supervision</em>) es guiar el aprendizaje con una etiqueta en la que se confía como verdad de referencia. Según cuánta supervisión recibe y qué produce, el ML se reparte en tres tipos:</p>
+<div class="tw"><table>
+<thead><tr><th>Tipo</th><th>Qué recibe</th><th>Ejemplo propio</th><th>Punto débil</th></tr></thead>
+<tbody>
+<tr><td>Supervisado (<em>supervised</em>)</td><td>ejemplos con su respuesta, casi siempre puesta por personas</td><td>radiografías con el diagnóstico del radiólogo</td><td>etiquetar cuesta tiempo y dinero, y los errores de etiqueta se heredan</td></tr>
+<tr><td>No supervisado (<em>unsupervised</em>)</td><td>datos sin respuesta</td><td>notas clínicas: predecir la siguiente palabra</td><td>nadie le dice qué patrón interesa</td></tr>
+<tr><td>Por refuerzo (<em>reinforcement learning</em>, RL)</td><td>recompensas o penalizaciones por lo que hace en un entorno</td><td>un agente que prueba ajustes de dosis en un simulador</td><td>necesita una recompensa bien diseñada y mucho cómputo</td></tr>
+</tbody></table></div>
+<p>El supervisado brilla en clasificación y regresión cuando hay muchos datos etiquetados. Ejemplo del libro: un libro de ejercicios con las soluciones al final. En el no supervisado el modelo busca estructura por su cuenta y a veces fabrica su propia señal de guía, por lo que el libro también lo llama autosupervisado (<em>self-supervised</em>). Nota propia: otros textos separan ambos términos, y para un modelo de lenguaje que predice la siguiente palabra lo habitual es decir autosupervisado. En el refuerzo no hay un conjunto de datos previo: el agente arranca a ciegas y los datos son los que produce al interactuar. Su riesgo es que, si la recompensa está mal diseñada, el agente optimiza la recompensa y no lo que queríamos; verás ese fallo en el módulo 5.</p>
+
+<h4>Un continuo, y tareas que se pueden replantear</h4>
+<p>Supervisado y no supervisado son polos de un continuo. En medio queda la supervisión parcial o débil: etiquetas que faltan o llevan errores. Ejemplo propio: usar como etiqueta el código de diagnóstico de la factura, que a veces no refleja lo que tenía el paciente. Muchas tareas admiten más de un planteamiento. Ejemplo del libro: los fraudes se pueden ver como anomalías sin etiquetar o como una clasificación entre fraude y no fraude.</p>
+<p>El aprendizaje profundo (<em>deep learning</em>) no es un cuarto tipo. Es un método de cómputo que se puede aplicar en cualquiera de los tres, y se estudia en l03.</p>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Un modelo de cribado puntúa a 1000 pacientes, de los que enferman 20 (2 %). Da la alarma en 65: acierta en 16 y se equivoca en 49. De los 935 sin alarma, 4 estaban enfermos. La matriz es VP = 16, FN = 4, FP = 49, VN = 931.</p>
+<ul>
+<li>Exactitud: \((16+931)/1000=0{,}947\).</li>
+<li>Precisión: \(16/(16+49)=0{,}246\). Solo una de cada cuatro alarmas es real.</li>
+<li>Recall: \(16/(16+4)=0{,}80\). Se detecta a cuatro de cada cinco enfermos.</li>
+<li>Comparación: el modelo que no avisa nunca tiene una exactitud del 98 %, más alta que la de este, y un recall de 0.</li>
+</ul>
+<p>¿Es un buen modelo? Depende del coste de cada error. Si la alarma solo lanza una prueba confirmatoria barata, la baja precisión se tolera y importa el recall. Si cada alarma implica una intervención invasiva, la precisión pesa mucho más.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Juzgar por la exactitud.</strong> Con clases muy desiguales, un modelo inútil saca una exactitud altísima. Mira la matriz completa.</p>
+<p><strong>Evaluar con los datos de entrenamiento.</strong> Un error bajo ahí solo dice que el modelo se ha aprendido esos ejemplos.</p>
+<p><strong>Confundir "razonable" con "fiable".</strong> Una demostración que sale bien no prueba que sirva donde un fallo dañe a alguien.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>I judge a model on data it has never seen, and I report precision and recall, not just accuracy, because a missed case and a false alarm rarely cost the same.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 2.2, solo "Machine Learning" (págs. 64 a 75; PDF 82 a 93) y "Types of Machine Learning" (págs. 75 a 78; PDF 93 a 96): tareas (65 a 69), modalidades (69), cadena de desarrollo (69 a 71), evaluación y métricas (71 a 75) y tipos de aprendizaje (76 a 78).</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS). Esta lección no usa notas de ese curso.</li>
+<li>Atlas de métricas (obra propia): el monitor de calidad de clasificación binaria desarrolla estas métricas en producción (módulo 6). Es un enlace, no una fuente.</li>
+<li>Añadido propio: la fórmula de la sigmoide y sus valores (el libro presenta la función sin fórmula); las fórmulas del ECM y el descenso de gradiente, que el libro no trata; el sobreajuste y el conjunto de validación; la nota sobre no supervisado y autosupervisado; los ejemplos clínicos y sus cifras; los simuladores y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: dos simuladores para explorar y tres ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de ajuste.</strong> Empieza con grado 9, 12 pacientes y todos los pasos: el error en entrenamiento es de unos 3 mmHg y el de validación de unos 15. Pulsa "Ir al mejor paso según validación": parar pronto da mejor validación. Baja el grado a 3: los dos errores rondan el ruido de 7 mmHg y quedan cerca uno de otro. Baja a 1 y verás subajuste: los dos suben. Vuelve a grado 9 y sube los pacientes a 40: la brecha se cierra. Marca "Dibujar la relación real" para ver qué curva intenta aprender el modelo.</p>
+<div data-widget="m00-l02-ajuste" id="sim-ajuste"></div>
+
+<p class="consigna"><strong>Simulador del umbral.</strong> Con prevalencia del 2 %, separación 2 y umbral 1,5, la exactitud es del 92,9 %, por debajo del 98 % de "todos sanos", y el recall es del 70 %. Sube el umbral a 2,5: la precisión sube al 50 % y el recall cae al 30 %. Bájalo a 0,5: el recall llega al 95 % y la precisión se hunde al 5,9 %. Vuelve a 1,5 y sube la prevalencia al 30 % sin tocar la separación: la precisión sube al 81,5 % con el mismo modelo, porque su AUROC no ha cambiado.</p>
+<div data-widget="m00-l02-umbral" id="sim-umbral"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: describir sistemas con las cuatro preguntas (a mano, 3 minutos)</p>
+<p>Para cada sistema (casos propios), indica la tarea, la modalidad de entrada, la salida y el tipo de aprendizaje.</p>
+<ol>
+<li>Un modelo que recibe una radiografía de tórax y responde normal, neumonía o derrame, entrenado con informes de radiólogos.</li>
+<li>Un modelo que lee millones de notas de evolución y aprende a predecir la palabra siguiente.</li>
+<li>Un monitor que avisa cuando las constantes de un paciente no se parecen a nada visto antes, sin ejemplos de "casos malos".</li>
+<li>Un agente que, en un simulador de UCI, aprende a ajustar la perfusión de un fármaco y recibe una recompensa mayor cuanto más estable queda el paciente.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Clasificación multiclase; imagen; una categoría entre tres; supervisado (las etiquetas las pusieron personas).</p>
+<p><strong>2.</strong> Modelado de secuencias (generativo); texto; una palabra; no supervisado, o autosupervisado: la señal sale del propio texto.</p>
+<p><strong>3.</strong> Detección de anomalías; serie temporal; una alarma o una puntuación de rareza; no supervisado, porque no hay etiquetas.</p>
+<p><strong>4.</strong> Decisión secuencial; constantes del simulador; una acción, la dosis; refuerzo. Es el único que optimiza una recompensa: si esta mide solo la estabilidad de un indicador, el agente puede mejorarlo de formas que no ayudan al paciente (módulo 5).</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: comparar dos modelos de cribado (a mano, 5 minutos)</p>
+<p>Se prueban dos modelos en 1000 pacientes, de los que 50 (un 5 %) tienen la enfermedad. Cifras propias de práctica. El modelo X da VP = 40, FN = 10, FP = 190 y VN = 760. El modelo Y da VP = 25, FN = 25, FP = 20 y VN = 930.</p>
+<ol>
+<li>Calcula la exactitud, la precisión y el recall de cada uno. ¿Supera alguno la exactitud de un modelo que dice "sano" a todos?</li>
+<li>Un caso perdido es muy grave y una falsa alarma solo cuesta una analítica extra. ¿Qué modelo eliges?</li>
+<li>Ahora cada falsa alarma acaba en una biopsia. ¿Qué modelo eliges?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Modelo X: exactitud \((40+760)/1000=0{,}80\), precisión \(40/230=0{,}174\), recall \(40/50=0{,}80\). Modelo Y: exactitud \((25+930)/1000=0{,}955\), precisión \(25/45=0{,}556\), recall \(25/50=0{,}50\). El modelo que dice "sano" a todos acierta a los 950 sanos y falla a los 50 enfermos: exactitud del 95 %. El Y apenas lo mejora (95,5 %) y el X queda por debajo.</p>
+<p><strong>2.</strong> El X. Encuentra a 40 de los 50 enfermos, frente a 25 del Y, y las falsas alarmas cuestan poco.</p>
+<p><strong>3.</strong> Probablemente el Y: el X manda a biopsia a 190 personas sanas, frente a 20 del Y, para cazar 15 enfermos más. La decisión depende del daño de cada error, no de la exactitud.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: sobreajuste con Python (4 minutos)</p>
+<p>Este fragmento (propio, requiere NumPy) genera presiones sistólicas sintéticas como las del simulador y ajusta polinomios de varios grados por mínimos cuadrados. Ejecútalo tal cual y después cambia el entrenamiento de 12 a 60 pacientes.</p>
+<pre><code>import numpy as np
+
+def verdad(edad):
+    return 112 + 32 * np.sin(np.pi * (edad - 20) / 75)
+
+def lote(n, semilla):
+    rng = np.random.default_rng(semilla)
+    edad = rng.uniform(20, 80, n)
+    return edad, verdad(edad) + rng.normal(0, 7, n)
+
+def rmse(y, y_hat):
+    return np.sqrt(np.mean((y - y_hat) ** 2))
+
+x_val, y_val = lote(200, semilla=1)          # pacientes de validación
+
+for n_ent in (12, 60):
+    x_ent, y_ent = lote(n_ent, semilla=0)    # pacientes de entrenamiento
+    print("entrenamiento con", n_ent, "pacientes")
+    for grado in (1, 2, 3, 5, 9):
+        coef = np.polyfit((x_ent - 50) / 30, y_ent, grado)
+        e_ent = rmse(y_ent, np.polyval(coef, (x_ent - 50) / 30))
+        e_val = rmse(y_val, np.polyval(coef, (x_val - 50) / 30))
+        print(f"  grado {grado}: entrenamiento {e_ent:.1f}, validación {e_val:.1f}")</code></pre>
+<p>Responde: ¿qué grado tiene el menor error de entrenamiento y cuál el menor error de validación con 12 pacientes? ¿Qué cambia con 60?</p>
+<details>
+<summary>Ver solución</summary>
+<p>Con 12 pacientes salen, en mmHg (entrenamiento y validación): grado 1, 8,2 y 10,5; grado 2, 6,3 y 6,8; grado 3, 6,3 y 6,8; grado 5, 5,8 y 7,8; grado 9, 4,3 y 17,1. El error de entrenamiento no sube nunca al subir el grado, porque un polinomio más flexible sigue mejor los puntos. El de validación es mínimo en el grado 2 o 3 y se dispara en el 9: sobreajuste. Con 60 pacientes el grado 9 da 6,0 y 7,4 y la brecha se estrecha, porque hay muchos más puntos que parámetros. La recta (grado 1) tiene error alto en ambos: subajuste. Los decimales pueden variar con la versión de NumPy. Aquí se resuelve el mínimo exacto y el simulador entrena por pasos, por eso sus números difieren.</p>
+</details>
+</div>
+</div>
+
+</section>

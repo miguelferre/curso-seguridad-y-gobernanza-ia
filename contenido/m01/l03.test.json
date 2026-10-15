@@ -1,0 +1,118 @@
+[
+  {
+    "id": "m01l03-q01",
+    "tipo": "unica",
+    "enunciado": "¿Qué ilustran, según el libro, casos como el Challenger o Chernobyl, ocurridos en 1986 sin una carrera en marcha ni malicia?",
+    "opciones": [
+      "Que los accidentes graves solo ocurren bajo presión competitiva",
+      "Que la tecnología nuclear es más peligrosa que cualquier otra",
+      "Que una organización puede causar una catástrofe sin rivales ni atacantes, por errores de juicio y falta de precauciones",
+      "Que los accidentes se evitan siempre con más ingenieros"
+    ],
+    "correcta": 2,
+    "explicacion": "El libro los usa para mostrar que el accidente es una fuente de riesgo propia, distinta de la carrera y del uso malicioso. Incluso con excelentes expertos y sin urgencia externa, los errores de juicio y las precauciones insuficientes bastan."
+  },
+  {
+    "id": "m01l03-q02",
+    "tipo": "vf",
+    "enunciado": "Con sistemas de aprendizaje profundo, que no son plenamente fiables ni se entienden bien, el libro considera realista aspirar a eliminar todos los accidentes.",
+    "correcta": false,
+    "explicacion": "Falso. El libro propone que el foco sea evitar que los accidentes escalen hasta convertirse en catástrofes, porque eliminarlos del todo no es realista en sistemas complejos y poco comprendidos."
+  },
+  {
+    "id": "m01l03-q03",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estos rasgos mencionó el libro como propios de una cultura de seguridad sólida?",
+    "opciones": [
+      "Compromiso de la dirección con la seguridad",
+      "Comunicación abierta, sin miedo a represalias",
+      "Cuantas más alertas salten, mejor",
+      "Responsabilidad personal de cada miembro",
+      "Cumplir la lista de requisitos la víspera del lanzamiento"
+    ],
+    "correcta": [
+      0,
+      1,
+      3
+    ],
+    "explicacion": "Compromiso de la dirección, comunicación abierta y responsabilidad personal son rasgos del libro (p. 32), junto con evitar la fatiga de alertas. Un exceso de alertas la provoca, y rellenar una lista en el último momento es el síntoma de la seguridad como trámite."
+  },
+  {
+    "id": "m01l03-q04",
+    "tipo": "numerica",
+    "enunciado": "En el Hospital del Nordés, una planta recibe 60 alertas por turno del modelo de sepsis. Revisar cada una lleva 2 minutos y un turno dura 450 minutos. ¿Qué porcentaje del turno se va solo en revisar alertas? Responde en porcentaje, con un decimal.",
+    "correcta": 26.7,
+    "tolerancia": 0.2,
+    "explicacion": "60 × 2 = 120 minutos, y 120 / 450 ≈ 0,267, es decir, el 26,7 % del turno. Con esa carga es fácil caer en la fatiga de alertas."
+  },
+  {
+    "id": "m01l03-q05",
+    "tipo": "unica",
+    "enunciado": "Según el libro, ajustar un modelo a las preferencias de los usuarios reduce el lenguaje tóxico. ¿Por qué eso no prueba que el riesgo global baje?",
+    "opciones": [
+      "Porque el lenguaje tóxico no importa",
+      "Porque los usuarios nunca prefieren modelos seguros",
+      "Porque el ajuste solo funciona con modelos pequeños",
+      "Porque el ajuste también sube las capacidades generales del modelo, que lo hace más potente y más peligroso"
+    ],
+    "correcta": 3,
+    "explicacion": "Mejorar una métrica de seguridad puede ir acompañado de una mejora de capacidades. Para reducir el riesgo global hay que mejorar la seguridad relativa a las capacidades, y medir ambas."
+  },
+  {
+    "id": "m01l03-q06",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas son respuestas que el libro sugiere ante los fallos que tardan años en aparecer?",
+    "opciones": [
+      "Pruebas de expertos antes del lanzamiento",
+      "Lanzamientos graduales que dejen pasar tiempo",
+      "Confiar en que, si no ha habido incidentes en un mes, el sistema es seguro",
+      "Dar por resuelto un problema cuando se corrige el caso concreto que apareció"
+    ],
+    "correcta": [
+      0,
+      1
+    ],
+    "explicacion": "El libro combina pruebas de expertos con lanzamientos graduales y tiempo. Un mes sin incidentes o un parche puntual no garantizan nada: los defectos graves pueden tardar años en aparecer."
+  },
+  {
+    "id": "m01l03-q07",
+    "tipo": "numerica",
+    "enunciado": "Se evalúa una organización con la lista de diez factores de la práctica y su escala propia del curso (0 ausente, 1 parcial, 2 sólido). Sale 4 factores sólidos, 3 parciales y 3 ausentes. ¿Cuál es la puntuación total?",
+    "correcta": 11,
+    "tolerancia": 0,
+    "explicacion": "4 × 2 + 3 × 1 + 3 × 0 = 11. Con las bandas propias que propone la práctica (0 a 7 débil, 8 a 13 frágil, 14 a 20 sólida), 11 sería una cultura frágil."
+  },
+  {
+    "id": "m01l03-q08",
+    "tipo": "unica",
+    "enunciado": "¿En qué se diferencia la mentalidad de seguridad de la actitud cuestionadora?",
+    "opciones": [
+      "Es lo mismo con otro nombre",
+      "La mentalidad de seguridad solo se aplica a empresas de informática",
+      "La mentalidad de seguridad va más allá: adopta la perspectiva de un atacante y piensa en el peor caso, no solo en el caso medio",
+      "La actitud cuestionadora exige probar en producción"
+    ],
+    "correcta": 2,
+    "explicacion": "La actitud cuestionadora desafía lo que se da por sentado para encontrar discrepancias. La mentalidad de seguridad añade el punto de vista del atacante y del peor caso, y desconfía de los errores aparentemente inofensivos."
+  },
+  {
+    "id": "m01l03-q09",
+    "tipo": "vf",
+    "enunciado": "Un proveedor que sube el área bajo la curva de un modelo de alerta de 0,86 a 0,90 y lo presenta como más seguro, sin medir falsas alertas ni carga de trabajo, es un ejemplo (propio) de confundir mejora de capacidad con mejora de seguridad.",
+    "correcta": true,
+    "explicacion": "Verdadero. Un mejor rendimiento predictivo es una mejora de capacidad. Para hablar de seguridad hay que medir su efecto en el paciente, por ejemplo con falsas alertas, casos perdidos y carga."
+  },
+  {
+    "id": "m01l03-q10",
+    "tipo": "unica",
+    "enunciado": "En la historia de la empresa de IA del libro, ¿qué factor de la lista falla más claramente cuando el responsable de riesgos dimite sin poder hablar por un acuerdo de no menosprecio?",
+    "opciones": [
+      "La comunicación abierta",
+      "La actitud cuestionadora de los directivos",
+      "La fatiga de alertas",
+      "La responsabilidad personal del responsable de riesgos"
+    ],
+    "correcta": 0,
+    "explicacion": "El acuerdo de no menosprecio impide que los riesgos se puedan decir sin represalias, así que el fallo es de comunicación abierta. Lo que sabe el responsable no llega al público."
+  }
+]

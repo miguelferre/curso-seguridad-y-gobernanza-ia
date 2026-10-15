@@ -1,0 +1,116 @@
+[
+  {
+    "id": "m03l03-q01",
+    "tipo": "unica",
+    "enunciado": "Un fabricante afirma que su IA clínica es segura «porque el diseño se ha revisado a fondo». ¿Qué lección de los sistemas complejos debilita más esa afirmación?",
+    "opciones": [
+      "Una revisión de diseño no descubre todos los comportamientos de un sistema complejo, así que hace falta probarlo en pequeño y en condiciones reales",
+      "Los sistemas complejos no se pueden estudiar, ni siquiera con pruebas",
+      "Un sistema seguro lo sigue siendo al crecer, así que basta con revisar el diseño una vez",
+      "Solo importa la fiabilidad de las personas que operan el sistema"
+    ],
+    "correcta": 0,
+    "explicacion": "Con propiedades emergentes no se anticipan todos los comportamientos desde el plano: hace falta ensayo y error (pilotos, simulación, experimentos). No significa que no se pueda estudiar, sino que la teoría sola no basta."
+  },
+  {
+    "id": "m03l03-q02",
+    "tipo": "unica",
+    "enunciado": "Un asistente que redacta informes de alta tiene como meta «que el paciente entienda su alta» y como submeta «informes completos». Con el tiempo prioriza la segunda aunque el paciente entienda menos. ¿Qué lección ilustra?",
+    "opciones": [
+      "Un sistema seguro deja de serlo al crecer",
+      "Lo que depende de la fiabilidad humana no es fiable",
+      "Una submeta puede acabar desplazando a la meta original",
+      "Los problemas retorcidos tienen una única solución correcta"
+    ],
+    "correcta": 2,
+    "explicacion": "Una submeta puede tratarse como un fin en sí misma y desplazar a la original, como el político del libro que se obsesiona con el empleo y aprueba una planta contaminante."
+  },
+  {
+    "id": "m03l03-q03",
+    "tipo": "vf",
+    "enunciado": "Si un sistema de IA ha funcionado de forma segura en un servicio de 40 camas, se puede concluir que seguirá siendo seguro al desplegarlo en 12 hospitales.",
+    "correcta": false,
+    "explicacion": "Falso. Al escalar pueden aparecer propiedades cualitativamente nuevas. Crecer desde lo pequeño y con cautela hace más probable la seguridad, pero no la garantiza."
+  },
+  {
+    "id": "m03l03-q04",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estos son rasgos de un problema retorcido (wicked problem) según el libro? Marca todos los correctos.",
+    "opciones": [
+      "Las soluciones son mejores o peores, no correctas o incorrectas",
+      "Intentar una solución conlleva riesgo, aunque probarla suele ser la única manera de saber si funciona",
+      "Una solución que funcionó en otro sistema no se traslada sin más, porque cada problema es único",
+      "Se sabe con claridad cuándo está resuelto",
+      "Tiene una única explicación"
+    ],
+    "correcta": [0, 1, 2],
+    "explicacion": "Los tres primeros son rasgos de los problemas retorcidos. Los otros dos son al revés: no hay una explicación única y no siempre está claro cuándo se han resuelto."
+  },
+  {
+    "id": "m03l03-q05",
+    "tipo": "unica",
+    "enunciado": "¿Cuál de estos retos es un problema retorcido y no un puzle ni un problema corriente?",
+    "opciones": [
+      "Convertir una dosis de mg/kg a mg totales para un paciente concreto",
+      "Averiguar por qué un monitor da falsas alarmas solo por la noche",
+      "Calcular cuántas camas caben en una planta de tamaño conocido",
+      "Repartir de forma justa los beneficios de una IA entre los grupos de pacientes de un hospital"
+    ],
+    "correcta": 3,
+    "explicacion": "La conversión y el cálculo de camas son puzles (una respuesta y toda la información). El monitor es un problema: se investiga y se sabe cuándo está arreglado. Repartir beneficios con justicia tiene componente social, soluciones mejores o peores y ningún final claro."
+  },
+  {
+    "id": "m03l03-q06",
+    "tipo": "numerica",
+    "enunciado": "Un equipo puede procesar como máximo 15 avisos por turno y atiende bien el 90 % de los que procesa, sin poder distinguir los reales de los falsos. Se baja el umbral de un modelo y ahora salta 40 veces por turno, con 4 avisos reales. ¿Cuántos casos reales se atienden bien por turno? Responde con decimales.",
+    "correcta": 1.35,
+    "tolerancia": 0.05,
+    "explicacion": "Solo se procesan 15 de los 40 avisos y se atiende bien el 90 %: 15 × 0,9 = 13,5. De los avisos, una décima parte son reales (4 de 40): 13,5 × 0,10 = 1,35 casos. Con el umbral anterior (12 avisos, 3 reales) eran 2,7."
+  },
+  {
+    "id": "m03l03-q07",
+    "tipo": "unica",
+    "enunciado": "Tras «Hoy No Circula» las emisiones bajaron y luego superaron el nivel previo, porque la gente compró más coches para poder conducir más días. ¿Cómo lo interpreta el libro, con cautela?",
+    "opciones": [
+      "Como prueba de que las restricciones nunca pueden funcionar",
+      "Como una fuerza restauradora: un estado estable (la necesidad de conducir) que la norma no cambió",
+      "Como una demostración rigurosa del principio de Le Chatelier",
+      "Como un cisne negro imprevisible para todos"
+    ],
+    "correcta": 1,
+    "explicacion": "El libro lo lee como un estado estable con fuerzas restauradoras, pero advierte de que es especulativo: ni una demostración ni una prueba de que las restricciones nunca funcionen."
+  },
+  {
+    "id": "m03l03-q08",
+    "tipo": "vf",
+    "enunciado": "Los casos de intervenciones fallidas del libro muestran que en los sistemas complejos conviene no intervenir.",
+    "correcta": false,
+    "explicacion": "Falso. El libro también recoge intervenciones que funcionaron (viruela, capa de ozono, tabaco), con esfuerzos enormes y sostenidos. La conclusión es intervenir con humildad, en pequeño y midiendo."
+  },
+  {
+    "id": "m03l03-q09",
+    "tipo": "unica",
+    "enunciado": "Una organización ve que los fallos de sus productos de IA se repiten y que sus equipos trabajan a contrarreloj para lanzar antes que la competencia. ¿Qué sugiere el libro?",
+    "opciones": [
+      "Corregir cada fallo cuando aparezca, porque el problema es siempre el producto",
+      "Prohibir lanzar cualquier producto hasta que no haya ningún fallo",
+      "Mirar también las condiciones del sistema, como la presión competitiva y la cultura, además de corregir cada fallo",
+      "Añadir un revisor humano a cada producto y no cambiar nada más"
+    ],
+    "correcta": 2,
+    "explicacion": "Si los problemas siguen brotando, pueden ser síntoma de algo más amplio. Reducir la presión competitiva y cuidar la cultura actúa sobre las condiciones, de forma menos directa pero, probablemente, más eficaz que parchear producto a producto."
+  },
+  {
+    "id": "m03l03-q10",
+    "tipo": "unica",
+    "enunciado": "Un hospital obliga a que un médico confirme cada orden de una IA (unas 190 por turno) y observa que los errores bajan mucho menos de lo previsto. ¿Qué lección explica mejor lo ocurrido?",
+    "opciones": [
+      "Una submeta ha desplazado a la meta original",
+      "Un sistema que depende de la fiabilidad humana no es fiable",
+      "El sistema era demasiado pequeño para ser seguro",
+      "Los problemas simples tienen una única solución"
+    ],
+    "correcta": 1,
+    "explicacion": "Nadie puede asegurar que un operador no se equivoque (en este caso, con tantas confirmaciones la atención cae). El diseño debe evitar que dependa de una revisión humana perfecta: no basta con «poner un humano en el bucle»."
+  }
+]

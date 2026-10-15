@@ -1,0 +1,207 @@
+<section class="leccion" data-id="m02/l05">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Hay sucesos que ocurren casi nunca pero, cuando ocurren, pesan más que muchos otros sucesos juntos. Se llaman eventos de cola (<em>tail events</em>). Una pandemia, una crisis financiera o, en un hospital, la caída durante días del sistema informático (ejemplo propio) son ejemplos. Como son raros, es fácil olvidarlos. Como son enormes, no se pueden olvidar.</p>
+<p>Su efecto más traicionero está en los promedios. Un solo suceso gigantesco arrastra la media hacia arriba, pero casi no mueve la mediana, el valor de en medio. Con datos de este tipo la media deja de describir a los casos normales.</p>
+<p>La pregunta práctica es de qué tipo es cada fenómeno. Con cola fina, nadie se aleja mucho del promedio, como con las estaturas. Con cola larga, unos pocos valores enormes dominan el total, como con las ventas de libros. Cada tipo pide herramientas distintas para medir el riesgo.</p>
+
+<svg viewBox="0 0 360 214" role="img" aria-labelledby="rs5-t rs5-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="rs5-t">Cola fina frente a cola larga</title>
+<desc id="rs5-d">A la izquierda, una campana: casi todos los valores están cerca del centro y no hay valores extremos. A la derecha, una curva que baja despacio y deja una cola larga hacia la derecha, donde hay un valor extremo que domina el total.</desc>
+<rect x="4" y="4" width="172" height="206" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<rect x="184" y="4" width="172" height="206" rx="10" style="fill:var(--surface);stroke:var(--trap);stroke-width:2"/>
+<text x="90" y="28" text-anchor="middle" style="fill:var(--ex);font-weight:700;font-size:15px">Cola fina</text>
+<text x="270" y="28" text-anchor="middle" style="fill:var(--trap);font-weight:700;font-size:15px">Cola larga</text>
+<path d="M16,140 C46,140 62,52 90,52 C118,52 134,140 164,140" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:2.5"/>
+<path d="M196,50 C202,112 222,132 262,137 C300,141 330,141 344,141 L344,141 L196,141 Z" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:2.5"/>
+<line x1="16" y1="140" x2="164" y2="140" style="stroke:var(--rule-strong);stroke-width:1.5"/>
+<line x1="196" y1="141" x2="344" y2="141" style="stroke:var(--rule-strong);stroke-width:1.5"/>
+<circle cx="334" cy="133" r="5" style="fill:var(--trap)"/>
+<text x="298" y="122" text-anchor="middle" style="fill:var(--trap);font-size:12px;font-weight:600">evento de cola</text>
+<text x="90" y="166" text-anchor="middle" style="fill:currentColor;font-size:12.5px">Nadie se aleja mucho</text>
+<text x="90" y="184" text-anchor="middle" style="fill:currentColor;font-size:12.5px">de la media</text>
+<text x="90" y="202" text-anchor="middle" style="fill:var(--muted);font-size:12px">estatura, peso</text>
+<text x="270" y="166" text-anchor="middle" style="fill:currentColor;font-size:12.5px">Pocos valores enormes</text>
+<text x="270" y="184" text-anchor="middle" style="fill:currentColor;font-size:12.5px">dominan el total</text>
+<text x="270" y="202" text-anchor="middle" style="fill:var(--muted);font-size:12px">ventas, terremotos</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Definir un evento de cola y poner ejemplos de tecnología, salud y sociedad, incluidos algunos que no son dañinos.</li>
+<li>Calcular cómo un solo evento extremo cambia la media y no la mediana, y comparar su riesgo con el de sucesos frecuentes usando \(P\times\text{severidad}\).</li>
+<li>Distinguir cola fina y cola larga con tres criterios: cuota del total del grupo superior, quién determina el total y cuánto mueve un solo dato.</li>
+<li>Explicar por qué el detalle de la respuesta a un evento de cola no se puede fijar de antemano y qué significa "planificar para planificar".</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>Una pregunta para empezar</h3>
+<p>Un servicio hospitalario quiere presupuestar el año. Casi todos sus pacientes cuestan algo parecido, pero de vez en cuando uno sufre una complicación grave y cuesta cientos de veces más. Ese caso llega pocas veces, y cuando llega, condiciona el gasto de todo el año. ¿Qué número resume bien ese servicio? ¿Y para qué hay que prepararse?</p>
+<p>Un caso así es un evento de cola (<em>tail event</em>): ocurre rara vez y su impacto es muy grande. El nombre alude al extremo de la distribución de frecuencias, que verás más abajo. Ejemplos del libro: la crisis financiera de 2007-2008, la pandemia de COVID-19, Internet y ChatGPT, que llegó a 100 millones de usuarios en dos meses tras su lanzamiento en noviembre de 2022.</p>
+<p>Los dos últimos no son dañinos, al menos no solo: un evento de cola puede ser positivo o mixto. La definición pide rareza y gran impacto, no daño. En seguridad nos ocupan sobre todo los dañinos.</p>
+
+<h4>¿Se pueden dejar para después?</h4>
+<p>Es tentador, porque son raros. El libro recoge una frase de Scott Sagan: "Things that have never happened before happen all the time". Algunos eventos de cola no han ocurrido nunca (ejemplo del libro: un meteorito capaz de devastar el planeta) y aun así nadie los descarta por eso. Con la IA, el libro menciona que un modelo ayude a desarrollar un arma biológica o que ataque un banco y borre sus datos. En el hospital, el equivalente propio sería un ciberataque que deja las historias clínicas fuera de servicio durante días. La razón para tomárselos en serio no está en su probabilidad, sino en el producto de probabilidad y severidad, como se ve a continuación.</p>
+
+<h3>Cómo pesan en el riesgo medio</h3>
+<p>Vuelve al servicio hospitalario. Si quitas al paciente extremo, la media de coste es la de un paciente normal. Si lo dejas, la media sube mucho, pero la mediana (el paciente que queda justo en medio al ordenarlos por coste) casi no se entera. El libro lo ilustra con una gráfica de sucesos pequeños a los que se añade uno enorme: cambia la media, no la mediana.</p>
+<p>Con \(n\) datos de media \(\bar{x}\) y un evento nuevo de impacto \(T\), la media pasa a ser:</p>
+<div class="formula">\[ \bar{x}_{\text{nueva}}=\frac{n\,\bar{x}+T}{n+1} \]</div>
+<p>Cuanto mayor es \(T\) frente a los demás, más manda ese único dato. Ejemplo propio: 99 sucesos de impacto 10 y uno de impacto 5.000. La mediana sigue en 10 y la media sube a \((990+5000)/100=59{,}9\). Ningún suceso "normal" se parece a esa media.</p>
+
+<h4>La misma idea con la ecuación del riesgo</h4>
+<p>Recuerda \(\text{Riesgo}(h)=P(h)\times\text{severidad}(h)\). Un peligro de cola tiene una \(P\) minúscula y una severidad gigantesca. El producto puede quedar a la altura del de un peligro frecuente y pequeño, o por encima. El ejemplo verde de más abajo pone números a esa comparación.</p>
+
+<h4>Planificar para planificar</h4>
+<p>¿Puede el hospital tener un protocolo detallado para cada evento de cola? Casi nunca: no sabe cuál llegará, cuándo ni con qué forma. Lo que el libro propone se llama planificar para planificar (<em>plan to plan</em>): dejar fijado de antemano el mecanismo de respuesta y dejar el contenido para el momento. En el hospital (ejemplo propio): un comité de crisis con miembros, canal de contacto y autoridad para decidir ya definidos, sin un guion para cada tipo de crisis.</p>
+<p>Antes de eso hace falta saber si un fenómeno tiene cola. Para ello se mira su distribución de frecuencias.</p>
+
+<h3>Cómo saber si un fenómeno tiene cola</h3>
+<p>Se mira su distribución de frecuencias (<em>frequency distribution</em>): cuántos casos hay de cada valor. En el hospital (ejemplo propio), la duración de las estancias daría muchos casos de pocos días y muy pocos de meses. La zona donde se concentran los casos es la cabeza (<em>head</em>) y las zonas extremas son las colas (<em>tails</em>).</p>
+<p>Lo que distingue a un fenómeno de otro es cuán despacio se apaga la cola:</p>
+<ul>
+<li><strong>Cola fina (thin-tailed).</strong> Los valores extremos prácticamente no existen. Ejemplos del libro: la estatura y el peso de las personas. Según L5, la exponencial y la gaussiana son así, porque su densidad cae como \(e^{-x}\) y como \(e^{-x^2}\).</li>
+<li><strong>Cola larga (long-tailed).</strong> Los extremos son posibles. Ejemplos del libro: ventas de libros y magnitud de terremotos. L5 añade la frecuencia de las palabras, las visitas a páginas web y el patrimonio. Sus modelos típicos son la ley de potencias y la distribución de Pareto, cuya cola baja despacio.</li>
+</ul>
+<p>Muchos fenómenos quedan a medio camino entre las dos. Un dato matemático estándar, que no viene de las fuentes: en la distribución de Pareto, la probabilidad de superar un valor \(x\) es</p>
+<div class="formula">\[ P(X>x)=\left(\frac{x_m}{x}\right)^{\alpha},\qquad x\ge x_m \]</div>
+<p>con \(x_m\) el valor mínimo y \(\alpha\) el grosor de la cola: cuanto menor es \(\alpha\), más pesada. Con \(\alpha\le 2\) la varianza teórica no existe, y con \(\alpha\le 1\) tampoco la media. Aparte, L5 afirma que en colas largas media y desviación típica no son herramientas adecuadas. Compruébalo en el <a data-ir="practica" href="#sim-colas-largas">simulador de colas largas en Práctica</a>. Con \(\alpha\) alta la Pareto sigue siendo de cola potencial, solo que menos pesada.</p>
+
+<h3>Cinco preguntas para distinguirlas</h3>
+<p>El libro compara los dos tipos con una tabla de seis contrastes, que él mismo llama caricatura: simplifica para enseñar. Aquí van resumidos en cinco preguntas, con ejemplos propios: el tiempo de una consulta rutinaria (cola fina) y el coste anual por paciente (cola larga).</p>
+<div class="tw"><table>
+<thead><tr><th>Pregunta</th><th>Consulta rutinaria (cola fina)</th><th>Coste por paciente (cola larga)</th></tr></thead>
+<tbody>
+<tr><td>¿Quién pone el total?</td><td>Todas las consultas a la vez: quitar una no lo cambia</td><td>Los pocos pacientes más caros</td></tr>
+<tr><td>¿Cuánto se aleja el mayor del resto?</td><td>Poco: rara vez pasa del doble</td><td>Puede ser cientos de veces</td></tr>
+<tr><td>¿Cómo es el caso típico?</td><td>Cercano a la media</td><td>Casi todos baratos y alguno enorme; la media no se parece a nadie</td></tr>
+<tr><td>¿Qué hace un dato nuevo con la media?</td><td>Casi nada</td><td>Puede moverla mucho</td></tr>
+<tr><td>¿Se predice el siguiente valor?</td><td>Más o menos</td><td>Cuesta acertar hasta el orden de magnitud</td></tr>
+</tbody></table></div>
+<p>Un ejemplo del libro con cifras: en la música, el 1 % de artistas con más éxito se lleva alrededor del 77 % de los ingresos. El libro lo relaciona con dos etiquetas: la "tiranía del colectivo" (cola fina, el total lo forma el grupo entero) y la "tiranía de lo accidental" (cola larga, lo forman unos pocos extremos).</p>
+
+<h4>Mediocristán y Extremistán</h4>
+<p>Según L5, Nassim Taleb bautizó así dos mundos y criticaba usar la campana para el riesgo porque deja fuera los casos raros.</p>
+<dl class="facts">
+<div><dt>Mediocristán</dt><dd>Mundo donde ningún caso individual altera el conjunto. Piensa en el peso de los pacientes de una planta (ejemplo propio): sumar o quitar a uno cambia poco. Aquí valen media y desviación típica.</dd></div>
+<div><dt>Extremistán</dt><dd>Mundo donde un solo caso puede alterar el conjunto. Piensa en el coste por paciente (ejemplo propio) o en el patrimonio mundial, como plantea L5. Aquí mandan los extremos.</dd></div>
+</dl>
+<p>L5 recoge que, según Taleb, la mayoría de los asuntos sociales son de Extremistán y los físicos de Mediocristán. Lo útil para el análisis de riesgo es clasificar el problema antes de elegir el método: en uno se resume con promedios y en el otro hay que mirar los extremos.</p>
+
+<h4>De dónde pueden salir las colas largas</h4>
+<p>L5 asocia las colas largas con interacciones no lineales, y la campana con las lineales, y comenta que puede darse cuando el resultado depende de varias partes a la vez. Un producto es el caso más simple de esa dependencia (interpretación propia): si un factor vale cero, todo vale cero. Puedes verlo en el <a data-ir="practica" href="#sim-proceso-multiplicativo">simulador del proceso multiplicativo en Práctica</a>: la media de muchos factores sale acampanada y su producto sale con cola larga. Argumento propio: el logaritmo de un producto es la suma de los logaritmos, y por eso el producto se acampana solo en escala logarítmica.</p>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Una unidad hospitalaria analiza el coste por paciente de un año. De 200 pacientes, 199 cuestan unos 2.000 euros cada uno. Uno sufre una complicación grave y cuesta 300.000 euros.</p>
+<ul>
+<li>Total: \(199\times 2000+300000=698000\) euros.</li>
+<li>Media: \(698000/200=3490\) euros. Mediana: 2.000 euros.</li>
+<li>Sin el paciente extremo, la media sería 2.000 euros. Un solo paciente (el 0,5 % del grupo) pone el 43 % del gasto: \(300000/698000\approx 0{,}43\).</li>
+</ul>
+<p>El patrón es de cola larga: la media de 3.490 euros no describe a nadie, porque ningún paciente cuesta eso, y un solo caso mueve el gasto del año. Con un único año de datos es solo una ilustración. La misma lógica vale para el riesgo. Un incidente frecuente tiene probabilidad 0,5 al año y severidad 4 (miles de euros): riesgo \(0{,}5\times 4=2\). Una caída del sistema de historias clínicas con probabilidad 0,002 al año y severidad 1.000: riesgo \(0{,}002\times 1000=2\). Los dos pesan igual, y el segundo nunca ha pasado en la unidad.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa (propia)</p>
+<p><strong>Juzgar por un solo resumen.</strong> La media, sola, no distingue una cola fina de una larga. Dos servicios pueden tener el mismo coste medio, 3.500 euros por paciente: en uno, casi todos cuestan entre 3.000 y 4.000; en el otro, casi todos cuestan 2.000 y unos pocos, decenas de miles. Para saber en cuál estás, mira además la mediana, el valor máximo y qué parte del total aporta el 1 % más alto. Una gran distancia entre media y mediana y una cuota alta del grupo superior son señales de cola larga.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>Before I trust an average, I check whether the data is thin-tailed or long-tailed, because with a long tail a few rare cases can account for a large share of the total.</p>
+
+<p>Todo esto describe eventos raros y enormes. Falta una capa: los eventos que además nadie vio venir, los cisnes negros. Es el tema de la lección siguiente.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 4.7, apartados 4.7.1 a 4.7.4, págs. 218 a 224 (PDF 236 a 242). La lección se detiene antes de 4.7.5; el resto, en la lección siguiente.</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS), lección L5 Black Swans, notas: colas largas y finas, Mediocristán y Extremistán, interacciones no lineales.</li>
+<li>Añadido propio, no procede de las fuentes: el ejemplo hospitalario y sus cifras, el ciberataque y el comité de crisis como ejemplos, la tabla de cinco preguntas con sus ejemplos, la fórmula de la media nueva, la fórmula de Pareto y los umbrales de \(\alpha\) (dato estándar), el argumento del logaritmo del producto, los simuladores y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: dos simuladores para ver cómo se comporta la cola y tres ejercicios, dos a mano y uno con un fragmento de Python.</p>
+
+<p class="consigna"><strong>Simulador de colas largas.</strong> Deja \(\alpha=1{,}3\) y N=2000, y pulsa "Nuevas muestras" varias veces. Compara en la tabla la media con la mediana y qué cuota del total aporta el 1 % más alto en cada caso. Después sube \(\alpha\) hasta 4 y observa cómo la cola de la Pareto pesa cada vez menos. (Cómo evoluciona la media acumulada, la línea del gráfico, se estudia en la lección siguiente.)</p>
+<div data-widget="colas-largas" id="sim-colas-largas"></div>
+
+<p class="consigna"><strong>Simulador del proceso multiplicativo.</strong> Con 12 factores y amplitud 0,6, compara los dos histogramas: el aditivo sale acampanado y el multiplicativo se amontona a la izquierda con una cola a la derecha. Marca "Eje en logaritmo" y observa que el multiplicativo se acampana. Después baja los factores a 1: los dos procesos son entonces el mismo, y lo confirma la tabla (cada gráfico usa su propio eje horizontal, así que no se ven idénticos).</p>
+<div data-widget="proceso-multiplicativo" id="sim-proceso-multiplicativo"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: un evento raro y grave (a mano, 6 minutos)</p>
+<p>Una unidad registra la duración de 100 estancias hospitalarias. Cifras propias de práctica: 99 estancias duran 5 días y una, por una complicación grave, dura 400 días.</p>
+<ol>
+<li>Calcula la media, la mediana y qué parte del total de días aporta la estancia larga.</li>
+<li>Comparación de riesgos. Un incidente leve tiene probabilidad 0,3 al año y severidad 2. Una caída prolongada del sistema informático tiene probabilidad 0,002 al año y severidad 500. Calcula el riesgo de cada uno con \(P\times\text{severidad}\). ¿Cuál pesa más?</li>
+<li>¿Qué probabilidad tendría que tener la caída del sistema para igualar el riesgo del incidente leve?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Total: \(99\times5+400=895\) días. Media: \(895/100=8{,}95\) días. Mediana: 5 días, porque 99 de 100 valen 5. La estancia larga aporta \(400/895\approx0{,}447\), el 44,7 % del total, siendo el 1 % de los casos. Es un patrón de cola larga.</p>
+<p><strong>2.</strong> Incidente leve: \(0{,}3\times2=0{,}6\). Caída del sistema: \(0{,}002\times500=1\). Pesa más la caída, aunque sea 150 veces menos probable.</p>
+<p><strong>3.</strong> Hay que resolver \(P\times500=0{,}6\), luego \(P=0{,}6/500=0{,}0012\). Con una probabilidad de 0,12 % al año el riesgo iguala al del incidente frecuente.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: fina o larga (a mano, 5 minutos)</p>
+<p>El coste de 10 pacientes de un servicio, en miles de euros (cifras propias de práctica): 1, 1, 1, 2, 2, 2, 3, 3, 4, 181.</p>
+<ol>
+<li>Calcula el total, la media y la mediana.</li>
+<li>¿Qué parte del total aporta el 10 % de pacientes más caro (aquí, uno solo)? ¿Y el 90 % restante?</li>
+<li>Con los seis contrastes de la tabla, ¿estos datos se parecen más a una cola fina o a una larga? Razona con dos contrastes.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Total: \(1+1+1+2+2+2+3+3+4=19\), y \(19+181=200\). Media: \(200/10=20\). Mediana: con 10 datos ordenados, la media de los puestos quinto y sexto, \((2+2)/2=2\).</p>
+<p><strong>2.</strong> El paciente más caro aporta \(181/200=90{,}5\,\%\). Los otros nueve aportan \(19/200=9{,}5\,\%\).</p>
+<p><strong>3.</strong> Cola larga. Contraste 1: el grupo superior (10 %) se lleva casi todo el total, no una parte proporcional. Contraste 3: el miembro típico no está en la media (20): nadie cuesta eso, y hay pacientes de 1 a 4 y uno de 181. Contraste 2: con solo ese dato se aproxima el total mejor que con los otros nueve juntos. Aviso: con 10 datos no se puede afirmar de qué distribución vienen; es solo un patrón.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: media, mediana y cuota con Python (10 minutos)</p>
+<p>Copia el código en un fichero o en un cuaderno. Genera 5.000 valores de una campana y otros 5.000 de una Pareto con la misma media teórica de 100, y mide su media, su mediana, su máximo y la cuota del 1 % más alto (ese es el orden en que lo imprime el código). Los resultados de la solución valen para <code>random.seed(7)</code> en CPython.</p>
+<pre><code>import random, statistics as st
+
+random.seed(7)
+n, alfa = 5000, 1.3
+xm = 100 * (alfa - 1) / alfa          # da media teórica 100
+fina  = [random.gauss(100, 15) for _ in range(n)]
+larga = [xm * random.paretovariate(alfa) for _ in range(n)]
+
+def cuota_top(x, p=0.01):
+    k = max(1, round(len(x) * p))
+    return sum(sorted(x, reverse=True)[:k]) / sum(x)
+
+for nombre, x in (("fina", fina), ("larga", larga)):
+    print(nombre, round(st.mean(x), 1), round(st.median(x), 1),
+          round(max(x), 1), round(cuota_top(x) * 100, 1))</code></pre>
+<ol>
+<li>Antes de ejecutar, predice para cada muestra si la media y la mediana serán parecidas.</li>
+<li>Ejecuta y compara la cuota del 1 % más alto. Después cambia la semilla varias veces y observa qué cifras se mueven más.</li>
+<li>Cambia <code>alfa</code> a 3 y vuelve a ejecutar.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> En la campana, media y mediana casi coinciden. En la Pareto, la mediana queda muy por debajo de la media: la media la levantan unos pocos valores enormes.</p>
+<p><strong>2.</strong> Con la semilla 7, la campana da media 100,0, mediana 100,3, máximo 149,3 y cuota del 1 % más alto de 1,4 %. La Pareto da media 85,7 (por debajo de la teórica de 100, porque la cola aún no ha entrado del todo), mediana 39,6, máximo 8.572 y cuota de 22,6 %. Con otra semilla, las cifras de la campana casi no cambian y las de la Pareto (media, máximo y cuota) cambian mucho: es la señal de una cola larga.</p>
+<p><strong>3.</strong> Con \(\alpha=3\) la cola es mucho menos pesada: con esa misma semilla la Pareto da media 100,0, mediana 84,2 y cuota del 1 % más alto de 4,4 %. La media y la mediana se acercan y la cuota baja mucho, aunque sigue siendo una cola potencial, solo menos pesada. La frontera entre cola fina y larga no es un corte, sino un gradiente.</p>
+</details>
+</div>
+</div>
+
+</section>

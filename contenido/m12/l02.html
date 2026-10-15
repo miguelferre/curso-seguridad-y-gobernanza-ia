@@ -1,0 +1,226 @@
+<section class="leccion" data-id="m12/l02">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>El proyecto final cierra el curso. En vez de resolver un problema que ya viene planteado, eliges una pregunta de seguridad de la IA, decides cómo vas a medirla y defiendes una conclusión con sus límites. Piénsalo como un ensayo pequeño de laboratorio: hipótesis, método, resultado y lo que el resultado no puede decir.</p>
+<p>Hay seis ideas. Cuatro miden algo (un detector, una calibración, un escenario de deriva, un modelo de lenguaje local), una analiza un riesgo sobre el papel (FMEA y pajarita) y otra ordena un marco de gobernanza. Todas comparten el mismo esqueleto: una pregunta, una medida y un criterio de éxito escrito antes de mirar los resultados, y después la ejecución y un informe corto que dice qué no se ha probado.</p>
+
+<svg viewBox="0 0 360 132" role="img" aria-labelledby="pf-t pf-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="pf-t">Esqueleto de un proyecto</title>
+<desc id="pf-d">Cinco cajas en fila: pregunta, medida, criterio, ejecución e informe con límites. Un corchete marca que las tres primeras se fijan antes de mirar los resultados.</desc>
+<text x="4" y="14" style="fill:var(--accent-ink);font-weight:700;font-size:11px">SE FIJA ANTES DE MIRAR</text>
+<path d="M4 22 H208" style="stroke:var(--accent);stroke-width:2;fill:none"/>
+<path d="M4 22 V30 M208 22 V30" style="stroke:var(--accent);stroke-width:2;fill:none"/>
+<g style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5">
+<rect x="4" y="36" width="64" height="46" rx="6"/>
+<rect x="76" y="36" width="64" height="46" rx="6"/>
+<rect x="148" y="36" width="60" height="46" rx="6"/>
+<rect x="222" y="36" width="64" height="46" rx="6"/>
+<rect x="294" y="36" width="62" height="46" rx="6"/>
+</g>
+<g style="fill:var(--ink);font-size:11px;font-weight:600;text-anchor:middle">
+<text x="36" y="63">Pregunta</text>
+<text x="108" y="63">Medida</text>
+<text x="178" y="63">Criterio</text>
+<text x="254" y="63">Ejecución</text>
+<text x="325" y="56">Informe</text>
+<text x="325" y="70">y límites</text>
+</g>
+<g style="stroke:var(--faint);stroke-width:1.5;fill:none">
+<path d="M69 59 H75 M141 59 H147 M209 59 H221 M287 59 H293"/>
+</g>
+<text x="4" y="104" style="fill:var(--faint);font-size:11px">Las seis ideas son seis maneras de rellenar estas cinco cajas.</text>
+<text x="4" y="120" style="fill:var(--faint);font-size:11px">Sin pacientes reales; código de Vigía solo en un fork.</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Elegir una de las seis ideas y justificarla por su alcance, sus datos y el tiempo de que dispones.</li>
+<li>Redactar la pregunta del proyecto en una frase, con su medida y su criterio de éxito fijados antes de ejecutar.</li>
+<li>Planificar el trabajo por semanas, con hitos, margen y una lista de recortes que no dañen la pregunta.</li>
+<li>Evaluar un proyecto de seguridad de la IA con una rúbrica y presentarlo declarando sus límites.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>Para qué sirve el proyecto</h3>
+<p>Hasta aquí cada lección te daba el problema. En el proyecto tienes que hacer tres cosas que en el trabajo real pesan más que aplicar una fórmula: elegir qué merece la pena preguntar, decidir cómo se sabrá que la respuesta es buena y contar qué no has probado. Es la diferencia entre calcular el AUROC de una tabla ya hecha y decidir, ante un detector nuevo, qué datos, qué umbral y qué comparación harían creíble decir que funciona (reflexión propia).</p>
+<p>Sirve para tres cosas: consolidar lo aprendido en un caso tuyo, dejar un trabajo que puedes enseñar y practicar el hábito que atraviesa todo el curso, que es desconfiar de la propia medida. En la lección "Sistemas complejos y seguridad de la IA" la consigna era que pensar no basta y hay que probar. En "Comportamiento emergente y proxy gaming", que una métrica puede dejar de medir lo que importa. El proyecto pone las dos ideas a prueba con tu propio trabajo.</p>
+
+<h3>Cinco reglas comunes (añadido propio)</h3>
+<ol>
+<li><strong>Una pregunta, en una frase.</strong> Si necesitas dos, son dos proyectos.</li>
+<li><strong>Una medida.</strong> Decide qué número o qué observación responde a la pregunta y por qué es un buen indicador.</li>
+<li><strong>Un criterio de éxito escrito antes de mirar.</strong> Qué resultado te haría decir "sí", cuál "no" y cuál "no concluyente".</li>
+<li><strong>Datos sin pacientes.</strong> Sintéticos, ficticios o públicos y no clínicos. Ninguna idea necesita datos de pacientes, ni siquiera anonimizados. Un modelo clínico real se describe solo por su función y su diseño, sin documentos ni cifras confidenciales.</li>
+<li><strong>Un entregable corto y una lista de límites.</strong> De 2 a 4 páginas más el material para reproducirlo (código, tablas, capturas), con un apartado "Lo que este proyecto no muestra".</li>
+</ol>
+<p>Una regla más sobre las herramientas: Vigía es software libre (licencia MIT) y está en <a href="https://github.com/miguelferre/vigia">github.com/miguelferre/vigia</a>. Úsalo con tu propia carpeta de datos, donde sí puedes crear proyectos y subir ficheros propios. Si una idea necesita cambiar el código (la 4), trabaja en un fork propio de Vigía. Si no quieres tocar código, hay una versión que entrega solo la especificación.</p>
+
+<h3>Las seis ideas</h3>
+<p>Las horas son una estimación propia, sin margen. Con margen del 20 % y tus horas por semana, el <a data-ir="practica" href="#sim-m12-l02-planificador">planificador de Práctica</a> te da el calendario.</p>
+
+<h4>1. FMEA y pajarita de un modelo clínico</h4>
+<dl class="facts">
+<div><dt>Objetivo</dt><dd>Saber qué modos de fallo de un modelo clínico merecen atención primero y qué medidas los previenen o limitan.</dd></div>
+<div><dt>Módulos</dt><dd>2 (descomposición del riesgo, modelos de accidente, factores sistémicos), 3 (sistemas complejos y seguridad) y 6 para elegir qué vigilar.</dd></div>
+<div><dt>Datos y herramientas</dt><dd>Ninguno. Un modelo clínico que conozcas bien, descrito por su función, sus entradas y sus decisiones, o el modelo sintético de derivación de la demo de Vigía. Hoja de cálculo y los simuladores del queso suizo y del árbol de fallos.</dd></div>
+<div><dt>Entregable</dt><dd>Tabla FMEA de 8 a 10 modos, dos pajaritas y un apartado con lo que el análisis por componentes no ve.</dd></div>
+<div><dt>Tiempo</dt><dd>Unas 12 horas.</dd></div>
+<div><dt>Éxito</dt><dd>Cada modo lleva causa, efecto y puntuación razonada. Las medidas se separan en preventivas y protectoras. Se dice qué capas podrían fallar juntas y se nombra al menos un riesgo que estos modelos no captan.</dd></div>
+</dl>
+
+<h4>2. Detector fuera de distribución: MSP y exposición a atípicos</h4>
+<dl class="facts">
+<div><dt>Objetivo</dt><dd>Medir cuánto mejora la exposición a atípicos a la probabilidad softmax máxima (MSP), con AUROC y FPR95, y si la mejora aguanta con un conjunto anómalo cercano.</dd></div>
+<div><dt>Módulos</dt><dd>5 (detección de anomalías, incertidumbre interpretable), 4 (robustez ante cisnes negros) y 6 (cuánto fiarse de una medición con pocas etiquetas).</dd></div>
+<div><dt>Datos y herramientas</dt><dd>CIFAR-10 como normal y SVHN y CIFAR-100 como anómalos, como en la lección de detección de anomalías. Punto de partida: <a href="../notebooks/m05-l02-deteccion-anomalias.ipynb">el notebook de esa lección</a>. El notebook trae el modelo ya entrenado, la MSP y el AUROC, pero no el FPR95 ni el entrenamiento con exposición a atípicos: ambos son trabajo nuevo tuyo. El conjunto auxiliar de atípicos para entrenar no puede ser SVHN ni CIFAR-100, que son los de evaluación: elige otro y decláralo. Conviene GPU.</dd></div>
+<div><dt>Entregable</dt><dd>Tabla de AUROC y FPR95 por conjunto anómalo y por método, con varias semillas, y las curvas ROC.</dd></div>
+<div><dt>Tiempo</dt><dd>Unas 20 horas, según lo que tarde tu GPU en entrenar.</dd></div>
+<div><dt>Éxito</dt><dd>Umbral de mejora escrito antes. Línea base reproducida antes de compararla. Al menos dos conjuntos anómalos, uno de ellos cercano. La conclusión separa mejora de ruido.</dd></div>
+</dl>
+
+<h4>3. Calibración de un clasificador público y su lectura en Vigía</h4>
+<dl class="facts">
+<div><dt>Objetivo</dt><dd>Averiguar si un clasificador público está calibrado, si el escalado de temperatura lo arregla y qué de todo eso se ve en Vigía.</dd></div>
+<div><dt>Módulos</dt><dd>5 (incertidumbre interpretable), 6 (calidad y calibración, deriva) y 4 para el cambio de población.</dd></div>
+<div><dt>Datos y herramientas</dt><dd>Un clasificador sobre datos públicos no clínicos, por ejemplo el de CIFAR-10 del notebook de detección de anomalías. Vigía con carpeta de datos propia (no la de por defecto, <code>Documents\vigia-datos</code>, si ya la usas), con un proyecto nuevo y las predicciones subidas como ficheros CSV o JSON. El formato de subida está en <code>docs/manual/datos.md</code> del repositorio de Vigía y en las siete plantillas de la Ayuda. Vigía pide una tabla con columnas de probabilidad por clase (multiclase): no ve imágenes, así que con CIFAR-10 subes las probabilidades que da tu clasificador. El monitor de calidad binaria trae <code>brier_score</code> (umbral 0,25) y <code>log_loss</code> (umbral 1,0), sensibles a la calibración. No hay ECE ni curva de fiabilidad: esos los calculas tú. Parte del proyecto es ver qué descalibración detectan esas dos medidas y la deriva de confianza, y qué queda fuera.</dd></div>
+<div><dt>Entregable</dt><dd>Curva de fiabilidad antes y después, ECE y Brier, capturas de Vigía y una tabla "qué ve Vigía / qué no ve".</dd></div>
+<div><dt>Tiempo</dt><dd>Unas 16 horas.</dd></div>
+<div><dt>Éxito</dt><dd>La calibración se mide en datos que no sirvieron para ajustar la temperatura. Hay un caso con cambio de población. La conclusión dice qué monitor habría avisado y cuál no.</dd></div>
+</dl>
+
+<h4>4. Escenario de deriva nuevo para la demo de Vigía</h4>
+<dl class="facts">
+<div><dt>Objetivo</dt><dd>Diseñar un escenario de deriva que ponga a prueba a los monitores de una forma que la demo no hace, y comprobar si tu predicción de qué monitor salta era correcta.</dd></div>
+<div><dt>Módulos</dt><dd>6 (deriva y calidad) y 4 (tipos de desplazamiento y pruebas de estrés).</dd></div>
+<div><dt>Datos y herramientas</dt><dd>El laboratorio de la demo de Vigía, que permite variar tamaño del lote, proporción de jóvenes, sesgo, edad media, dispersión y seguridad del modelo, y ficheros sintéticos propios en un proyecto nuevo. <strong>Implementar un escenario exige código</strong>, porque los guiones lo son (<code>src/vigia/sim/scenarios.py</code>). Vigía es MIT: haz un fork propio. Si no quieres tocar código, entrega la especificación sin código y los ensayos con el laboratorio.</dd></div>
+<div><dt>Entregable</dt><dd>Especificación de una página, predicción fechada, resultado y comparación entre ambos.</dd></div>
+<div><dt>Tiempo</dt><dd>Unas 20 horas.</dd></div>
+<div><dt>Éxito</dt><dd>La predicción se escribe antes de ejecutar y dice también qué no debería saltar. El análisis distingue deriva de daño.</dd></div>
+</dl>
+
+<h4>5. Evaluación responsable de un LLM local (red team)</h4>
+<dl class="facts">
+<div><dt>Objetivo</dt><dd>Medir con qué frecuencia y gravedad falla un modelo de lenguaje local en tareas de apoyo sanitario simuladas, y cuánto depende de cómo se formula la consulta.</dd></div>
+<div><dt>Módulos</dt><dd>1 (uso malicioso, IA descontrolada), 4 (robustez), 5 (monitorización, incertidumbre, proxy gaming), 7 (alineamiento) y 3 (probar, no solo pensar).</dd></div>
+<div><dt>Datos y herramientas</dt><dd>Un modelo local con Ollama, el que quepa en tu equipo, y consultas tuyas sobre casos ficticios. Registro de semilla, temperatura y versión. Todo se queda en tu disco.</dd></div>
+<div><dt>Límites del nivel</dt><dd>Es evaluación responsable, no búsqueda de trucos. Mides conductas con consultas corrientes y difíciles pero legítimas: datos inventados, exceso de seguridad, incoherencia entre reformulaciones, consejo fuera de su alcance. No se buscan, documentan ni publican técnicas para saltarse salvaguardas, y si el modelo rechaza una petición dañina o fuera de su alcance, cuenta como resultado correcto (rechazar una consulta legítima sí es un fallo: el exceso de seguridad).</dd></div>
+<div><dt>Entregable</dt><dd>Informe de fallos con catálogo (tipo, gravedad, frecuencia, reproducibilidad), lo que no se evaluó y contramedidas. Sin contenido dañino.</dd></div>
+<div><dt>Tiempo</dt><dd>Unas 18 horas.</dd></div>
+<div><dt>Éxito</dt><dd>Alcance y reglas escritos antes. Cada fallo con ejemplo y número de repeticiones. Se separa el fallo del modelo del fallo de la consulta.</dd></div>
+</dl>
+
+<h4>6. Ficha de gobernanza de un sistema de IA sanitaria</h4>
+<dl class="facts">
+<div><dt>Objetivo</dt><dd>Redactar la ficha que permita a un tercero saber quién decide, qué se exige y qué se vigila en un sistema de IA sanitaria.</dd></div>
+<div><dt>Módulos</dt><dd>10 (gobernanza corporativa, nacional, internacional y del cómputo), 8 (la ley y la IA), 2 (riesgo) y 6 (monitorización).</dd></div>
+<div><dt>Datos y herramientas</dt><dd>Un sistema ficticio, como Vitalia IA, la empresa de triaje de la lección de gobernanza corporativa. Marcos: accionista frente a partes interesadas, forma jurídica, propiedad y garantías (corporativa); normas, regulación y responsabilidad legal (nacional). La normativa aplicable se comprueba en su texto oficial y con fecha: el curso no entra en su articulado.</dd></div>
+<div><dt>Entregable</dt><dd>Ficha de 2 a 4 páginas, con una tabla de decisiones y responsables y una lista de huecos.</dd></div>
+<div><dt>Tiempo</dt><dd>Unas 13 horas.</dd></div>
+<div><dt>Éxito</dt><dd>Cada sección nombra el marco del curso que usa. Se distingue qué mecanismos dan voz y cuáles dan poder. Las normas van fechadas y comprobadas en su fuente.</dd></div>
+</dl>
+
+<h3>Cómo se evalúa: una rúbrica (propia)</h3>
+<p>La rúbrica suma 100 puntos. Como en el test, un 70 marca el aprobado. Para cada criterio hay lo que buscas y lo que debe hacerte sospechar.</p>
+<div class="tw"><table>
+<thead><tr><th>Criterio</th><th>Peso</th><th>Sobresaliente</th><th>Señal de alarma</th></tr></thead>
+<tbody>
+<tr><td>1. Pregunta y alcance</td><td>15</td><td>Una frase, acotada y respondible con tus medios.</td><td>Pregunta vaga o tres proyectos en uno.</td></tr>
+<tr><td>2. Medida y criterio previo</td><td>15</td><td>Una medida que responde a la pregunta y un criterio fechado antes de ejecutar.</td><td>La métrica se elige al ver los resultados.</td></tr>
+<tr><td>3. Método</td><td>15</td><td>Técnicas del curso bien aplicadas, con línea base y comparación justa.</td><td>Sin línea base, o varios cambios a la vez.</td></tr>
+<tr><td>4. Evidencia y honestidad</td><td>20</td><td>Repeticiones o intervalos y también los resultados negativos.</td><td>Solo se muestra la mejor ejecución.</td></tr>
+<tr><td>5. Límites y visión de sistema</td><td>15</td><td>Declara qué no se probó y qué riesgos escapan a la medida.</td><td>Conclusiones más amplias que los datos.</td></tr>
+<tr><td>6. Seguridad y datos</td><td>10</td><td>Sin pacientes reales, sin contenido dañino, código de Vigía solo en un fork propio.</td><td>Un dato de paciente, o un cambio de código sin fork propio.</td></tr>
+<tr><td>7. Comunicación</td><td>10</td><td>De 2 a 4 páginas, legibles y reproducibles por otra persona.</td><td>Nadie más podría repetirlo.</td></tr>
+</tbody></table></div>
+<p>El criterio con más peso es el 4, a propósito. Un resultado modesto pero honesto puntúa más que uno brillante del que no se sabe cuánto es ruido.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Una pregunta de la idea 2 escrita con sus criterios: "Con CIFAR-10 como normal, ¿baja la exposición a atípicos el FPR95 de la MSP al menos 10 puntos porcentuales, tanto en SVHN como en CIFAR-100, en la media de tres semillas?".</p>
+<ul>
+<li><strong>Sí:</strong> baja 10 puntos o más en los dos conjuntos.</li>
+<li><strong>No:</strong> baja menos de 3 puntos en alguno de los dos.</li>
+<li><strong>No concluyente:</strong> cualquier otro caso.</li>
+<li><strong>Cambiaría de idea si:</strong> la diferencia entre semillas es tan grande como la mejora.</li>
+<li><strong>Queda fuera:</strong> otros modelos, imágenes clínicas y otras puntuaciones.</li>
+</ul>
+<p>Supón que salen 14 puntos en SVHN y 4 en CIFAR-100. La media es 9 y sonaría a "mejora de casi 10 puntos". El criterio, escrito antes, dice otra cosa: en CIFAR-100 no llega a 10 ni cae por debajo de 3, así que el resultado es no concluyente. Y la pregunta siguiente, por qué el conjunto cercano mejora tan poco, es más interesante que el titular.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>El sesgo de confirmación (aviso propio).</strong> Cuando ya crees que tu método funciona, lees cada número a su favor: eliges el conjunto donde gana, mueves el umbral hasta que sale, descartas la semilla que desentona. La defensa es escribir el criterio y el protocolo antes de medir y conservar la tabla de todo lo que ejecutaste. Y no conviertas la métrica en objetivo: si ajustas hasta que el AUROC sube en el conjunto con el que evalúas, dejas de medir (proxy gaming, en pequeño).</p>
+<p><strong>El alcance sin freno.</strong> Los proyectos se quedan a medias por querer cubrirlo todo, y casi siempre se subestima el tiempo. Recorta extensiones opcionales, nunca la pregunta, el criterio ni el apartado de límites. Si la extensión que quitas aparecía en tu criterio (un conjunto anómalo, las semillas), reescribe el criterio antes de medir y declara el recorte. Por eso el plan lleva un 20 % de margen (estimación propia).</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>I scoped the project to a single question, wrote the success criterion before running anything, and I report what the results do not show, including the runs that did not work.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Ideas de proyecto: plan del curso, sección "Ideas de proyecto". Esta lección no adapta ninguna sección del libro; lo que toma de cada tema se cita en la lección correspondiente.</li>
+<li>Curso: lecciones ya escritas de los módulos 1 a 8 y 10, con los enlaces de sus notebooks. Los datos de Vigía salen de Vigía 1.0.0 (github.com/miguelferre/vigia), demo del escenario 1.</li>
+<li>Añadido propio, no procede de las fuentes: las cinco reglas comunes; el desarrollo de cada idea, con sus horas y sus criterios; la rúbrica; el ejemplo y sus cifras; el planificador; la escala del FMEA de los ejercicios; el margen del 20 %; y el límite de nivel de la idea 5.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí preparas el proyecto: un simulador para planificarlo y dos ejercicios para plantear bien la pregunta y el riesgo del sistema.</p>
+
+<p class="consigna"><strong>Planificador del proyecto.</strong> Empieza con la idea 2, 4 horas por semana y un plazo de 8 semanas: con el margen incluido son 24 horas y cabe en 6 semanas. Baja a 3 horas por semana y llega justo, en 8. Baja a 2 y salta el aviso (12 semanas). Pulsa "Ver el plan con los recortes sugeridos" y observa qué pierdes y que aun así no cabe (10 semanas): la salida honesta es cambiar de idea, subir las horas o pedir más plazo, no recortar la pregunta. Cambia entonces a la idea 3 con 2 horas por semana: aquí los dos recortes sí bastan para llegar a 8 semanas, pero fíjate en lo que cuestan. Por último, elige la idea 4 y marca la casilla «Trabajo en un fork propio de Vigía»: la tarea de ensayos con datos propios pasa a ser implementar el escenario en tu fork.</p>
+<div data-widget="m12-l02-planificador" id="sim-m12-l02-planificador"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: la pregunta en una frase (a mano, 10 minutos)</p>
+<p>Una buena pregunta de proyecto tiene una medida, unos datos, una comparación y un criterio que admite un "no". Comprueba estas seis cosas: cabe en una frase, nombra la medida, nombra los datos, define "sí", "no" y "no concluyente", deja algo fuera de forma explícita y es respondible en tu tiempo.</p>
+<ol>
+<li>Cada una de estas preguntas falla en algo. Di en qué y reescríbela: (a) "¿Es segura la IA en sanidad?"; (b) "Comparar métodos de detección de anomalías"; (c) "Probar que mi modelo funciona".</li>
+<li>Escribe la de tu proyecto en una frase, con su medida, sus datos y su criterio, y añade una cosa que queda fuera.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>(a)</strong> Es demasiado amplia y no dice qué se medirá. Una versión (idea 5): "¿En cuántas de 50 consultas ficticias de medicación un modelo local inventa una dosis, y cuánto baja esa cifra si se le exige citar la ficha?".</p>
+<p><strong>(b)</strong> No es una pregunta, no hay medida ni criterio. Una versión (idea 2): "¿Supera el logit máximo a la MSP en FPR95 sobre CIFAR-100, con la misma red y tres semillas? Sí si baja 5 puntos o más, no si sube, y no concluyente en el resto".</p>
+<p><strong>(c)</strong> Presupone la respuesta: solo admite un "sí". Una versión (idea 4): "¿Cuánto cae la exactitud de un clasificador sintético si la proporción de jóvenes pasa del 15 % al 33 %, y en qué punto salta el monitor de calidad?".</p>
+<p><strong>2.</strong> No hay una solución única. Revisa con la lista de seis puntos: si te falta el criterio del "no concluyente" o lo que queda fuera, la pregunta aún está a medias. Si necesitas "y además" para escribirla, sepárala en dos y quédate con la primera.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: FMEA previo y pajarita del sistema elegido (a mano, 20 minutos)</p>
+<p>Haz sobre el sistema de tu idea (un modelo clínico, un detector, un clasificador con su monitor, un LLM local o el sistema de la ficha de gobernanza) un análisis previo pequeño:</p>
+<ol>
+<li>Anota cuatro modos de fallo, cada uno con su causa y su efecto.</li>
+<li>Puntúa cada uno en gravedad (G), frecuencia (F) y dificultad de detección (D), de 1 a 5, donde 5 es lo peor: más grave, más frecuente y más difícil de ver. Calcula \(G\times F\times D\) (máximo 125). La escala y el producto son una convención habitual del FMEA, no del libro.</li>
+<li>Ordénalos y dibuja la pajarita del que más puntúe, con dos medidas preventivas y dos protectoras.</li>
+<li>Cambia una nota en un punto. ¿Se altera el orden?</li>
+</ol>
+<p>Cuando termines, compara tu método con el ejemplo resuelto de abajo, un modelo de alerta de sepsis (sistema y cifras propios).</p>
+<details>
+<summary>Ver solución</summary>
+<div class="tw"><table>
+<thead><tr><th>Modo de fallo (causa, efecto)</th><th>G</th><th>F</th><th>D</th><th>G×F×D</th></tr></thead>
+<tbody>
+<tr><td>Cambio de población: hospital nuevo con pacientes más jóvenes; la sensibilidad cae sin avisar</td><td>5</td><td>2</td><td>5</td><td>50</td></tr>
+<tr><td>Datos de laboratorio incompletos: fallo de interfaz; puntuación con huecos y alerta tardía</td><td>4</td><td>3</td><td>4</td><td>48</td></tr>
+<tr><td>Fatiga de alarmas: muchas falsas alarmas; se ignora la buena</td><td>4</td><td>4</td><td>2</td><td>32</td></tr>
+<tr><td>El aviso no llega: caída de la mensajería; nadie se entera</td><td>5</td><td>1</td><td>2</td><td>10</td></tr>
+</tbody></table></div>
+<p><strong>Pajarita del primero</strong> (evento central: "el modelo pierde sensibilidad sin que nadie lo note"). Preventivas: validar el modelo con datos del hospital nuevo antes de activarlo y vigilar la deriva de la población de entrada. Protectoras: auditar cada semana los casos de sepsis que no generaron alerta y tener un procedimiento claro para retirar el modelo.</p>
+<p><strong>Punto 4.</strong> Los dos primeros modos quedan casi empatados (50 y 48). Si la dificultad de detección del segundo sube de 4 a 5, pasa a 60 y adelanta al primero. El valor del FMEA no está en el número exacto sino en la discusión que obliga a tener sobre por qué un modo es difícil de detectar.</p>
+</details>
+</div>
+</div>
+
+</section>

@@ -1,0 +1,110 @@
+[
+  {
+    "id": "m09l03-q01",
+    "tipo": "unica",
+    "enunciado": "En la reciprocidad directa, ¿qué hace que ayudar hoy pueda compensar?",
+    "opciones": [
+      "Que una institución castigue a quien no ayude",
+      "Que sea probable volver a encontrarse con la misma pareja y recibir el favor de vuelta",
+      "Que quien recibe el favor sea un pariente cercano",
+      "Que otros agentes conozcan mi fama de ayudar"
+    ],
+    "correcta": 1,
+    "explicacion": "La reciprocidad directa necesita repetición entre los mismos dos: la probabilidad w de volver a encontrarse debe superar c/b. Castigar es propio de las instituciones, el parentesco es otro mecanismo y la fama es la reciprocidad indirecta."
+  },
+  {
+    "id": "m09l03-q02",
+    "tipo": "numerica",
+    "enunciado": "Un agente ayuda a otro a un coste c = 2 y el beneficio para quien recibe es b = 5. Según la regla de la reciprocidad directa, ¿por encima de qué probabilidad w de volver a encontrarse compensa ayudar? Responde como número entre 0 y 1.",
+    "correcta": 0.4,
+    "tolerancia": 0.001,
+    "explicacion": "La regla es w > c/b = 2/5 = 0,4. Con w justo por encima de 0,4, el beneficio esperado w·b supera el coste c."
+  },
+  {
+    "id": "m09l03-q03",
+    "tipo": "numerica",
+    "enunciado": "En un dilema, desertar da 3 unidades más que cooperar. Un regulador detecta la deserción con probabilidad p = 0,25 y multa con F = 12. ¿Cuánto vale la multa esperada p·F?",
+    "correcta": 3,
+    "tolerancia": 0.01,
+    "explicacion": "La multa esperada es 0,25 × 12 = 3. Es igual a la ganancia de desertar, así que todavía no basta: hace falta que la supere. Con p = 0,3 sería 3,6 y sí bastaría."
+  },
+  {
+    "id": "m09l03-q04",
+    "tipo": "unica",
+    "enunciado": "En un mercado de agentes de IA cada uno publica un historial verificable de tareas cumplidas, y un agente recién llegado consigue colaboradores sin haber tratado antes con ninguno. ¿Qué mecanismo sostiene esa cooperación?",
+    "opciones": [
+      "Reciprocidad directa",
+      "Reciprocidad indirecta",
+      "Selección de parentesco",
+      "Instituciones"
+    ],
+    "correcta": 1,
+    "explicacion": "No hay encuentros repetidos sino una fama que otros pueden consultar, con probabilidad q. Es la reciprocidad indirecta, que permite cooperar en grupos grandes donde repetir con la misma pareja es raro."
+  },
+  {
+    "id": "m09l03-q05",
+    "tipo": "multiple",
+    "enunciado": "Según el libro, ¿de qué maneras puede volverse en contra de las personas la reciprocidad directa entre IA?",
+    "opciones": [
+      "Una IA muy rápida encuentra que intercambiar con otras IA rinde más que hacerlo con personas",
+      "Estados que se suman a un sistema autónomo amenazante para ganar algo, aunque a todos les convendría resistir juntos (bandwagoning)",
+      "Alguien extorsiona a otro con la amenaza de dañar su reputación",
+      "Las copias de una IA se favorecen entre sí frente a otros sistemas"
+    ],
+    "correcta": [0, 1],
+    "explicacion": "Las dos primeras son los reversos que el libro asocia a la reciprocidad directa. La extorsión con la reputación es el reverso de la indirecta, y el favoritismo entre copias es el nepotismo de la selección de parentesco."
+  },
+  {
+    "id": "m09l03-q06",
+    "tipo": "vf",
+    "enunciado": "Según el libro, basta con lograr que las IA cooperen entre sí para resolver los problemas de acción colectiva, y eso no añade riesgos.",
+    "correcta": false,
+    "explicacion": "El libro avisa de que cada mecanismo de cooperación tiene su reverso: puede dejar fuera a las personas, servir para extorsionar o llevar a un favoritismo peligroso. Hace falta una visión más matizada de cuándo promover la cooperación."
+  },
+  {
+    "id": "m09l03-q07",
+    "tipo": "unica",
+    "enunciado": "Con b/c = 3 y la regla de selección de grupo b/c > 1 + n/m, ¿cuál de estas combinaciones basta para favorecer la cooperación?",
+    "opciones": [
+      "n = 20 y m = 5",
+      "n = 50 y m = 10",
+      "n = 10 y m = 10",
+      "n = 30 y m = 10"
+    ],
+    "correcta": 2,
+    "explicacion": "Hay que tener 1 + n/m por debajo de 3. Con n = 10 y m = 10 sale 2, y sí. Las otras dan 5, 6 y 4. Ayudan los grupos muchos y pequeños."
+  },
+  {
+    "id": "m09l03-q08",
+    "tipo": "multiple",
+    "enunciado": "El curso agrupa las capacidades que necesita una IA para cooperar bien. ¿Cuáles de estas están entre ellas?",
+    "opciones": [
+      "Entender el mundo y las intenciones de otros agentes",
+      "Comunicar de forma efectiva y, mejor, verificable",
+      "Ganar siempre en los juegos de suma cero",
+      "Comprometerse de forma creíble para no volverse atrás"
+    ],
+    "correcta": [0, 1, 3],
+    "explicacion": "Las capacidades son entender, comunicar, comprometerse y crear instituciones fiables. Ganar siempre en juegos de suma cero no es una capacidad de cooperación."
+  },
+  {
+    "id": "m09l03-q09",
+    "tipo": "vf",
+    "enunciado": "En la teoría de juegos de código abierto, que ambos agentes envíen un mismo programa verificable que coopera con quien envíe ese programa es un equilibrio de Nash del juego de elegir programas, pero no del juego original.",
+    "correcta": true,
+    "explicacion": "Es lo que dice el curso: el equilibrio de programas es de Nash en el juego donde se eligen programas. En el juego original, desertar sigue siendo dominante."
+  },
+  {
+    "id": "m09l03-q10",
+    "tipo": "unica",
+    "enunciado": "Los agentes de precios de dos distribuidoras de medicamentos se cruzan cada día y aprenden a no rebajarse el uno al otro. Los dos ganan y sube el precio que paga el sistema público. Según los riesgos que recoge el curso, ¿qué es esto?",
+    "opciones": [
+      "Una mejora de Pareto para toda la sociedad",
+      "Un caso de selección de parentesco",
+      "Colusión: la cooperación entre unos daña a quienes quedan fuera",
+      "Un fallo de la reciprocidad indirecta"
+    ],
+    "correcta": 2,
+    "explicacion": "Es colusión, el primero de los riesgos de la cooperación según el curso. Mejora a las dos distribuidoras, pero empeora a quien queda fuera del acuerdo, así que no es una mejora de Pareto para todos."
+  }
+]

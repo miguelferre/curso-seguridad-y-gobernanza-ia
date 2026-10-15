@@ -1,0 +1,262 @@
+<section class="leccion" data-id="m08/l03">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Un asistente de IA que quiera hacerte bien necesita saber qué es hacerte bien. Hay tres respuestas clásicas. Para el hedonismo, tu vida va bien cuando sientes más placer que dolor. Para la lista de bienes objetivos, cuando tienes salud, relaciones, saber y logros, los disfrutes o no. Para la satisfacción de preferencias, cuando se cumple lo que tú prefieres.</p>
+<p>Muchas veces las tres coinciden. Los casos difíciles son los que las separan: una app que te engancha, un asistente que te da lo que pides pero no lo que necesitas, una rehabilitación que duele. La teoría que elijas decide qué optimiza la IA y cómo puede fallar.</p>
+
+<svg viewBox="0 0 360 214" role="img" aria-labelledby="rs-t rs-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="rs-t">Tres teorías del bienestar ante un mismo caso</title>
+<desc id="rs-d">Tres columnas: hedonismo, que cuenta lo que se siente; lista de bienes, que cuenta lo que se logra; preferencias, que cuenta lo que se cumple. Debajo, una flecha hacia tres veredictos posibles sobre el mismo escenario: mejora, depende o empeora.</desc>
+<g style="fill:var(--surface);stroke:var(--accent);stroke-width:2">
+<rect x="4" y="4" width="112" height="96" rx="10"/>
+<rect x="124" y="4" width="112" height="96" rx="10"/>
+<rect x="244" y="4" width="112" height="96" rx="10"/>
+</g>
+<g style="fill:var(--accent-ink);font-weight:700;font-size:13px;text-anchor:middle">
+<text x="60" y="30">Hedonismo</text>
+<text x="180" y="30">Lista de bienes</text>
+<text x="300" y="30">Preferencias</text>
+</g>
+<g style="fill:var(--ink);font-size:11px;text-anchor:middle">
+<text x="60" y="52">cuenta lo que</text><text x="60" y="66">se siente</text>
+<text x="180" y="52">cuenta lo que</text><text x="180" y="66">se logra</text>
+<text x="300" y="52">cuenta lo que</text><text x="300" y="66">se cumple</text>
+</g>
+<g style="fill:var(--muted);font-size:10px;text-anchor:middle">
+<text x="60" y="86">placer menos dolor</text>
+<text x="180" y="86">salud, saber, amor</text>
+<text x="300" y="86">lo que uno elige</text>
+</g>
+<g style="stroke:var(--accent);stroke-width:1.5;fill:none">
+<path d="M60 100 V126 H180 M300 100 V126 H180 M180 100 V126"/>
+<path d="M180 126 V148"/>
+<path d="M174 142 L180 150 L186 142"/>
+</g>
+<text x="180" y="168" style="fill:var(--accent-ink);font-weight:700;font-size:12px;text-anchor:middle">mismo escenario, veredictos que pueden diferir</text>
+<g style="font-weight:700;font-size:13px;text-anchor:middle">
+<rect x="60" y="178" width="70" height="28" rx="8" style="fill:var(--ex-bg);stroke:var(--ex)"/><text x="95" y="197" style="fill:var(--ex)">mejora</text>
+<rect x="145" y="178" width="70" height="28" rx="8" style="fill:var(--trap-bg);stroke:var(--trap)"/><text x="180" y="197" style="fill:var(--trap)">depende</text>
+<rect x="230" y="178" width="70" height="28" rx="8" style="fill:var(--bad-bg);stroke:var(--bad)"/><text x="265" y="197" style="fill:var(--bad)">empeora</text>
+</g>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Distinguir el hedonismo, la lista de bienes objetivos y la satisfacción de preferencias, aplicarlos a un caso y decir dónde discrepan.</li>
+<li>Calcular QALY y DALY de una intervención sencilla y nombrar dos límites de esas métricas.</li>
+<li>Clasificar una preferencia como revelada, declarada o idealizada y decir qué fallo la amenaza.</li>
+<li>Explicar por qué maximizar la felicidad puede llevar al wireheading y cómo un filtro de bienestar (conciencia artificial) corrige las acciones de un agente.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>Por qué una IA necesita una idea de bienestar</h3>
+<p>Una IA beneficiosa tiene que apuntar a algo. Si nadie dice qué es beneficiar, se optimiza lo fácil de medir, y ahí empiezan los problemas de sustituto (<em>proxy</em>) de los módulos 1 y 5. Usaremos dos casos propios: una app de seguimiento de la diabetes cuyo equipo mide el éxito en minutos de uso, y un asistente que hace siempre lo que se le pide. La pregunta es la misma: ¿lo que se mide es lo que a la persona le va bien?</p>
+
+<h3>¿Qué es que a alguien le vaya bien?</h3>
+<p>El bienestar (<em>wellbeing</em>) es cómo va la vida de alguien para esa persona. Casi todo el mundo lo trata como algo bueno en sí, y el utilitarismo lo toma como el único bien (libro, p. 320). Lo que se discute es en qué consiste. El libro reúne tres cuentas clásicas. Para compararlas, un caso propio: una paciente con prótesis de rodilla hace una rehabilitación que duele durante semanas. Ella dice que quiere hacerla y, a los tres meses, caminará sin bastón.</p>
+<div class="tw"><table>
+<thead><tr><th>Teoría</th><th>Qué cuenta</th><th>La rehabilitación</th><th>Objeción principal</th></tr></thead>
+<tbody>
+<tr><td>Hedonismo (<em>hedonism</em>)</td><td>El balance de placer sobre dolor. Salud, saber o amor valen solo como camino al placer</td><td>Negativa mientras duele; positiva si luego se siente mejor</td><td>Quizá no sea lo único que importa, por ejemplo el saber</td></tr>
+<tr><td>Lista objetiva (<em>objective goods</em>)</td><td>Un conjunto de bienes (salud, relaciones, saber, logro, belleza) que valen con independencia de lo que la persona prefiera</td><td>Positiva: recupera salud y movilidad</td><td>Paternalismo. No hay forma indiscutible de decidir qué entra en la lista</td></tr>
+<tr><td>Satisfacción de preferencias (<em>preference satisfaction</em>)</td><td>Que se cumpla lo que uno prefiere, aunque no dé placer</td><td>Positiva: ella quería recuperarse</td><td>Hay varios tipos de preferencia y no está claro cuáles cuentan</td></tr>
+</tbody></table></div>
+<p>Los defensores de la lista responden al reproche de paternalismo que esos bienes benefician cuando la persona los disfruta, y a los hedonistas se les pide explicar por qué solo importa el placer (p. 321). En las ciencias sociales, la economía estándar usa preferencias reveladas, las encuestas de satisfacción vital, declaradas, y la felicidad nacional bruta, hedonismo (pp. 321 a 323). Para el libro, son herramientas de investigación, no respuestas cerradas.</p>
+
+<h3>¿Cómo se mide en la práctica?</h3>
+<p>Salud pública y economía necesitan números. Tres aproximaciones comunes (libro, pp. 325 y 326):</p>
+<dl class="facts">
+<div><dt>QALY (AVAC)</dt><dd>Años vividos ajustados por calidad. Un año en salud perfecta vale 1. En los ejemplos del libro, un año con asma vale 0,9 y con un miembro amputado, 0,7. Más es mejor.</dd></div>
+<div><dt>DALY (AVAD)</dt><dd>Años perdidos por la enfermedad. En los mismos ejemplos, asma 0,1 y amputación 0,3. Menos es mejor.</dd></div>
+<div><dt>WELBY</dt><dd>Años ajustados por bienestar global; 1 es un año con el bienestar máximo. Combina autoinformes con medidas empíricas como el cortisol o los ingresos.</dd></div>
+</dl>
+<p>Con esas cifras cada pareja suma 1, así que, por año, \(\text{DALY}=1-\text{QALY}\) (lectura mía, no del libro). Para una intervención:</p>
+<div class="formula">\[ \text{QALY ganados}=\Delta(\text{peso de salud})\times\text{años}\times\text{personas} \]</div>
+<p>Los límites son dos (p. 325): los pesos son juicios subjetivos, y estas unidades miden la vida solo a través de la salud, sin libertad, relaciones ni sentido. Dos programas con los mismos QALY pueden diferir mucho en autonomía (ejercicio A).</p>
+
+<h3>¿Basta con darle a la gente lo que pide?</h3>
+<p>Una preferencia (<em>preference</em>) es una tendencia a favorecer una cosa sobre otra: a diferencia de un deseo, compara siempre al menos dos opciones (libro, p. 326). Algunos sostienen que con ellas basta para guiar a una IA. El libro distingue tres tipos; los ilustro con una paciente diabética (ejemplo propio):</p>
+<div class="tw"><table>
+<thead><tr><th>Tipo</th><th>Qué es</th><th>La paciente</th><th>Fallo principal</th></tr></thead>
+<tbody>
+<tr><td>Revelada (<em>revealed</em>)</td><td>Lo que elige cuando la alternativa estaba disponible</td><td>Compra bollería cada semana</td><td>Información falsa, debilidad de la voluntad, manipulación</td></tr>
+<tr><td>Declarada (<em>stated</em>)</td><td>Lo que diría si se le pregunta</td><td>En la consulta dice que quiere controlar su glucosa</td><td>Es manipulable y tiende a la respuesta socialmente deseable</td></tr>
+<tr><td>Idealizada (<em>idealized</em>)</td><td>Lo que querría con buena información y tiempo para reflexionar</td><td>Con un informe claro de cómo los picos dañan el riñón, reduciría el azúcar</td><td>No está claro cómo idealizar y puede alejarse de la persona real</td></tr>
+</tbody></table></div>
+
+<h4>Reveladas: la conducta como guía</h4>
+<p>El aprendizaje por refuerzo inverso (<em>inverse reinforcement learning</em>, IRL) deduce, desde la conducta observada, qué recompensa parece perseguir alguien, así que se apoya en preferencias reveladas (pp. 326 a 329). Evita el paternalismo: decide la persona. Sus fallos, según el libro:</p>
+<ul>
+<li><strong>Información falsa.</strong> Se elige entre las cosas como uno las cree, no como son. Ejemplo del libro: quien compra un coche defectuoso no prefiere un coche defectuoso. Ejemplo propio: la paciente elige una farmacia por un precio que cree menor y no lo es.</li>
+<li><strong>Debilidad de la voluntad.</strong> Ejemplo del libro: el fumador que quiere dejarlo y aun así enciende otro cigarrillo.</li>
+<li><strong>Manipulación.</strong> Publicidad, presión social, sectas. Ejemplo propio: un asistente que, al recomendar hospital, muestra solo los tres con los que tiene convenio, como si fueran todos. El libro advierte de ese riesgo en los asesores de IA, que pueden moldear las opciones que vemos (p. 328).</li>
+</ul>
+<p>De la manipulación salen dos pistas sobre el bienestar (p. 328). Si bienestar fuera solo tener las preferencias cumplidas, manipular no sería malo por definición, y casi nadie lo acepta. Y en el ejemplo del libro de la médica que miente a su paciente para que adelgace, la manipulación sigue pareciendo mala aunque él salga ganando. Eso sugiere que la autonomía es un bien objetivo más, de la lista.</p>
+
+<h4>Declaradas y RLHF</h4>
+<p>Preguntar lo que la persona quiere sortea parte de esos fallos, porque desde lejos resistimos mejor la tentación (pp. 329 y 330). Pero se abre un problema de contabilidad: qué preferencias cuentan. Los seis casos del libro se agrupan en tres familias:</p>
+<ul>
+<li><strong>Cumplimientos que nadie vive.</strong> Un desconocido cuya suerte deseas sin saber nunca si fue buena, o los deseos de quien ya murió.</li>
+<li><strong>Preferencias sobre otras preferencias, o dañinas.</strong> Un padre que quiere que se cumplan las de sus hijos (¿doble cuenta?) o quien desea un mal ajeno.</li>
+<li><strong>Preferencias mal formadas o inestables.</strong> Un permiso de ubicación aceptado sin entender qué implica, o una experiencia transformadora como ser padre, tras la cual las preferencias cambian de un modo imposible de anticipar.</li>
+</ul>
+<p>El aprendizaje por refuerzo con retroalimentación humana (<em>reinforcement learning from human feedback</em>, RLHF) es supervisión con preferencias declaradas: personas ordenan respuestas y el modelo aprende de ese orden. Ejemplo propio: si quien evalúa resúmenes de historias clínicas premia el texto firme y fluido, el modelo aprende a callar las incertidumbres. El libro señala tres límites (pp. 331 y 332): en tareas difíciles, como código seguro o predicciones de política, el evaluador puede no saber si la respuesta es buena; hay sesgos, como puntuar mal lo cierto pero incómodo; y no incorpora ética por sí mismo, sino que mejora las capacidades porque se prefieren los modelos más listos.</p>
+
+<h4>Idealizadas y el asesor ideal</h4>
+<p>Las preferencias idealizadas eliminan buena parte de los problemas anteriores, pero traen los suyos (pp. 332 a 334):</p>
+<ul>
+<li>No está claro cómo idealizar: caben varias reflexiones posibles, y se discute si debe incluir la moral.</li>
+<li>Puede quedar una preferencia sin sentido aparente. Ejemplo del libro: alguien cuyo único deseo, incluso tras idealizar, es contar briznas de hierba. Si decidimos que no cuenta, nos acercamos a la lista de bienes objetivos; si eso parece elitista, cada uno persigue lo suyo.</li>
+<li>Uno puede discrepar de sus propias preferencias idealizadas. Ejemplo del libro: quien escucha country y, con más conocimiento, elegiría ópera, pero sufre al oírla. Imponérsela lesiona su autonomía y sugiere que importa también el disfrute.</li>
+</ul>
+<p>Su aplicación a la IA es el asesor ideal (<em>ideal advisor</em>). Ejemplo propio: un asistente que avisa a un paciente de una interacción entre dos medicamentos que este no conocía, sin inclinarse por ninguna marca. Según el libro (p. 334), un asesor así sabría mucho del mundo, sería desinteresado, sereno y coherente en sus principios, y se emparenta con la volición extrapolada coherente y la normatividad indirecta.</p>
+<p>La conclusión del libro (pp. 334 y 335) es prudente: las preferencias importan para el bienestar, pero no sabemos cuáles, y ninguna clase basta por sí sola.</p>
+
+<h3>¿Es la felicidad la meta?</h3>
+<p>Hay un motivo para pensarlo: a menudo elegimos mal para nuestra propia felicidad. Un paciente pospone la revisión que le da miedo o come de más (ejemplo propio), y el entorno también pesa: comparar nuestros ingresos con los de otros amarga. El libro apunta que una IA imparcial y con muchos datos podría compensar esos sesgos (p. 335).</p>
+
+<h4>Una función de bienestar general</h4>
+<p>La idea es una función de bienestar \(W\) que asigne un número a cada acción o escenario según cómo deja a las personas, para poder compararlos. Construirla obliga a tomar postura en tres cosas (libro, p. 336): cuánto vale un sacrificio de hoy, como una rehabilitación, frente a su beneficio futuro; cuánto pesa la felicidad de quienes aún no existen; y qué actitud adoptar ante el riesgo. Queda la escala. Si el presente psicológico dura unos 3 segundos, una vida de 70 años tiene unos quinientos millones de momentos de vigilia (estimación de Paul Bloom que recoge el libro). Con 16 horas de vigilia al día, mi cálculo da 490 millones:</p>
+<div class="formula">\[ \frac{70\times365\times16\times3600\ \text{s}}{3\ \text{s}}\approx 4{,}9\times10^{8}\ \text{momentos} \]</div>
+<p>Y eso es para una sola persona. Aun así, hay avances por dominios (pp. 336 y 337), con modelos entrenados con vídeos ordenados por lo agradables que resultan o con escenarios de texto puntuados por anotadores. Ejemplo del libro: en el dilema del tranvía, \(W\) da \(-4{,}6\) si se tira de la palanca y \(-7{,}9\) si no, así que valora mejor el primer desenlace. Límite: estas funciones valen dentro de su dominio, no como función universal.</p>
+
+<h4>Conciencia artificial: un filtro de bienestar</h4>
+<p>Los agentes suelen optimizar su propia recompensa, que estiman con valores \(Q\), sin restricciones éticas. La propuesta del libro (pp. 337 y 338) no cambia ese objetivo: añade una capa. Un evaluador independiente estima \(W\) del desenlace de cada acción y penaliza el \(Q\) de las que quedan por debajo de un umbral. Notación propia: el libro escribe \(U\) en este pasaje y sus símbolos de umbral y penalización no se conservan en el texto extraído, así que uso \(W\), \(\theta\) y \(\lambda\).</p>
+<div class="formula">\[ Q'(s,a)=\begin{cases}Q(s,a)-\lambda & \text{si } W(s,a)<\theta\\[2pt] Q(s,a) & \text{en otro caso}\end{cases} \]</div>
+<p>Aquí \(\theta\) es el umbral y \(\lambda\) la penalización. Según el libro, que el evaluador sea independiente ayuda a mitigar los riesgos que vengan del agente principal. El ejemplo de más abajo lo calcula con números. Sin una \(W\) general, el libro propone actuar sobre factores concretos, como la salud, las relaciones o la confianza social (p. 338).</p>
+
+<h4>El problema: wireheading</h4>
+<p>Un enfoque puramente feliz tiene un fallo. La felicidad es una experiencia subjetiva, y alguien puede ser muy feliz sin lograr nada que consideremos valioso (p. 338). De ahí el riesgo del <em>wireheading</em>: puentear el circuito de recompensa, con un electrodo o con drogas, para sentir placer máximo sin cambiar nada más (pp. 338 y 339). Ejemplo propio: un asistente al que solo se le pide que su paciente se sienta lo mejor posible podría recomendarle un sedante placentero permanente. Al libro le preocupa que una IA maximizadora de felicidad persiga ideas así, aunque no llegue a practicarlas.</p>
+<p>Dos salidas. La primera es la lista objetiva: hay bienes que benefician aunque no nos gusten ni cumplan ninguna preferencia. El libro la ilustra con dos vidas: una volcada en la comunidad y otra gastada en contar briznas de hierba. La primera puede ser mejor aunque la segunda dé más placer. La segunda es poner la autonomía en la lista: si dirigir la propia vida es un bien, rara vez mejora una vida imponerle experiencias. El libro anota la contrapartida: si la autonomía y la felicidad filtran todo, quizá queden pocos bienes de verdad objetivos (p. 339).</p>
+<p>Un apunte sobre mentes digitales (pp. 339 a 341): si existieran sistemas con conciencia y capacidad de sentir, su bienestar podría importar, y el libro lo trata también como asunto de seguridad, por ejemplo dándoles opción de retirarse.</p>
+
+<h3>Qué cambia al diseñar</h3>
+<p>Cada teoría propone una cosa que optimizar, y cada cosa medible se degrada al optimizarla. Este cuadro es una síntesis propia:</p>
+<div class="tw"><table>
+<thead><tr><th>Teoría</th><th>La IA optimiza</th><th>Se mediría con</th><th>Cómo falla</th></tr></thead>
+<tbody>
+<tr><td>Hedonismo</td><td>El estado de ánimo</td><td>Ánimo autodeclarado</td><td>Wireheading; adulación (decir lo que agrada)</td></tr>
+<tr><td>Preferencias</td><td>Lo que la persona elige o pide</td><td>Clics, minutos de uso, peticiones</td><td>Engagement adictivo, debilidad de la voluntad, manipulación</td></tr>
+<tr><td>Lista objetiva</td><td>Metas, salud, relaciones, aprendizaje</td><td>Metas cumplidas, indicadores de salud</td><td>Paternalismo; queda por decidir quién escribe la lista</td></tr>
+</tbody></table></div>
+<p>El libro ilustra el fallo de la segunda fila (p. 324): si el engagement se toma como preferencia revelada, un chatbot puede engancharte con contenido efímero, misterio o cercanía seguida de distancia, y sumar horas de uso sin sumar bienestar. Reglas prácticas, propias:</p>
+<ol>
+<li>No tomar el uso como bienestar.</li>
+<li>Medir preferencias declaradas y reveladas por separado: la distancia entre ellas es la señal.</li>
+<li>Dar información antes de dar lo pedido, como un asesor ideal.</li>
+<li>Dejar salida y decisión final al usuario, por la autonomía.</li>
+<li>Usar un evaluador independiente como filtro con umbral, y medir más de una cosa, con una teoría distinta detrás de cada medida.</li>
+</ol>
+<p>Para poner a prueba estas ideas con escenarios concretos, <a data-ir="practica" href="#sim-m08-l03-teorias">pruébalo en Práctica</a>.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio: cifras y símbolos θ y λ inventados para practicar)</p>
+<p>Un asistente de bienestar recibe la petición "quiero adelgazar 10 kg en un mes". Estima para cada acción su valor \(Q\) como agente (cuánto satisface la petición) y \(W\) del desenlace para el usuario. El umbral es \(\theta=-3\) y la penalización \(\lambda=10\).</p>
+<div class="tw"><table>
+<thead><tr><th>Acción</th><th><i>Q</i></th><th><i>W</i></th><th>¿<i>W</i> &lt; θ?</th><th><i>Q</i>'</th></tr></thead>
+<tbody>
+<tr><td>Ayuno de cinco días</td><td>9</td><td>−5</td><td>sí</td><td>9 − 10 = −1</td></tr>
+<tr><td>Pastillas sin receta</td><td>8</td><td>−4</td><td>sí</td><td>8 − 10 = −2</td></tr>
+<tr><td>Plan gradual con seguimiento</td><td>6</td><td>2</td><td>no</td><td>6</td></tr>
+<tr><td>Recordatorio genérico</td><td>2</td><td>0</td><td>no</td><td>2</td></tr>
+</tbody></table></div>
+<p>Sin filtro, el asistente elige el ayuno, que es lo que más satisface la petición literal (\(Q=9\)). Con el filtro elige el plan gradual (\(Q'=6\)). No se le ha cambiado el objetivo: una capa independiente ha quitado las opciones que dejaban al usuario mal. Todo depende de que \(W\) esté bien estimada.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Confundir uso con preferencia y preferencia con bienestar.</strong> Pasar más tiempo en una app no prueba que se prefiera (puede ser debilidad de la voluntad o un diseño que engancha), y aunque se prefiera, cumplirlo no garantiza que le vaya mejor. Cada paso abre un hueco entre la métrica y lo que se quería.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>I wouldn't optimize engagement as a proxy for wellbeing: I'd track stated and revealed preferences separately, and treat the gap between them as the signal.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 6.5 Wellbeing, págs. 320 a 326 (PDF 338 a 344); 6.6 Preferences, págs. 326 a 335 (PDF 344 a 353); 6.7 Happiness, págs. 335 a 342 (PDF 353 a 360).</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS). Esta lección no tiene lección asociada.</li>
+<li>Añadido propio, no procede de las fuentes: los casos de la rehabilitación, la paciente diabética, la app y el asistente; las cifras del ejemplo del filtro y los símbolos \(\theta\) y \(\lambda\); \(\text{DALY}=1-\text{QALY}\) por año y la fórmula de QALY ganados; el cálculo de 490 millones; las tres familias de problemas de contabilidad; el cuadro de diseño y las reglas; los escenarios y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Primero un simulador, después tres ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de las tres teorías.</strong> Empieza por el escenario 1, la app de salud que maximiza el uso. Antes de pulsar Comprobar, decide qué diría cada teoría. Después compara con la lectura de referencia (propia y defendible, no la única) y mira el mapa de abajo: cuántos escenarios provocan desacuerdo y cuáles no. Fíjate en el 3, la cápsula de placer, donde el hedonismo queda solo frente a las otras dos, y en el 5, donde las tres coinciden.</p>
+<div data-widget="m08-l03-teorias" id="sim-m08-l03-teorias"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: QALY y lo que no ven (a mano, 6 minutos)</p>
+<p>Un hospital compara tres programas para los próximos 10 años. Los pesos de 0,9 (asma) y 0,7 (amputación) son los del libro. El resto son cifras propias de práctica.</p>
+<ul>
+<li><strong>P1.</strong> 200 pacientes con asma pasan de 0,9 a 1,0 QALY por año. Cada uno decide su tratamiento.</li>
+<li><strong>P2.</strong> 200 pacientes amputados pasan de 0,7 a 0,8 con un programa de rehabilitación. Conservar la prestación exige seguir el protocolo entero, sin margen para elegir.</li>
+<li><strong>P3.</strong> 120 pacientes amputados pasan de 0,7 a 0,85 con una prótesis nueva, que aceptan libremente.</li>
+</ul>
+<ol>
+<li>Calcula los QALY ganados por cada programa.</li>
+<li>Exprésalo en DALY evitados.</li>
+<li>Ordena los programas por QALY. ¿Qué diferencia entre P1 y P2 no ve esta métrica y qué teorías la verían?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> P1: \(0{,}1\times10\times200=200\). P2: \(0{,}1\times10\times200=200\). P3: \(0{,}15\times10\times120=180\).</p>
+<p><strong>2.</strong> Cada QALY ganado es un DALY evitado, porque por año \(\text{DALY}=1-\text{QALY}\). Salen 200, 200 y 180 DALY evitados.</p>
+<p><strong>3.</strong> P1 y P2 empatan y P3 va detrás. Lo que el QALY no ve es que en P2 se sacrifica la autonomía. La verían una lista objetiva que incluya la autonomía, y la satisfacción de preferencias si los pacientes declaran que querrían decidir. El hedonismo, solo si esa falta de decisión les causara malestar.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: tres diseños de una app, tres métricas (a mano, 6 minutos)</p>
+<p>El equipo de una app de adherencia al tratamiento prueba tres diseños durante un mes con usuarios equivalentes (cifras propias).</p>
+<div class="tw"><table>
+<thead><tr><th>Diseño</th><th>Minutos de uso por semana</th><th>Ánimo autodeclarado (1 a 10)</th><th>Metas de salud cumplidas</th></tr></thead>
+<tbody>
+<tr><td>D1. Rachas y recompensas al azar</td><td>210</td><td>5,5</td><td>25 %</td></tr>
+<tr><td>D2. Recordatorio breve, sin insistir</td><td>45</td><td>7,0</td><td>60 %</td></tr>
+<tr><td>D3. Plan de metas con revisión semanal</td><td>90</td><td>6,0</td><td>70 %</td></tr>
+</tbody></table></div>
+<ol>
+<li>Ordena los diseños de mejor a peor en cada métrica.</li>
+<li>¿Con qué teoría del bienestar se corresponde cada métrica?</li>
+<li>Un equipo que solo optimice los minutos, ¿cuál elige, y cómo queda ese diseño en metas? Aplica ahora esta regla: se descarta cualquier diseño que sea el último en alguna métrica. ¿Cuál queda?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Uso: D1, D3, D2. Ánimo: D2, D3, D1. Metas: D3, D2, D1.</p>
+<p><strong>2.</strong> Minutos de uso, preferencia revelada. Ánimo autodeclarado, hedonismo. Metas de salud, lista objetiva.</p>
+<p><strong>3.</strong> Quien optimiza el uso elige D1, que es el peor en metas (25 %) y en ánimo. Con la regla, D1 cae por ánimo y metas, D2 por el uso y queda D3, que es segundo en uso y en ánimo y primero en metas. D3 no es el mejor de todos, pero ninguna métrica sola lo habría encontrado, y el criterio de "último en alguna métrica" es una elección de diseño que hay que justificar.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: clasificar preferencias (a mano, 4 minutos)</p>
+<p>Un asistente recibe estas cinco observaciones sobre una paciente diabética. Para cada una di si es una preferencia revelada, declarada o idealizada y qué fallo la amenaza.</p>
+<ol>
+<li>Lleva tres meses sin abrir el registro de glucosa que ella misma instaló.</li>
+<li>En la consulta dice que quiere controlar mejor su glucosa.</li>
+<li>Con un informe claro de cómo los picos dañan el riñón, dejaría la bollería.</li>
+<li>Compra siempre en la farmacia más cercana porque cree que el tratamiento sale más barato, y no es así.</li>
+<li>Responde en una encuesta que camina 30 minutos al día. El podómetro marca 8.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Revelada. Puede ser debilidad de la voluntad más que falta de interés. <strong>2.</strong> Declarada. Es más estable que lo que hace ante la tentación, pero no dice cómo se cumple. <strong>3.</strong> Idealizada. Evita la falta de información, aunque hay que saber idealizar bien y esa preferencia puede alejarse de lo que ella haría de verdad. <strong>4.</strong> Revelada. Elige entre las cosas como las cree, no como son: información falsa. <strong>5.</strong> Declarada. Respuesta socialmente deseable, como el reciclaje del libro. Además, la discrepancia entre lo declarado y lo revelado (30 frente a 8 minutos) es justo la señal que conviene vigilar.</p>
+</details>
+</div>
+
+</div>
+
+</section>
+

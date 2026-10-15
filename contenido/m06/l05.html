@@ -1,0 +1,240 @@
+<section class="leccion" data-id="m06/l05">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Hasta aquí has vigilado al modelo. Pero en sanidad casi nunca decide el modelo solo: recomienda y una persona decide, y esa persona también cambia. Si confía demasiado, deja de comprobar; si desconfía, tira un buen consejo; y tras años de uso puede perder parte de su propio criterio.</p>
+<p>Ninguna alerta técnica ve nada de esto, porque el modelo sigue igual. La capa humana mide qué hace la persona con la recomendación, si lo hace bien y si conserva su criterio. Es lo que pide la ley europea de IA al exigir una supervisión eficaz y no un sello.</p>
+
+<svg viewBox="0 0 360 226" role="img" aria-labelledby="rs-t rs-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="rs-t">Las tres capas de un sistema con persona y modelo</title>
+<desc id="rs-d">Tres filas apiladas. Capa 1, modelo solo: lo vigilan los monitores técnicos. Capa 2, persona sola: qué habría decidido sin ver la recomendación. Capa 3, sistema conjunto: lo que recibe el paciente, y solo esta capa gobierna el resultado clínico.</desc>
+<rect x="4" y="4" width="352" height="62" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:1.5"/>
+<text x="16" y="24" style="fill:var(--accent-ink);font-weight:700;font-size:12px">CAPA 1: MODELO SOLO</text>
+<text x="16" y="42" style="fill:var(--ink);font-size:11px">Qué recomendaría sin nadie en medio.</text>
+<text x="16" y="57" style="fill:var(--muted);font-size:10px">Lo vigilan equidad, calidad, deriva y explicabilidad.</text>
+<path d="M180 66 v12" style="stroke:var(--accent);stroke-width:2;fill:none"/>
+<path d="M180 82 l-5 -7 h10 z" style="fill:var(--accent)"/>
+<rect x="4" y="82" width="352" height="62" rx="10" style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5"/>
+<text x="16" y="102" style="fill:var(--accent-ink);font-weight:700;font-size:12px">CAPA 2: PERSONA SOLA</text>
+<text x="16" y="120" style="fill:var(--ink);font-size:11px">Qué habría decidido antes de ver la recomendación.</text>
+<text x="16" y="135" style="fill:var(--muted);font-size:10px">Anulación, kappa, RAIR y RSR, pérdida de habilidad.</text>
+<path d="M180 144 v12" style="stroke:var(--accent);stroke-width:2;fill:none"/>
+<path d="M180 160 l-5 -7 h10 z" style="fill:var(--accent)"/>
+<rect x="4" y="160" width="352" height="62" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="16" y="180" style="fill:var(--ex);font-weight:700;font-size:12px">CAPA 3: SISTEMA CONJUNTO</text>
+<text x="16" y="198" style="fill:var(--ink);font-size:11px">Lo que recibe el paciente de verdad.</text>
+<text x="16" y="213" style="fill:var(--muted);font-size:10px">La única que gobierna el resultado clínico.</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Distinguir las tres capas (modelo solo, persona sola y sistema conjunto) y decir qué datos exige medir las dos últimas.</li>
+<li>Calcular la tasa de anulación, la de aceptación, el kappa de Cohen, el RAIR y el RSR, y leerlos sin quedarte con una sola cifra.</li>
+<li>Reconocer el sesgo de automatización (de comisión y de omisión) y la aversión al algoritmo por sus señales.</li>
+<li>Explicar cómo se mide la pérdida de habilidad, por qué «el acierto conjunto sube» no basta y qué distingue una supervisión nominal de una real.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>¿Qué capa estás midiendo?</h3>
+<p>Cuando una persona decide con ayuda de un modelo hay tres sistemas con perfiles de error distintos (Atlas). La capa 1 es el modelo solo, que vigilan los monitores de las lecciones anteriores. La capa 2 es la persona sola: lo que habría decidido sin ver la recomendación. La capa 3 es el sistema conjunto, lo que llega al paciente y lo único que gobierna el resultado clínico.</p>
+<p>Las capas 1 y 3 pueden ir en direcciones opuestas. Ejemplo del Atlas: de 200 recomendaciones de derivar, el modelo acierta 170 (85 %). La persona anula 40: 25 con razón, porque el modelo fallaba, y 15 sin ella. El sistema acierta \(170-15+25=180\) casos (90 %), cinco puntos que una auditoría de la capa 1 no vería. Al revés, un modelo correcto que se anula sin motivo da un sistema peor que él.</p>
+<p>Medir las capas 2 y 3 exige registrar el juicio inicial de la persona antes de ver la recomendación, la recomendación, la decisión final y, si se puede, el motivo. El motivo se pide siempre o nunca: pedirlo solo al anular pone fricción sobre la única vía por la que se descubren los fallos del modelo (Atlas).</p>
+
+<h3>¿Qué dice el ritmo de anulaciones?</h3>
+<p>La tasa de anulación (<em>override rate</em>) es el porcentaje de casos con recomendación en que la decisión final es distinta de ella:</p>
+<div class="formula">\[ \text{anulación}=\frac{\text{casos con decisión}\neq\text{recomendación}}{\text{casos con recomendación}}\times100 \]</div>
+<p>Su complementario es la tasa de aceptación (<em>acceptance rate</em>): el mismo dato con otro encuadre («92 % de aceptación» suena a éxito; «8 % de anulación», a fricción).</p>
+<p>No existe un valor sano. Uno bajo puede significar un modelo fiable o alguien que ya no comprueba; uno alto, un modelo flojo o una persona que hace de red de seguridad. La cifra sola no distingue las lecturas: hay que desglosarla por persona, subgrupo y tipo de caso, y cruzarla con si las anulaciones eran correctas.</p>
+<p>Ejemplo del Atlas: en 300 recomendaciones de derivar a Digestivo, la persona discrepa en 27, un 9 %. Por edad, la anulación es del 22 % entre 18 y 35 años y del 4 % por encima de 50: el 9 % escondía que el modelo era menos fiable en los jóvenes y que la persona lo compensaba. Y una aceptación del 95 % con un modelo que acierta el 60 % es un problema, no un logro.</p>
+
+<h3>¿Sigue bien al modelo o lo sigue a ciegas?</h3>
+<p>Aceptar mucho no es aceptar bien. La primera herramienta es el kappa de Cohen (<em>Cohen's kappa</em>): el acuerdo entre la persona y la recomendación, descontando el que saldría por azar.</p>
+<div class="formula">\[ \kappa=\frac{p_o-p_e}{1-p_e} \]</div>
+<p>Aquí \(p_o\) es la proporción de casos en que coinciden y \(p_e\) la que coincidiría por azar con sus propias tasas de «derivar» y «no derivar». Ejemplo del Atlas: en 200 casos el modelo recomienda derivar en 60 y la persona en 70; coinciden en 50 derivaciones y 120 no derivaciones. Así \(p_o=0{,}85\), \(p_e=0{,}56\) y \(\kappa=0{,}66\), un acuerdo sustancial en la escala de Landis y Koch (0,61 a 0,80). Un kappa cercano a 1 puede indicar que la persona ha dejado de contrastar; uno bajo, que sabe algo que el modelo no ve.</p>
+<p>La segunda herramienta separa dos preguntas que una «puntuación de confianza» mezcla. Schemmer y colaboradores (2023, según el Atlas) miden la dependencia apropiada (<em>appropriate reliance</em>) con dos tasas: RAIR, la fracción de veces que la persona cambia hacia la IA cuando ella se equivocaba y la IA acertaba, y RSR, la de veces que mantiene su juicio cuando ella acertaba y la IA se equivocaba.</p>
+<div class="formula">\[ \text{RAIR}=\frac{\text{juicio inicial erróneo, IA correcta y cambia hacia la IA}}{\text{juicio inicial erróneo e IA correcta}}\qquad \text{RSR}=\frac{\text{juicio inicial correcto, IA errónea y mantiene el suyo}}{\text{juicio inicial correcto e IA errónea}} \]</div>
+<div class="tw"><table>
+<thead><tr><th>RAIR</th><th>RSR</th><th>Perfil</th></tr></thead>
+<tbody>
+<tr><td>Alto</td><td>Alto</td><td>Dependencia apropiada: aprovecha al modelo y resiste sus fallos.</td></tr>
+<tr><td>Alto</td><td>Bajo</td><td>Aceptación acrítica: sesgo de automatización con aspecto de buena adopción.</td></tr>
+<tr><td>Bajo</td><td>Alto</td><td>Rechazo sistemático: aversión al algoritmo.</td></tr>
+<tr><td>Bajo</td><td>Bajo</td><td>La persona no separa el buen consejo del malo (lectura propia; el Atlas no la nombra).</td></tr>
+</tbody></table></div>
+<p>Ejemplo del Atlas: de 50 casos en que la persona se equivocó y la IA acertó, cambió hacia la IA en 40 (RAIR \(=80\,\%\)); de 30 en que acertó y la IA falló, mantuvo su juicio en 21 (RSR \(=70\,\%\)). Publicar solo una de las dos es la trampa: un RAIR del 95 % puede esconder un RSR del 20 %. Además hace falta el juicio inicial capturado antes de ver la recomendación, algo que el flujo normal no da: se obtiene con un estudio silencioso periódico sobre una muestra de casos. En el <a data-ir="practica" href="#sim-m06-l05-dependencia">simulador de dependencia</a> (modelo propio), RAIR vale la confianza \(c\) y RSR vale \(1-c(1-r)\).</p>
+
+<h3>¿Qué sesgos empujan a la persona?</h3>
+<p>El sesgo de automatización (<em>automation bias</em>) es aceptar lo que dice un sistema sin aplicar criterio propio. En el modo de comisión, la persona sigue una recomendación errónea (el complemento del RSR). En el de omisión, no actúa ante un problema real porque el modelo no avisó; no hay recomendación que auditar, así que es la mitad invisible. Ejemplo del Atlas: de 40 casos de cáncer colorrectal que el modelo no marcó, en 12 (30 %) la historia clínica ya traía signos suficientes para sospecharlo. Se mitiga con diseño más que con formación: una banda de incertidumbre en lugar de un número seco.</p>
+<p>La aversión al algoritmo (<em>algorithm aversion</em>) es el sesgo contrario: Dietvorst, Simmons y Massey (2015) describieron que un solo error visible basta para que la confianza caiga por debajo de lo que el modelo merece. Ejemplo del Atlas: tras un incidente de infraderivación entre 18 y 35 años, la anulación en ese grupo sigue en el 35 % seis meses después de corregir el modelo, que ya acierta el 90 % en él. El escepticismo sano sigue ligado a errores reales del modelo; solo el RAIR los distingue con datos.</p>
+<p>El objetivo es una confianza calibrada (<em>trust calibration</em>): que suba y baje con la fiabilidad del modelo, caso a caso. Ejemplo del Atlas: una persona declara confianza «alta» en 100 casos con puntuación 0,78 y el modelo acierta 78; la declara igual en otros 100 del grupo de 18 a 35 años, donde solo acierta 55. La confianza no se movió y la fiabilidad cayó 23 puntos. Sin calibración, la supervisión del artículo 14 del reglamento europeo es nominal.</p>
+
+<h3>¿Qué pasa con el tiempo? La pérdida de habilidad</h3>
+<p>La pérdida de habilidad (<em>deskilling</em>) es el sesgo de automatización con eje temporal: con el uso prolongado, el criterio de la persona se acerca al del modelo hasta que sin él ya no rinde como antes. El riesgo persiste aunque el acierto conjunto mejore, porque el día que el modelo no está (una caída, un paciente fuera de su población de entrenamiento) queda lo que la persona conserve. Ninguna plataforma técnica lo ve.</p>
+<p>Que la persona converja con el modelo no basta como prueba: hay que triangularlo con el hueco entre su decisión y la realidad, suponiendo un modelo estable. El Atlas propone comparar el rendimiento sin IA antes y después de meses de uso, o planificar periodos de retirada con el modelo desactivado en una submuestra. Descarta ocultarlo al azar en tiempo real (problema ético con el paciente al que le toca el hueco) y los fallos inducidos. La mitigación preferida es devolver a la persona su propia curva frente a la media anónima del servicio.</p>
+<p>Ejemplo del Atlas: en una retirada de dos semanas sobre el 10 % de los casos, una persona acierta un 88 % con el modelo y un 79 % sin él, frente al 85 % de hace un año. La señal de pérdida son los 6 puntos entre 85 y 79 sin modelo, no el 88 %.</p>
+
+<h4>El modelo del simulador (propio)</h4>
+<p>La tarea es binaria. La persona sola acierta con probabilidad \(h\), el modelo con \(m\), y sus errores son independientes. Si discrepan, la persona sigue al modelo con probabilidad \(c\) cuando acierta y \(c(1-r)\) cuando falla, donde \(r\) es su capacidad de frenar errores. Con eso, el equipo acierta con probabilidad:</p>
+<div class="formula">\[ \text{equipo}=h\,m+(1-h)\,m\,c+h\,(1-m)\,\bigl(1-c(1-r)\bigr) \]</div>
+<p>Con \(c=0\) el equipo es la persona sola; con \(c=1\) y \(r=0\), es el modelo. La habilidad cae hacia el azar (0,5) más deprisa cuanto más se sigue al modelo, y el freno se degrada con ella:</p>
+<div class="formula">\[ h_t=0{,}5+(h_0-0{,}5)\,e^{-\delta c t}\qquad r_t=r_0\,\frac{h_t-0{,}5}{h_0-0{,}5} \]</div>
+<p>Es una construcción didáctica con datos inventados, no un modelo validado: sirve para ver el mecanismo, no para predecir un servicio real.</p>
+
+<h3>¿Hay supervisión de verdad? Grados y cobertura</h3>
+<p>La supervisión tiene grados (Atlas). En el bucle (<em>human in the loop</em>), la persona valida, corrige o anula cada salida antes de que surta efecto; sobre el bucle (<em>on the loop</em>), supervisa el sistema en marcha e interviene cuando algo la alerta; fuera del bucle (<em>out of the loop</em>), el sistema es autónomo. El grado puede variar con el riesgo, y un diseño «en el bucle» donde la persona siempre confirma es, de hecho, fuera del bucle con un paso de validación vacío.</p>
+<p>La cobertura de la supervisión (<em>human oversight coverage</em>) es la fracción de casos con revisión humana verificable:</p>
+<div class="formula">\[ \text{cobertura}=\frac{\text{casos con revisión humana verificable}}{\text{casos procesados}}\times100 \]</div>
+<p>Cuenta la evidencia de criterio (tiempo de permanencia, decisión activa, justificación), no la pantalla abierta. Ejemplo del Atlas: un triaje procesa 900 casos al mes y en 810 hay decisión activa (más de 10 s y justificación rellena): cobertura del 90 %. Los otros 90 se abrieron y cerraron en menos de 2 s, es decir, supervisión nominal.</p>
+<p>Tres marcos dan el porqué, sin fórmulas. Las 18 directrices HAX de Microsoft (Amershi y otros, 2019) incluyen un bloque «cuando falla», que se audita con la anulación y el motivo capturado. La guía PAIR de Google tiene un capítulo de explicabilidad y confianza, fuente de la calibración. El artículo 14 del reglamento europeo de IA (2024/1689) exige supervisión eficaz de los sistemas de alto riesgo, con atención al sesgo de automatización, pero no define métricas: las exige de hecho, porque sin ellas no se demuestra el cumplimiento.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, con el simulador; datos inventados)</p>
+<p>Un asistente que propone derivar a Reumatología acierta el 85 % (\(m=0{,}85\)). La persona sola acierta el 80 % (\(h_0=0{,}80\)), sigue al modelo el 70 % de las veces que discrepan (\(c=0{,}70\)) y frena el 60 % de sus errores (\(r_0=0{,}60\)). Con una pérdida del 3 % al mes con confianza total:</p>
+<ul>
+<li>Al principio el equipo acierta \(0{,}80\cdot0{,}85+0{,}20\cdot0{,}85\cdot0{,}70+0{,}80\cdot0{,}15\cdot0{,}72=0{,}885\), más que el modelo (85 %) y que la persona (80 %).</li>
+<li>A los 24 meses la persona sola baja al 68,1 %, el freno cae a cerca del 36 % y el equipo se queda en el 82,5 %. Desde el mes 13 ya no supera al modelo solo.</li>
+<li>La aceptación pasa del 86,3 % al 86,2 %: nadie vería la caída en el ritmo de anulaciones.</li>
+</ul>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Quedarse con una sola cifra (aviso del Atlas).</strong> Una aceptación, un kappa o un RAIR altos sin su pareja pueden esconder aceptación ciega, y una anulación baja puede ser un modelo fiable o una persona que ya no comprueba. Cada tasa va con la que la contrapesa.</p>
+<p><strong>Leer «el acierto conjunto sube» como «no hay problema» (Atlas).</strong> Puede subir mientras el criterio propio se erosiona, y el riesgo aparece el día sin modelo.</p>
+<p><strong>Fiar el resultado a una lista de comprobación (Atlas).</strong> HAX, PAIR y el artículo 14 piden capacidad de supervisar, no una tabla de «sí» y «no».</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>The model is not the system: I measure what the clinician does with the advice, whether it's right for the right reasons, and how much of their own judgement is left when the model goes dark.</p>
+
+<div class="objetivos">
+<p class="label">Repaso del módulo 6 (propio)</p>
+<ul>
+<li><strong>Equidad (l01).</strong> Con tasas base distintas no caben todas las definiciones de justicia: se elige la métrica que casa con el daño y se documenta a qué se renuncia. «Sin alertas» no equivale a «modelo justo».</li>
+<li><strong>Calidad y calibración (l02).</strong> La etiqueta llega tarde y a pocos casos: se calcula el tiempo a ciegas y se lee cada medición con su intervalo. Estimar sin etiquetas solo vale con un modelo calibrado.</li>
+<li><strong>Deriva (l03).</strong> Un PSI alto dice que la entrada cambió, no que el modelo falle: se cruza con la calidad y los subgrupos y se investiga antes de reentrenar.</li>
+<li><strong>Explicabilidad (l04).</strong> La explicación local dice por qué esta predicción y la global, en qué se apoya el modelo. Una explicación estable no es correcta ni una justificación de la decisión.</li>
+<li><strong>La capa humana (l05).</strong> El sistema real es persona más modelo: se mide con anulación, kappa, RAIR y RSR y pérdida de habilidad, y la supervisión tiene que ser real y no un sello.</li>
+</ul>
+</div>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Atlas de métricas (obra propia de Miguel; ejemplos sintéticos): sección Interacción humano-IA y, del final de Conceptos, los grados de intervención.</li>
+<li>Referencias que cita el Atlas, no leídas aquí: Schemmer y otros (2023), Dietvorst, Simmons y Massey (2015), Amershi y otros (2019) y Reglamento (UE) 2024/1689, art. 14.</li>
+<li>Vigía 1.0.0 (github.com/miguelferre/vigia), demo del escenario 1. Sin sección del libro ni lección del curso ML Safety.</li>
+<li>Añadido propio, no procede de las fuentes: el modelo del simulador y sus fórmulas, la lectura de RAIR y RSR en él, el perfil de RAIR y RSR bajos, las cifras del ejemplo del simulador, el repaso del módulo, los ejercicios y el test.</li>
+</ul>
+</aside>
+
+</div>
+
+
+<div data-parte="practica">
+<p>Primero un simulador, después el laboratorio en Vigía y por último tres ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de dependencia y pérdida de habilidad.</strong> Empieza con los valores iniciales: el equipo supera a cada uno por separado, pero mira la tabla del mes final. La persona sola pierde unos 12 puntos, el equipo unos 6 y la aceptación casi no se mueve: el ritmo de anulaciones no delata nada. Fíjate en el mes en que el equipo cruza la línea del modelo. Con «Confianza ciega», la aceptación es del 100 %, el equipo es el modelo y la persona sigue perdiendo habilidad sin que nadie lo vea. Con «Aversión al algoritmo», el equipo queda por debajo del modelo aunque la persona pierda solo unos 3 puntos. Con «Sin pérdida de habilidad», la ventaja del equipo no se erosiona. Por último, baja \(r_0\) a 0 % y sube la confianza: mira el RSR.</p>
+<div data-widget="m06-l05-dependencia" id="sim-m06-l05-dependencia"></div>
+
+<div class="laboratorio">
+<h4>Laboratorio en Vigía</h4>
+<p>Vigía es software libre (licencia MIT) del autor del curso: <a href="https://github.com/miguelferre/vigia">github.com/miguelferre/vigia</a>. Solo funciona en Windows 11 de 64 bits. Los datos son sintéticos. Aquí se usa solo para leer: una demo de derivación de Atención Primaria a Reumatología que se presenta como Digestivo. Pasos y cifras salen de la demo de Vigía 1.0.0; donde no hay dato, dice «comprueba en pantalla».</p>
+<ul>
+<li><strong>Vía 1, zip de la Release (la recomendada).</strong> Descarga <code>vigia-1.0.0-win64.zip</code> y <code>vigia-1.0.0-win64.zip.sha256</code> de la <a href="https://github.com/miguelferre/vigia/releases">página de Releases</a>. Comprueba la huella con <code>Get-FileHash vigia-1.0.0-win64.zip</code>. Extrae el zip entero. Dentro de <code>vigia-1.0.0-win64\</code> arranca con <code>Vigia.cmd &lt;carpeta&gt;</code>, que abre el navegador solo.</li>
+<li><strong>Vía 2, clon.</strong> <code>git clone https://github.com/miguelferre/vigia.git</code> y, desde su raíz, el bloque «Compilar desde el código» del README, copiado literal. Requisitos: Python 3.13 de python.org, uv y Node 20.19 o superior.
+<pre><code>uv sync --locked --extra dev --extra shap
+cd frontend
+npm ci
+$env:VITE_TEMA="miguel"
+npm run build
+cd ..
+.venv\Scripts\python.exe build\build.py all</code></pre>
+Ese bloque deja el zip en <code>dist\</code>. Extráelo y sigue como en la vía 1.</li>
+<li><strong>Carpeta de datos.</strong> Usa una carpeta aparte para el curso (<code>&lt;carpeta&gt;</code>). La carpeta por defecto, <code>Documents\vigia-datos</code>, guarda tus datos si ya usas Vigía.</li>
+</ul>
+<ol>
+<li><strong>Arranca</strong> Vigía con la carpeta de datos del curso: <code>Vigia.cmd &lt;carpeta&gt;</code>. El puerto es el que ves en la barra de direcciones del navegador.</li>
+<li><strong>Abre la demo y la capa humana.</strong> Ve a <code>http://127.0.0.1:&lt;puerto&gt;/demo?paso=0</code> (<code>&lt;puerto&gt;</code> es el de la barra de direcciones) y pulsa Empezar (29 pasos; los pasos 1 a 3 los haces tú). Según la demo de Vigía 1.0.0, <code>/capa-humana</code> muestra alertas cruzadas (CX-1 a CX-6), la pérdida de habilidad por ventanas, los resultados y las anulaciones por grupo. Qué significa cada código CX: comprueba en pantalla. De b1 a b5, según la demo, no hay alertas cruzadas ni señal de pérdida de habilidad.</li>
+<li><strong>Llega al evento.</strong> En <code>e1_evento</code>, la demo da una alerta CX-1: anulación del 4,1 % frente al 9,1 % (z = -3,60) y falsos negativos del 61,7 % frente al 14,2 % (a qué grupo corresponde cada cifra: comprueba en pantalla). Alertan también la equidad (0,631) y la deriva de confianza (0,370). ¿Qué lectura de una anulación baja encaja aquí: un modelo fiable o alguien que ya no comprueba?</li>
+<li><strong>Mira la recuperación.</strong> Según la demo, en <code>e1_recovery</code> equidad, calidad y deriva vuelven a «ok», pero en la capa humana CX-6 se suma a CX-1. Qué mide CX-6: comprueba en pantalla. Que sea aversión al algoritmo es una hipótesis propia, no de la demo.</li>
+<li><strong>Ejecuta un ensayo.</strong> Con la demo activa, abre <code>/demo?paso=28</code> y luego <code>/demo#laboratorio</code>, tarjeta «Ejecutar un ensayo». Según la demo, genera un lote, lo ingesta como <code>lab:&lt;fase&gt;</code> y evalúa los monitores sin el monitor cruzado y sin avanzar el guion. Repite la fase del evento y mira si la capa humana cambia (inferencia propia, no de la demo: sin monitor cruzado, quizá no cambie).</li>
+<li><strong>Cierra.</strong> <code>runtime\python\python.exe -m vigia shutdown --data-dir &lt;carpeta&gt;</code> (en la carpeta de Vigía). Apunta qué alerta cruzada saltó primero, en qué se distingue la capa humana de los monitores técnicos y qué datos pedirías al servicio para calcular RAIR y RSR (Vigía no calcula esas dos tasas).</li>
+</ol>
+<p>Cautelas: datos sintéticos siempre y nunca datos reales de personas. El dossier con modelo está apagado por defecto: con «anthropic» pide tu propia clave de API en Ajustes y el texto sale al proveedor, así que no lo uses con datos de personas.</p>
+</div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: kappa a mano y una aceptación alta (8 minutos)</p>
+<p>Un modelo de urgencias recomienda avisar al radiólogo por posible fractura. Con cifras propias, en 250 casos el modelo recomienda avisar en 20 y la persona decide avisar en 22. Coinciden en avisar en 14.</p>
+<ol>
+<li>Rellena la tabla 2×2 y calcula la aceptación y la anulación.</li>
+<li>Calcula \(p_o\), \(p_e\) y \(\kappa\), e interprétalo con la escala de Landis y Koch.</li>
+<li>La dirección presenta «94,4 % de aceptación» como éxito. Da dos razones para no quedarte con esa cifra.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Los dos avisan en 14; solo el modelo, en \(20-14=6\); solo la persona, en \(22-14=8\); ninguno, en \(250-14-6-8=222\). Coinciden en \(14+222=236\): aceptación \(236/250=94{,}4\,\%\) y anulación 5,6 %.</p>
+<p><strong>2.</strong> \(p_o=0{,}944\). El azar da \(p_e=\tfrac{20}{250}\cdot\tfrac{22}{250}+\tfrac{230}{250}\cdot\tfrac{228}{250}=0{,}846\), así que \(\kappa=(0{,}944-0{,}846)/(1-0{,}846)\approx0{,}64\): acuerdo sustancial (0,61 a 0,80), no casi perfecto.</p>
+<p><strong>3.</strong> Casi todos los casos son «no avisar», así que el acuerdo por azar ya es del 84,6 % y el kappa baja la cifra a 0,64. Y la aceptación no dice si lo aceptado era correcto: faltan el acierto del modelo, el desglose por persona y, con el juicio inicial capturado, el RAIR y el RSR.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: una retirada y qué concluir de ella (8 minutos)</p>
+<p>Con cifras propias, un servicio de dermatología lleva un año con un asistente de diagnóstico. Antes del despliegue, una persona acertaba el 82 % de los casos; hoy acierta el 90 % con el modelo. En una retirada de tres semanas, con 150 casos sin la salida del modelo, acierta el 76 %.</p>
+<ol>
+<li>¿Cuánto vale la pérdida de habilidad que sugiere la retirada, y por qué no es el 90 %?</li>
+<li>Calcula un intervalo de confianza aproximado al 95 % para el 76 % con \(\pm1{,}96\sqrt{p(1-p)/n}\). ¿Es concluyente la caída?</li>
+<li>Da tres cosas que necesitas comprobar antes de atribuirlo a la persona.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> \(82-76=6\) puntos, medidos sin modelo. El 90 % es el del equipo y mide otra cosa: que suba no descarta la pérdida.</p>
+<p><strong>2.</strong> \(1{,}96\sqrt{0{,}76\cdot0{,}24/150}\approx0{,}068\): el intervalo va del 69,2 % al 82,8 % y contiene el 82 % de partida, así que con 150 casos la caída no es concluyente por sí sola (y se ignora la incertidumbre del 82 % previo).</p>
+<p><strong>3.</strong> Que el modelo sea de la misma versión y no haya derivado; que los casos de la retirada sean equivalentes a los de antes en tipo y dificultad; y que la muestra sea mayor o se repita la retirada, con una verdad de referencia fiable.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: RAIR y RSR con Python (10 minutos)</p>
+<p>Casos de una tarea de sí o no, con el juicio inicial capturado antes de ver la recomendación. Cada caso es una tupla de tres booleanos: juicio inicial correcto, recomendación correcta y decisión final correcta. En una tarea binaria, decidir lo mismo que el modelo equivale a que las dos decisiones acierten o fallen a la vez. Datos propios e inventados.</p>
+<pre><code>def n(k, ini, ia, fin):
+    """k casos con (juicio inicial acertado, IA acertada, decisión final acertada)."""
+    return [(ini, ia, fin)] * k
+
+casos = (n(150, True, True, True) + n(18, False, True, True) + n(2, False, True, False)
+         + n(3, True, False, True) + n(9, True, False, False) + n(18, False, False, False))
+
+N = len(casos)
+aceptacion = sum(fin == ia for ini, ia, fin in casos) / N
+cambio = sum(fin != ini for ini, ia, fin in casos) / N
+
+sube = [c for c in casos if not c[0] and c[1]]      # la persona falla y la IA acierta
+resiste = [c for c in casos if c[0] and not c[1]]   # la persona acierta y la IA falla
+rair = sum(fin for ini, ia, fin in sube) / len(sube)
+rsr = sum(fin for ini, ia, fin in resiste) / len(resiste)
+
+print(N, len(sube), len(resiste))
+print(f"aceptación {aceptacion:.1%}  cambio {cambio:.1%}  RAIR {rair:.1%}  RSR {rsr:.1%}")</code></pre>
+<ol>
+<li>Ejecútalo y anota la aceptación, el RAIR y el RSR. ¿Qué perfil de dependencia es?</li>
+<li>Con solo 12 casos en el denominador del RSR, ¿cuánto se puede fiar uno de esa cifra? Usa \(\pm1{,}96\sqrt{p(1-p)/n}\).</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Imprime <code>200 20 12</code> y <code>aceptación 97.5%  cambio 13.5%  RAIR 90.0%  RSR 25.0%</code>. RAIR alto y RSR bajo: aceptación acrítica, el sesgo de automatización de comisión con aspecto de buena adopción. La aceptación del 97,5 % lo tapaba.</p>
+<p><strong>2.</strong> \(1{,}96\sqrt{0{,}25\cdot0{,}75/12}\approx0{,}245\): un margen de unos 25 puntos, pero ni el extremo alto (hacia el 50 %) se acerca al RAIR del 90 %. El diagnóstico se mantiene, aunque el valor no.</p>
+</details>
+</div>
+
+</div>
+
+</section>

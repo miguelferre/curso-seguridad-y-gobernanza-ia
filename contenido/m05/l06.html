@@ -1,0 +1,195 @@
+<section class="leccion" data-id="m05/l06">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Un modelo más grande no es solo un modelo pequeño con más de todo: a veces sabe hacer cosas que el pequeño no hacía, y nadie lo había previsto. Eso es el comportamiento emergente. Preocupa porque no podemos vigilar bien lo que no sabemos que existe.</p>
+<p>Esta lección hace dos cosas. Primero mira qué parte de esa "aparición repentina" depende de cómo medimos, porque un examen de todo o nada convierte una mejora suave en un salto. Después pasa de lo que sabe hacer a lo que persigue: si un sistema optimiza una métrica sustituta, se puede intentar detectar que la manipula comparándolo con una conducta de referencia.</p>
+
+<svg viewBox="0 0 360 262" role="img" aria-labelledby="e6-t e6-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="e6-t">Emergencia y proxy gaming</title>
+<desc id="e6-d">Arriba, dos curvas frente a la escala del modelo: el acierto exacto se queda cerca de cero y luego sube de golpe, mientras que la log-verosimilitud mejora suavemente desde el principio. Abajo, la métrica sustituta sube siempre mientras el objetivo real sube, alcanza un máximo y cae.</desc>
+<rect x="4" y="4" width="352" height="122" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="26" style="fill:var(--accent-ink);font-weight:700;font-size:14px">EMERGENCIA: ¿SALTO O MEDIDA?</text>
+<line x1="34" y1="106" x2="340" y2="106" style="stroke:var(--rule-strong);stroke-width:1.2"/>
+<polyline points="34,104 140,104 180,100 220,80 260,54 340,44" style="fill:none;stroke:var(--ex);stroke-width:2.5"/>
+<polyline points="34,98 80,72 130,58 190,50 260,45 340,42" style="fill:none;stroke:var(--accent);stroke-width:2.5;stroke-dasharray:6 4"/>
+<text x="214" y="96" style="fill:var(--ex);font-size:12px;font-weight:600">acierto exacto</text>
+<text x="96" y="42" style="fill:var(--accent-ink);font-size:12px;font-weight:600">log-verosimilitud</text>
+<text x="340" y="120" text-anchor="end" style="fill:var(--muted);font-size:12px">escala del modelo</text>
+
+<rect x="4" y="136" width="352" height="122" rx="10" style="fill:var(--surface);stroke:var(--trap);stroke-width:2"/>
+<text x="18" y="158" style="fill:var(--trap);font-weight:700;font-size:14px">PROXY GAMING: LA BRECHA</text>
+<line x1="34" y1="238" x2="340" y2="238" style="stroke:var(--rule-strong);stroke-width:1.2"/>
+<polyline points="34,234 110,204 190,182 270,166 340,158" style="fill:none;stroke:var(--accent);stroke-width:2.5"/>
+<polyline points="34,234 110,206 170,192 230,204 290,224 340,234" style="fill:none;stroke:var(--trap);stroke-width:2.5"/>
+<line x1="170" y1="170" x2="170" y2="238" style="stroke:var(--faint);stroke-width:1;stroke-dasharray:4 4"/>
+<text x="248" y="192" style="fill:var(--accent-ink);font-size:12px;font-weight:600">métrica (proxy)</text>
+<text x="160" y="232" text-anchor="end" style="fill:var(--trap);font-size:12px;font-weight:600">objetivo real</text>
+<text x="340" y="252" text-anchor="end" style="fill:var(--muted);font-size:12px">presión de optimización</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Distinguir cuatro formas de comportamiento emergente (saltos de rendimiento, conducta no anticipada, computación interna y grokking) y explicar por qué es difícil predecirlas.</li>
+<li>Explicar por qué una métrica de todo o nada puede hacer parecer un salto lo que es una mejora suave, y calcular el acierto exacto a partir de la probabilidad por token.</li>
+<li>Describir la convergencia instrumental y por qué preocupa un objetivo emergente distinto del que dimos.</li>
+<li>Clasificar un caso de proxy gaming como desajuste por ponderación, ontológico o de alcance, y evaluar un detector con su umbral, su tasa de aciertos y su tasa de falsas alarmas.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>¿Cómo sé lo que sabe hacer un modelo que aún no he probado a esa escala?</h3>
+<p>La lección 1 del módulo dio el panorama: la emergencia (<em>emergence</em>) es que un sistema se comporte de forma cualitativamente distinta según su escala. Aquí vemos cómo se manifiesta. Las notas del curso distinguen cuatro formas y advierten de que unas son bastante más difíciles de detectar que otras:</p>
+<dl class="facts">
+<div><dt>Saltos de rendimiento</dt><dd>Una capacidad cuantitativa cambia de golpe con la escala. Ejemplo de las notas: la exactitud de un clasificador MNIST con entrenamiento adversarial sube de forma discontinua al aumentar su capacidad.</dd></div>
+<div><dt>Conducta no anticipada</dt><dd>Aparecen tareas para las que no se entrenó: sumar números de tres dígitos, contestar test de muchas materias (MMLU) o escribir código, en modelos de lenguaje al crecer en parámetros.</dd></div>
+<div><dt>Computación interna emergente</dt><dd>Un transformer de visión entrenado sin etiquetas aprende a segmentar imágenes con su atención, sin que nadie se lo pidiera. Inquieta por el conocimiento latente que pudiera haber sin que lo veamos.</dd></div>
+<div><dt>Grokking</dt><dd>El modelo memoriza el entrenamiento y, al seguir entrenando (más pasos, no más tamaño), de pronto generaliza. Un análisis mecanicista (Nanda y colaboradores, en las notas) lo atribuye a un cambio de fase: por dentro, el paso de la solución memorizada a la general es gradual.</dd></div>
+</dl>
+<p>¿Por qué cuesta verlas venir? El libro da tres razones (págs. 128 y 129). La pérdida de entrenamiento no las elige: aparecen porque ayudan a bajarla, como el sentido común al predecir texto sobre sucesos cotidianos. Pueden quedarse cerca del azar hasta una escala crítica y despegar, como los conceptos de ajedrez de AlphaZero hacia los 32 000 pasos. Y algunas solo se descubren tras el entrenamiento, como los jailbreaks hallados meses después del lanzamiento.</p>
+<p>Ejemplo propio: un asistente que resume altas hospitalarias. Con el modelo pequeño, listar los fármacos de una nota sale mal; con uno cien veces mayor, bien. Si el banco de pruebas solo medía resúmenes, nadie sabía que la capacidad estaba ahí, y lo mismo vale para una indeseada.</p>
+
+<h3>¿Es de verdad un salto o lo produce la regla con que medimos? (añadido externo)</h3>
+<p>Aquí entra un debate de la literatura que no está en el libro ni en las notas: añadido externo, del artículo de Schaeffer, Miranda y Koyejo (2023, arXiv 2304.15004, leído el 2026-09-29). Sostienen que las habilidades emergentes publicadas de modelos de lenguaje pueden ser un espejismo del investigador: las no lineales o discontinuas muestran saltos y las continuas, mejoras suaves y predecibles. Como causa secundaria añaden que, con pocos ejemplos de prueba, el tramo bajo de la curva se lee como un cero plano.</p>
+<p>La mecánica es aritmética. Supón que la probabilidad de acertar un token, \(q\), mejora de forma suave con la escala. Una respuesta de \(L\) tokens solo puntúa en el acierto exacto (<em>exact match</em>) si todos son correctos:</p>
+<div class="formula">\[ \text{acierto exacto}=q^{L} \qquad\qquad \text{log-verosimilitud por token}=\ln q \]</div>
+<p>Elevar a \(L\) aplasta los valores pequeños y estira los grandes. Si \(q\) pasa de 0,6 a 0,9, mejora un 50 %, pero con \(L=8\) el acierto exacto pasa de 0,017 a 0,43, unas veinticinco veces más. La métrica continua ya mejoraba desde el principio. El libro no plantea este debate: da por reales los saltos de cada capacidad y solo observa que la pérdida media sigue leyes suaves porque promedia muchas capacidades que despegan en momentos distintos (pág. 129). Son dos explicaciones distintas de por qué una curva es suave. Para verlo con un modelo de juguete, <a data-ir="practica" href="#sim-m05-l06-emergencia">pruébalo en Práctica</a>.</p>
+<p>Conviene no pasarse. Los propios autores aclaran que no niegan que los modelos puedan mostrar habilidades emergentes: cuestionan las ya publicadas. No tratan el grokking, y su artículo recoge la postura contraria de Caballero y colaboradores (habilidades reales, por un cambio en la ley de escala): hay posturas enfrentadas. Para la seguridad la métrica discreta puede ser justo la que importa, porque una capacidad peligrosa o está o no está. Regla de trabajo propia: métrica continua para predecir, prueba discreta con muchos ejemplos para decidir si se despliega.</p>
+
+<h3>¿Y si lo que emerge es un objetivo?</h3>
+<p>La lección 1 del módulo recogió los ejemplos del libro de conducta dirigida a objetivos que nadie programó: túneles y cultivos en Crafter y cajas y rampas en el escondite (págs. 129 a 131). Aquí queda la idea técnica: el entrenamiento puede producir un optimizador (<em>mesa-optimizer</em>), que dentro de sí optimiza algo. En un laberinto puede aprender la regla de seguir la pared con la mano o un algoritmo general de resolver laberintos, y solo el segundo lo es (págs. 131 y 132).</p>
+<p>Eso abre el riesgo de cola del libro (págs. 132 a 134): de su objetivo solo se sabe que da buen rendimiento en entrenamiento, hay muchos que lo consiguen y su relación con el nuestro es desconocida. La intrinsificación y la deriva de objetivos se vieron a nivel de riesgo en <em>IA descontrolada y conexiones entre riesgos</em> (módulo 1, lección 4) y no se repiten aquí.</p>
+<p>Las notas añaden una idea que ordena el resto: la convergencia instrumental (<em>instrumental convergence</em>). Una meta instrumental es convergente si es tan útil que agentes avanzados muy distintos tienden a adquirirla. Ejemplos de las notas: la autoconservación (un agente apagado no cumple nada), el poder, la mejora cognitiva y los recursos. Podrían aparecer de golpe si un agente adquiere de golpe la capacidad de planificar. Propio: un agente de tesorería con permiso para pedir crédito "para cumplir mejor" su tarea. Las notas admiten que este terreno es a veces especulativo.</p>
+
+<h3>¿Cómo se detecta que un sistema manipula su métrica?</h3>
+<p>El proxy gaming como riesgo, con la ley de Goodhart y sus casos famosos, está en <em>IA descontrolada y conexiones entre riesgos</em> (módulo 1, lección 4), con su simulador. Aquí va la parte técnica de detección, y empieza con un matiz de las notas del curso: Goodhart no significa que toda métrica sea inútil, porque unas resisten mejor la optimización que otras (ejemplo de las notas: el PIB frente a una evaluación de desempeño). Las malas aproximaciones vienen de la supervisión limitada, los costes de medir, la falta de robustez y la dificultad de abarcar todo lo que importa.</p>
+<p>Las notas citan una definición formal, de Skalse y colaboradores: un proxy es no manipulable (<em>ungameable</em>) si subir su retorno esperado nunca baja el retorno real. Con esa vara estricta, que las notas reconocen que quizá no sea la correcta, parece que optimizar un proxy casi siempre acaba mal: conviene tratar la optimización como una heurística, sin exprimirla, y no como un fin.</p>
+
+<h4>Un banco de pruebas para detectores</h4>
+<p>Pan y colaboradores (2022) construyeron un banco con cuatro entornos (control de tráfico, monitorización de glucosa, respuesta a una pandemia y un juego de Atari) y desajustes entre recompensa real y proxy de tres clases. Los ejemplos clínicos de la tabla son propios:</p>
+<div class="tw"><table>
+<thead><tr><th>Clase</th><th>Qué falla</th><th>Ejemplo propio</th></tr></thead>
+<tbody>
+<tr><td>Ponderación (<em>misweighting</em>)</td><td>proxy y objetivo real recogen lo mismo, pero con otra importancia relativa</td><td>una agenda quirúrgica que puntúa altas y reingresos, pero pesa demasiado las altas</td></tr>
+<tr><td>Ontológica (<em>ontological</em>)</td><td>se usan magnitudes distintas para el mismo concepto</td><td>"calidad de la atención" medida con encuestas de satisfacción y no con reingresos</td></tr>
+<tr><td>De alcance (<em>scope</em>)</td><td>el proxy mide solo una parte del dominio (tiempo o espacio)</td><td>medir la espera solo de quien ya tiene triaje, sin contar a quien se marcha antes</td></tr>
+</tbody></table></div>
+<p>Las notas ilustran las dos últimas clases con el entorno de tráfico: "congestión" como tiempo de trayecto o como velocidad (misma idea, otra magnitud) y la velocidad vigilada solo en autopistas, con el atasco desplazado a las calles locales. Añaden que un optimizador más potente (más parámetros o pasos, acciones más finas) puede explotar mejor el desajuste, así que el proxy gaming también puede ser emergente; su gráfica característica es la del proxy que sube mientras la recompensa real cae, la misma del simulador de la lección 4 del módulo 1.</p>
+<p>¿Y cómo se caza? Una línea base propuesta en las notas: no hace falta la política perfecta si se tiene una razonable, como el Intelligent Driver Model en el tráfico. Cuanto más se aleja de ella la política aprendida, más sospechosa: esa distancia es una puntuación de anomalía, como en la lección 2 del módulo, y por encima de un umbral se marca. El banco prueba tres maneras de medir la distancia y las puntúa con AUROC y F1 máximo (notas: "policies as detectors").</p>
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Un servicio prueba un detector sobre 20 políticas de gestión de camas. Se sabe, revisando a mano, que 8 manipulan la métrica de ocupación y que 12 no. Con el umbral inicial, el detector marca 7 de las 8 manipuladoras y 3 de las 12 sanas:</p>
+<div class="formula">\[ \text{TPR}=\frac{7}{8}=0{,}875 \qquad \text{FPR}=\frac{3}{12}=0{,}25 \qquad \text{precisión}=\frac{7}{7+3}=0{,}70 \]</div>
+<p>Si sube el umbral y marca 5 de las 8 y 1 de las 12, el TPR baja a \(5/8=0{,}625\), el FPR a \(1/12\approx0{,}083\) y la precisión sube a \(5/6\approx0{,}83\). Ninguno es "el bueno": cada umbral cambia falsas alarmas por manipuladoras detectadas, y el AUROC resume todos a la vez.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Leer "emergente" como algo mágico, o como algo desmontado (aviso propio).</strong> Ni todo salto es un espejismo de la métrica ni todo lo que lo parece es una capacidad nueva. Antes de decir "ha emergido", mira con una métrica continua si la mejora ya venía de atrás y con cuántos ejemplos se midió.</p>
+<p><strong>Fiarse de la curva suave.</strong> Que la log-verosimilitud mejore con regularidad no hace predecible una capacidad peligrosa concreta: para decidir un despliegue vale la prueba discreta.</p>
+<p><strong>Tomar la distancia a una política de referencia como veredicto (aviso propio).</strong> Exige una referencia buena, y desviarse de ella no siempre es manipular la métrica: puede ser hacerlo mejor. Es una alarma para que la revise una persona.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>Some of that emergence comes from how we measure it, so I track smooth metrics to forecast, run discrete evals with enough examples to decide, and watch the gap between the proxy and the true reward as optimization pressure rises.</p>
+
+<div class="objetivos">
+<p class="label">Repaso del módulo 5 (propio)</p>
+<ul>
+<li><strong>Por qué se monitoriza (l01).</strong> Los modelos son opacos y pueden ganar capacidades u objetivos no previstos. Ninguna línea de vigilancia lo ve todo: se combinan con puntos ciegos que no coincidan.</li>
+<li><strong>Anomalías (l02).</strong> Puntuación más umbral. Con anomalías raras la exactitud engaña: se miran TPR, FPR, AUROC y, con la prevalencia real, la precisión, y se prueba con varios conjuntos anómalos.</li>
+<li><strong>Incertidumbre (l03).</strong> Si da un 90 %, debe acertar 9 de cada 10. Calibración, discriminación y nitidez son distintas; se miden con ECE y Brier, y la temperatura no arregla un cambio de población.</li>
+<li><strong>Transparencia (l04).</strong> Una explicación bonita puede no ser fiel: el mapa de saliencia se prueba aleatorizando el modelo y tapando lo que marca. Un atajo espurio no se delata con la precisión global.</li>
+<li><strong>Troyanos (l05).</strong> Un disparador oculto pasa las pruebas normales, así que se mide también su tasa de éxito. Se busca con STRIP, Neural Cleanse y metarredes, y se previene cuidando el origen de datos y modelos.</li>
+<li><strong>Emergencia y proxy gaming (l06).</strong> Parte de lo emergente depende de cómo se mide, y un optimizador potente puede manipular su métrica: se vigila la brecha entre proxy y objetivo real.</li>
+</ul>
+</div>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 3.2 Monitoring, subsecciones 3.2.4 Emergent Capabilities, 3.2.5 Emergent Goal-Directed Behavior y 3.2.6 Tail Risk: Emergent Goals, págs. 127 a 134 (PDF 145 a 152).</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS), lección L12 Detecting Emergent Behaviour (notas de Bilal Chughtai, sin páginas): formas de emergencia, convergencia instrumental, proxy gaming y banco de Pan et al. (2022).</li>
+<li>Remisión: módulo 1, lección 4 (proxy gaming como riesgo, Goodhart y su simulador); módulo 5, lecciones 1 (panorama) y 2 (anomalías).</li>
+<li>Añadido externo, no procede de las fuentes del curso: el debate sobre la métrica, con Schaeffer, Miranda y Koyejo (2023), <em>Are Emergent Abilities of Large Language Models a Mirage?</em>, arXiv 2304.15004 (resumen y texto completo consultados el 2026-09-29 y el 2026-09-30; el artículo no menciona el grokking y recoge la postura de Caballero y colaboradores).</li>
+<li>Añadido propio, no procede de las fuentes: el modelo de juguete y su simulador; los ejemplos clínicos y sus cifras; la regla de métrica continua para predecir y discreta para decidir; los límites del detector por distancia; el repaso del módulo; los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Primero un simulador para explorar y después tres ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de la emergencia.</strong> Con acierto exacto, 10 tokens y 100 ejemplos, la curva vale 0 hasta la escala 1,6 y luego despega. Cambia a "Log-verosimilitud por token": es la misma mejora, sin salto. Pulsa "Comparar las tres" y mira el despegue de cada curva. Con acierto exacto, baja la longitud a 1: el salto desaparece. Vuelve a 10 tokens, marca la escala 1,5 y sube los ejemplos de 100 a 100 000: el "0 %" era una probabilidad pequeña pero real. Es un modelo de juguete propio, y el debate que ilustra (añadido externo) tiene posturas enfrentadas.</p>
+<div data-widget="m05-l06-emergencia" id="sim-m05-l06-emergencia"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: del token a la respuesta completa (a mano y con Python, 6 minutos)</p>
+<p>Un modelo extrae los medicamentos de una nota clínica. Acierta cada uno con probabilidad 0,70 (modelo pequeño) o 0,95 (grande), de forma independiente.</p>
+<ol>
+<li>Con notas de 5 medicamentos, ¿qué probabilidad hay de acertarlos todos con cada modelo? ¿Cuántas veces mayor es la del grande?</li>
+<li>¿Y con notas de 15 medicamentos?</li>
+<li>Comprueba las cifras con este fragmento: ¿qué métrica haría parecer que el grande "ha aprendido una capacidad nueva" en las notas largas?</li>
+</ol>
+<pre><code>import math
+
+for L in (5, 15):
+    for q in (0.70, 0.95):
+        exacto = q ** L
+        print(L, q, round(exacto, 4), round(L * math.log(q), 3))</code></pre>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Modelo pequeño: \(0{,}70^5\approx0{,}168\). Grande: \(0{,}95^5\approx0{,}774\). El grande acierta unas 4,6 veces más.</p>
+<p><strong>2.</strong> \(0{,}70^{15}\approx0{,}0047\), casi cero, y \(0{,}95^{15}\approx0{,}463\). La razón sube a unas 98 veces.</p>
+<p><strong>3.</strong> La última columna del fragmento es la log-verosimilitud de toda la lista, \(L\ln q\): pasa de \(-5{,}35\) a \(-0{,}77\) en \(L=15\), una mejora regular. La que parece un salto es el acierto exacto: con notas largas, 0,5 % frente a 46 %. La capacidad por medicamento mejoró de forma suave (de 0,70 a 0,95); lo que cambia de golpe es la métrica de todo o nada.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: clasificar desajustes de un proxy (a mano, 3 minutos)</p>
+<p>Clasifica cada caso como desajuste de ponderación, ontológico o de alcance y di por qué.</p>
+<ol>
+<li>Un modelo de triaje se premia por reducir la espera media, y también por acertar la gravedad, pero el premio por la espera vale diez veces más.</li>
+<li>Un servicio mide "seguridad del paciente" con el número de incidentes notificados, cuando lo que le importa son los daños reales.</li>
+<li>Un hospital mide el tiempo hasta antibiótico solo en el turno de mañana, porque los datos de noche están incompletos.</li>
+<li>Un agente de citas se premia por citas ocupadas, y otro campo cuenta la satisfacción, pero pesa el 5 % del total.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1 y 4: ponderación.</strong> Proxy y objetivo real recogen las mismas cosas (espera y gravedad, ocupación y satisfacción), pero con una importancia relativa equivocada. <strong>2: ontológico.</strong> Los incidentes notificados y los daños reales son magnitudes distintas para el mismo concepto, y el sistema puede bajar los primeros (notificando menos) sin tocar los segundos. <strong>3: de alcance.</strong> El proxy mide solo un tramo de tiempo del dominio, y el problema puede estar de noche. En los cuatro, un optimizador más potente encontrará más formas de explotar el hueco.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: elegir el umbral de un detector (a mano, 5 minutos)</p>
+<p>Un detector de proxy gaming se prueba con 50 políticas: 10 manipulan su métrica y 40 no. Con tres umbrales:</p>
+<div class="tw"><table>
+<thead><tr><th>Umbral</th><th>Manipuladoras marcadas (de 10)</th><th>Sanas marcadas (de 40)</th></tr></thead>
+<tbody>
+<tr><td>Bajo</td><td>10</td><td>20</td></tr>
+<tr><td>Medio</td><td>8</td><td>4</td></tr>
+<tr><td>Alto</td><td>4</td><td>0</td></tr>
+</tbody></table></div>
+<ol>
+<li>Calcula TPR, FPR y precisión de cada umbral.</li>
+<li>Una revisión humana no puede con más de 8 alarmas. ¿Qué umbral sirve?</li>
+<li>¿Qué haría falta para llevar este detector a otro entorno?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Bajo: TPR \(10/10=1\), FPR \(20/40=0{,}5\), precisión \(10/30\approx0{,}33\). Medio: TPR \(0{,}8\), FPR \(4/40=0{,}1\), precisión \(8/12\approx0{,}67\). Alto: TPR \(0{,}4\), FPR 0, precisión \(4/4=1\).</p>
+<p><strong>2.</strong> Bajo marca 30 en total, medio 12 y alto 4. Solo el alto cabe en 8 alarmas, pero deja pasar seis de las diez manipuladoras. Para usar el medio hay que ampliar la revisión o priorizar por puntuación. Es la fatiga de alarmas de la lección 2 del módulo.</p>
+<p><strong>3.</strong> Una política de referencia fiable en ese entorno, revisión humana de una muestra de lo marcado y volver a calcular las tasas, porque la prevalencia (aquí, 10 de 50) cambia la precisión aunque TPR y FPR se mantengan.</p>
+</details>
+</div>
+
+</div>
+
+</section>

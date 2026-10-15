@@ -1,0 +1,103 @@
+[
+  {
+    "id": "m02l01-q01",
+    "tipo": "unica",
+    "enunciado": "Alguien contamina a propósito los datos de entrenamiento de un modelo para que tome decisiones erróneas. ¿Cómo se llama en ingeniería de seguridad?",
+    "opciones": [
+      "Un modo de fallo",
+      "Un peligro sin intención adversaria",
+      "Una amenaza",
+      "Una vulnerabilidad"
+    ],
+    "correcta": 2,
+    "explicacion": "Una amenaza es un peligro con intención maliciosa o adversaria. Un modo de fallo es una forma concreta de fallar, y la vulnerabilidad es lo susceptible que es el sistema al daño."
+  },
+  {
+    "id": "m02l01-q02",
+    "tipo": "vf",
+    "enunciado": "Si se demuestra que un sistema de IA podría causar un daño catastrófico, su riesgo es alto automáticamente.",
+    "correcta": false,
+    "explicacion": "Falso. Poder hacer daño (capacidad) no basta. El riesgo también depende de la probabilidad de que lo intente o de que ocurra (propensión). Una IA capaz de bloquear un sistema, pero sin tendencia a intentarlo, tiene menos riesgo que otra que sí lo intenta."
+  },
+  {
+    "id": "m02l01-q03",
+    "tipo": "numerica",
+    "enunciado": "Con la ecuación clásica, un sistema tiene dos peligros. Peligro 1: probabilidad 0,02 y severidad 50. Peligro 2: probabilidad 0,1 y severidad 5. ¿Cuánto vale el riesgo total?",
+    "correcta": 1.5,
+    "tolerancia": 0.01,
+    "explicacion": "Se calcula cada peligro por separado y se suman: 0,02 × 50 = 1 y 0,1 × 5 = 0,5. Total: 1,5."
+  },
+  {
+    "id": "m02l01-q04",
+    "tipo": "unica",
+    "enunciado": "En la descomposición del riesgo, ¿qué factor reduce sobre todo la monitorización (detectar el peligro a tiempo para esquivarlo)?",
+    "opciones": [
+      "La severidad del peligro",
+      "La exposición al peligro",
+      "La vulnerabilidad del sistema",
+      "La capacidad de afrontamiento"
+    ],
+    "correcta": 1,
+    "explicacion": "Si detectamos el peligro a tiempo podemos evitarlo y reducir el contacto con él, es decir, la exposición. La robustez reduce la vulnerabilidad y el control reduce el nivel intrínseco de peligro."
+  },
+  {
+    "id": "m02l01-q05",
+    "tipo": "multiple",
+    "enunciado": "Ante el peligro del proxy gaming, ¿cuáles de estas medidas reducen la vulnerabilidad?",
+    "opciones": [
+      "Hacer la IA más robusta frente a ataques adversarios",
+      "Detectar pronto las señales de que el sistema está explotando el objetivo sustituto",
+      "Afinar el objetivo sustituto para que se parezca más al que queremos",
+      "Limitar el poder de la IA para que un exceso de optimización haga menos daño"
+    ],
+    "correcta": [
+      0,
+      2
+    ],
+    "explicacion": "La robustez y un objetivo sustituto más fiel reducen la vulnerabilidad. Detectar pronto es monitorización, que reduce la exposición. Limitar el poder de la IA baja el nivel de peligro."
+  },
+  {
+    "id": "m02l01-q06",
+    "tipo": "numerica",
+    "enunciado": "Con la ecuación del desastre: probabilidad 0,1, severidad 40, exposición 0,5 y vulnerabilidad 0,25. ¿Cuánto vale el riesgo de ese peligro?",
+    "correcta": 0.5,
+    "tolerancia": 0.01,
+    "explicacion": "Se multiplican los cuatro factores: 0,1 × 40 = 4; × 0,5 = 2; × 0,25 = 0,5."
+  },
+  {
+    "id": "m02l01-q07",
+    "tipo": "numerica",
+    "enunciado": "Un modelo tiene una fiabilidad del 99,9 % y toma 2000 decisiones al día. ¿Cuántos fallos se esperan al día?",
+    "correcta": 2,
+    "tolerancia": 0.05,
+    "explicacion": "La probabilidad de error es 0,001. Fallos esperados: 2000 × 0,001 = 2 al día."
+  },
+  {
+    "id": "m02l01-q08",
+    "tipo": "unica",
+    "enunciado": "Un sistema pasa de una fiabilidad del 99 % a otra del 99,9 %. ¿Qué ocurre con la probabilidad de fallo y con el tiempo esperado hasta el fallo?",
+    "opciones": [
+      "La probabilidad baja un 0,9 % y el tiempo mejora un 0,9 %",
+      "La probabilidad se divide entre 10 y el tiempo se multiplica por 10",
+      "La probabilidad se divide entre 2 y el tiempo se duplica",
+      "No cambia nada relevante, solo se añade un decimal"
+    ],
+    "correcta": 1,
+    "explicacion": "Cada nueve más divide la probabilidad de fallo entre 10 (de 1 % a 0,1 %) y multiplica por 10 el tiempo esperado hasta el fallo. La relación con la fiabilidad no es lineal."
+  },
+  {
+    "id": "m02l01-q09",
+    "tipo": "vf",
+    "enunciado": "Un sistema que juega a un videojuego y un vehículo autónomo tienen ambos tres nueves de fiabilidad, así que su riesgo es el mismo.",
+    "correcta": false,
+    "explicacion": "Falso. Los nueves solo informan de la probabilidad de fallo, no de su severidad. Un fallo del vehículo puede causar mucho más daño que uno del juego, así que el riesgo difiere."
+  },
+  {
+    "id": "m02l01-q10",
+    "tipo": "numerica",
+    "enunciado": "Un modelo tiene una fiabilidad de 0,98. Calcula sus nueves de fiabilidad k = -log10(1-p). Usa log10(2) = 0,301. Respuesta con un decimal.",
+    "correcta": 1.7,
+    "tolerancia": 0.05,
+    "explicacion": "1 - p = 0,02, y -log10(0,02) = 2 - log10(2) = 2 - 0,301 = 1,699. Son casi dos nueves, por debajo de 99 % (k = 2)."
+  }
+]

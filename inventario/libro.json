@@ -1,0 +1,1038 @@
+{
+ "fuente": "arXiv 2411.01042 (Hendrycks, Introduction to AI Safety, Ethics, and Society)",
+ "consultado": "2026-09-29",
+ "paginas_total": 630,
+ "desfase_impresa": 18,
+ "nota": "pag_* son páginas del PDF; la impresa es pag - desfase_impresa. Secciones contiguas comparten la página frontera.",
+ "capitulos": [
+  {
+   "n": 1,
+   "titulo": "Overview of Catastrophic AI Risks",
+   "pag_ini": 21,
+   "pag_fin": 69,
+   "secciones": [
+    {
+     "id": "1.1",
+     "titulo": "Introduction",
+     "pag_ini": 21,
+     "pag_fin": 24,
+     "palabras": 1681,
+     "fichero_texto": "fuentes/texto/cap01/sec01.txt",
+     "subsecciones": []
+    },
+    {
+     "id": "1.2",
+     "titulo": "Malicious Use",
+     "pag_ini": 24,
+     "pag_fin": 32,
+     "palabras": 4424,
+     "fichero_texto": "fuentes/texto/cap01/sec02.txt",
+     "subsecciones": [
+      "Bioterrorism",
+      "Unleashing AI Agents",
+      "Persuasive AIs",
+      "Concentration of Power"
+     ]
+    },
+    {
+     "id": "1.3",
+     "titulo": "AI Race",
+     "pag_ini": 32,
+     "pag_fin": 46,
+     "palabras": 7634,
+     "fichero_texto": "fuentes/texto/cap01/sec03.txt",
+     "subsecciones": [
+      "Military AI Arms Race",
+      "Corporate AI Race",
+      "Evolutionary Pressures"
+     ]
+    },
+    {
+     "id": "1.4",
+     "titulo": "Organizational Risks",
+     "pag_ini": 46,
+     "pag_fin": 55,
+     "palabras": 4945,
+     "fichero_texto": "fuentes/texto/cap01/sec04.txt",
+     "subsecciones": [
+      "Accidents Are Hard to Avoid",
+      "Organizational Factors can Reduce the Chances of Catastrophe"
+     ]
+    },
+    {
+     "id": "1.5",
+     "titulo": "Rogue AIs",
+     "pag_ini": 55,
+     "pag_fin": 66,
+     "palabras": 6382,
+     "fichero_texto": "fuentes/texto/cap01/sec05.txt",
+     "subsecciones": [
+      "Proxy Gaming",
+      "Goal Drift",
+      "Power-Seeking",
+      "Deception"
+     ]
+    },
+    {
+     "id": "1.6",
+     "titulo": "Discussion of Connections Between Risks",
+     "pag_ini": 66,
+     "pag_fin": 67,
+     "palabras": 1015,
+     "fichero_texto": "fuentes/texto/cap01/sec06.txt",
+     "subsecciones": []
+    },
+    {
+     "id": "1.7",
+     "titulo": "Conclusion",
+     "pag_ini": 67,
+     "pag_fin": 68,
+     "palabras": 827,
+     "fichero_texto": "fuentes/texto/cap01/sec07.txt",
+     "subsecciones": []
+    },
+    {
+     "id": "1.8",
+     "titulo": "Literature",
+     "pag_ini": 68,
+     "pag_fin": 69,
+     "palabras": 643,
+     "fichero_texto": "fuentes/texto/cap01/sec08.txt",
+     "subsecciones": [
+      "Recommended Reading"
+     ]
+    }
+   ],
+   "palabras": 27551
+  },
+  {
+   "n": 2,
+   "titulo": "Artificial Intelligence Fundamentals",
+   "pag_ini": 69,
+   "pag_fin": 133,
+   "secciones": [
+    {
+     "id": "2.1",
+     "titulo": "Introduction",
+     "pag_ini": 69,
+     "pag_fin": 70,
+     "palabras": 818,
+     "fichero_texto": "fuentes/texto/cap02/sec01.txt",
+     "subsecciones": []
+    },
+    {
+     "id": "2.2",
+     "titulo": "Artificial Intelligence & Machine Learning",
+     "pag_ini": 70,
+     "pag_fin": 97,
+     "palabras": 11798,
+     "fichero_texto": "fuentes/texto/cap02/sec02.txt",
+     "subsecciones": [
+      "Artificial Intelligence",
+      "Types of AI",
+      "Machine Learning",
+      "Types of Machine Learning"
+     ]
+    },
+    {
+     "id": "2.3",
+     "titulo": "Deep Learning",
+     "pag_ini": 97,
+     "pag_fin": 120,
+     "palabras": 9027,
+     "fichero_texto": "fuentes/texto/cap02/sec03.txt",
+     "subsecciones": [
+      "Model Building Blocks",
+      "Training and Inference",
+      "History and Timeline of Key Architectures",
+      "Applications"
+     ]
+    },
+    {
+     "id": "2.4",
+     "titulo": "Scaling Laws",
+     "pag_ini": 120,
+     "pag_fin": 125,
+     "palabras": 2303,
+     "fichero_texto": "fuentes/texto/cap02/sec04.txt",
+     "subsecciones": [
+      "Scaling Laws in Deep Learning"
+     ]
+    },
+    {
+     "id": "2.5",
+     "titulo": "Speed of AI Development",
+     "pag_ini": 125,
+     "pag_fin": 128,
+     "palabras": 1975,
+     "fichero_texto": "fuentes/texto/cap02/sec05.txt",
+     "subsecciones": []
+    },
+    {
+     "id": "2.6",
+     "titulo": "Conclusion",
+     "pag_ini": 128,
+     "pag_fin": 131,
+     "palabras": 1642,
+     "fichero_texto": "fuentes/texto/cap02/sec06.txt",
+     "subsecciones": [
+      "Summary"
+     ]
+    },
+    {
+     "id": "2.7",
+     "titulo": "Literature",
+     "pag_ini": 131,
+     "pag_fin": 133,
+     "palabras": 178,
+     "fichero_texto": "fuentes/texto/cap02/sec07.txt",
+     "subsecciones": [
+      "Recommended Resources"
+     ]
+    }
+   ],
+   "palabras": 27741
+  },
+  {
+   "n": 3,
+   "titulo": "Single-Agent Safety",
+   "pag_ini": 135,
+   "pag_fin": 197,
+   "secciones": [
+    {
+     "id": "3.1",
+     "titulo": "Introduction",
+     "pag_ini": 135,
+     "pag_fin": 136,
+     "palabras": 768,
+     "fichero_texto": "fuentes/texto/cap03/sec01.txt",
+     "subsecciones": []
+    },
+    {
+     "id": "3.2",
+     "titulo": "Monitoring",
+     "pag_ini": 136,
+     "pag_fin": 153,
+     "palabras": 7378,
+     "fichero_texto": "fuentes/texto/cap03/sec02.txt",
+     "subsecciones": [
+      "ML Systems are Opaque",
+      "Motivations for Transparency Research",
+      "Approaches to Transparency",
+      "Emergent Capabilities",
+      "Emergent Goal-Directed Behavior",
+      "Tail Risk: Emergent Goals",
+      "Evaluations and Anomaly Detection"
+     ]
+    },
+    {
+     "id": "3.3",
+     "titulo": "Robustness",
+     "pag_ini": 153,
+     "pag_fin": 168,
+     "palabras": 6802,
+     "fichero_texto": "fuentes/texto/cap03/sec03.txt",
+     "subsecciones": [
+      "Proxies in Machine Learning",
+      "Proxy Gaming",
+      "Adversarial Examples",
+      "Trojan Attacks and Other Security Threats",
+      "Tail Risk: AI Evaluator Gaming"
+     ]
+    },
+    {
+     "id": "3.4",
+     "titulo": "Alignment",
+     "pag_ini": 168,
+     "pag_fin": 187,
+     "palabras": 9933,
+     "fichero_texto": "fuentes/texto/cap03/sec04.txt",
+     "subsecciones": [
+      "Deception",
+      "Deceptive Evaluation Gaming",
+      "Tail Risk: Deceptive Alignment and Treacherous Turns",
+      "Power",
+      "People Could Enlist AIs for Power Seeking",
+      "Power Seeking Can Be Instrumentally Rational",
+      "Structural Pressures Towards Power-Seeking AI",
+      "Tail Risk: Power-Seeking Behavior",
+      "Techniques to Control AI Systems"
+     ]
+    },
+    {
+     "id": "3.5",
+     "titulo": "Systemic Safety",
+     "pag_ini": 187,
+     "pag_fin": 189,
+     "palabras": 1501,
+     "fichero_texto": "fuentes/texto/cap03/sec05.txt",
+     "subsecciones": []
+    },
+    {
+     "id": "3.6",
+     "titulo": "Safety and General Capabilities",
+     "pag_ini": 189,
+     "pag_fin": 192,
+     "palabras": 1923,
+     "fichero_texto": "fuentes/texto/cap03/sec06.txt",
+     "subsecciones": []
+    },
+    {
+     "id": "3.7",
+     "titulo": "Conclusion",
+     "pag_ini": 192,
+     "pag_fin": 195,
+     "palabras": 1353,
+     "fichero_texto": "fuentes/texto/cap03/sec07.txt",
+     "subsecciones": []
+    },
+    {
+     "id": "3.8",
+     "titulo": "Literature",
+     "pag_ini": 195,
+     "pag_fin": 197,
+     "palabras": 512,
+     "fichero_texto": "fuentes/texto/cap03/sec08.txt",
+     "subsecciones": [
+      "Recommended Reading"
+     ]
+    }
+   ],
+   "palabras": 30170
+  },
+  {
+   "n": 4,
+   "titulo": "Safety Engineering",
+   "pag_ini": 197,
+   "pag_fin": 259,
+   "secciones": [
+    {
+     "id": "4.1",
+     "titulo": "Risk Decomposition",
+     "pag_ini": 198,
+     "pag_fin": 204,
+     "palabras": 3334,
+     "fichero_texto": "fuentes/texto/cap04/sec01.txt",
+     "subsecciones": [
+      "Failure Modes, Hazards, and Threats",
+      "The Classic Risk Equation",
+      "Framing the Goal as Risk Reduction",
+      "Disaster Risk Equation",
+      "Elements of the Risk Equation",
+      "Applying the Disaster Risk Equation"
+     ]
+    },
+    {
+     "id": "4.2",
+     "titulo": "Nines of Reliability",
+     "pag_ini": 204,
+     "pag_fin": 207,
+     "palabras": 1676,
+     "fichero_texto": "fuentes/texto/cap04/sec02.txt",
+     "subsecciones": []
+    },
+    {
+     "id": "4.3",
+     "titulo": "Safe Design Principles",
+     "pag_ini": 207,
+     "pag_fin": 213,
+     "palabras": 3463,
+     "fichero_texto": "fuentes/texto/cap04/sec03.txt",
+     "subsecciones": [
+      "Redundancy",
+      "Separation of Duties",
+      "Principle of Least Privilege",
+      "Fail-Safes",
+      "Antifragility",
+      "Negative Feedback Mechanisms",
+      "Transparency",
+      "Defense in Depth",
+      "Review of Safe Design Principles"
+     ]
+    },
+    {
+     "id": "4.4",
+     "titulo": "Component Failure Accident Models and Methods",
+     "pag_ini": 213,
+     "pag_fin": 224,
+     "palabras": 4854,
+     "fichero_texto": "fuentes/texto/cap04/sec04.txt",
+     "subsecciones": [
+      "Swiss Cheese Model",
+      "Bow Tie Model",
+      "Fault Tree Analysis Method",
+      "Limitations"
+     ]
+    },
+    {
+     "id": "4.5",
+     "titulo": "Systemic Factors",
+     "pag_ini": 224,
+     "pag_fin": 234,
+     "palabras": 5007,
+     "fichero_texto": "fuentes/texto/cap04/sec05.txt",
+     "subsecciones": [
+      "Systemic Accident Models"
+     ]
+    },
+    {
+     "id": "4.6",
+     "titulo": "Drift into Failure and Existential Risks",
+     "pag_ini": 234,
+     "pag_fin": 236,
+     "palabras": 1466,
+     "fichero_texto": "fuentes/texto/cap04/sec06.txt",
+     "subsecciones": []
+    },
+    {
+     "id": "4.7",
+     "titulo": "Tail Events and Black Swans",
+     "pag_ini": 236,
+     "pag_fin": 253,
+     "palabras": 8076,
+     "fichero_texto": "fuentes/texto/cap04/sec07.txt",
+     "subsecciones": [
+      "Introduction to Tail Events",
+      "Tail Events Can Greatly Affect the Average Risk",
+      "Tail Events Can Be Identified From Frequency Distributions",
+      "A Caricature of Tail Events",
+      "Introduction to Black Swans",
+      "Known Unknowns and Unknown Unknowns",
+      "Implications of Tail Events and Black Swans for Risk Analysis",
+      "Identifying the Risk of Tail Events or Black Swans"
+     ]
+    },
+    {
+     "id": "4.8",
+     "titulo": "Conclusion",
+     "pag_ini": 253,
+     "pag_fin": 257,
+     "palabras": 2474,
+     "fichero_texto": "fuentes/texto/cap04/sec08.txt",
+     "subsecciones": [
+      "Summary",
+      "Key Takeaways"
+     ]
+    },
+    {
+     "id": "4.9",
+     "titulo": "Literature",
+     "pag_ini": 257,
+     "pag_fin": 259,
+     "palabras": 785,
+     "fichero_texto": "fuentes/texto/cap04/sec09.txt",
+     "subsecciones": [
+      "Recommended Reading"
+     ]
+    }
+   ],
+   "palabras": 31135
+  },
+  {
+   "n": 5,
+   "titulo": "Complex Systems",
+   "pag_ini": 259,
+   "pag_fin": 301,
+   "secciones": [
+    {
+     "id": "5.1",
+     "titulo": "Overview",
+     "pag_ini": 259,
+     "pag_fin": 260,
+     "palabras": 619,
+     "fichero_texto": "fuentes/texto/cap05/sec01.txt",
+     "subsecciones": []
+    },
+    {
+     "id": "5.2",
+     "titulo": "Introduction to Complex Systems",
+     "pag_ini": 260,
+     "pag_fin": 284,
+     "palabras": 11516,
+     "fichero_texto": "fuentes/texto/cap05/sec02.txt",
+     "subsecciones": [
+      "The Reductionist Paradigm",
+      "The Complex Systems Paradigm",
+      "Deep Learning Systems as Complex Systems",
+      "Complexity is Not a Dichotomy",
+      "The Hallmarks of Complex Systems",
+      "Social Systems as Complex Systems"
+     ]
+    },
+    {
+     "id": "5.3",
+     "titulo": "Complex Systems for AI Safety",
+     "pag_ini": 284,
+     "pag_fin": 297,
+     "palabras": 7174,
+     "fichero_texto": "fuentes/texto/cap05/sec03.txt",
+     "subsecciones": [
+      "General Lessons from Complex Systems",
+      "Puzzles, Problems, and Wicked Problems",
+      "Challenges With Interventionism",
+      "Systemic Issues"
+     ]
+    },
+    {
+     "id": "5.4",
+     "titulo": "Conclusion",
+     "pag_ini": 297,
+     "pag_fin": 299,
+     "palabras": 1139,
+     "fichero_texto": "fuentes/texto/cap05/sec04.txt",
+     "subsecciones": []
+    },
+    {
+     "id": "5.5",
+     "titulo": "Literature",
+     "pag_ini": 299,
+     "pag_fin": 301,
+     "palabras": 127,
+     "fichero_texto": "fuentes/texto/cap05/sec05.txt",
+     "subsecciones": [
+      "Recommended Reading"
+     ]
+    }
+   ],
+   "palabras": 20575
+  },
+  {
+   "n": 6,
+   "titulo": "Beneficial AI and Machine Ethics",
+   "pag_ini": 303,
+   "pag_fin": 383,
+   "secciones": [
+    {
+     "id": "6.1",
+     "titulo": "Introduction",
+     "pag_ini": 303,
+     "pag_fin": 305,
+     "palabras": 1306,
+     "fichero_texto": "fuentes/texto/cap06/sec01.txt",
+     "subsecciones": []
+    },
+    {
+     "id": "6.2",
+     "titulo": "Law",
+     "pag_ini": 305,
+     "pag_fin": 312,
+     "palabras": 3799,
+     "fichero_texto": "fuentes/texto/cap06/sec02.txt",
+     "subsecciones": [
+      "The Case For Law",
+      "The Need for Ethics"
+     ]
+    },
+    {
+     "id": "6.3",
+     "titulo": "Fairness",
+     "pag_ini": 312,
+     "pag_fin": 323,
+     "palabras": 5581,
+     "fichero_texto": "fuentes/texto/cap06/sec03.txt",
+     "subsecciones": [
+      "Bias",
+      "Sources of Bias",
+      "AI Fairness Concepts",
+      "Limitations of Fairness",
+      "Approaches to Combating Bias and Improving Fairness"
+     ]
+    },
+    {
+     "id": "6.4",
+     "titulo": "The Economic Engine",
+     "pag_ini": 323,
+     "pag_fin": 338,
+     "palabras": 6921,
+     "fichero_texto": "fuentes/texto/cap06/sec04.txt",
+     "subsecciones": [
+      "Allocative Efficiency of Free Markets",
+      "Market Failures",
+      "Inequality",
+      "Growth",
+      "Beyond Economic Models"
+     ]
+    },
+    {
+     "id": "6.5",
+     "titulo": "Wellbeing",
+     "pag_ini": 338,
+     "pag_fin": 344,
+     "palabras": 3193,
+     "fichero_texto": "fuentes/texto/cap06/sec05.txt",
+     "subsecciones": [
+      "Wellbeing as the Net Balance of Pleasure over Pain",
+      "Wellbeing as a Collection of Objective Goods",
+      "Wellbeing as Preference Satisfaction",
+      "Applying the Theories of Wellbeing"
+     ]
+    },
+    {
+     "id": "6.6",
+     "titulo": "Preferences",
+     "pag_ini": 344,
+     "pag_fin": 353,
+     "palabras": 4931,
+     "fichero_texto": "fuentes/texto/cap06/sec06.txt",
+     "subsecciones": [
+      "Revealed Preferences",
+      "Stated Preferences",
+      "Idealized Preferences"
+     ]
+    },
+    {
+     "id": "6.7",
+     "titulo": "Happiness",
+     "pag_ini": 353,
+     "pag_fin": 360,
+     "palabras": 3722,
+     "fichero_texto": "fuentes/texto/cap06/sec07.txt",
+     "subsecciones": [
+      "The General Approach to Happiness",
+      "Problems for Happiness-Focused Ethics"
+     ]
+    },
+    {
+     "id": "6.8",
+     "titulo": "Social Welfare Functions",
+     "pag_ini": 360,
+     "pag_fin": 370,
+     "palabras": 5371,
+     "fichero_texto": "fuentes/texto/cap06/sec08.txt",
+     "subsecciones": [
+      "Measuring Social Welfare"
+     ]
+    },
+    {
+     "id": "6.9",
+     "titulo": "Moral Uncertainty",
+     "pag_ini": 370,
+     "pag_fin": 379,
+     "palabras": 4981,
+     "fichero_texto": "fuentes/texto/cap06/sec09.txt",
+     "subsecciones": [
+      "Making Decisions Under Moral Uncertainty",
+      "Implementing a Moral Parliament in AI Systems",
+      "Advantages of a Moral Parliament"
+     ]
+    },
+    {
+     "id": "6.10",
+     "titulo": "Conclusion",
+     "pag_ini": 379,
+     "pag_fin": 380,
+     "palabras": 917,
+     "fichero_texto": "fuentes/texto/cap06/sec10.txt",
+     "subsecciones": []
+    },
+    {
+     "id": "6.11",
+     "titulo": "Literature",
+     "pag_ini": 380,
+     "pag_fin": 383,
+     "palabras": 929,
+     "fichero_texto": "fuentes/texto/cap06/sec11.txt",
+     "subsecciones": [
+      "Recommended Reading"
+     ]
+    }
+   ],
+   "palabras": 41651
+  },
+  {
+   "n": 7,
+   "titulo": "Collective Action Problems",
+   "pag_ini": 383,
+   "pag_fin": 467,
+   "secciones": [
+    {
+     "id": "7.1",
+     "titulo": "Motivation",
+     "pag_ini": 383,
+     "pag_fin": 387,
+     "palabras": 2187,
+     "fichero_texto": "fuentes/texto/cap07/sec01.txt",
+     "subsecciones": []
+    },
+    {
+     "id": "7.2",
+     "titulo": "Game Theory",
+     "pag_ini": 387,
+     "pag_fin": 421,
+     "palabras": 15490,
+     "fichero_texto": "fuentes/texto/cap07/sec02.txt",
+     "subsecciones": [
+      "Overview",
+      "Game Theory Fundamentals",
+      "The Prisoner's Dilemma",
+      "The Iterated Prisoner's Dilemma",
+      "Collective Action Problems",
+      "Summary"
+     ]
+    },
+    {
+     "id": "7.3",
+     "titulo": "Cooperation",
+     "pag_ini": 421,
+     "pag_fin": 435,
+     "palabras": 6908,
+     "fichero_texto": "fuentes/texto/cap07/sec03.txt",
+     "subsecciones": [
+      "Summary"
+     ]
+    },
+    {
+     "id": "7.4",
+     "titulo": "Conflict",
+     "pag_ini": 435,
+     "pag_fin": 450,
+     "palabras": 7227,
+     "fichero_texto": "fuentes/texto/cap07/sec04.txt",
+     "subsecciones": [
+      "Overview",
+      "Bargaining Theory",
+      "Commitment Problems",
+      "Information Problems",
+      "Factors Outside of Bargaining Theory",
+      "Summary"
+     ]
+    },
+    {
+     "id": "7.5",
+     "titulo": "Evolutionary Pressures",
+     "pag_ini": 450,
+     "pag_fin": 463,
+     "palabras": 7169,
+     "fichero_texto": "fuentes/texto/cap07/sec05.txt",
+     "subsecciones": [
+      "Overview",
+      "Generalized Darwinism",
+      "Levels of Selection and Selfish Behavior",
+      "Summary"
+     ]
+    },
+    {
+     "id": "7.6",
+     "titulo": "Conclusion",
+     "pag_ini": 463,
+     "pag_fin": 465,
+     "palabras": 1298,
+     "fichero_texto": "fuentes/texto/cap07/sec06.txt",
+     "subsecciones": []
+    },
+    {
+     "id": "7.7",
+     "titulo": "Literature",
+     "pag_ini": 465,
+     "pag_fin": 467,
+     "palabras": 810,
+     "fichero_texto": "fuentes/texto/cap07/sec07.txt",
+     "subsecciones": [
+      "Recommended Reading"
+     ]
+    }
+   ],
+   "palabras": 41089
+  },
+  {
+   "n": 8,
+   "titulo": "Governance",
+   "pag_ini": 467,
+   "pag_fin": 517,
+   "secciones": [
+    {
+     "id": "8.1",
+     "titulo": "Introduction",
+     "pag_ini": 467,
+     "pag_fin": 470,
+     "palabras": 1617,
+     "fichero_texto": "fuentes/texto/cap08/sec01.txt",
+     "subsecciones": [
+      "The Landscape"
+     ]
+    },
+    {
+     "id": "8.2",
+     "titulo": "Economic Growth",
+     "pag_ini": 470,
+     "pag_fin": 475,
+     "palabras": 2787,
+     "fichero_texto": "fuentes/texto/cap08/sec02.txt",
+     "subsecciones": []
+    },
+    {
+     "id": "8.3",
+     "titulo": "Distribution of AI",
+     "pag_ini": 475,
+     "pag_fin": 486,
+     "palabras": 5754,
+     "fichero_texto": "fuentes/texto/cap08/sec03.txt",
+     "subsecciones": [
+      "Distribution of Access to AI",
+      "Distribution of Power Among AIs"
+     ]
+    },
+    {
+     "id": "8.4",
+     "titulo": "Corporate Governance",
+     "pag_ini": 486,
+     "pag_fin": 490,
+     "palabras": 2284,
+     "fichero_texto": "fuentes/texto/cap08/sec04.txt",
+     "subsecciones": [
+      "What Is Corporate Governance?",
+      "Legal Structure",
+      "Ownership Structure",
+      "Organizational Structure",
+      "Assurance"
+     ]
+    },
+    {
+     "id": "8.5",
+     "titulo": "National Governance",
+     "pag_ini": 490,
+     "pag_fin": 498,
+     "palabras": 4110,
+     "fichero_texto": "fuentes/texto/cap08/sec05.txt",
+     "subsecciones": [
+      "Standards and Regulations",
+      "Liability for AI Harms",
+      "Targeted Taxation",
+      "Public Ownership over AI",
+      "Improving Resilience",
+      "Not Falling Behind",
+      "Information Security"
+     ]
+    },
+    {
+     "id": "8.6",
+     "titulo": "International Governance",
+     "pag_ini": 498,
+     "pag_fin": 507,
+     "palabras": 4577,
+     "fichero_texto": "fuentes/texto/cap08/sec06.txt",
+     "subsecciones": [
+      "Forms of International Governance",
+      "Four Questions for AI Regulation",
+      "What Can Be Included in International Agreements?"
+     ]
+    },
+    {
+     "id": "8.7",
+     "titulo": "Compute Governance",
+     "pag_ini": 507,
+     "pag_fin": 513,
+     "palabras": 3216,
+     "fichero_texto": "fuentes/texto/cap08/sec07.txt",
+     "subsecciones": [
+      "Compute Is Indispensable for AI Development and Deployment",
+      "Compute Is Physical, Excludable, and Quantifiable"
+     ]
+    },
+    {
+     "id": "8.8",
+     "titulo": "Conclusion",
+     "pag_ini": 513,
+     "pag_fin": 515,
+     "palabras": 1153,
+     "fichero_texto": "fuentes/texto/cap08/sec08.txt",
+     "subsecciones": []
+    },
+    {
+     "id": "8.9",
+     "titulo": "Literature",
+     "pag_ini": 515,
+     "pag_fin": 517,
+     "palabras": 214,
+     "fichero_texto": "fuentes/texto/cap08/sec09.txt",
+     "subsecciones": [
+      "Recommended Reading"
+     ]
+    }
+   ],
+   "palabras": 25712
+  },
+  {
+   "n": 9,
+   "titulo": "Acknowledgements",
+   "pag_ini": 519,
+   "pag_fin": 521,
+   "secciones": [],
+   "palabras": 0
+  },
+  {
+   "n": 10,
+   "titulo": "Utility Functions",
+   "pag_ini": 521,
+   "pag_fin": 557,
+   "secciones": [
+    {
+     "id": "10.1",
+     "titulo": "Utility and Utility Functions",
+     "pag_ini": 521,
+     "pag_fin": 523,
+     "palabras": 1202,
+     "fichero_texto": "fuentes/texto/cap10/sec01.txt",
+     "subsecciones": [
+      "Fundamentals",
+      "Motivations for Learning About Utility Functions"
+     ]
+    },
+    {
+     "id": "10.2",
+     "titulo": "Properties of Utility Functions",
+     "pag_ini": 523,
+     "pag_fin": 532,
+     "palabras": 3734,
+     "fichero_texto": "fuentes/texto/cap10/sec02.txt",
+     "subsecciones": [
+      "Bernoulli Utility Functions",
+      "Von Neumann-Morgenstern Utility Functions",
+      "St. Petersburg Paradox"
+     ]
+    },
+    {
+     "id": "10.3",
+     "titulo": "Tail Risk: Corrigibility",
+     "pag_ini": 532,
+     "pag_fin": 534,
+     "palabras": 1403,
+     "fichero_texto": "fuentes/texto/cap10/sec03.txt",
+     "subsecciones": []
+    },
+    {
+     "id": "10.4",
+     "titulo": "Attitudes to Risk",
+     "pag_ini": 534,
+     "pag_fin": 546,
+     "palabras": 5395,
+     "fichero_texto": "fuentes/texto/cap10/sec04.txt",
+     "subsecciones": [
+      "What Are the Different Attitudes to Risk?",
+      "Risk and Decision Making"
+     ]
+    },
+    {
+     "id": "10.5",
+     "titulo": "Beyond Expected Utility Theories",
+     "pag_ini": 546,
+     "pag_fin": 554,
+     "palabras": 3441,
+     "fichero_texto": "fuentes/texto/cap10/sec05.txt",
+     "subsecciones": [
+      "Humans and Rationality",
+      "Evidence Against Expected Utility Theory",
+      "Prospect Theory",
+      "Models of Decision Making"
+     ]
+    },
+    {
+     "id": "10.6",
+     "titulo": "Conclusion",
+     "pag_ini": 554,
+     "pag_fin": 556,
+     "palabras": 1027,
+     "fichero_texto": "fuentes/texto/cap10/sec06.txt",
+     "subsecciones": []
+    },
+    {
+     "id": "10.7",
+     "titulo": "Literature",
+     "pag_ini": 556,
+     "pag_fin": 557,
+     "palabras": 482,
+     "fichero_texto": "fuentes/texto/cap10/sec07.txt",
+     "subsecciones": [
+      "Recommended Reading"
+     ]
+    }
+   ],
+   "palabras": 16684
+  },
+  {
+   "n": 11,
+   "titulo": "Normative Ethics",
+   "pag_ini": 557,
+   "pag_fin": 599,
+   "secciones": [
+    {
+     "id": "11.1",
+     "titulo": "Introduction",
+     "pag_ini": 557,
+     "pag_fin": 558,
+     "palabras": 779,
+     "fichero_texto": "fuentes/texto/cap11/sec01.txt",
+     "subsecciones": []
+    },
+    {
+     "id": "11.2",
+     "titulo": "Why Learn About Ethics?",
+     "pag_ini": 558,
+     "pag_fin": 562,
+     "palabras": 2334,
+     "fichero_texto": "fuentes/texto/cap11/sec02.txt",
+     "subsecciones": [
+      "Is Ethics ``Relative?''",
+      "Is Ethics Determined by Religion?"
+     ]
+    },
+    {
+     "id": "11.3",
+     "titulo": "Moral Considerations",
+     "pag_ini": 562,
+     "pag_fin": 567,
+     "palabras": 2362,
+     "fichero_texto": "fuentes/texto/cap11/sec03.txt",
+     "subsecciones": [
+      "The ``Goodness'' of Actions and Their Consequences",
+      "Constraints and Special Obligations",
+      "What does it mean for an action to be right or wrong?"
+     ]
+    },
+    {
+     "id": "11.4",
+     "titulo": "Moral Theories",
+     "pag_ini": 567,
+     "pag_fin": 595,
+     "palabras": 13044,
+     "fichero_texto": "fuentes/texto/cap11/sec04.txt",
+     "subsecciones": [
+      "Utilitarianism",
+      "Deontology",
+      "Virtue Ethics",
+      "Social Contract Theory"
+     ]
+    },
+    {
+     "id": "11.5",
+     "titulo": "Conclusion",
+     "pag_ini": 595,
+     "pag_fin": 597,
+     "palabras": 1158,
+     "fichero_texto": "fuentes/texto/cap11/sec05.txt",
+     "subsecciones": []
+    },
+    {
+     "id": "11.6",
+     "titulo": "Literature",
+     "pag_ini": 597,
+     "pag_fin": 599,
+     "palabras": 557,
+     "fichero_texto": "fuentes/texto/cap11/sec06.txt",
+     "subsecciones": [
+      "Recommended Reading"
+     ]
+    }
+   ],
+   "palabras": 20234
+  },
+  {
+   "n": 12,
+   "titulo": "References",
+   "pag_ini": 599,
+   "pag_fin": 630,
+   "secciones": [],
+   "palabras": 0
+  }
+ ]
+}

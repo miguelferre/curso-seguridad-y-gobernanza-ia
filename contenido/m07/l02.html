@@ -1,0 +1,204 @@
+<section class="leccion" data-id="m07/l02">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Hasta ahora hemos visto cómo hacer más seguro un modelo. Pero un modelo seguro vive en un mundo con redes que se pueden atacar, epidemias que pueden llegar y noticias que se pueden falsear. La seguridad sistémica mira ese mundo: usa la IA para que la sociedad aguante mejor los golpes, también los que produce la propia IA.</p>
+<p>Se reparte en cuatro frentes: proteger los sistemas informáticos, vigilar y frenar brotes, ayudar a distinguir lo cierto de lo falso y ayudar a decidir con más cabeza. Y no todo es digital: ventilar bien un hospital protege tanto como un algoritmo.</p>
+<p>El truco está en no creerse la defensa. Las alarmas se equivocan más de lo que parece, los pronósticos pueden ser sobreconfiados y quien se apoya en un asesor deja de mirar por sí mismo.</p>
+
+<svg viewBox="0 0 360 224" role="img" aria-labelledby="ss-t ss-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="ss-t">Los frentes de la seguridad sistémica</title>
+<desc id="ss-d">Cuatro cuadros en dos filas: ciberseguridad, biosecuridad, entorno informativo y decisiones. Debajo, una barra ancha con la infraestructura física, que sostiene a los cuatro.</desc>
+<rect x="4" y="4" width="172" height="76" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="16" y="26" style="fill:var(--accent-ink);font-weight:700;font-size:13px">CIBERSEGURIDAD</text>
+<text x="16" y="47" style="fill:currentColor;font-size:12px">Detectar intrusiones,</text>
+<text x="16" y="64" style="fill:currentColor;font-size:12px">parchear y probar código</text>
+<rect x="184" y="4" width="172" height="76" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="196" y="26" style="fill:var(--ex);font-weight:700;font-size:13px">BIOSECURIDAD</text>
+<text x="196" y="47" style="fill:currentColor;font-size:12px">Aviso de brotes, cribado</text>
+<text x="196" y="64" style="fill:currentColor;font-size:12px">y contramedidas</text>
+<rect x="4" y="88" width="172" height="76" rx="10" style="fill:var(--surface);stroke:var(--trap);stroke-width:2"/>
+<text x="16" y="110" style="fill:var(--trap);font-weight:700;font-size:13px">INFORMACIÓN</text>
+<text x="16" y="131" style="fill:currentColor;font-size:12px">Verificar, dar contexto</text>
+<text x="16" y="148" style="fill:currentColor;font-size:12px">y marcar lo generado</text>
+<rect x="184" y="88" width="172" height="76" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="196" y="110" style="fill:var(--accent-ink);font-weight:700;font-size:13px">DECISIONES</text>
+<text x="196" y="131" style="fill:currentColor;font-size:12px">Pronosticar y proponer</text>
+<text x="196" y="148" style="fill:currentColor;font-size:12px">ideas, con salvaguardas</text>
+<rect x="4" y="176" width="352" height="44" rx="10" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:2"/>
+<text x="180" y="196" text-anchor="middle" style="fill:var(--ex);font-weight:700;font-size:13px">INFRAESTRUCTURA FÍSICA</text>
+<text x="180" y="212" text-anchor="middle" style="fill:currentColor;font-size:12px">ventilación, filtros, reservas de equipos</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Explicar qué es la seguridad sistémica y en qué se distingue de asegurar un modelo concreto.</li>
+<li>Describir con ejemplos usos defensivos de la IA en ciberseguridad, biosecuridad y entorno informativo, y sus límites.</li>
+<li>Calcular el valor predictivo de una alarma y la puntuación de Brier de un pronóstico, e interpretar los dos.</li>
+<li>Explicar cómo el pronóstico y la lluvia de ideas con ML pueden mejorar decisiones, y qué salvaguardas piden.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>¿Qué pretende la seguridad sistémica?</h3>
+<p>Los módulos anteriores trabajan sobre el modelo: que resista ataques, que se le vigile, que persiga lo que queremos. La seguridad sistémica (<em>systemic safety</em>) plantea la pregunta complementaria: ¿cómo dejamos el entorno menos frágil ante los riesgos que la IA trae o agrava? Según el libro, se trata de aprovechar las capacidades de la IA para dar resiliencia a la sociedad. La idea más amplia de impulsar tecnologías que defiendan de riesgos sociales recibe a veces el nombre de aceleracionismo defensivo (<em>defensive accelerationism</em>). Los ejemplos del libro son tres: ciberdefensa, biosecuridad y entorno informativo.</p>
+<p>Una lectura propia, con la ecuación del riesgo de la primera lección de ingeniería de seguridad (peligro × exposición × vulnerabilidad): la robustez, la monitorización y el alineamiento intentan bajar el peligro que aporta el modelo. La seguridad sistémica actúa sobre los otros dos factores, la exposición y la vulnerabilidad de lo que lo rodea. Un hospital con una IA de triaje impecable sigue en riesgo si la red que la aloja cae por un ataque (ejemplo propio).</p>
+
+<h3>¿Qué puede hacer la IA por la defensa digital?</h3>
+<p>El motivo es un temor concreto. Los ataques informáticos a infraestructuras críticas ya han tenido efectos físicos: el libro cita el ataque de 2021 al oleoducto Colonial, que provocó escasez de gasolina en el este de Estados Unidos durante varios días (pág. 170). Y una IA que escribe buen código puede abaratar el ataque: rebajar la destreza que hace falta y, según el libro, aumentar su potencia, escala, rapidez y sigilo. Si eso ocurre, la ventaja sería del atacante.</p>
+<p>La réplica es usar las mismas capacidades del lado defensor, por ejemplo para encontrar fallos en el código antes que nadie. El libro lo plantea en condicional: solo si se aplica bien cambiaría el equilibrio entre ataque y defensa (<em>offense-defense balance</em>). No lo da por hecho. Las tareas defensivas que menciona el libro y los temas de la lección de ciberdefensa del curso son estas cuatro:</p>
+<div class="tw"><table>
+<thead><tr><th>Tarea</th><th>Qué defiende</th><th>Ejemplo propio, en un hospital</th></tr></thead>
+<tbody>
+<tr><td>Detección de intrusiones</td><td>vigila redes y cuentas para señalar accesos no autorizados o suplantaciones</td><td>un acceso a historias clínicas que no encaja con el patrón de ese puesto</td></tr>
+<tr><td>Detección de programas maliciosos</td><td>analiza el código de un programa, o su comportamiento, para marcar lo sospechoso</td><td>un adjunto de correo, revisado antes de que lo abra un administrativo</td></tr>
+<tr><td>Parcheo automático</td><td>propone la edición que corrige un fallo ya conocido</td><td>la corrección de un error del sistema de citas</td></tr>
+<tr><td>Fuzzing</td><td>prueba un programa con entradas inesperadas, de forma automática, para hallar fallos antes que un atacante</td><td>el formulario del portal del paciente, puesto a prueba con datos absurdos</td></tr>
+</tbody></table></div>
+<p>El parcheo automático lo menciona el libro como posibilidad futura de los modelos que traducen y generan código. El fuzzing viene solo de los temas del curso: la definición de la tabla es propia y general. Aquí no hace falta saber cómo se ataca, y no se cubre: basta con entender qué protege cada tarea.</p>
+
+<h4>El problema de las falsas alarmas</h4>
+<p>Una defensa que avisa mil veces al día, casi siempre en falso, acaba ignorada. La cuenta es la de la tasa base (<em>base rate</em>) de la lección de detección de anomalías. Con sensibilidad \(s\) (fracción de ataques reales que se detectan), tasa de falsos positivos \(f\) y prevalencia \(\pi\) (fracción de eventos que son ataques), el valor predictivo positivo (<em>positive predictive value</em>, VPP) es la probabilidad de que una alarma sea un ataque real:</p>
+<div class="formula">\[ \text{VPP}=\frac{s\,\pi}{s\,\pi+f\,(1-\pi)} \]</div>
+<p>Cifras propias. Un hospital registra un millón de eventos al día en sus sistemas y solo 10 son maliciosos (\(\pi=10^{-5}\)). El detector tiene \(s=0{,}9\) y \(f=0{,}001\). Detecta unos 9 ataques y lanza unas 1 000 alarmas falsas, así que solo una de cada 112 alarmas es real: un VPP de 0,9 %. El detector es muy bueno y el equipo de guardia lo vive como un ruido constante. La lectura propia de la historia de Petrov, que sigue en la sección siguiente, es la misma: un ataque real es raro, y ante cualquier aviso lo más probable es que sea falso.</p>
+
+<h3>¿Y en biología y en información?</h3>
+<p>En biosecuridad conviene pensar por fases de un brote (ordenación propia). Antes: revisar los pedidos de síntesis de material genético, para que nadie encargue algo peligroso. Durante: notar el brote en cuanto asoma en los datos y prever cómo evolucionará. Después: acortar el camino hasta las vacunas y los tratamientos. El libro (pág. 170) da a la IA un papel en esas cuatro tareas. Como vía de aviso temprano menciona la secuenciación metagenómica de aguas residuales, y subraya que valdría mucho mejorar las herramientas que detectan patógenos nuevos capaces de esquivar el cribado actual. El riesgo del lado ofensivo, la IA como ayuda para crear un patógeno, se vio en el módulo 1.</p>
+<p>Un ejemplo propio: una red de hospitales que cruza las urgencias respiratorias, las ventas de antitérmicos y las aguas residuales de la ciudad puede notar un brote antes que cada centro mirando solo sus propios datos. Aquí tampoco se describe nada operativo, solo qué función cumple cada pieza.</p>
+<p>Un ejemplo propio para el entorno informativo: circula por redes un bulo sobre un medicamento, con la imagen de un supuesto informe. El libro (págs. 170 y 171) ve dos caras en situaciones así. Por el lado defensivo, la IA podría comprobar la afirmación y ponerle al lado evidencia y contexto. Por el lado preocupante, las falsificaciones generadas resultan más creíbles y, con el tiempo, hasta lo auténtico despierta sospechas si ya no hay manera de distinguirlo, con una sociedad más fragmentada y polarizada. Como primer paso, el libro propone marcas de agua (<em>watermarking</em>) en lo que produce un generador: en el ejemplo, la marca diría si la imagen salió de uno. Ojo con lo que no dice: una marca informa del origen, no de si el contenido es cierto (aviso propio).</p>
+
+<h3>¿Por qué decidir mejor cuenta como seguridad?</h3>
+<p>Muchas decisiones de alto riesgo descansan en pronósticos humanos, y las personas fallan justo cuando hay crisis o desacuerdo. Las notas del curso abren con dos escenas. En la primera, el 26 de septiembre de 1983 el sistema soviético de alerta temprana anunció cinco misiles en camino, y el oficial de guardia, Stanislav Petrov, lo trató como falsa alarma en lugar de comunicarlo como ataque (contado con palabras propias). En la segunda, durante la crisis de los misiles de Cuba, Kennedy estimó el riesgo de guerra nuclear entre una de cada tres y una de cada dos. La idea de la lección L16 es que un sistema bien hecho podría ayudar a estimar mejor esos riesgos y a no escalar por error. Según el libro (pág. 171), podría agregar más información sin estructura de la que maneja una persona.</p>
+<p>Las notas distinguen dos familias de pronóstico (<em>forecasting</em>). El estadístico usa medias móviles, autorregresión u otros modelos de series temporales. El de juicio integra estadísticas, noticias, conocimiento acumulado y razonamiento. Un buen pronosticador debería tener tres rasgos:</p>
+<dl class="facts">
+<div><dt>Amplitud</dt><dd>rinde en temas, formatos de pregunta y horizontes temporales distintos.</dd></div>
+<div><dt>Granularidad</dt><dd>da predicciones finas, con intervalos ajustados, y no solo sí o no.</dd></div>
+<div><dt>Calibración</dt><dd>sus probabilidades coinciden con las frecuencias reales, y se mide con Brier, con el error de calibración RMS y con la calibración de intervalos.</dd></div>
+</dl>
+<p>Autocast (Zou y colaboradores, 2022) es el banco de pruebas de las notas: preguntas de pronóstico de varios tipos, temas y plazos, más un corpus de noticias para consultar. Entre los modelos probados, los grandes que además recuperan información fueron los mejores, y aun así quedaron muy por detrás de los expertos humanos. Sus autores advierten de un posible efecto secundario: si el pronóstico es una capacidad general, lo desaconsejarían. Ese balance es tema de la lección siguiente. Para evaluar estos sistemas, el libro propone que intenten predecir sucesos históricos ya ocurridos. Añadido propio: hay que comprobar que el modelo no vio ya el desenlace en su entrenamiento, o la prueba no mide pronóstico.</p>
+<p>La segunda función es la lluvia de ideas (<em>brainstorming</em>). Imagina una comisión que decide si activa un plan de contingencia y consulta a un asesor de IA (ejemplo propio). Según el libro, el asesor sería útil si trae a la mesa casos previos parecidos y cifras de referencia como las tasas base, y si apunta a quién consultar, qué indicadores vigilar y qué se sacrifica con cada opción. Con ello, dice, mejora el juicio, se corrigen percepciones erróneas y baja el riesgo de escaladas involuntarias. Todo queda condicionado a salvaguardas frente a dos peligros: la dependencia excesiva y el estímulo de riesgos inadecuados. Un asesor que siempre tranquiliza, por ejemplo, empuja hacia lo segundo (lectura propia).</p>
+
+<h3>¿Cómo sé si un pronosticador es bueno?</h3>
+<p>Las notas de L16 remiten a la lección de incertidumbre interpretable, que ya se vio en el módulo 5 (calibración y puntuación de Brier). Recordamos lo que importa para decidir. El Brier es el error cuadrático medio entre la probabilidad dada y el desenlace (0 o 1), y esa forma cuadrática hace que un fallo muy seguro cueste mucho. Dar 95 % a algo que no ocurre cuesta \(0{,}95^2=0{,}9025\); dar 60 % a lo mismo, \(0{,}36\). Además, quien responde siempre 50 % saca exactamente \(0{,}25\), y esa es la referencia con la que comparar a cualquiera: un pronosticador que aporta algo queda por debajo.</p>
+<p>El error de calibración RMS (<em>RMS calibration error</em>) agrupa las predicciones en \(M\) tramos de probabilidad y mide cuánto se separa, en cada uno, la frecuencia observada \(\bar y_b\) de la probabilidad media dada \(\bar p_b\):</p>
+<div class="formula">\[ \text{RMS}=\sqrt{\sum_{b=1}^{M}\frac{n_b}{n}\,\bigl(\bar y_b-\bar p_b\bigr)^2} \]</div>
+<p>Las notas nombran esta medida pero no dan la fórmula: es la definición estándar. Frente al ECE del módulo 5, que promedia distancias, la raíz de cuadrados pesa más los desajustes grandes. Una lectura más cercana a la práctica es la sobreconfianza (<em>overconfidence</em>): confianza media menos tasa de aciertos, donde la confianza de cada pregunta es la probabilidad que se asigna al lado que se elige. Si alguien dice 90 % de media y acierta el 70 %, se pasa de confiado en 20 puntos. Todas estas medidas necesitan muchas preguntas: con seis o dieciséis, son ruido. El simulador usa dieciséis para que se vea el mecanismo, no para sacar conclusiones fiables: <a data-ir="practica" href="#sim-pronostico">pruébalo en Práctica</a>.</p>
+
+<h3>¿Basta con la IA?</h3>
+<p>No, y el libro lo dice sin rodeos (pág. 171): la inversión en infraestructura física puede valer todavía más. Piensa en un virus respiratorio que salta de persona a persona en una sala de espera. Para dificultar ese salto, el libro propone actuar sobre los edificios: renovar y filtrar el aire y añadir luz ultravioleta germicida. Y para que hospitales y servicios esenciales aguanten en plena epidemia, propone acumular reservas de mascarillas y batas y desarrollar equipos de protección de nueva generación, más eficaces y más cómodos. Una lectura propia con el queso suizo del módulo 2: una defensa mixta, con capas digitales y físicas, es más robusta porque sus agujeros tienen causas distintas y coinciden menos. Una IA de aviso de brotes no sirve de nada en un hospital sin filtros ni mascarillas para cuando llegue el aviso.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Cada lunes se plantea la misma pregunta sobre la ocupación de las urgencias de un hospital: ¿superará el 90 % algún día de esta semana? Dos pronosticadores, A y B, dan su probabilidad durante seis semanas. Los dos eligen el mismo lado en todas: sí en las semanas 1, 4 y 6, no en las semanas 2, 3 y 5. La semana 5 hubo sorpresa.</p>
+<div class="tw"><table>
+<thead><tr><th>Semana</th><th>Ocurrió</th><th>A</th><th>B</th><th>Error² de A</th><th>Error² de B</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>sí</td><td>0,95</td><td>0,80</td><td>0,0025</td><td>0,04</td></tr>
+<tr><td>2</td><td>no</td><td>0,05</td><td>0,20</td><td>0,0025</td><td>0,04</td></tr>
+<tr><td>3</td><td>no</td><td>0,05</td><td>0,20</td><td>0,0025</td><td>0,04</td></tr>
+<tr><td>4</td><td>sí</td><td>0,95</td><td>0,80</td><td>0,0025</td><td>0,04</td></tr>
+<tr><td>5</td><td>sí</td><td>0,05</td><td>0,30</td><td>0,9025</td><td>0,49</td></tr>
+<tr><td>6</td><td>sí</td><td>0,95</td><td>0,80</td><td>0,0025</td><td>0,04</td></tr>
+<tr><td><strong>Suma</strong></td><td></td><td></td><td></td><td><strong>0,915</strong></td><td><strong>0,69</strong></td></tr>
+</tbody></table></div>
+<p>El Brier es la suma dividida entre seis: \(0{,}1525\) para A y \(0{,}115\) para B. Los dos mejoran el \(0{,}25\) del "siempre 50 %". Por aciertos irían empatados, con 5 de 6. El Brier los separa porque A puso 95 % en contra de lo que ocurrió y B solo 70 %: la semana 5 cuesta \(0{,}9025\) a uno y \(0{,}49\) al otro. La sobreconfianza lo confirma. A promedia una confianza de 0,95 y acierta el 83,3 %: se pasa 11,7 puntos. B promedia 0,783: queda 5 puntos por debajo de su tasa de aciertos, casi calibrado. Con seis semanas no se puede concluir quién pronostica mejor, pero el mecanismo es el mismo que con seiscientas.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Creer que la defensa con IA gana sola.</strong> Los atacantes usan las mismas capacidades, y el libro condiciona el cambio de equilibrio a que se aplique bien.</p>
+<p><strong>Juzgar una alarma solo por su sensibilidad.</strong> Con ataques raros, un detector con 90 % de sensibilidad puede tener un VPP inferior al 1 % y acabar en fatiga de alarmas: se dejan de mirar, incluida la buena.</p>
+<p><strong>Ordenar pronosticadores por aciertos.</strong> Con la misma tasa de aciertos, el que se pasa de confiado sale peor en Brier que el que ajusta su confianza a esa tasa. Y acertar el 90 % de las veces no es estar calibrado.</p>
+<p><strong>Delegar la decisión en el asesor.</strong> Si nadie contrasta lo que dice, deja de asesorar y pasa a decidir.</p>
+<p><strong>Pensar que es solo software (aviso propio).</strong> La ventilación y las reservas de equipos protegen sin una línea de código.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>Safety isn't only about the model: I also harden the environment around it, with defensive AI, better-calibrated forecasts and physical layers, and I never trust an alarm without asking how rare the real event is.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 3.5 Systemic Safety, págs. 169 a 171 (PDF 187 a 189): definición y aceleracionismo defensivo (169 y 170), ciberseguridad y oleoducto Colonial (170), biosecuridad (170), entorno informativo (170 y 171), pronóstico y asesores (171) e infraestructura física (171).</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS), lección L16 <span lang="en">ML for Improved Decision-Making</span>, notas de Nathaniel Li (sin páginas; se citan las secciones): Background, Forecasting y Autocast. Lección L17 ML for Cyberdefense: no hay notas en el repositorio; solo se han usado sus temas declarados (detección de intrusiones, de programas maliciosos, parcheo automático y fuzzing) como guía de énfasis.</li>
+<li>Añadido propio, no procede de las fuentes: la lectura con la ecuación del riesgo; la definición de fuzzing y los ejemplos hospitalarios; el valor predictivo positivo y su ejemplo; la lectura de Petrov; el aviso sobre contaminación de las pruebas retrospectivas; la fórmula del error RMS (definición estándar que las notas nombran sin dar) y la sobreconfianza; el ejemplo de urgencias; el simulador, con sus preguntas y las probabilidades del pronosticador de ejemplo; y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí te pones en el lugar del pronosticador, primero en el simulador y después con tres ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de pronóstico.</strong> Responde primero las 16 con tu intuición y pulsa "Puntuar". Compara tu Brier con el 0,250 del "siempre 50 %" y con el del ejemplo (0,157, inventado). Fíjate en que el 50 % constante tiene error de calibración 0 y aun así no informa de nada. Después pulsa "Cargar el pronosticador de ejemplo": acierta el 81,3 %, va con una confianza media del 87,2 %, y tres fallos muy seguros (Sáhara, Groenlandia, huesos) se llevan casi todo su Brier. Pulsa "Extremizar": los aciertos no cambian y el Brier sube a 0,188, con 18,8 puntos de sobreconfianza. Vuelve a cargar el ejemplo y pulsa "Suavizar": el error de calibración baja a 0,142, pero el Brier no mejora, sube a 0,163, porque también se apaga la fuerza de sus aciertos. Repite las dos palancas con tus propias cifras.</p>
+<div data-widget="m07-l02-pronostico" id="sim-pronostico"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: Brier de un aviso de colapso (a mano, 6 minutos)</p>
+<p>Un modelo da cada mañana la probabilidad de que las urgencias lleguen a colapso ese día. Cifras propias. En cinco días da 0,8, 0,3, 0,1, 0,6 y 0,4, y el colapso ocurre en el primero y el cuarto (no en los otros tres).</p>
+<ol>
+<li>Calcula su puntuación de Brier.</li>
+<li>Calcula la de un pronosticador que dice siempre 100 % y la del que dice siempre 50 %. ¿Con cuántos fallos como máximo mejora el "siempre 100 %" al 0,25?</li>
+<li>¿Qué día le costó más al modelo, y por qué ese y no otro?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Errores al cuadrado: \((0{,}8-1)^2=0{,}04\), \(0{,}3^2=0{,}09\), \(0{,}1^2=0{,}01\), \((0{,}6-1)^2=0{,}16\) y \(0{,}4^2=0{,}16\). Suman \(0{,}46\); el Brier es \(0{,}46/5=0{,}092\).</p>
+<p><strong>2.</strong> "Siempre 100 %" acierta los 2 días de colapso y falla 3: \(3/5=0{,}6\). "Siempre 50 %": \(0{,}25\) exacto. Con \(k\) fallos de 5, el "siempre 100 %" saca \(k/5\), que solo baja de 0,25 con \(k\le1\): tendría que fallar como mucho una vez.</p>
+<p><strong>3.</strong> Los días 4 y 5 empatan en 0,16 y son los que más cuestan. El día 4 se llevó el colapso con solo 0,6; el día 5 dio 0,4 a algo que no ocurrió. Si solo se mirase quién "acertó", el día 5 pasaría por un éxito. El Brier mira cuán lejos de lo ocurrido estaba la cifra, y por eso cuestan igual.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: la carga del detector de accesos (con Python, 10 minutos)</p>
+<p>Un hospital registra 200 000 accesos al día a historias clínicas y 4 son indebidos (cifras propias). El detector tiene sensibilidad de 0,85 y una tasa de falsos positivos de 0,0005. El equipo de guardia solo puede revisar 30 alarmas al día.</p>
+<ol>
+<li>Calcula a mano cuántas alarmas verdaderas y falsas salen al día, y el valor predictivo positivo.</li>
+<li>Solo puedes mejorar una cosa: subir la sensibilidad a 0,95 o bajar la tasa de falsos positivos a 0,0001. ¿Cuál conviene y por qué?</li>
+<li>Comprueba con este fragmento. ¿Cabe la carga en las 30 alarmas?</li>
+</ol>
+<pre><code>def vpp(n, malos, s, f):
+    tp = malos * s              # alarmas verdaderas
+    fp = (n - malos) * f        # alarmas falsas
+    return tp / (tp + fp), tp + fp
+
+for s, f in [(0.85, 0.0005), (0.85, 0.0001), (0.95, 0.0005)]:
+    v, alarmas = vpp(200_000, 4, s, f)
+    print(s, f, round(v, 3), round(alarmas, 1))</code></pre>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Verdaderas: \(4\times0{,}85=3{,}4\). Falsas: \(199\,996\times0{,}0005\approx100\). Son unas 103 alarmas al día, y el valor predictivo es \(3{,}4/103{,}4\approx0{,}033\): un 3,3 %.</p>
+<p><strong>2.</strong> Con la sensibilidad en 0,95 salen 3,8 alarmas verdaderas y las mismas 100 falsas: el valor predictivo sube solo a 3,7 %. Con la tasa de falsos positivos en 0,0001, las falsas bajan a unas 20 y el valor predictivo sube a 14,5 %. Manda la tasa de falsos positivos, porque las falsas son casi todas las alarmas cuando el ataque es tan raro.</p>
+<p><strong>3.</strong> El fragmento imprime 0.033 y 103.4, 0.145 y 23.4, y 0.037 y 103.8. Solo con la tasa de falsos positivos más baja (23,4 alarmas al día) el trabajo cabe en las 30 que el equipo revisa. Y todavía 6 de cada 7 alarmas serían falsas.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: clasificar medidas (a mano, 8 minutos)</p>
+<p>Para cada medida indica el frente (ciberseguridad, biosecuridad, información o decisiones), si es una capa digital o física y qué salvaguarda o límite habría que añadir.</p>
+<ol>
+<li>Un sistema que cruza urgencias, ventas de farmacia y aguas residuales para avisar de brotes.</li>
+<li>Pruebas automáticas con entradas absurdas en el portal del paciente antes de publicarlo.</li>
+<li>Filtros de aire y luz ultravioleta germicida en la sala de espera de urgencias.</li>
+<li>Un asistente que resume evidencia y tasas base para la comisión que decide si se activa el plan de contingencia.</li>
+<li>Una marca que indica que una imagen ha salido de un generador de IA.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Biosecuridad, capa digital. Límite: las falsas alarmas; hay que conocer la tasa base del brote y el valor predictivo del aviso.</p>
+<p><strong>2.</strong> Ciberseguridad, capa digital (fuzzing). Límite: encuentra fallos, no los corrige; sin parcheo y sin prueba de que el arreglo no rompe otra cosa, no cierra el hueco.</p>
+<p><strong>3.</strong> Biosecuridad, capa física. No depende de que funcione ningún modelo y actúa aunque el aviso digital falle. Es el tipo de medida que el libro dice que puede valer más que las digitales.</p>
+<p><strong>4.</strong> Decisiones, capa digital. Salvaguarda: la comisión contrasta lo que dice el asistente y no delega, y se vigila que no le anime a asumir riesgos por tranquilizarla.</p>
+<p><strong>5.</strong> Información, capa digital. Límite: la marca informa del origen y no de la veracidad, y la falta de marca no demuestra que algo sea auténtico.</p>
+</details>
+</div>
+
+</div>
+
+</section>

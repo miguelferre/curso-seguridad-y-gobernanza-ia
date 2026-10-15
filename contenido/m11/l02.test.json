@@ -1,0 +1,113 @@
+[
+  {
+    "id": "m11l02-q01",
+    "tipo": "unica",
+    "enunciado": "Te ofrecen una apuesta justa a cara o cruz: ganas 1000 € o pierdes 1000 € con probabilidad 1/2. El valor esperado es 0. ¿Qué agente preferiría claramente quedarse con lo seguro?",
+    "opciones": [
+      "Uno averso al riesgo",
+      "Uno neutral al riesgo, porque el valor esperado es 0",
+      "Uno que busca el riesgo",
+      "Ninguno: con valor esperado 0 todos aceptan"
+    ],
+    "correcta": 0,
+    "explicacion": "La aversión es preferir lo seguro a una lotería con el mismo valor esperado. El neutral es indiferente (le da igual) y el buscador prefiere jugar."
+  },
+  {
+    "id": "m11l02-q02",
+    "tipo": "vf",
+    "enunciado": "Un agente con utilidad convexa, por ejemplo u(x) = x al cuadrado, prefiere jugar una lotería a recibir su valor esperado con certeza.",
+    "correcta": true,
+    "explicacion": "Verdadero. Con una curva convexa la utilidad esperada de la lotería supera a la utilidad de su valor esperado, y la certeza equivalente queda por encima del valor esperado: es la búsqueda del riesgo."
+  },
+  {
+    "id": "m11l02-q03",
+    "tipo": "numerica",
+    "enunciado": "Un agente con u(x) = raíz de x se enfrenta a una lotería que da 100 € o 900 € con probabilidad 1/2 cada uno. ¿Cuál es su certeza equivalente, en euros?",
+    "correcta": 400,
+    "tolerancia": 1,
+    "explicacion": "La utilidad esperada es 0,5 · 10 + 0,5 · 30 = 20. La certeza equivalente cumple raíz de CE = 20, luego CE = 400 €."
+  },
+  {
+    "id": "m11l02-q04",
+    "tipo": "numerica",
+    "enunciado": "Un agente con u(x) = raíz de x se enfrenta a una lotería que da 100 € o 900 € con probabilidad 1/2 cada uno. ¿Cuál es su prima de riesgo (valor esperado menos certeza equivalente), en euros?",
+    "correcta": 100,
+    "tolerancia": 1,
+    "explicacion": "El valor esperado es 0,5 · 100 + 0,5 · 900 = 500 €. La prima es el valor esperado menos la certeza equivalente: 500 - 400 = 100 €. Es positiva porque la curva es cóncava."
+  },
+  {
+    "id": "m11l02-q05",
+    "tipo": "multiple",
+    "enunciado": "Según el libro, ¿qué condiciones deben cumplirse para que no haya riesgo de ruina y la neutralidad ante el riesgo sea razonable?",
+    "opciones": [
+      "Los riesgos son locales, afectan solo a una parte del sistema",
+      "Los riesgos no están correlacionados",
+      "Las probabilidades y las consecuencias se pueden estimar razonablemente",
+      "No hay cisnes negros, sucesos improbables y de gran impacto",
+      "El agente es una empresa de gran tamaño",
+      "El valor esperado de la apuesta es positivo"
+    ],
+    "correcta": [0, 1, 2, 3],
+    "explicacion": "Las cuatro condiciones son: riesgos locales, no correlacionados, tratables y sin cisnes negros. Ni el tamaño del agente ni un valor esperado positivo las sustituyen: AIG era enorme y una correlación imprevista casi la arruina, y el triple o nada tiene valor esperado positivo y lleva a la ruina."
+  },
+  {
+    "id": "m11l02-q06",
+    "tipo": "unica",
+    "enunciado": "¿Por qué un agente con utilidad logarítmica de la riqueza nunca acepta una lotería con probabilidad positiva de acabar sin nada?",
+    "opciones": [
+      "Porque el logaritmo de 0 es menos infinito, así que su utilidad esperada sería menos infinito",
+      "Porque el logaritmo es una función convexa",
+      "Porque el logaritmo hace que el valor esperado sea siempre negativo",
+      "Porque un agente logarítmico es neutral al riesgo"
+    ],
+    "correcta": 0,
+    "explicacion": "Con u(0) = menos infinito, cualquier lotería con probabilidad positiva de quedarse en cero tiene utilidad esperada menos infinito. Además el logaritmo es una función cóncava (aversión), no convexa ni lineal."
+  },
+  {
+    "id": "m11l02-q07",
+    "tipo": "numerica",
+    "enunciado": "Un agente juega a \"triple o nada\" con probabilidad 1/2 de ganar y reinvierte todo su capital en cada ronda. ¿Qué probabilidad hay de que conserve algo después de 4 rondas? Responde como número entre 0 y 1.",
+    "correcta": 0.0625,
+    "tolerancia": 0.001,
+    "explicacion": "Solo conserva algo si gana las cuatro rondas: (1/2)^4 = 1/16 = 0,0625. El valor esperado sí crece (1,5^4, unas 5 veces), pero descansa en esa rama poco probable."
+  },
+  {
+    "id": "m11l02-q08",
+    "tipo": "unica",
+    "enunciado": "El libro modela el apetito de riesgo de una empresa con una utilidad en forma de S, convexa al principio y cóncava después. ¿Qué implica para una startup de IA y para una gran empresa madura del sector?",
+    "opciones": [
+      "La startup tiende a buscar el riesgo y la empresa madura a evitarlo",
+      "La startup evita el riesgo y la empresa madura lo busca",
+      "Las dos tienen la misma actitud, porque la actitud es un rasgo fijo",
+      "Ninguna arriesga, porque la S implica neutralidad"
+    ],
+    "correcta": 0,
+    "explicacion": "La parte convexa (la startup, con poco que perder) implica búsqueda del riesgo. La parte cóncava (la empresa madura, con mucho que proteger) implica aversión. La actitud cambia con la situación."
+  },
+  {
+    "id": "m11l02-q09",
+    "tipo": "unica",
+    "enunciado": "Un paciente con utilidad u(x) = raíz de x elige entre un tratamiento seguro de 8 años de vida ajustados por calidad y otro que da 14 con probabilidad 1/2 y 3 con probabilidad 1/2 (valor esperado 8,5). ¿Qué elige?",
+    "opciones": [
+      "El seguro, porque la utilidad esperada del arriesgado (2,74) es menor que la del seguro (2,83)",
+      "El arriesgado, porque tiene mayor valor esperado",
+      "Le da igual, porque las diferencias son pequeñas",
+      "No se puede decir sin saber su riqueza inicial"
+    ],
+    "correcta": 0,
+    "explicacion": "Con la raíz, la utilidad esperada del arriesgado es 0,5 · raíz de 14 + 0,5 · raíz de 3 ≈ 2,74, y la del seguro es raíz de 8 ≈ 2,83. La certeza equivalente del arriesgado es unos 7,49, por debajo de 8. El mayor valor esperado no basta."
+  },
+  {
+    "id": "m11l02-q10",
+    "tipo": "unica",
+    "enunciado": "Un agente cuyo criterio de corrección es maximizar el valor esperado, ¿puede tener mejor resultado decidiendo con aversión al riesgo?",
+    "opciones": [
+      "Sí: por los límites de cálculo, el crecimiento multiplicativo y el riesgo de ruina, un procedimiento averso puede rendir mejor que aplicar la media directamente",
+      "No: si el criterio es la media, el único procedimiento coherente es calcularla siempre",
+      "Sí, pero solo si el agente es un ser humano",
+      "No: aversión y neutralidad son la misma actitud vista de otro modo"
+    ],
+    "correcta": 0,
+    "explicacion": "El criterio de corrección y el procedimiento de decisión pueden diferir. Con estimaciones dudosas, resultados multiplicativos y posibilidad de ruina, decidir como averso suele convenir incluso a quien valora la media."
+  }
+]

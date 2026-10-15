@@ -1,0 +1,113 @@
+[
+  {
+    "id": "m06l02-q01",
+    "tipo": "unica",
+    "enunciado": "El monitor de calidad exige un mínimo de etiquetas para calcular una medición nueva. ¿Qué ocurre cuando todavía no se han reunido?",
+    "opciones": [
+      "Calcula la métrica con las etiquetas que haya y avisa de que es provisional",
+      "No calcula una medición nueva y la última cifra visible se queda congelada",
+      "Sustituye las etiquetas que faltan por las predicciones del modelo",
+      "Marca alerta automáticamente hasta que lleguen"
+    ],
+    "correcta": 1,
+    "explicacion": "Con menos etiquetas que el mínimo el monitor no mide, y la última cifra publicada sigue a la vista aunque ya no sea actual."
+  },
+  {
+    "id": "m06l02-q02",
+    "tipo": "numerica",
+    "enunciado": "Un modelo tiene TP = 40, FN = 10, FP = 20 y TN = 130 sobre 200 casos. ¿Cuál es su precisión? Responde como número entre 0 y 1.",
+    "correcta": 0.667,
+    "tolerancia": 0.005,
+    "explicacion": "La precisión es TP/(TP+FP) = 40/60 = 0,667: dos de cada tres alertas eran reales."
+  },
+  {
+    "id": "m06l02-q03",
+    "tipo": "unica",
+    "enunciado": "En un cribado con un 5 % de enfermos, un modelo dice «sano» a todos los pacientes. ¿Qué métrica delata que no sirve?",
+    "opciones": [
+      "La exactitud, que vale 0,95",
+      "La especificidad, que vale 1",
+      "El valor predictivo negativo, que vale 0,95",
+      "La sensibilidad, que vale 0"
+    ],
+    "correcta": 3,
+    "explicacion": "Acierta a todos los sanos, así que exactitud, especificidad y valor predictivo negativo salen altos. La sensibilidad vale 0 y lo delata."
+  },
+  {
+    "id": "m06l02-q04",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas métricas no usan los verdaderos negativos (TN) en su cálculo?",
+    "opciones": [
+      "F1",
+      "Sensibilidad",
+      "MCC",
+      "Exactitud equilibrada"
+    ],
+    "correcta": [
+      0,
+      1
+    ],
+    "explicacion": "F1 usa TP, FP y FN; la sensibilidad, TP y FN. El MCC usa las cuatro celdas y la exactitud equilibrada incluye la especificidad, que depende de los TN."
+  },
+  {
+    "id": "m06l02-q05",
+    "tipo": "unica",
+    "enunciado": "Un modelo de cribado mantiene su sensibilidad y su especificidad, pero la prevalencia baja del 10 % al 3 %. ¿Qué pasa con su precisión (valor predictivo positivo)?",
+    "opciones": [
+      "Baja mucho, porque hay más falsos positivos por cada verdadero positivo",
+      "Se mantiene, porque el modelo no ha cambiado",
+      "Sube, porque hay menos casos difíciles",
+      "No se puede saber sin las etiquetas de la nueva ventana"
+    ],
+    "correcta": 0,
+    "explicacion": "Con sensibilidad 0,80 y especificidad 0,90, el valor predictivo positivo pasa de unos 0,47 a unos 0,20. Antes de culpar al modelo, mira la prevalencia de la ventana."
+  },
+  {
+    "id": "m06l02-q06",
+    "tipo": "vf",
+    "enunciado": "Si un modelo está bien calibrado, se puede estimar la exactitud esperada de una ventana con la media de las confianzas de sus predicciones, sin esperar a las etiquetas.",
+    "correcta": true,
+    "explicacion": "Es la estimación por confianzas (CBPE). Solo es fiable con un modelo calibrado, y hay que reconciliarla con la exactitud real cuando llega el feedback."
+  },
+  {
+    "id": "m06l02-q07",
+    "tipo": "numerica",
+    "enunciado": "Lotes semanales de 500 casos, un 10 % con etiqueta, un retraso de 2 semanas y un mínimo de 120 etiquetas para medir. ¿En qué semana sale la primera medición?",
+    "correcta": 5,
+    "tolerancia": 0.01,
+    "explicacion": "Cada lote da 50 etiquetas, así que hacen falta 3 lotes (120/50 = 2,4, redondeado hacia arriba). La primera medición sale en la semana 3 + 2 = 5."
+  },
+  {
+    "id": "m06l02-q08",
+    "tipo": "unica",
+    "enunciado": "Una medición da una exactitud de 0,82 con un intervalo de confianza del 95 % de [0,74; 0,88], y el umbral inferior es 0,80. ¿Qué conclusión es razonable?",
+    "opciones": [
+      "Está por encima del umbral: el modelo está bien",
+      "Está por debajo de la mitad del intervalo: hay alerta",
+      "El intervalo cruza el umbral: una medición sola no permite decidir, hace falta juntar más etiquetas",
+      "El intervalo es irrelevante: manda el valor puntual"
+    ],
+    "correcta": 2,
+    "explicacion": "Un intervalo que contiene el umbral no distingue un modelo sano de uno que ha caído. Hay que juntar más etiquetas o esperar a la siguiente medición."
+  },
+  {
+    "id": "m06l02-q09",
+    "tipo": "unica",
+    "enunciado": "En un ejemplo del Atlas, una estimación sin etiquetas daba una exactitud de 0,85, pero al llegar el feedback la exactitud real era 0,70. ¿Cuál es la explicación que da el Atlas?",
+    "opciones": [
+      "Había deriva de datos y la estimación no la captó",
+      "El modelo era sobreconfiado desde el principio, es decir, estaba descalibrado",
+      "Las etiquetas contenían errores de registro",
+      "La prevalencia había subido"
+    ],
+    "correcta": 1,
+    "explicacion": "La estimación por confianzas solo vale con un modelo calibrado. Uno sobreconfiado da confianzas altas que no se cumplen, y confundirlo con deriva lleva a una explicación equivocada."
+  },
+  {
+    "id": "m06l02-q10",
+    "tipo": "vf",
+    "enunciado": "En la demo de Vigía (escenario 1, sintético), en la fase del evento la exactitud sigue dentro del umbral aunque el monitor de equidad da alerta.",
+    "correcta": true,
+    "explicacion": "Según la demo de Vigía 1.0.0, la exactitud pasa de 0,88 a 0,86 con umbral 0,75, y la diferencia de falsos negativos es 0,631, sobre su umbral de 0,55. La media global no ve un daño concentrado en un grupo."
+  }
+]

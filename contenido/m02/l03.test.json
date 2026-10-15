@@ -1,0 +1,113 @@
+[
+  {
+    "id": "m02l03-q01",
+    "tipo": "unica",
+    "enunciado": "En el modelo del queso suizo, ¿qué representa un agujero de una loncha?",
+    "opciones": [
+      "Un accidente que ya ha ocurrido",
+      "Una debilidad de esa defensa, una forma de saltársela",
+      "Una capa de defensa adicional",
+      "La gravedad del daño que produce el peligro"
+    ],
+    "correcta": 1,
+    "explicacion": "Cada loncha es una defensa y sus agujeros son las formas de eludirla. Hay camino hasta el accidente cuando los agujeros de todas las lonchas se alinean."
+  },
+  {
+    "id": "m02l03-q02",
+    "tipo": "numerica",
+    "enunciado": "Tres capas de defensa independientes dejan pasar, cada una, el 10 % de los peligros que les llegan. ¿Qué probabilidad hay de que un peligro las atraviese todas? Responde como número entre 0 y 1.",
+    "correcta": 0.001,
+    "tolerancia": 0.0001,
+    "explicacion": "Con capas independientes se multiplican las fracciones que dejan pasar: 0,1 × 0,1 × 0,1 = 0,001. Son tres nueves de fiabilidad."
+  },
+  {
+    "id": "m02l03-q03",
+    "tipo": "unica",
+    "enunciado": "Según el análisis de proxy gaming con una pajarita, ¿qué tipo de medida es un sistema de detección de anomalías que avisa pronto a los operadores para que corrijan?",
+    "opciones": [
+      "Preventiva, va en el lado izquierdo",
+      "Ninguna de las dos, pertenece al árbol de fallos",
+      "Protectora, va en el lado derecho",
+      "Es la causa del evento central"
+    ],
+    "correcta": 2,
+    "explicacion": "Detectar y corregir pronto limita el daño cuando el evento ya está ocurriendo, así que es una medida protectora. Las preventivas, como limitar el poder de la IA, buscan que el evento no ocurra."
+  },
+  {
+    "id": "m02l03-q04",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas afirmaciones sobre el árbol de fallos son correctas?",
+    "opciones": [
+      "Parte de un resultado no deseado y retrocede hacia sus causas",
+      "Con una puerta Y hacen falta todas las causas a la vez",
+      "Con una puerta O hacen falta todas las causas a la vez",
+      "Parte de cada componente y avanza hacia sus efectos en el sistema"
+    ],
+    "correcta": [
+      0,
+      1
+    ],
+    "explicacion": "El árbol de fallos trabaja hacia atrás desde el resultado. La puerta Y exige todas las causas y la puerta O basta con una. Recorrer los componentes para ver sus efectos es el sentido contrario, propio del FMEA."
+  },
+  {
+    "id": "m02l03-q05",
+    "tipo": "numerica",
+    "enunciado": "Un evento superior sale de una puerta O con dos eventos básicos independientes, de probabilidades 0,02 y 0,03. ¿Cuál es la probabilidad del evento superior? Responde como número entre 0 y 1.",
+    "correcta": 0.0494,
+    "tolerancia": 0.0005,
+    "explicacion": "En una puerta O es uno menos la probabilidad de que no ocurra ninguna: 1 − 0,98 × 0,97 = 1 − 0,9506 = 0,0494. Sumar directamente daría 0,05, que se acerca pero no es exacto y aquí no se acepta."
+  },
+  {
+    "id": "m02l03-q06",
+    "tipo": "vf",
+    "enunciado": "La sonda Mars Polar Lander se estrelló en 1999 porque falló uno de sus componentes.",
+    "correcta": false,
+    "explicacion": "Falso. Cada componente hizo lo que estaba diseñado para hacer. Al desplegarse las patas, sus sensores dieron la señal de contacto con el suelo y el software apagó los retropropulsores a destiempo. Fue una interacción imprevista, no un fallo de pieza."
+  },
+  {
+    "id": "m02l03-q07",
+    "tipo": "unica",
+    "enunciado": "¿Cuál es el supuesto común de los modelos de fallo de componente que los hace insuficientes en sistemas complejos?",
+    "opciones": [
+      "Que todos los componentes fallan con la misma probabilidad",
+      "Que no se pueden calcular probabilidades",
+      "Que las personas nunca forman parte del sistema",
+      "Que el accidente es una cadena lineal de sucesos con una causa raíz"
+    ],
+    "correcta": 3,
+    "explicacion": "Estos modelos razonan como una cadena de sucesos que se rastrea hasta una causa raíz. En sistemas con bucles de realimentación e interacciones, no siempre hay una cadena ni una causa raíz única."
+  },
+  {
+    "id": "m02l03-q08",
+    "tipo": "vf",
+    "enunciado": "Con la hipótesis del libro de que una capa elimina en torno al 90 % del riesgo que queda, añadir una capa equivale más o menos a un nueve más de fiabilidad.",
+    "correcta": true,
+    "explicacion": "Verdadero. Dejar pasar el 10 % es dividir el riesgo restante entre diez, es decir, un orden de magnitud o un nueve. Es una hipótesis razonable, no una ley."
+  },
+  {
+    "id": "m02l03-q09",
+    "tipo": "unica",
+    "enunciado": "En un evento se derraman muchas bebidas. ¿Cuál de estas intervenciones actúa sobre el extremo romo (blunt end) del sistema?",
+    "opciones": [
+      "Limitar el aforo para reducir la densidad de gente",
+      "Pedir cuidado a las personas que tiraron bebidas en la edición anterior",
+      "Poner carteles que pidan cuidado con las bebidas",
+      "Multar a quien derrame una bebida"
+    ],
+    "correcta": 0,
+    "explicacion": "Limitar el aforo cambia una condición de fondo, la densidad, que influye en todos los derrames: es actuar sobre el extremo romo. Pedir cuidado a los asistentes, con carteles, con multas o a quienes derramaron antes, actúa sobre el comportamiento de personas concretas, que es el extremo agudo."
+  },
+  {
+    "id": "m02l03-q10",
+    "tipo": "unica",
+    "enunciado": "Multiplicar las probabilidades de fallo de varias capas puede ser demasiado optimista. ¿Por qué?",
+    "opciones": [
+      "Porque las probabilidades no se pueden multiplicar nunca",
+      "Porque cada capa adicional aumenta el riesgo",
+      "Porque las capas pueden fallar por una causa común y no ser independientes",
+      "Porque el producto ignora los componentes que funcionan bien"
+    ],
+    "correcta": 2,
+    "explicacion": "El producto vale si las capas fallan por separado. Si comparten una causa (los mismos datos erróneos, la misma prisa), sus agujeros coinciden y el riesgo real es mayor que el producto."
+  }
+]

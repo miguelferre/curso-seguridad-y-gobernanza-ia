@@ -1,0 +1,117 @@
+[
+  {
+    "id": "m08l05-q01",
+    "tipo": "unica",
+    "enunciado": "En incertidumbre moral, ¿qué es la credencia (credence) en una teoría?",
+    "opciones": [
+      "La frecuencia con la que esa teoría acierta en casos observados",
+      "El grado de confianza, expresado como probabilidad, en que la teoría sea cierta",
+      "El valor que la teoría da a una opción concreta",
+      "El número de delegados que tiene la teoría en el parlamento"
+    ],
+    "correcta": 1,
+    "explicacion": "La credencia es un grado de creencia: la probabilidad que alguien da a que una teoría sea la correcta. No se mide con frecuencias. El valor que una teoría da a una opción es la elegibilidad."
+  },
+  {
+    "id": "m08l05-q02",
+    "tipo": "unica",
+    "enunciado": "Una IA usa la regla de la teoría favorita con dos teorías, la primera con un 51 % de credencia y la segunda con un 49 %. La segunda considera que la acción que recomienda la primera es gravísima. ¿Cuál es el fallo de la regla?",
+    "opciones": [
+      "Exige demasiados cálculos para aplicarla",
+      "Descarta lo que dice la segunda teoría, aunque la credencia sea casi igual y su rechazo sea muy fuerte",
+      "Obliga a elegir siempre la opción de compromiso",
+      "Solo se puede aplicar cuando hay más de tres teorías"
+    ],
+    "correcta": 1,
+    "explicacion": "La regla sigue a la teoría con más credencia y tira lo que dice el resto, aunque la diferencia sea de dos puntos y la otra teoría pese mucho más en juego."
+  },
+  {
+    "id": "m08l05-q03",
+    "tipo": "numerica",
+    "enunciado": "Un sistema tiene credencias del 50 %, 30 % y 20 % en tres teorías. Para una opción, sus valores de elegibilidad son +200, −300 y +100. ¿Cuál es la elegibilidad esperada de esa opción?",
+    "correcta": 30,
+    "tolerancia": 0.5,
+    "explicacion": "Se multiplica cada valor por su credencia y se suma: 0,5 × 200 + 0,3 × (−300) + 0,2 × 100 = 100 − 90 + 20 = 30."
+  },
+  {
+    "id": "m08l05-q04",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estos son límites de la maximización de la elegibilidad esperada (MEC)?",
+    "opciones": [
+      "Asignar números de elegibilidad y compararlos entre teorías puede ser arbitrario",
+      "Una teoría absolutista llevaría un valor enorme y dominaría aun con credencia baja",
+      "Ignora las credencias y solo mira los valores",
+      "Solo se puede usar con dos teorías"
+    ],
+    "correcta": [
+      0,
+      1
+    ],
+    "explicacion": "Los números no salen de ninguna medición, y una teoría con valores enormes aplasta a las demás incluso con credencia baja. MEC sí usa las credencias y admite cualquier número de teorías."
+  },
+  {
+    "id": "m08l05-q05",
+    "tipo": "vf",
+    "enunciado": "En un parlamento moral con votación por mayoría simple, los delegados de la teoría con más de la mitad de la credencia pueden imponer siempre su decisión.",
+    "correcta": true,
+    "explicacion": "Es la razón por la que el libro propone las oportunidades proporcionales: con mayoría simple, la teoría mayoritaria gana siempre y nadie tiene incentivo para negociar."
+  },
+  {
+    "id": "m08l05-q06",
+    "tipo": "numerica",
+    "enunciado": "Un parlamento tiene 100 delegados repartidos así: 40 de la teoría 1, 35 de la teoría 2 y 25 de la teoría 3. Las teorías 1 y 3 votan por la opción X y la teoría 2 por la opción Y. Con votación por oportunidades proporcionales, ¿qué probabilidad tiene la opción X de ser elegida? Responde como número entre 0 y 1.",
+    "correcta": 0.65,
+    "tolerancia": 0.005,
+    "explicacion": "La probabilidad de cada opción es su cuota de votos. X recibe 40 + 25 = 65 votos de 100, así que tiene una probabilidad de 0,65, y Y de 0,35."
+  },
+  {
+    "id": "m08l05-q07",
+    "tipo": "unica",
+    "enunciado": "¿Qué describe la maldición del ganador (winner's curse) cuando una IA elige entre millones de opciones con estimaciones de valor ruidosas?",
+    "opciones": [
+      "Que la opción con mayor valor estimado suele estar sobrestimada, y por eso gana",
+      "Que siempre gana la opción con menos varianza",
+      "Que el parlamento no puede llegar a ningún acuerdo",
+      "Que las teorías con más credencia pierden en la votación"
+    ],
+    "correcta": 0,
+    "explicacion": "Con muchas opciones y error de estimación, la que parece mejor suele serlo en parte porque el ruido la favoreció, como quien gana una subasta por sobrestimar el bien."
+  },
+  {
+    "id": "m08l05-q08",
+    "tipo": "multiple",
+    "enunciado": "Según el libro, ¿qué ventajas tiene usar un parlamento moral en lugar de dar a la IA unos valores fijos?",
+    "opciones": [
+      "Guardar las negociaciones simuladas hace más transparente cómo se pesaron las consideraciones",
+      "Tener varias teorías da redundancia y hace al sistema menos frágil",
+      "Se pueden actualizar los pesos y los representantes a medida que cambian las opiniones morales",
+      "Elimina la necesidad de decidir qué teorías entran y con qué peso"
+    ],
+    "correcta": [
+      0,
+      1,
+      2
+    ],
+    "explicacion": "Las tres primeras son ventajas del libro: transparencia, redundancia y adaptación a valores cambiantes. Decidir qué teorías entran y con qué peso, en cambio, es uno de sus retos: es subjetivo y político."
+  },
+  {
+    "id": "m08l05-q09",
+    "tipo": "vf",
+    "enunciado": "En la elegibilidad esperada, multiplicar por dos todos los valores de una sola teoría, sin cambiar ninguna credencia, nunca puede cambiar la opción recomendada.",
+    "correcta": false,
+    "explicacion": "Sí puede cambiarla: la suma ponderada depende de las escalas de cada teoría. En el ejemplo de Alex, pasar de −1000 a −1100 en la deontología cambia el resultado de +10 a −20. Es el problema de comparar la escala entre teorías."
+  },
+  {
+    "id": "m08l05-q10",
+    "tipo": "unica",
+    "enunciado": "En el notebook se evalúa la frase «I saved x people» con distintos valores de x y se dibuja la utilidad que da el modelo. ¿Qué se busca comprobar?",
+    "opciones": [
+      "Que la utilidad crezca de forma coherente con el número de personas salvadas, algo que el modelo no cumple del todo",
+      "Que el modelo sea capaz de contar hasta 99",
+      "Que la utilidad sea siempre negativa",
+      "Que el modelo dé el mismo valor a todas las frases"
+    ],
+    "correcta": 0,
+    "explicacion": "Se espera una utilidad que crezca con el número de vidas salvadas. El notebook indica que el modelo se comporta de forma extraña: una utilidad aprendida hay que auditarla, no darla por buena."
+  }
+]

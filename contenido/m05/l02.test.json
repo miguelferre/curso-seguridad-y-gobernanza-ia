@@ -1,0 +1,114 @@
+[
+  {
+    "id": "m05l02-q01",
+    "tipo": "unica",
+    "enunciado": "Solo el 1 % de las imágenes de un servicio son anómalas. ¿Por qué la exactitud es una mala métrica para el detector?",
+    "opciones": [
+      "Porque no se puede calcular sin un umbral",
+      "Porque un detector que nunca avisa ya tendría un 99 % de exactitud",
+      "Porque solo vale para modelos generativos",
+      "Porque cuenta las falsas alarmas dos veces"
+    ],
+    "correcta": 1,
+    "explicacion": "Con anomalías raras, decir siempre \"normal\" acierta casi siempre y no detecta nada. Por eso se separan los dos errores con TPR y FPR, y se usan AUROC, FPR95 y AUPR."
+  },
+  {
+    "id": "m05l02-q02",
+    "tipo": "numerica",
+    "enunciado": "Un detector da estas puntuaciones de anomalía. Normales: 0,2; 0,4; 0,5 y 0,7. Anómalas: 0,3; 0,6; 0,8 y 0,9. ¿Cuál es su AUROC? Responde como número entre 0 y 1.",
+    "correcta": 0.75,
+    "tolerancia": 0.005,
+    "explicacion": "Hay 4 × 4 = 16 pares. La anómala 0,3 supera solo a la normal 0,2 (1 par). La 0,6 supera a 0,2; 0,4 y 0,5 (3 pares). La 0,8 y la 0,9 superan a las cuatro (4 + 4). Suman 12 de 16, es decir, 0,75."
+  },
+  {
+    "id": "m05l02-q03",
+    "tipo": "unica",
+    "enunciado": "¿Qué mide el FPR al 95 % de TPR (FPR95)?",
+    "opciones": [
+      "La fracción de anomalías detectadas cuando solo el 5 % de las normales da alarma",
+      "La fracción de normales que dan alarma cuando el umbral detecta el 95 % de las anomalías",
+      "La probabilidad de que una normal puntúe más que una anómala",
+      "La precisión de las alarmas cuando la prevalencia es del 95 %"
+    ],
+    "correcta": 1,
+    "explicacion": "Se baja el umbral hasta cazar el 95 % de las anomalías y se mira qué fracción de las normales molesta. Menos es mejor. La primera opción describe el caso contrario (TPR a un FPR fijo) y la tercera es la lectura probabilística del AUROC."
+  },
+  {
+    "id": "m05l02-q04",
+    "tipo": "vf",
+    "enunciado": "Un AUROC de 0,5 significa que el detector ordena las puntuaciones como lo haría el azar, y el AUROC no depende de un umbral concreto.",
+    "correcta": true,
+    "explicacion": "El AUROC recorre todos los umbrales y es la probabilidad de que una anómala puntúe más que una normal. El 0,5 es el azar y el 1 es la separación perfecta."
+  },
+  {
+    "id": "m05l02-q05",
+    "tipo": "numerica",
+    "enunciado": "En un servicio con 10.000 imágenes, el 1 % es anómalo. El detector tiene TPR 90 % y FPR 5 %. ¿Qué fracción de las alarmas son anomalías reales (la precisión)? Responde como número entre 0 y 1.",
+    "correcta": 0.154,
+    "tolerancia": 0.005,
+    "explicacion": "Anómalas: 100; cazadas: 0,9 × 100 = 90. Normales: 9.900; falsas alarmas: 0,05 × 9.900 = 495. Precisión = 90 / (90 + 495) = 90 / 585 ≈ 0,154."
+  },
+  {
+    "id": "m05l02-q06",
+    "tipo": "unica",
+    "enunciado": "Un clasificador de gatos y perros devuelve las probabilidades [0,8; 0,2]. Si la puntuación de anomalía es la de la probabilidad softmax máxima (MSP), ¿cuál es esa puntuación?",
+    "opciones": [
+      "0,2",
+      "0,8",
+      "-0,8",
+      "-0,2"
+    ],
+    "correcta": 2,
+    "explicacion": "La confianza es la mayor probabilidad, 0,8. Como la puntuación de anomalía debe ser más alta cuanto más raro es el dato, se toma su opuesto: -0,8. Un dato cuya mayor probabilidad fuera 0,55 tendría -0,55, mayor, y saldría como más anómalo."
+  },
+  {
+    "id": "m05l02-q07",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas afirmaciones sobre la exposición a atípicos (outlier exposure) son correctas?",
+    "opciones": [
+      "Durante el entrenamiento se usa un conjunto auxiliar de datos fuera de distribución",
+      "La prueba debe hacerse con anomalías que el modelo no ha visto",
+      "El conjunto auxiliar tiene que ser idéntico al de la prueba para que funcione",
+      "Un conjunto auxiliar más diverso ayuda al modelo a entender qué es normal"
+    ],
+    "correcta": [
+      0,
+      1,
+      3
+    ],
+    "explicacion": "El auxiliar entrena al modelo a dudar con lo raro, y se evalúa con anomalías nuevas porque el detector debe cubrir puntos ciegos. Los autores encuentran que el auxiliar no necesita parecerse al de la prueba, y que ayuda que sea diverso y esté lo bastante cerca de los datos normales."
+  },
+  {
+    "id": "m05l02-q08",
+    "tipo": "unica",
+    "enunciado": "¿Qué problema aparece al usar como puntuación de anomalía la verosimilitud de un modelo generativo?",
+    "opciones": [
+      "Solo funciona con texto, no con imágenes",
+      "Exige conocer de antemano las anomalías",
+      "A veces da más verosimilitud a los datos anómalos que a los normales",
+      "Siempre supera a los métodos discriminativos"
+    ],
+    "correcta": 2,
+    "explicacion": "Varios trabajos encontraron modelos que asignaban más verosimilitud a datos fuera de distribución que a los de entrenamiento. El fenómeno no se entiende bien y estos métodos necesitan trucos; según las notas, no superan a los mejores discriminativos."
+  },
+  {
+    "id": "m05l02-q09",
+    "tipo": "vf",
+    "enunciado": "En la clasificación de una clase (one-class), el modelo se entrena con una sola clase y todas las demás cuentan como fuera de distribución, así que hacen falta métodos que no usen etiquetas de clase.",
+    "correcta": true,
+    "explicacion": "Como todo lo que el modelo ve en entrenamiento es de la misma clase, no hay etiquetas que aprovechar y los métodos deben ser no supervisados."
+  },
+  {
+    "id": "m05l02-q10",
+    "tipo": "unica",
+    "enunciado": "En ViM, ¿cómo se obtiene la puntuación de anomalía?",
+    "opciones": [
+      "Restando la energía (logsumexp de los logits) al logit virtual, que sale del residuo fuera del espacio principal de las características",
+      "Tomando la probabilidad softmax máxima y elevándola a la temperatura 1000",
+      "Midiendo lo bien que el modelo predice la rotación de la imagen",
+      "Entrenando con un conjunto auxiliar y penalizando la divergencia KL respecto a la uniforme"
+    ],
+    "correcta": 0,
+    "explicacion": "ViM proyecta las características al espacio ortogonal al principal, escala la norma del residuo con alfa (logit virtual) y le resta la energía. Las otras opciones describen ODIN, la autosupervisión por rotación y la exposición a atípicos."
+  }
+]

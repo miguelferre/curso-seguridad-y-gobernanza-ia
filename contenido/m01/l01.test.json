@@ -1,0 +1,112 @@
+[
+  {
+    "id": "m01l01-q01",
+    "tipo": "unica",
+    "enunciado": "En la clasificación del libro por tipo de causa, ¿dónde se sitúa el uso malicioso de la IA?",
+    "opciones": [
+      "Entre las causas intencionales",
+      "Entre las causas estructurales, como la presión competitiva",
+      "Entre las causas accidentales, como los fallos de organización",
+      "Entre las causas internas, como el descontrol de una IA"
+    ],
+    "correcta": 0,
+    "explicacion": "Hay alguien que quiere hacer daño con la IA, o que lo asume con imprudencia: la causa es intencional. La carrera es estructural, los riesgos organizativos son accidentales y la IA descontrolada es interna."
+  },
+  {
+    "id": "m01l01-q02",
+    "tipo": "vf",
+    "enunciado": "Según el libro, el riesgo de una pandemia diseñada crece con el número de personas que tienen la habilidad y el acceso necesarios, y los asistentes de IA podrían multiplicar ese número.",
+    "correcta": true,
+    "explicacion": "Es el argumento de la proporcionalidad: si la IA reduce la formación necesaria, aumenta el número de personas capaces y, con él, el riesgo. El libro habla de órdenes de magnitud."
+  },
+  {
+    "id": "m01l01-q03",
+    "tipo": "numerica",
+    "enunciado": "Diez grupos deciden por separado si publican en abierto un modelo de doble uso, y cada uno tiene un 10 % de probabilidad de hacerlo. ¿Qué probabilidad hay de que publique al menos uno? Responde como número entre 0 y 1.",
+    "correcta": 0.651,
+    "tolerancia": 0.005,
+    "explicacion": "Es uno menos la probabilidad de que ninguno publique: 1 - 0,9^10 = 1 - 0,3487 = 0,6513. Cada grupo es prudente por separado, pero el conjunto lo es poco."
+  },
+  {
+    "id": "m01l01-q04",
+    "tipo": "numerica",
+    "enunciado": "El libro indica que el coste de la síntesis genética se reduce a la mitad cada 15 meses, aproximadamente. Si la tendencia se mantiene, ¿cuántas veces menor será el coste dentro de 10 años?",
+    "correcta": 256,
+    "tolerancia": 1,
+    "explicacion": "10 años son 120 meses, es decir, 120 / 15 = 8 reducciones a la mitad, y 2^8 = 256. Es una extrapolación de una tendencia, no una predicción."
+  },
+  {
+    "id": "m01l01-q05",
+    "tipo": "unica",
+    "enunciado": "¿Por qué el problema de los actores unilaterales hace insuficiente la prudencia de la mayoría?",
+    "opciones": [
+      "Porque los actores unilaterales siempre actúan con mala intención",
+      "Porque los modelos abiertos son siempre más peligrosos que los cerrados",
+      "Porque el resultado lo decide el actor menos reacio al riesgo y una vez publicado no se puede revertir",
+      "Porque la mayoría de los grupos no tiene acceso a los modelos"
+    ],
+    "correcta": 2,
+    "explicacion": "Basta con que uno decida que los beneficios compensan. No hace falta malicia, la imprudencia también cuenta, y lo publicado no se recoge. Por eso hacen falta reglas comunes."
+  },
+  {
+    "id": "m01l01-q06",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas son vías de uso malicioso que describe el libro en la sección 1.2?",
+    "opciones": [
+      "Ayudar a diseñar armas biológicas y reducir la barrera de conocimiento",
+      "Soltar a propósito agentes de IA con metas dañinas",
+      "Generar desinformación personalizada a gran escala",
+      "Concentrar el poder en pocas manos con vigilancia y persuasión",
+      "Que empresas recorten seguridad por la presión competitiva",
+      "Un accidente por falta de cultura de seguridad en un laboratorio"
+    ],
+    "correcta": [0, 1, 2, 3],
+    "explicacion": "Las cuatro primeras son las vías de la sección 1.2: bioterrorismo, agentes sueltos, persuasión y concentración de poder. La presión competitiva es la carrera de la IA (l02) y el accidente por cultura de seguridad es un riesgo organizativo (l03)."
+  },
+  {
+    "id": "m01l01-q07",
+    "tipo": "unica",
+    "enunciado": "¿Qué enseña el caso de ChaosGPT que cuenta el libro?",
+    "opciones": [
+      "Que los filtros de seguridad bastan, porque el proyecto no logró nada",
+      "Que se esquivaron los filtros y solo la falta de capacidad evitó el daño, así que fue una advertencia",
+      "Que un agente con metas dañinas no es un riesgo si no tiene éxito",
+      "Que los proyectos abiertos están siempre bien vigilados"
+    ],
+    "correcta": 1,
+    "explicacion": "El proyecto esquivó los filtros y dio al agente metas destructivas. Falló por falta de capacidad, no de intención. Con sistemas más capaces habría sido otra cosa."
+  },
+  {
+    "id": "m01l01-q08",
+    "tipo": "unica",
+    "enunciado": "Un gobierno responde al riesgo de terrorismo con vigilancia masiva y reservando la IA avanzada a una minoría de confianza. Según el libro, ¿qué riesgo crea?",
+    "opciones": [
+      "Ninguno, porque un gobierno es siempre de confianza",
+      "Un aumento directo de la desinformación personalizada",
+      "Solo un coste económico sin otro riesgo",
+      "Una sobrecorrección: uso malicioso de arriba abajo, con concentración de poder y riesgo de régimen totalitario"
+    ],
+    "correcta": 3,
+    "explicacion": "El libro avisa de que la reacción obvia puede reducir el uso malicioso de abajo arriba a costa de crear otro de arriba abajo, con la IA como soporte de un control difícil de revertir."
+  },
+  {
+    "id": "m01l01-q09",
+    "tipo": "vf",
+    "enunciado": "Según la lección, el libro presenta los filtros de seguridad del propio modelo como la única medida frente al uso malicioso.",
+    "correcta": false,
+    "explicacion": "El libro habla de limitar el acceso, de vigilancia dirigida y de políticas y coordinación, y cuenta que los filtros de un modelo comercial se esquivaron. Ninguna medida basta sola."
+  },
+  {
+    "id": "m01l01-q10",
+    "tipo": "unica",
+    "enunciado": "¿Por qué el libro ve un riesgo en el bloqueo de valores (lock-in)?",
+    "opciones": [
+      "Porque las IA no pueden aprender ningún valor",
+      "Porque una IA que aprende valores o sesgos defectuosos los perpetúa y cuesta quitarlos, y los valores de hoy pueden no ser los de mañana",
+      "Porque los valores de una sociedad no cambian con el tiempo",
+      "Porque obliga a apagar la IA cada cierto tiempo"
+    ],
+    "correcta": 1,
+    "explicacion": "Los sistemas aprenden sesgos y luego cuesta eliminarlos, y una sociedad futura puede rechazar valores que hoy nadie discute. El libro apunta a diseñar las IA para que sigan actualizando su comprensión de los valores."
+  }
+]

@@ -1,0 +1,179 @@
+<section class="leccion" data-id="m01/l03">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>No hace falta un villano ni una carrera para que una IA cause un desastre. Basta una organización que no se toma en serio la seguridad. Los accidentes graves de la historia ocurrieron en equipos muy competentes, sin rivales apretando y sin nadie con mala intención.</p>
+<p>Con la IA esto pesa más: sus creadores no saben del todo qué hace por dentro, sus capacidades saltan sin avisar y sus fallos pueden tardar años en aparecer. Por eso importa menos ser perfecto que ser el tipo de organización que pregunta, escucha los avisos, mide bien y no se deja engañar por sus propias buenas noticias.</p>
+<p>La lección tiene dos mitades: por qué los accidentes son difíciles de evitar y qué hábitos reducen la probabilidad de que un accidente se convierta en catástrofe. Al final, una lista de comprobación te deja evaluar un caso hospitalario y tu propia organización.</p>
+
+<svg viewBox="0 0 360 250" role="img" aria-labelledby="ro-t ro-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="ro-t">Riesgos organizativos: por qué ocurren y qué los frena</title>
+<desc id="ro-d">A la izquierda, las tres razones del libro por las que los accidentes son difíciles de evitar: sistemas complejos y opacos, saltos imprevistos y fallos que tardan años en verse. A la derecha, cuatro hábitos que frenan la escalada: cultura de seguridad, actitud cuestionadora, medir la seguridad frente a las capacidades y no maquillar la seguridad.</desc>
+<text x="90" y="18" text-anchor="middle" style="fill:var(--trap);font-weight:700;font-size:12px;letter-spacing:.06em">POR QUÉ SON DIFÍCILES</text>
+<text x="270" y="18" text-anchor="middle" style="fill:var(--ex);font-weight:700;font-size:12px;letter-spacing:.06em">QUÉ LOS FRENA</text>
+<g style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5">
+<rect x="6" y="28" width="168" height="62" rx="8"/>
+<rect x="6" y="100" width="168" height="62" rx="8"/>
+<rect x="6" y="172" width="168" height="62" rx="8"/>
+</g>
+<g style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5">
+<rect x="186" y="28" width="168" height="44" rx="8"/>
+<rect x="186" y="82" width="168" height="44" rx="8"/>
+<rect x="186" y="136" width="168" height="44" rx="8"/>
+<rect x="186" y="190" width="168" height="44" rx="8"/>
+</g>
+<g style="fill:currentColor;font-size:12.5px" text-anchor="middle">
+<text x="90" y="56">Sistemas complejos</text><text x="90" y="72">y opacos</text>
+<text x="90" y="128">Saltos que</text><text x="90" y="144">nadie esperaba</text>
+<text x="90" y="200">Fallos que tardan</text><text x="90" y="216">años en verse</text>
+<text x="270" y="46">Cultura de seguridad</text><text x="270" y="62">y voz para avisar</text>
+<text x="270" y="100">Actitud cuestionadora</text><text x="270" y="116">y peor caso</text>
+<text x="270" y="154">Medir seguridad frente</text><text x="270" y="170">a capacidades</text>
+<text x="270" y="208">Sin maquillaje</text><text x="270" y="224">de seguridad</text>
+</g>
+<g style="fill:none;stroke:var(--muted);stroke-width:1.5">
+<path d="M176 131 H184 M180 127 L184 131 L180 135"/>
+</g>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Explicar por qué un accidente puede ser catastrófico sin competencia ni malicia, con ejemplos históricos y de IA.</li>
+<li>Nombrar tres razones por las que los accidentes son difíciles de evitar y qué respuesta organizativa sugiere cada una.</li>
+<li>Describir los rasgos de una cultura de seguridad sólida y distinguir mejorar una métrica de seguridad de reducir el riesgo global.</li>
+<li>Aplicar una lista de comprobación de diez factores a un caso y justificar la puntuación de cada uno.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>¿Puede haber catástrofe sin carrera ni malicia?</h3>
+<p>En la lección de uso malicioso, alguien quería hacer daño. En la de la carrera, la presión empujaba a correr. Aquí no hay ni una cosa ni la otra: es la fuente de riesgo accidental (<em>organizational risks</em>). Tres ejemplos del libro lo muestran. El transbordador Challenger (1986) se destruyó cuando la carrera espacial con la URSS había perdido buena parte de su fuerza. Chernobyl (1986) sucedió en un proyecto estatal sin rival, cuando un turno de noche poco preparado llevó mal una prueba del sistema de refrigeración. Y en Sverdlovsk (1979), un centro militar soviético liberó esporas de ántrax por fallos de procedimiento y de mantenimiento, con al menos 66 muertes confirmadas (pp. 28 a 29).</p>
+<p>La comparación con la IA es incómoda. Un reactor se apoya en una teoría sólida y sus piezas se prueban hasta el límite, y aun así hay accidentes. En IA falta esa teoría completa y los propios creadores no saben del todo qué ocurre dentro del modelo (p. 29). Lectura propia: si ni la ingeniería más madura evita todos los accidentes, la IA parte peor, porque además se entiende menos.</p>
+
+<h3>¿Cómo se ve un accidente de IA que escale?</h3>
+<p>El libro da tres formas. La primera es un error pequeño con efecto grande. Ejemplo del libro: durante una limpieza de código en OpenAI se invirtió por error el signo de la recompensa de un entrenamiento, y el sistema pasó la noche produciendo lo contrario de lo buscado sin que nadie lo parase (p. 30). La segunda es la fuga: un modelo se copia sin coste, así que una filtración o una intrusión lo saca del control de sus creadores y ya no se puede devolver a la botella (p. 30). La tercera es la investigación de ganancia de función (<em>gain-of-function</em>): entrenar a propósito algo peligroso para conocer sus límites. Da información útil, pero puede descubrir capacidades peores de las previstas, y solo es prudente con procedimientos estrictos, supervisión y el compromiso de compartir la información con responsabilidad (p. 30).</p>
+<p>Un caso propio, de sanidad, ayuda a verlo: un modelo que prioriza camas de cuidados intensivos y se despliega con una variable de tiempo mal alineada. El fallo es minúsculo, pero el sistema es opaco, sus usuarios confían en él y nadie está mirando la salida con lupa. Hasta que alguien lo nota, ya ha influido en decenas de decisiones.</p>
+
+<h3>¿Por qué no basta con ser cuidadosos?</h3>
+<p>El libro da tres razones de por qué los accidentes son difíciles de evitar (pp. 30 a 32).</p>
+
+<h4>1. Los sistemas complejos fallan de formas que nadie planificó</h4>
+<p>El sociólogo Charles Perrow sostiene que en sistemas complejos los accidentes son "normales": no salen solo del error humano, sino de interacciones entre componentes que nadie pudo prever del todo (p. 30). Ejemplo del libro: en Three Mile Island (1979) una etiqueta de mantenimiento tapaba los pilotos de una válvula y los operadores no vieron que estaba cerrada. El curso desarrolla esta idea, con su teoría de accidentes normales, en la lección de factores sistémicos (m02/l04); aquí basta la conclusión que saca el libro. En el aprendizaje profundo, que ni es del todo fiable ni se entiende bien, no se puede aspirar a cero accidentes. Lo realista es que un accidente no escale hasta catástrofe (pp. 30 y 31).</p>
+
+<h4>2. Los saltos llegan sin avisar</h4>
+<p>Los expertos suelen equivocarse sobre cuándo llegará algo. Ejemplos del libro: los hermanos Wright dijeron que volar estaba a cincuenta años, dos años antes de hacerlo; Fermi tenía en 1939 un 90 % de confianza en que sostener una reacción en cadena con uranio era imposible, y cuatro años después dirigía el primer reactor (p. 31). En IA pasa lo mismo: la victoria de AlphaGo sobre Lee Sedol en 2016 sorprendió a muchos especialistas, y los grandes modelos de lenguaje muestran capacidades emergentes que nadie había previsto y cuyo rendimiento salta con más recursos (p. 31). Es difícil controlar algo cuando no se sabe qué es capaz de hacer.</p>
+
+<h4>3. Los fallos graves pueden tardar años en aparecer</h4>
+<p>Muchas sustancias y tecnologías se creyeron seguras hasta que se vio el daño: el plomo en gasolina y pintura, el amianto o la talidomida (ejemplos del libro, p. 31). En software, el fallo Heartbleed, en una biblioteca criptográfica muy usada, pasó años sin detectarse (pp. 31 y 32). Y en IA, un ataque adversarial mostró que un programa de Go superior a los humanos, KataGo, tenía un punto débil que aficionados podían explotar para ganarle (p. 32). La respuesta que propone el libro combina pruebas de expertos con lanzamientos graduales y con tiempo, para que los defectos salgan antes de afectar a mucha gente.</p>
+<p>Ejemplo propio, con sanidad: un modelo que rinde bien durante catorce meses hasta que el hospital cambia de analizador de laboratorio y las unidades de una variable varían un poco. Si se hubiera desplegado por plantas, una sola habría mostrado el problema.</p>
+
+<h3>¿Qué tienen las organizaciones que evitan catástrofes?</h3>
+<p>Existen organizaciones que operan sistemas peligrosos casi sin desastres: portaaviones, centrales, control del tráfico aéreo. El libro subraya que no se fijan solo en el peligro técnico, sino también en factores humanos, procedimientos y estructura (p. 32). Vamos a recorrer los rasgos que menciona. Los agruparemos como factores de una lista de comprobación que aplicarás <a data-ir="practica" href="#sim-cultura">en Práctica</a>. El marco sistémico completo, incluidas las organizaciones de alta fiabilidad (<em>High Reliability Organizations</em>, HRO), se trata en m02/l04; aquí solo los nombramos.</p>
+
+<h4>Cultura de seguridad</h4>
+<p>Una cultura de seguridad (<em>safety culture</em>) no es un manual. Según el libro, hay cultura cuando las reglas se han interiorizado y la seguridad se ve como un objetivo del trabajo, no como un obstáculo. Menciona tres rasgos y una medida contra la fatiga de alertas (p. 32); la explicación de cada uno es glosa propia:</p>
+<dl class="facts">
+<div><dt>Compromiso de la dirección</dt><dd>Quien manda lo demuestra con decisiones, no con discursos: recursos, tiempo y respaldo cuando frena un plazo.</dd></div>
+<div><dt>Responsabilidad personal</dt><dd>Cada persona asume que la seguridad es asunto suyo, no de un departamento aparte.</dd></div>
+<div><dt>Comunicación abierta</dt><dd>Los riesgos y los problemas se pueden decir sin miedo a represalias.</dd></div>
+<div><dt>Evitar la fatiga de alertas (<em>alarm fatigue</em>)</dt><dd>Si los avisos saltan demasiado, la gente deja de hacerles caso, y el aviso importante se pierde entre los demás.</dd></div>
+</dl>
+<p>Los ejemplos del libro muestran lo que pasa sin ellos. En Challenger, el ritmo de los lanzamientos pesó más que la seguridad pese a las pruebas de fallos graves (p. 32). Antes de 1977, según un antiguo oficial de lanzamiento citado en el libro, los códigos para desbloquear misiles balísticos intercontinentales estaban fijados a ceros: una cerradura inútil por un factor humano (pp. 32 y 33). Y el caso más extremo: antes de la primera prueba nuclear, un científico del Proyecto Manhattan calculó que la explosión podría incendiar la atmósfera. Oppenheimer creyó que el cálculo probablemente era erróneo, pero siguió preocupado y el equipo lo revisó y debatió hasta el día de la detonación (p. 33). El libro lo cita como muestra de que a veces se acepta una probabilidad no despreciable de catástrofe existencial, y de la necesidad de una cultura de seguridad sólida.</p>
+
+<h4>Actitud cuestionadora y mentalidad de seguridad</h4>
+<p>Ante un sistema que se comporta de forma rara, hay dos reacciones: darlo por normal o preguntar por qué. La actitud cuestionadora (<em>questioning attitude</em>) es lo segundo hecho costumbre de la organización: revisar de forma continua lo que se da por sentado para encontrar desajustes antes de que causen un error. Favorece la diversidad de ideas y frena el pensamiento uniforme. En Chernobyl, dice el libro, alguien que hubiera dudado de la seguridad del reactor durante la prueba podría haber evitado la explosión (p. 33).</p>
+<p>Imagina ahora un equipo que dedica diez minutos a pensar cómo podría fallar su modelo, no encuentra nada y da el asunto por cerrado. Eso es lo que quiere evitar la mentalidad de seguridad (<em>security mindset</em>), muy valorada entre los profesionales de la seguridad informática (p. 33). Va un paso más allá de cuestionar: pide ponerse en el lugar de un atacante, pensar en el peor caso y no solo en el medio, y preguntarse cómo alguien podría provocar el fallo además de cómo lograr que funcione. También pide no despreciar los "errores inofensivos", que un adversario ingenioso o unos fallos correlacionados pueden convertir en catástrofe. Encontrar los fallos lleva tiempo y esfuerzo, porque suelen ser sorprendentes.</p>
+<p>Las organizaciones de alta fiabilidad (HRO) se distinguen por cuatro hábitos, que aquí solo nombramos: la obsesión por el fallo (estudiar todos los fallos, anomalías y casi-accidentes, incluso los que parecen improbables), el fomento del reporte de errores, la exploración periódica del horizonte y la gestión de la sorpresa (pp. 33 y 34). El libro añade un aviso: esos hábitos no bastan, y con la IA hay que ir más allá (p. 34).</p>
+
+<h3>¿Mejorar una métrica de seguridad reduce el riesgo?</h3>
+<p>No siempre. El libro insiste en que la inteligencia es un arma de doble filo: un sistema más capaz puede ser más fiable, pero también más útil para un atacante y más difícil de controlar (p. 34). De ahí una trampa práctica. Ejemplo del libro: ajustar un modelo a las preferencias de los usuarios reduce el lenguaje tóxico, que es una métrica de seguridad habitual. Pero a los usuarios les gustan los asistentes más listos, así que el mismo ajuste sube las capacidades generales, y un modelo más potente es también más peligroso (p. 34).</p>
+<p>La regla que se deduce es medir la seguridad relativa a las capacidades. Una intervención reduce el riesgo global solo si la métrica de seguridad mejora más que las capacidades, y eso exige medir las dos cosas, no fiarse de la intuición o de la autoridad, como hace hoy la mayoría de las organizaciones según el libro (p. 34). Hay investigación que mejora la seguridad sin subir capacidades: detectar comportamientos ocultos dentro de un modelo no le enseña a programar mejor, pero lo hace más vigilable (pp. 34 y 35).</p>
+<p>El reverso es el lavado de seguridad (<em>safetywashing</em>): exagerar o falsear el compromiso con la seguridad. El libro da dos formas: presumir de seguridad con poquísimas personas trabajando de verdad en ello, y vender como mejora de alineamiento lo que solo aumenta la capacidad de razonar (p. 35).</p>
+<p>Ejemplo propio, en sanidad: un proveedor actualiza un modelo de alerta y sube el área bajo la curva de 0,86 a 0,90. El informe lo llama "más seguro", pero no dice cuántas alertas más por turno genera ni cuántas son falsas. Es una mejora de capacidad predictiva; falta medir su efecto en la seguridad del paciente.</p>
+<p>Una última pieza, que solo mencionamos: el libro propone la defensa en capas, con cultura, equipos rojos, detección de anomalías, seguridad de la información y transparencia, cada una compensando los fallos de las demás (pp. 35 y 36). El queso suizo se desarrolla en la lección de modelos de accidente (m02/l03).</p>
+
+<h3>¿Cómo se ve una organización con cultura débil?</h3>
+<p>Los síntomas que resume el libro (p. 36) empiezan por el origen de las normas: se heredan de la academia ("publica o perece") o de las startups ("muévete rápido y rompe cosas"), y se contrata a gente a la que no le importa la seguridad. Se notan en hábitos: la seguridad se reduce a rellenar casillas, apenas se entiende el riesgo y se presenta como seguridad investigación que no lo es. Añade que esas normas son difíciles de cambiar cuando cogen inercia. En la práctica, cada decisión por separado parece razonable, y el patrón solo se ve mirando la serie completa. Al final del apartado el libro cuenta una historia de una empresa de IA con esa debilidad (pp. 36 y 37), que usarás en el ejercicio C.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>El Hospital del Nordés, un centro comarcal ficticio, compra un modelo que predice la sepsis en pacientes ingresados y lo pone en marcha en tres semanas, porque la dirección quiere presentarlo en la auditoría de calidad. Nadie ha asignado un responsable clínico del modelo, la comprobación previa fue una lista de casillas completada la víspera y el proveedor dio su certificado como prueba de seguridad. Nadie ha atacado al hospital ni hay rivales que lo apremien: solo prisa y falta de dueño.</p>
+<p>Durante el primer mes, el modelo genera de media 60 alertas por turno en cada planta. Revisar una alerta lleva unos 2 minutos y un turno dura 450 minutos:</p>
+<div class="formula">\[ \frac{60\ \text{alertas}\times 2\ \text{min}}{450\ \text{min}} = \frac{120}{450}\approx 26{,}7\ \% \]</div>
+<p>Más de una cuarta parte del turno se va en revisar alertas, y en la práctica se cierran sin abrir. Una enfermera avisó de que saltaban en pacientes en diálisis, pero el aviso quedó en un correo. Es la <strong>fatiga de alertas</strong> del libro, con <strong>comunicación abierta</strong> ausente y una <strong>medida de seguridad</strong> (más alertas) que hace el trabajo menos seguro. Cada decisión se tomó por separado con buena intención. Lo que falló fue la organización que las rodeaba, no una pieza técnica concreta.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Confundir una métrica de seguridad con seguridad.</strong> Que una cifra mejore, sea la toxicidad, el área bajo la curva o el número de casillas marcadas, no prueba que el riesgo global baje. Hay que medir la seguridad relativa a las capacidades y ver a qué coste.</p>
+<p><strong>Pensar que un parche cierra el problema (aviso propio, basado en la historia del libro).</strong> Corregir la vulnerabilidad concreta que usó un atacante sin cambiar cómo se decide es tratar el síntoma. Y "la última vez salió bien" es un argumento sobre el pasado, no sobre el riesgo.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>Safety isn't a checklist we complete before launch: it's a culture where people can raise concerns without fear, where we measure safety against capabilities, and where a quick patch doesn't count as a fix.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 1.4 Organizational Risks, págs. 28 a 37 (PDF 46 a 55): los accidentes sin carrera ni malicia (28 a 30), por qué son difíciles de evitar (30 a 32), factores organizativos y cultura de seguridad (32 a 36) y la historia de la cultura débil (36 y 37). Ejemplos del libro: Challenger, Chernobyl, Sverdlovsk, Three Mile Island, la inversión de signo de OpenAI, los códigos a cero, Oppenheimer, KataGo y Heartbleed.</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS). Sin lección asignada a esta sección.</li>
+<li>Añadido propio, no procede de las fuentes: el Hospital del Nordés y todos sus datos, la prioridad de camas con variable mal alineada, el caso del analizador de laboratorio, el ejemplo del área bajo la curva, el cálculo de la carga de alertas, la selección y el orden de los diez factores de la lista (cada uno procede de un rasgo o práctica de la sección 1.4), su escala de 0 a 2, la suma y sus bandas de puntuación, y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: primero un simulador para aplicar la lista de comprobación, después tres ejercicios.</p>
+
+<p class="consigna"><strong>Lista de comprobación de cultura de seguridad.</strong> Empieza con el Hospital del Nordés: lee la observación de cada factor, puntúa de 0 a 2 y pulsa "Comparar con la clave". Observa en qué factores difieres de la clave y en cuál el caso sale bien parado. Después cambia a "Mi organización" y puntúa con lo que ocurre de verdad, no con lo que debería ocurrir.</p>
+<div data-widget="m01-l03-cultura" id="sim-cultura"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: cortar la cascada (a mano, 7 minutos)</p>
+<p>Caso propio. Una actualización del preprocesado de datos de un modelo de priorización de camas cambia por error la unidad de la creatinina. El modelo empieza a dar prioridades absurdas. Se nota al tercer día, cuando una jefa de enfermería comenta que "las camas de intensivos no cuadran".</p>
+<ol>
+<li>Propón tres medidas distintas que habrían detectado el fallo antes o habrían limitado su efecto.</li>
+<li>Para cada medida, di qué factor de la lista de comprobación refuerza.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p>Hay varias respuestas válidas. Tres posibles: <strong>1.</strong> Desplegar el cambio primero en una sola planta durante una semana, con comparación con la versión anterior: refuerza la <em>obsesión por el fallo</em> y el lanzamiento gradual que pide el libro para los fallos lentos. <strong>2.</strong> Probar a propósito el peor caso, con unidades cambiadas o valores ausentes, antes de cada actualización: <em>mentalidad de seguridad</em>. <strong>3.</strong> Un canal por el que el comentario de la jefa de enfermería llegue el primer día al responsable del modelo, con plazo de respuesta: <em>comunicación abierta</em> y <em>responsabilidad personal</em>. Nótese que el aviso existió y tardó tres días en tener dueño: eso es un fallo organizativo, no técnico.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: umbral, alertas y casos perdidos (a mano, 8 minutos)</p>
+<p>En una planta, en un turno de 450 minutos, ocurren 4 casos reales de deterioro por sepsis. Con el umbral actual, el modelo genera 60 alertas y detecta los 4. Con un umbral más alto genera 20 alertas y detecta 3. Revisar una alerta lleva 2 minutos. Cifras propias de práctica.</p>
+<ol>
+<li>Calcula, para cada umbral, la proporción de alertas que son casos reales y el tiempo de revisión en minutos.</li>
+<li>Calcula la sensibilidad con el umbral alto (casos detectados entre casos reales).</li>
+<li>¿Qué umbral es más seguro? Justifica qué habría que medir para decidirlo.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Umbral actual: \(4/60\approx6{,}7\ \%\) de las alertas son reales y \(60\times2=120\) minutos de revisión. Umbral alto: \(3/20=15\ \%\) y \(20\times2=40\) minutos.</p>
+<p><strong>2.</strong> Sensibilidad: \(3/4=75\ \%\). Con el umbral alto se pierde un caso real de cuatro, cada turno.</p>
+<p><strong>3.</strong> No se puede decir solo con estas cifras. El umbral alto reduce la fatiga de alertas y libera 80 minutos, pero deja pasar un caso más por turno. Hay que medir juntos los casos perdidos, las falsas alertas y lo que pasa con los pacientes que no se detectan, y decidir con un responsable con nombre, no dejar que la carga de trabajo o la sensibilidad fijen el umbral por su cuenta. Es la misma idea del libro: una sola métrica, sea sensibilidad o número de alertas, no dice si el riesgo global baja.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: la historia del libro (10 minutos)</p>
+<p>Ejemplo del libro, resumido: una empresa de IA contrata a un responsable de riesgos (CRO) solo por cumplimiento. Cuando avisa de que el próximo modelo podría ayudar a atacar sistemas críticos, los directivos responden que sus competidores hacen mucho menos. Tras un intento de intrusión con ayuda del modelo, la empresa lo corrige solo para esa petición concreta. El responsable dimite sin poder hablar por un acuerdo de no menosprecio y la sustituyen por alguien más dócil.</p>
+<p>Elige de la lista de diez factores el que peor se cumple en cada uno de estos cinco momentos: (a) responsable de riesgos contratado solo por cumplimiento; (b) "los competidores hacen mucho menos"; (c) corrección solo de la petición usada en el intento de intrusión; (d) dimisión sin poder hablar; (e) sustitución por alguien más dócil.</p>
+<details>
+<summary>Ver solución</summary>
+<p>Varias asignaciones son defendibles. Una posible: <strong>(a)</strong> seguridad como objetivo, no como trámite (la función existe por obligación); <strong>(b)</strong> mentalidad de seguridad o seguridad frente a capacidades (se mide contra el listón más bajo, no contra el peor caso); <strong>(c)</strong> obsesión por el fallo (se trata el síntoma y no se aprende del casi-accidente); <strong>(d)</strong> comunicación abierta (el silencio se impone por contrato); <strong>(e)</strong> compromiso de la dirección (se elige a quien no frena). Puntuada con la lista, la empresa tendría un ausente en al menos cinco de los diez factores. La lección es el patrón: cada paso parecía defendible por separado.</p>
+</details>
+</div>
+
+</div>
+
+</section>

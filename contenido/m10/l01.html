@@ -1,0 +1,265 @@
+<section class="leccion" data-id="m10/l01">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Antes de decidir cómo se regula la IA hay que responder a dos preguntas: cuánto va a cambiar la economía y quién se va a quedar con el resultado.</p>
+<p>Sobre lo primero hay dos posturas: la IA, al copiarse y mejorarse a sí misma, aceleraría el crecimiento como nunca, o hay frenos (energía, ideas cada vez más difíciles, adopción lenta, leyes, gustos humanos, tareas que las máquinas no hacen). Sobre lo segundo importa quién cobra, quién puede usar la IA y si mandará una sola o convivirán muchas.</p>
+<p>Ninguna respuesta es gratis: crecer más no reparte mejor, abrir el acceso multiplica los usos indebidos y cerrarlo concentra el poder.</p>
+
+<svg viewBox="0 0 360 356" role="img" aria-labelledby="rs-t rs-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="rs-t">Tres preguntas de la lección</title>
+<desc id="rs-d">Crecimiento: una curva lenta y otra que se dispara. Reparto: dos barras, hoy con dos tercios para el trabajo y con IA con casi todo para el capital. Acceso y poder: una escala de restringido a abierto y la alternativa entre una IA dominante o muchas.</desc>
+<rect x="4" y="4" width="352" height="112" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="26" style="fill:var(--accent-ink);font-weight:700;font-size:14px">1. CRECIMIENTO: ¿lento o explosivo?</text>
+<path d="M30 100 L330 82" style="fill:none;stroke:var(--faint);stroke-width:2.5;stroke-dasharray:6 4"/>
+<path d="M30 100 C150 98 240 84 330 36" style="fill:none;stroke:var(--accent);stroke-width:3"/>
+<text x="326" y="106" text-anchor="end" style="fill:var(--muted);font-size:12px">ritmo de hoy</text>
+<text x="200" y="56" text-anchor="end" style="fill:var(--accent-ink);font-size:12px">con automatización total</text>
+
+<rect x="4" y="126" width="352" height="112" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="18" y="148" style="fill:var(--ex);font-weight:700;font-size:14px">2. REPARTO: ¿quién cobra?</text>
+<text x="18" y="177" style="fill:currentColor;font-size:12.5px">Hoy</text>
+<rect x="70" y="164" width="160" height="18" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<rect x="230" y="164" width="80" height="18" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5"/>
+<text x="18" y="211" style="fill:currentColor;font-size:12.5px">Con IA</text>
+<rect x="70" y="198" width="24" height="18" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<rect x="94" y="198" width="216" height="18" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5"/>
+<text x="150" y="231" text-anchor="middle" style="fill:var(--ex);font-size:11.5px">trabajo</text>
+<text x="270" y="231" text-anchor="middle" style="fill:var(--trap);font-size:11.5px">capital</text>
+
+<rect x="4" y="248" width="352" height="104" rx="10" style="fill:var(--surface);stroke:var(--trap);stroke-width:2"/>
+<text x="18" y="270" style="fill:var(--trap);font-weight:700;font-size:14px">3. ACCESO Y PODER: ¿quién y cuántas?</text>
+<line x1="40" y1="296" x2="320" y2="296" style="stroke:var(--rule-strong);stroke-width:2"/>
+<circle cx="40" cy="296" r="6" style="fill:var(--trap)"/><circle cx="180" cy="296" r="6" style="fill:var(--accent)"/><circle cx="320" cy="296" r="6" style="fill:var(--trap)"/>
+<text x="40" y="316" text-anchor="start" style="fill:currentColor;font-size:12px">Restringido</text>
+<text x="180" y="316" text-anchor="middle" style="fill:currentColor;font-size:12px">Estructurado</text>
+<text x="320" y="316" text-anchor="end" style="fill:currentColor;font-size:12px">Abierto</text>
+<text x="180" y="340" text-anchor="middle" style="fill:var(--muted);font-size:12px">y además: una IA dominante o muchas</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Calcular en cuántos años se duplica una economía con una tasa dada, y explicar qué cambia en la teoría semiendógena si la IA sustituye trabajo humano.</li>
+<li>Enumerar los frenos al crecimiento explosivo, incluida la enfermedad de costes de Baumol.</li>
+<li>Distinguir el efecto desplazamiento del efecto productividad y calcular cómo se reparte la renta entre trabajo y capital en un modelo simple.</li>
+<li>Comparar acceso abierto, estructurado y restringido, y una IA dominante frente a un ecosistema de IA, nombrando el riesgo principal de cada opción.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>Gobernar la IA: quién y con qué</h3>
+<p>¿Qué impide que un hospital anteponga el negocio al paciente? No solo la ley: también las normas de cuidado, la ética profesional y los colegios que conceden licencias (ejemplo del libro). A ese conjunto de reglas y procesos que coordinan conductas se le llama gobernanza (<em>governance</em>), y con la IA ocurre igual.</p>
+<p>El libro reparte el terreno entre cinco actores. Ejemplos sanitarios propios:</p>
+<div class="tw"><table>
+<thead><tr><th>Actor</th><th>Ejemplo sanitario (propio)</th></tr></thead>
+<tbody>
+<tr><td>Empresas</td><td>un proveedor de IA clínica que valida el modelo antes de venderlo</td></tr>
+<tr><td>Organizaciones sin ánimo de lucro</td><td>una asociación de pacientes que exige transparencia</td></tr>
+<tr><td>Gobiernos nacionales</td><td>la agencia del medicamento que autoriza un programa de diagnóstico</td></tr>
+<tr><td>Organismos internacionales</td><td>una recomendación de la OCDE sobre IA fiable</td></tr>
+<tr><td>Individuos</td><td>profesionales y pacientes que aceptan o rechazan una herramienta</td></tr>
+</tbody></table></div>
+<p>Y cuatro herramientas para influir en ellos: información (formación, datos), incentivos financieros (financiación, impuestos, sanciones), normas (de las buenas prácticas voluntarias a las leyes con sanción) y derechos (humanos y de propiedad sobre datos, modelos y cómputo). El módulo las recorre por niveles: empresa (lección 2), Estado (3), mundo (4) y cómputo (5).</p>
+
+<h3>¿Cuánto podría crecer una economía con IA?</h3>
+<p>Primero, una regla de cálculo propia. Si una economía crece una fracción \(g\) al año, su producción se duplica en</p>
+<div class="formula">\[ T_2=\frac{\ln 2}{\ln(1+g)}\approx\frac{70}{g\ (\text{en \%})} \]</div>
+<p>El libro cuenta que durante los 10.000 años posteriores a la agricultura la producción mundial creció un 0,1 % al año, y que en el último milenio subió hasta cifras de un dígito (pág. 454). Con \(g=0{,}1\,\%\), \(T_2\) son 693 años. Con un 2 %, 35. Y algunos estudios que añaden IA a los modelos estándar hablan de un ritmo más de diez veces superior al actual (pág. 454): con un 20 %, 3,8 años. El libro no da el ritmo actual; el 2 % es una cifra ilustrativa nuestra.</p>
+
+<h4>El argumento de fondo: la población como cuello de botella</h4>
+<p>La teoría semiendógena del crecimiento (<em>semi-endogenous growth</em>) explica la aceleración de los últimos siglos con un bucle: más gente significa más investigadores, más tecnología y más comida, y eso permite más gente. Durante milenios la comida fijó el límite de la población; después el bucle aceleró. Hacia mediados del siglo XX la natalidad cayó por su cuenta y el bucle se desacopló, lo que serviría para explicar por qué no hubo una explosión en las décadas siguientes (pág. 453).</p>
+<p>La IA podría reabrir el bucle por dos vías (pág. 454). La primera, una población de trabajadores digitales que se copian tan deprisa como se fabrique su hardware. La segunda, la mejora recursiva: si la IA acelera su propio desarrollo, cada versión mejora la siguiente. El libro contrasta ritmos: el cerebro humano se multiplicó por cuatro en toda la evolución desde el ancestro común con el chimpancé, y los mayores modelos lo han hecho cada 16 meses tras AlexNet. Sin límite biológico el bucle podría ser mucho más rápido, si no aparecen otros cuellos de botella.</p>
+
+<h4>Un modelo de tareas (propio)</h4>
+<p>Un modelo mínimo, propio e ilustrativo, muestra cuánto importa la automatización. La economía es un conjunto de tareas. El capital (máquinas, y ahora IA) hace una fracción \(a\); las personas, el resto. Con tecnología \(A\), capital \(K\) y trabajo \(L\) fijo, \(Y=A\,K^{a}L^{1-a}\). En competencia, el capital cobra la fracción \(a\) de la renta y el trabajo, \(1-a\). Si se ahorra una fracción constante de la renta y la tecnología mejora a un ritmo \(g_A\) al año, el crecimiento a largo plazo es</p>
+<div class="formula">\[ 1+g=(1+g_A)^{\frac{1}{1-a}}\qquad\text{aproximadamente}\qquad g\approx\frac{g_A}{1-a} \]</div>
+<p>Calibrado con \(a=1/3\) y \(g=2\,\%\) (\(g_A\approx1{,}33\,\%\)), sale esto:</p>
+<div class="tw"><table>
+<thead><tr><th>Tareas automatizadas</th><th>1/3</th><th>50 %</th><th>60 %</th><th>75 %</th><th>90 %</th><th>95 %</th></tr></thead>
+<tbody>
+<tr><td>Crecimiento de equilibrio</td><td>2,0 %</td><td>2,7 %</td><td>3,4 %</td><td>5,4 %</td><td>14,1 %</td><td>30,2 %</td></tr>
+<tr><td>Se duplica en (años)</td><td>35,0</td><td>26,3</td><td>21,0</td><td>13,1</td><td>5,3</td><td>2,6</td></tr>
+</tbody></table></div>
+<p>Lo que enseña: el último tramo de automatización vale mucho más que el primero. De 1/3 a 50 % apenas cambia nada; de 75 % a 90 %, el ritmo se multiplica por 2,6. Por eso importan los frenos: casi todo depende de cuántas tareas quedan fuera. Ojo: es el equilibrio, que tarda décadas en alcanzarse porque el capital hay que acumularlo, y no una previsión, sino una forma de ver qué supuestos exige un crecimiento explosivo. Para moverlo, <a data-ir="practica" href="#sim-m10-l01-crecimiento">pruébalo en Práctica</a>.</p>
+
+<h3>¿Qué podría frenarlo?</h3>
+<p>El libro reúne seis razones para dudar de un crecimiento explosivo (págs. 455 a 457). La tabla las traduce a una pregunta y a lo que harían en nuestro modelo:</p>
+<div class="tw"><table>
+<thead><tr><th>Freno</th><th>Idea</th><th>En el modelo</th></tr></thead>
+<tbody>
+<tr><td>Regulación y preferencias</td><td>Se puede exigir un profesional humano (medicina, derecho) y se prefiere lo humano en cuidados, deporte o arte.</td><td>Baja el techo</td></tr>
+<tr><td>Tareas no automatizadas</td><td>Si la robótica va por detrás de la cognición, lo físico limita la producción.</td><td>Baja el techo</td></tr>
+<tr><td>Adopción lenta</td><td>La dinamo industrial es de los años 1870 y la electricidad no empujó la economía de EE. UU. hasta principios del XX.</td><td>Baja la velocidad de automatización</td></tr>
+<tr><td>I+D con rendimientos decrecientes</td><td>Las ideas fáciles ya se cogieron: más investigadores, humanos o de IA, rinden menos.</td><td>Baja el ritmo de mejora tecnológica</td></tr>
+<tr><td>Factores no acumulables</td><td>El terreno para centros de datos y la energía solar diaria son finitos.</td><td>Frena el capital: el crecimiento no puede sostenerse indefinidamente</td></tr>
+<tr><td>Enfermedad de costes de Baumol</td><td>Los sectores que no mejoran su productividad suben salarios para no perder gente y sus precios pesan cada vez más.</td><td>No aparece: es lo que un modelo Cobb-Douglas no capta</td></tr>
+</tbody></table></div>
+<p>Baumol explica que los televisores se abaratan mientras la sanidad y la educación se encarecen. Ejemplo propio: si leer una radiografía pasa a costar casi nada pero un día de cuidados de enfermería sigue necesitando el mismo tiempo de personas, los cuidados se llevan una proporción cada vez mayor de la renta. Con muchos trabajos automatizados y no todos, el efecto sería grande, no necesariamente explosivo.</p>
+<p>El libro no se decanta: el impacto será sustancial, pero explosivo o moderado sigue abierto, y las tesis explosivas descansan en supuestos fuertes sobre la retirada de los cuellos de botella (pág. 457).</p>
+
+<h3>¿Quién se queda con el fruto? Trabajo y capital</h3>
+<p>Aunque la economía crezca, el resultado depende de cómo se reparta. Con modelos de lenguaje, robótica y visión ya no solo están expuestos los oficios rutinarios sino también escribir o programar, y como el software se copia a coste casi nulo, cualquier empresa tiene una alternativa escalable a contratar (pág. 457). Ejemplo del libro para EE. UU.: los coches autónomos podrían desplazar a los 5 millones de personas que viven de conducir, y la robótica amenazar a los 12 millones que trabajan en manufactura.</p>
+
+<h4>Dos efectos que compiten</h4>
+<p>Una tecnología automatizadora produce dos efectos opuestos (págs. 457 y 458). El de desplazamiento (<em>displacement</em>) sustituye trabajo humano por máquinas. El de productividad (<em>productivity</em>) crea tareas y sectores nuevos, y además, si los precios bajan, sube la demanda de lo que sigue haciendo la gente: en el ejemplo del libro, programar sale más barato, se pide más software y hay más trabajo para ingenieros. Históricamente ha ganado el segundo, de ahí la destrucción creativa (<em>creative destruction</em>): se pierden oficios y aparecen otros. Y a corto plazo puede haber más empleo vigilando y verificando lo que hace la IA.</p>
+
+<h4>El caso de la IA de nivel humano</h4>
+<p>Imagina una IA que hace cualquier tarea al menos igual de barata que una persona, incluida la de diseñar tareas nuevas. Ante una IA así, un ingeniero despedido por la automatización no tiene adónde reciclarse: cada oficio nuevo lo haría ella antes. Por eso el libro sostiene que la IA de nivel humano (<em>human-level AI</em>) rompería la lección de la historia: el efecto productividad ya no reservaría trabajo a las personas y las ganancias irían a quienes controlan las IA. Que siempre haya habido trabajo humano, dice, no es una ley natural (pág. 458).</p>
+<p>El libro imagina (pág. 459) una automatización total que podría llegar sin un momento decisivo, por pequeñas delegaciones empujadas por la competencia (la misma presión de la carrera de IA del módulo 1, conexión propia). Y cita un modelo en el que los salarios crecen un tiempo y se hunden al pasar el umbral en que el capital sustituye del todo al trabajo.</p>
+
+<h4>Poner cifras al reparto (propio)</h4>
+<p>En el modelo de tareas, la cuota del trabajo es \(1-a\). Sea \(o\) la parte del capital que pertenece a la población general, repartida a partes iguales; el resto es de pocos propietarios. El ingreso de un hogar típico es</p>
+<div class="formula">\[ y_{\text{hogar}}=(1-a)\,Y+o\,a\,Y \]</div>
+<p>Los salarios pueden bajar aunque la producción suba, si la cuota del trabajo cae más deprisa que crece la tarta. Mira el ejemplo de abajo y mueve la propiedad del capital en el <a data-ir="practica" href="#sim-m10-l01-crecimiento">simulador</a>. Que el Estado redistribuya desde los propietarios de IA lo apunta el libro (pág. 459); se retoma en la lección 3.</p>
+
+<h3>¿Quién debe poder usar la IA? El acceso</h3>
+<p>Repartir el acceso es otra forma de repartir los beneficios: si unas pocas empresas tienen la IA, unas pocas se llevan la mayor parte. El libro distingue tres niveles, del más cerrado al más abierto (págs. 459 a 461):</p>
+<div class="tw"><table>
+<thead><tr><th>Nivel</th><th>Qué es</th><th>Riesgo dominante</th><th>Ejemplo (propio)</th></tr></thead>
+<tbody>
+<tr><td>Restringido</td><td>Solo un grupo pequeño lo usa</td><td>Concentra poder y puede fijar unos valores casi para siempre (bloqueo de valores, <em>value lock-in</em>)</td><td>El mejor modelo diagnóstico, solo para un ministerio</td></tr>
+<tr><td>Estructurado</td><td>Se usa con condiciones: por API, con verificación de identidad, sin modificarlo</td><td>Depende de quien fija las condiciones (inferencia propia)</td><td>Un modelo clínico solo disponible por API, con registro y sin acceso a los pesos</td></tr>
+<tr><td>Abierto</td><td>Cualquiera lo usa y lo modifica sin límites</td><td>Se extiende de forma irreversible y sube el uso indebido</td><td>Pesos publicados de un modelo clínico, ejecutables por cualquiera</td></tr>
+</tbody></table></div>
+<p>Ejemplo del libro de acceso estructurado: el lanzamiento de GPT-3 en 2020, alojado en la nube y abierto a usuarios aprobados mediante una plataforma de OpenAI. Pero cuidado: si la seguridad de la información es mala, un modelo restringido se filtra o se roba y pasa a ser abierto de hecho (pág. 460).</p>
+
+<h4>Cuándo restringir la información</h4>
+<p>La academia comparte por defecto, y con razón: acelera la ciencia. Pero en las tecnologías de doble uso (<em>dual-use</em>) hay precedentes de secreto: la reacción en cadena nuclear en los años 30 y el debate sobre publicar métodos para fabricar patógenos. Con la IA hay tres razones para plantearlo (pág. 461): basta una persona mal intencionada con medios; la tecnología va más rápido que la regulación (problema del ritmo, <em>pacing problem</em>); y es difícil predecir qué investigación será peligrosa. Pero restringir cuesta libertad, privacidad y ciencia: hay que sopesar usos malos y buenos y cuán dirigida es la medida (pág. 462). Las restricciones aguas abajo (cómo se usa) son más precisas que las aguas arriba (capacidades, infraestructura), reservadas para cuando las medidas posteriores no bastan, el peligro es grave o la capacidad sirve sobre todo para el mal uso.</p>
+
+<h4>Dos riesgos opuestos</h4>
+<dl class="facts">
+<div><dt>Desde abajo (<em>bottom-up</em>)</dt><dd>Con modelos abiertos, alguien de la población usa la IA para dañar: armas biológicas o químicas, ciberataques, desinformación masiva. Cuantos más tengan acceso, más probable es que alguien lo intente, y algunas capacidades favorecen al atacante (liberar un patógeno es más fácil que curarlo). También pueden aparecer cisnes negros (págs. 462 y 463).</dd></div>
+<div><dt>Desde arriba (<em>top-down</em>)</dt><dd>Con modelos muy controlados, quienes los tienen (gobiernos, élites) abusan de ellos sin control: bloqueo de valores, vigilancia, censura y, en el extremo, una dictadura muy duradera (pág. 463).</dd></div>
+</dl>
+<p>No hay una opción segura: abrir traslada el riesgo hacia abajo y cerrar lo traslada hacia arriba. Para ejercitar la clasificación, <a data-ir="practica" href="#sim-m10-l01-acceso">pruébalo en Práctica</a>.</p>
+
+<h3>¿Una IA dominante o muchas?</h3>
+<p>La última dimensión es cuántas IA con poder habrá en un mundo donde superen a las personas (págs. 463 a 467). Un extremo es el singleton: una IA con tanto más poder que las demás que puede asegurar su posición de forma permanente. Lo favorecen dos factores: que una sola organización monopolice el desarrollo, y un despegue rápido (<em>fast take-off</em>), en el que una IA se adelanta y frena a las demás. Aun así no es forzoso: lo simple puede derribar lo complejo, como un patógeno a una persona (ejemplo del libro). El otro extremo es un ecosistema diverso de IA de capacidad similar, más probable si desarrollar IA abarata y si la inteligencia no rinde cada vez más en muchos usos (ejemplo del libro: una IA que prepara comida rápida no necesita física avanzada).</p>
+<div class="tw"><table>
+<thead><tr><th></th><th>Una IA dominante (singleton)</th><th>Ecosistema de IA</th></tr></thead>
+<tbody>
+<tr><td>Ventajas</td><td>Menos presión competitiva y menos problemas de acción colectiva</td><td>Podría ser más estable, como varias variedades de cultivo o una cartera diversificada (ejemplos del libro); especialización; ningún punto único de fallo; IA vigilantes que frenen a otra que falle</td></tr>
+<tr><td>Costes</td><td>Punto único de fallo; sin competencia, no tiene motivo para cooperar con las personas, y crece el riesgo de desempoderamiento humano</td><td>La selección natural entre IA podría favorecer rasgos egoístas; fallos colectivos imprevistos y bucles de realimentación, como una guerra relámpago</td></tr>
+</tbody></table></div>
+<p>Un ecosistema puede repetir los problemas del singleton de dos maneras. Una, la colusión: las IA se coordinan y actúan como una. La otra, la desigualdad: el poder puede seguir una distribución de cola larga, como la riqueza, y unas pocas IA con una pequeña ventaja acabar decidiendo casi todo. Según el libro, la colusión no es inevitable y depende del entorno (págs. 466 y 467). Es más probable con pocos actores, parecidos entre sí, que se comunican con libertad y repiten sus jugadas viendo las de los demás, y aún más si sigue funcionando aunque alguno se retire y si todos conocen estas circunstancias. Es más difícil con muchos actores distintos, con metas enfrentadas, poco comunicados, que juegan una sola vez y a ciegas, y con incertidumbre sobre todo ello.</p>
+<p>Ejemplo propio: tres agentes de IA del mismo proveedor que gestionan las agendas de un hospital, se ven y se repiten cada día, colaboran con más facilidad que treinta agentes de proveedores distintos con objetivos enfrentados. Las tres dimensiones (beneficios, acceso y poder) se cruzan, y las lecciones 2 a 5 (empresa, Estado, mundo y cómputo) son las palancas para actuar sobre ellas.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Con los valores iniciales del <a data-ir="practica" href="#sim-m10-l01-crecimiento">simulador</a>, la producción se triplica en 30 años (el simulador da ×3,12; aquí redondeamos a ×3, por eso allí verás 135 y no 130) y la automatización llega al 90 %. Reparto de una renta de 100 unidades hoy y la de dentro de 30 años, con \(a\) pasando de 1/3 a 0,9:</p>
+<ul>
+<li>Hoy: trabajo \(0{,}667\times100=66{,}7\); capital, 33,3.</li>
+<li>Dentro de 30 años, con \(Y=3\) (es decir, 300 unidades): trabajo \(0{,}1\times300=30\); capital, 270. La masa salarial baja a menos de la mitad aunque la renta se triplica.</li>
+<li>Hogar típico, con \(o=25\,\%\): hoy \(0{,}667+0{,}25\times0{,}333=0{,}75\); después \(0{,}1\times3+0{,}25\times0{,}9\times3=0{,}975\). Índice \(0{,}975/0{,}75=1{,}30\): su ingreso sube un 30 % mientras la producción por habitante se triplica.</li>
+<li>Con \(o=100\,\%\) (todos son dueños a partes iguales): \(3{,}0\). Para que el hogar típico ni gane ni pierda hace falta \(o\approx15{,}5\,\%\): \(0{,}3+2{,}7\,o=0{,}667+0{,}333\,o\).</li>
+</ul>
+<p>Lectura sanitaria: si el beneficio de una IA clínica se queda en la empresa que la posee, la mejora del hospital no llega a la nómina del personal ni al bolsillo del paciente. El modelo es una caricatura, pero fija la pregunta: ¿quién es dueño del capital?</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Confundir crecimiento con reparto (aviso propio).</strong> Que la producción por habitante se triplique no implica que suban los ingresos típicos: en el ejemplo, el hogar típico gana un 30 % y la masa salarial cae. Mira quién cobra la renta.</p>
+<p><strong>Tomar el modelo por una previsión (aviso propio).</strong> El 14 % de equilibrio depende de supuestos fuertes que los frenos ponen en duda.</p>
+<p><strong>Creer que abrir es democrático y cerrar es seguro (o al revés).</strong> Cada nivel de acceso tiene su riesgo: uso indebido desde abajo con lo abierto, desde arriba con lo cerrado.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>Growth is not the same as shared prosperity: before I trust a forecast I ask who owns the capital, who gets access, and whether one failure could take everything down.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Capítulo 8 Governance, págs. 449 a 467 (PDF 467 a 485): 8.1 Introducción (449 a 452), 8.2 Economic Growth (452 a 457) y 8.3 Distribution of AI (457 a 467): costes y beneficios (457 a 459), acceso (459 a 463) y poder entre IA (463 a 467).</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS). No tiene lección de gobernanza económica; no se ha usado. Atlas de métricas: no aplica.</li>
+<li>Añadido propio, no procede de las fuentes: la regla de duplicación; el modelo de tareas, su calibración y la tabla de equilibrio; las fórmulas de reparto y del hogar típico; la traducción de cada freno al modelo; los ejemplos sanitarios; la columna de riesgo del acceso estructurado; y los ejercicios y simuladores.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: primero dos simuladores para explorar, después tres ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de crecimiento y reparto.</strong> Con los valores iniciales (la automatización sube 2 puntos al año hasta el 90 %), sin IA la producción se duplica en 35 años y con IA bastante antes. Mueve "Año que miras" hasta 30 y observa el reparto, el salario medio y el hogar típico. Pulsa "Techo bajo": a los 30 años la diferencia con el techo de 90 % es moderada (×3,1 frente a ×2,3), pero a los 60 es enorme (×21 frente a ×5,8). Sube "Capital en manos de la población" a 100 % y el hogar típico alcanza a la producción por habitante. Con "Casi total y rápido", el ritmo se dispara y el salario medio cae a una fracción del de hoy.</p>
+<div data-widget="m10-l01-crecimiento" id="sim-m10-l01-crecimiento"></div>
+
+<p class="consigna"><strong>Clasificación de escenarios de acceso y poder.</strong> Lee cada escenario y elige el riesgo principal. Fíjate en qué rasgo del enunciado decide la respuesta (quién puede usarla, cuántos sistemas hay, cómo se comunican) y cambia tu respuesta si dudas.</p>
+<div data-widget="m10-l01-acceso" id="sim-m10-l01-acceso"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: cuánto tarda en duplicarse (a mano, 5 minutos)</p>
+<p>Una economía produce 100 unidades.</p>
+<ol>
+<li>Calcula el tiempo de duplicación con \(T_2=\ln 2/\ln(1+g)\) para \(g=0{,}1\,\%\), \(2\,\%\) y \(20\,\%\), y compáralo con la regla del 70. ¿Cuánto produce la economía dentro de 30 años con un 2 % y con un 20 %?</li>
+<li>Con el modelo de tareas y \(g_A=1{,}33\,\%\): ¿qué fracción de tareas automatizadas necesita una economía para crecer a un 20 % en equilibrio (diez veces el ritmo ilustrativo del 2 %)?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> 0,1 %: \(0{,}693/0{,}0009995=693\) años (la regla da 700). 2 %: 35,0 (la regla da 35). 20 %: \(0{,}693/0{,}1823=3{,}8\) (la regla da 3,5: con tasas altas pierde exactitud). A 30 años: \(100\times1{,}02^{30}=181\) y \(100\times1{,}2^{30}\approx23.738\), es decir, ×237 frente a ×1,8.</p>
+<p><strong>2.</strong> Se resuelve \((1{,}0133)^{1/(1-a)}=1{,}2\): \(1/(1-a)=\ln1{,}2/\ln1{,}0133=13{,}8\), luego \(1-a=0{,}0725\) y \(a\approx92{,}8\,\%\). Hay que automatizar casi todo, y los frenos de la lección atacan justo ese último tramo.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: quién cobra (a mano, 7 minutos)</p>
+<p>En el modelo de reparto, la renta de hoy es 100, con \(a=1/3\). Dentro de unos años la automatización llega a \(a=0{,}8\) y la producción se multiplica por 2,5. La población posee el 20 % del capital (\(o=0{,}2\)).</p>
+<ol>
+<li>¿Cuánto cobra el trabajo hoy y en el futuro? ¿En cuánto cambia la masa salarial?</li>
+<li>Calcula el índice de ingreso del hogar típico, con \(y=(1-a)Y+o\,a\,Y\) dividido por su valor de hoy.</li>
+<li>¿Qué parte del capital tiene que ser de la población para que el hogar típico no pierda ni gane?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Hoy \(0{,}667\times100=66{,}7\). En el futuro la renta es 250 y el trabajo cobra \(0{,}2\times250=50\): la masa salarial cae un 25 % aunque la renta se multiplica por 2,5.</p>
+<p><strong>2.</strong> Ingreso del hogar: \(50+0{,}2\times0{,}8\times250=90\). Hoy: \(66{,}7+0{,}2\times33{,}3=73{,}3\). Índice \(90/73{,}3=1{,}23\): sube un 23 %, muy por debajo del 150 % de la producción por habitante.</p>
+<p><strong>3.</strong> Se iguala \(50+200\,o=66{,}7+33{,}3\,o\), y sale \(o=16{,}7/166{,}7=0{,}10\): el 10 % del capital. Con \(o=1\) el hogar típico sube como la producción, 2,5. La propiedad del capital importa tanto como el crecimiento.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: techo y velocidad, con Python (8 minutos)</p>
+<p>Este fragmento reproduce el modelo del primer simulador. Ejecútalo y contesta.</p>
+<pre><code>import math
+
+def simular(g0=0.02, r=0.02, amax=0.9, años=60):
+    a0, s, d = 1/3, 0.25, 0.05           # tareas hoy, ahorro, depreciación
+    gA = (1 + g0) ** (1 - a0) - 1         # mejora tecnológica calibrada
+    K0 = s / (g0 + d); K = K0; A = 1.0
+    ys = []
+    for t in range(años + 1):
+        a = min(max(a0, amax), a0 + r * t)   # automatización en el año t
+        Y = A * (K / K0) ** a
+        ys.append(Y)
+        K = (1 - d) * K + s * Y
+        A *= 1 + gA
+    return ys
+
+def duplica(ys):
+    for t in range(1, len(ys)):
+        if ys[t] &gt;= 2:
+            l0, l1 = math.log(ys[t - 1]), math.log(ys[t])
+            return t - 1 + (math.log(2) - l0) / (l1 - l0)
+
+for amax in (0.9, 0.6, 1/3):
+    ys = simular(amax=amax)
+    print(round(amax, 2), round(duplica(ys), 1), round(ys[30], 2), round(ys[60], 1))</code></pre>
+<ol>
+<li>¿Cuántos años tarda en duplicarse la producción con cada techo? ¿Y cuánto vale la producción a los 30 y a los 60 años?</li>
+<li>Cambia <code>r</code> a 0,01 con techo 0,9. ¿Cuánto se retrasa la duplicación? ¿Qué pesa más a los 30 años, el techo o la velocidad? ¿Y a los 60?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Techo 0,9: 22,0 años, ×3,12 a los 30 y ×21,1 a los 60. Techo 0,6: 25,5 años, ×2,28 y ×5,8. Sin automatización (techo 1/3): 35,0 años, ×1,81 y ×3,3.</p>
+<p><strong>2.</strong> Con \(r=0{,}01\) se duplica a los 26,2 años (en lugar de 22,0), con ×2,31 a los 30. A los 30 años pesan parecido: velocidad más lenta deja 2,31 y techo más bajo, 2,28. A los 60 años manda el techo: 15,0 con la velocidad lenta frente a 5,8 con el techo bajo. Los retrasos de adopción actúan pronto y los límites de automatización, a largo plazo.</p>
+</details>
+</div>
+
+</div>
+
+</section>

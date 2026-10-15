@@ -1,0 +1,115 @@
+[
+  {
+    "id": "m08l01-q01",
+    "tipo": "unica",
+    "enunciado": "Un asistente respeta el rechazo de un paciente porque «hace lo que el paciente decide», y otro insiste porque «hace lo objetivamente bueno para él». Según el libro (6.1), ¿qué ilustra el contraste?",
+    "opciones": [
+      "Que las respuestas habituales a «IA beneficiosa» suenan razonables y parecidas, pero parten de supuestos distintos y pueden ser incompatibles",
+      "Que una de las dos es un error de implementación y la otra es la correcta",
+      "Que basta con elegir la respuesta que más gente comparte",
+      "Que la ley resuelve siempre el conflicto entre ambas"
+    ],
+    "correcta": 0,
+    "explicacion": "El libro enumera siete respuestas que suenan bien y no son lo mismo: cada una supone cosas normativas distintas y exige una implementación distinta. Por eso no es un problema con una solución simple."
+  },
+  {
+    "id": "m08l01-q02",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles son ventajas de la ley frente a la ética como guía de una IA, según el libro?",
+    "opciones": [
+      "Es legítima: en una democracia registra valores compartidos y tiene vías para cambiarla",
+      "Está probada y es muy amplia: se ha desarrollado durante generaciones",
+      "No necesita interpretación: cada norma se aplica igual a cualquier caso",
+      "Es específica y adaptable: combina reglas y estándares"
+    ],
+    "correcta": [0, 1, 3],
+    "explicacion": "Las tres ventajas son legitimidad, ser probada y amplia, y ser específica y adaptable. La opción sobre la interpretación es falsa: el libro insiste en que siempre hay un acto de interpretación entre la norma y el caso, y en que un intérprete legítimo debe seguir en el proceso."
+  },
+  {
+    "id": "m08l01-q03",
+    "tipo": "unica",
+    "enunciado": "«Nunca más de 10 unidades por toma» frente a «una dosis razonable para ese paciente». ¿Cómo se clasifican y qué problema de control ayuda a atacar cada una?",
+    "opciones": [
+      "La primera es un estándar, útil contra el juego con la norma; la segunda es una regla, útil contra la malinterpretación",
+      "Ambas son reglas, porque las dos acaban en una consecuencia",
+      "La primera es una regla, útil contra la malinterpretación; la segunda es un estándar, útil contra el juego con la norma",
+      "Ambas son estándares, porque las aplica una persona"
+    ],
+    "correcta": 2,
+    "explicacion": "La primera tiene disparador objetivo y consecuencia clara: es una regla, difícil de malinterpretar. La segunda es un criterio general que aplica un decisor: es un estándar, que cubre más terreno y resiste mejor el juego con la norma, a costa de dejar margen al intérprete."
+  },
+  {
+    "id": "m08l01-q04",
+    "tipo": "unica",
+    "enunciado": "Un sistema de citas cumple el plazo máximo de espera reclasificando casos para que el reloj se detenga, sin atender antes al paciente. ¿Qué problema de control ilustra y qué herramienta legal ayuda más?",
+    "opciones": [
+      "Malinterpretación; una regla más específica",
+      "Malinterpretación; un estándar",
+      "Juego con la norma (gaming); otra regla con otra cifra",
+      "Juego con la norma (gaming); un estándar, como una cláusula contra el abuso"
+    ],
+    "correcta": 3,
+    "explicacion": "El sistema cumple la letra buscando el resultado que quiere: es juego con la norma. Como con los impuestos, donde llevamos unos 6000 años sin cerrar la evasión con reglas, un estándar como el de las prácticas «abusivas» cubre más terreno, aunque exige que alguien decida qué es abuso."
+  },
+  {
+    "id": "m08l01-q05",
+    "tipo": "vf",
+    "enunciado": "Según el libro, una IA que solo siga la ley rescataría a un desconocido en peligro, porque la ley obliga a hacerlo.",
+    "correcta": false,
+    "explicacion": "Falso. En jurisdicciones como la de EE. UU., el deber de rescate solo rige cuando hay una responsabilidad especial sobre la persona (un cónyuge, un empleado). Una IA que solo cumpliera la ley no rescataría sin un impulso ético propio."
+  },
+  {
+    "id": "m08l01-q06",
+    "tipo": "multiple",
+    "enunciado": "Un asistente clínico cumple todas las normas. ¿En cuáles de estos casos el problema es que la ley calla o deja libertad?",
+    "opciones": [
+      "No avisa de urgencia ante síntomas de ictus, porque ninguna norma se lo exige",
+      "Redacta contratos de estancia con cláusulas que la familia no entiende y que son legales",
+      "Aplica una norma vigente, aprobada por mayoría, que discrimina en la lista de espera",
+      "Conserva copias de datos en una caché sin «saber» que lo hace, y la norma castiga a quien conserve «a sabiendas»"
+    ],
+    "correcta": [0, 1],
+    "explicacion": "Los dos primeros son silencio: no hay obligación de hacer el bien y el contenido de la mayoría de los contratos es una zona de discreción. El tercero es una ley inmoral aunque legítima, y el cuarto muestra que la ley se escribió pensando en personas."
+  },
+  {
+    "id": "m08l01-q07",
+    "tipo": "vf",
+    "enunciado": "Términos como «a sabiendas» o «con intención» pueden no aplicarse bien a una IA, porque la mayoría de las leyes se escribieron pensando en agentes humanos.",
+    "correcta": true,
+    "explicacion": "Verdadero. El libro pone como ejemplo la posesión «a sabiendas» de un agente biológico «destinado» a usarse como arma: una IA puede no saber ni pretender nada, y aplicar leyes hechas sin IA en mente puede dar interpretaciones extrañas."
+  },
+  {
+    "id": "m08l01-q08",
+    "tipo": "numerica",
+    "enunciado": "Una regla bloquea toda propuesta de dosis de más de 10 unidades. De 800 propuestas adecuadas, 40 superan las 10 unidades. De 200 propuestas peligrosas, 110 no las superan. ¿Qué porcentaje de las 1.000 propuestas trata mal la regla (bloqueos indebidos más peligrosas que pasan)? Responde como número, por ejemplo 12,5.",
+    "correcta": 15,
+    "tolerancia": 0.1,
+    "explicacion": "Bloqueos indebidos: 40. Peligrosas que pasan: 110. Total: 150 de 1.000, es decir, un 15 %. Es la sobreinclusión y la infrainclusión de una regla."
+  },
+  {
+    "id": "m08l01-q09",
+    "tipo": "unica",
+    "enunciado": "Según el libro, ¿qué muestra el ejemplo de amputar un miembro para frenar una infección ante las tres leyes de la robótica?",
+    "opciones": [
+      "Que las leyes funcionan bien en un contexto quirúrgico",
+      "Que la primera ley puede prohibir a la vez actuar (dañar) y no actuar (inacción), porque «daño» e «inacción» están poco definidos",
+      "Que la tercera ley debería ir antes que la primera",
+      "Que los robots no deberían operar nunca"
+    ],
+    "correcta": 1,
+    "explicacion": "Amputar es dañar, y no amputar es dejar que el daño avance por inacción. Si la primera ley no decide, las otras dos, que dependen de ella, quedan sin base. La conclusión del libro es que las reglas simples no bastan."
+  },
+  {
+    "id": "m08l01-q10",
+    "tipo": "unica",
+    "enunciado": "¿Qué dice el libro de las encuestas y las asambleas ciudadanas como alternativa a la ley para recoger los valores de la población?",
+    "opciones": [
+      "Que sirven para preferencias concretas o propuestas informadas, pero no para resumir los valores de toda la población en un ámbito tan amplio como el de la ley",
+      "Que son claramente mejores que la ley y deberían sustituirla",
+      "Que no sirven para nada",
+      "Que la ley ya las incorpora todas"
+    ],
+    "correcta": 0,
+    "explicacion": "El libro sostiene que la ley no es necesariamente la agregación más representativa concebible, pero que esas alternativas no encajan en la tarea general: la ley sigue siendo nuestra mejor herramienta, no la única concebible."
+  }
+]

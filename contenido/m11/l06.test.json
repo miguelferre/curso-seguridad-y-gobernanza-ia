@@ -1,0 +1,111 @@
+[
+  {
+    "id": "m11l06-q01",
+    "tipo": "unica",
+    "enunciado": "Bobby y Cory se comportan exactamente igual: son honestos y cumplen sus promesas. A Bobby le gusta ayudar y a Cory le pesa. ¿Qué dice la mayoría de las teorías de la virtud?",
+    "opciones": [
+      "Que los dos son igual de virtuosos, porque su conducta es idéntica",
+      "Que solo Bobby es virtuoso, porque cuenta también lo que se siente y lo que mueve a actuar",
+      "Que solo Cory es virtuosa, porque actúa a pesar del esfuerzo",
+      "Que ninguno, porque la virtud no depende del carácter"
+    ],
+    "correcta": 1,
+    "explicacion": "Para la ética de la virtud, ser virtuoso no es solo comportarse de cierta forma, sino también sentir de cierta forma. Un consecuencialista los evaluaría igual; la ética de la virtud respalda la intuición de que Bobby es moralmente superior (libro, pp. 568 y 569)."
+  },
+  {
+    "id": "m11l06-q02",
+    "tipo": "unica",
+    "enunciado": "De los tres conceptos de Aristóteles, ¿cuál se aprende sobre todo con la experiencia y observando a personas ejemplares?",
+    "opciones": [
+      "El florecimiento",
+      "El maximin",
+      "La sabiduría práctica",
+      "La posición original"
+    ],
+    "correcta": 2,
+    "explicacion": "La sabiduría práctica es saber cuándo expresar cada virtud. Se aprende con la experiencia y de quienes destacan en sus virtudes, y por eso el libro dice que para IA virtuosas harían falta ejemplares que imitar (p. 569). El maximin y la posición original pertenecen al contrato social."
+  },
+  {
+    "id": "m11l06-q03",
+    "tipo": "vf",
+    "enunciado": "La ética de la virtud ofrece un procedimiento de decisión que resuelve cualquier dilema, incluso cuando dos virtudes chocan.",
+    "correcta": false,
+    "explicacion": "Es una de sus críticas principales: no siempre guía la acción. Ante un caso como robar comida para la familia, la generosidad y la lealtad apuntan a lados opuestos. Sus defensores replican que una persona con sabiduría práctica sabrá qué virtud toca, aunque no exista un procedimiento general (libro, p. 570)."
+  },
+  {
+    "id": "m11l06-q04",
+    "tipo": "unica",
+    "enunciado": "En el experimento del velo de la ignorancia de Rawls, ¿qué desconocen quienes deciden cómo será la sociedad?",
+    "opciones": [
+      "Sus propios atributos y su lugar en la sociedad, como talentos, religión o clase",
+      "Las reglas que se van a proponer",
+      "Cuántas personas hay en la sociedad",
+      "Qué consecuencias tendrá cada regla"
+    ],
+    "correcta": 0,
+    "explicacion": "Tras el velo nadie sabe qué talentos, religión, género o clase tendrá. Por eso nadie diseña reglas a favor de un grupo concreto: cualquiera podría ser el peor situado (libro, p. 572)."
+  },
+  {
+    "id": "m11l06-q05",
+    "tipo": "multiple",
+    "enunciado": "Según el libro, ¿cuáles de estas propuestas son formas de teoría del contrato social? Marca todas las correctas.",
+    "opciones": [
+      "La ética de Rawls",
+      "El prioritarismo",
+      "El contractualismo de Scanlon",
+      "La deontología de Kant",
+      "La ética de la virtud de Aristóteles"
+    ],
+    "correcta": [0, 1, 2],
+    "explicacion": "La conclusión del libro agrupa la ética de Rawls, el prioritarismo y el contractualismo como formas de contrato social. La deontología de Kant y la ética de la virtud de Aristóteles son teorías distintas (libro, pp. 577 y 578)."
+  },
+  {
+    "id": "m11l06-q06",
+    "tipo": "numerica",
+    "enunciado": "Ejemplo propio con cifras inventadas: el protocolo X logra una supervivencia del 72 % en 900 pacientes y del 40 % en otros 100. ¿Cuántos supervivientes esperas, en total, por cada 1000 pacientes?",
+    "correcta": 688,
+    "tolerancia": 0.5,
+    "explicacion": "900 × 0,72 = 648 y 100 × 0,40 = 40, y la suma es 688. Con el protocolo Y (68 % para todos) serían 680, luego el utilitarismo elige X por 8 supervivientes de diferencia."
+  },
+  {
+    "id": "m11l06-q07",
+    "tipo": "numerica",
+    "enunciado": "En el ejemplo del libro con Rana, Sean y Toby, la opción 1 deja a los tres en (8, 7, 1) y la opción 3 en (3, 3, 3). ¿Cuántas unidades más de bienestar total suma la opción 1 que la 3?",
+    "correcta": 7,
+    "tolerancia": 0,
+    "explicacion": "La opción 1 suma 8 + 7 + 1 = 16 y la opción 3 suma 3 + 3 + 3 = 9, luego la diferencia es 7. Por eso el utilitarismo elige la 1, y el maximin, que mira solo el mínimo (3 frente a 1), elige la 3."
+  },
+  {
+    "id": "m11l06-q08",
+    "tipo": "unica",
+    "enunciado": "Según el libro, ¿qué defendió John Harsanyi usando la idea del velo de la ignorancia antes que Rawls?",
+    "opciones": [
+      "Que la gente elegiría el maximin",
+      "Que solo importarían las obligaciones especiales",
+      "Que ninguna regla sería aceptable",
+      "Que se elegiría maximizar el bienestar medio, es decir, una sociedad utilitarista"
+    ],
+    "correcta": 3,
+    "explicacion": "Harsanyi argumentó que agentes racionales tras el velo maximizarían el bienestar total o medio. Es un problema para Rawls: su herramienta, pensada como alternativa al utilitarismo, también puede apoyarlo (libro, p. 574)."
+  },
+  {
+    "id": "m11l06-q09",
+    "tipo": "vf",
+    "enunciado": "El libro señala como debilidad del contrato social que, al no tener más valor fundamental que el acuerdo, un resultado aceptado por todos podría justificarse aunque fuera malo, por ejemplo unas IA que pacten no cuidar de los humanos.",
+    "correcta": true,
+    "explicacion": "Es cierto: sin otros valores de fondo, cualquier resultado que todos acepten sería justificable. El libro menciona IA que pactan entre ellas no cuidar de humanos o que persuaden a las personas de aceptar peores condiciones (p. 576)."
+  },
+  {
+    "id": "m11l06-q10",
+    "tipo": "unica",
+    "enunciado": "¿De qué elemento de la propuesta de Rawls prescinde el contractualismo de Scanlon, según el libro?",
+    "opciones": [
+      "Del velo de la ignorancia y la posición original",
+      "De cualquier idea de acuerdo entre personas",
+      "De la noción de lo razonable",
+      "De lo que nos debemos unos a otros"
+    ],
+    "correcta": 0,
+    "explicacion": "Scanlon piensa que las personas buscan por naturaleza acuerdos razonables, con lo que el velo resulta innecesario. Para él, la moral trata de lo que nos debemos unos a otros, y algo es incorrecto si incumple un principio que nadie podría rechazar razonablemente (libro, pp. 575 y 576)."
+  }
+]

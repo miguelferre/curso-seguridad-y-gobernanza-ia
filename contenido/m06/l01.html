@@ -1,0 +1,227 @@
+<section class="leccion" data-id="m06/l01">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Un modelo puede ser justo de varias maneras, y no todas a la vez. Piensa en un modelo que decide a quién derivar al especialista. Puedes pedir que derive a la misma proporción de jóvenes que de mayores, que se equivoque igual de a menudo con unos y con otros, o que un «sí» del modelo signifique lo mismo en los dos grupos. Las tres preguntas son razonables y, si los grupos parten de necesidades distintas, no se pueden cumplir las tres a la vez: hay que elegir cuál importa más y dejarlo por escrito.</p>
+<p>Por eso, en producción no se vigila «la equidad» en general, sino unas pocas métricas concretas, con un grupo vigilado, uno de referencia y un umbral de alerta. Esta lección enseña a leerlas y a no fiarse de una sola.</p>
+
+<svg viewBox="0 0 360 292" role="img" aria-labelledby="eq-t eq-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="eq-t">Tres preguntas de equidad</title>
+<desc id="eq-d">Tres tarjetas: paridad estadística (¿se reparte igual?, impacto dispar, sin etiquetas), errores iguales (¿se equivoca igual?, diferencias de FPR y FNR, con etiquetas) y valor predictivo (¿significa lo mismo un sí?, VPP y calibración por grupo, con etiquetas). Debajo, un aviso: con tasas base distintas no caben las tres a la vez.</desc>
+<rect x="4" y="4" width="352" height="62" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="26" style="fill:var(--accent-ink);font-weight:700;font-size:14px">PARIDAD ESTADÍSTICA: ¿se reparte igual?</text>
+<text x="18" y="46" style="fill:currentColor;font-size:12.5px">Impacto dispar y diferencia de tasas favorables</text>
+<text x="18" y="60" style="fill:var(--muted);font-size:11.5px">No necesita etiquetas: sirve desde el primer día</text>
+<rect x="4" y="76" width="352" height="62" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="18" y="98" style="fill:var(--ex);font-weight:700;font-size:14px">ERRORES IGUALES: ¿se equivoca igual?</text>
+<text x="18" y="118" style="fill:currentColor;font-size:12.5px">Diferencia de falsos positivos y de falsos negativos</text>
+<text x="18" y="132" style="fill:var(--muted);font-size:11.5px">Necesita etiquetas: hay que esperar al desenlace real</text>
+<rect x="4" y="148" width="352" height="62" rx="10" style="fill:var(--surface);stroke:var(--rule-strong);stroke-width:2"/>
+<text x="18" y="170" style="fill:currentColor;font-weight:700;font-size:14px">VALOR PREDICTIVO: ¿un «sí» vale lo mismo?</text>
+<text x="18" y="190" style="fill:currentColor;font-size:12.5px">Diferencia de VPP y calibración dentro de cada grupo</text>
+<text x="18" y="204" style="fill:var(--muted);font-size:11.5px">Necesita etiquetas y, para calibrar, probabilidades</text>
+<rect x="4" y="222" width="352" height="66" rx="10" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:2"/>
+<text x="18" y="245" style="fill:var(--trap);font-weight:700;font-size:14px">Tasas base distintas: no caben las tres</text>
+<text x="18" y="264" style="fill:currentColor;font-size:12.5px">Se elige cuál pesa más, se documenta a qué se renuncia</text>
+<text x="18" y="279" style="fill:var(--muted);font-size:11.5px">y se vigila con umbral, ventana y grupo de referencia claros</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Explicar por qué quitar el atributo protegido no basta y de dónde sale el sesgo de un modelo clínico.</li>
+<li>Calcular el impacto dispar, la diferencia de paridad estadística y las diferencias de FPR, FNR y VPP a partir de una matriz de confusión por grupo.</li>
+<li>Demostrar con números por qué, con tasas base distintas, no se pueden igualar a la vez el reparto, los errores y el valor predictivo.</li>
+<li>Declarar la configuración de un monitor de equidad (atributo, grupos, resultado favorable, umbral, ventana) y leer una alerta sin dar por bueno un «sin alertas».</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>¿De dónde sale el sesgo?</h3>
+<p>Si un modelo falla más con un grupo que con otro, ¿basta con darle más datos? Según el libro, no: llama sesgo (<em>bias</em>) al error sistemático y con dirección (a diferencia del ruido) que perjudica a unos grupos más que a otros, y su corrección suele pasar por cambiar los datos, el algoritmo o el uso. Como puede colarse en cualquier fase del ciclo de vida, la pregunta útil es en cuál.</p>
+<p>El libro reparte las fuentes en dos grupos. Las técnicas: datos con prejuicios históricos, muestras que representan mal a un colectivo, etiquetas sesgadas y objetivos mal elegidos. Las de la interacción entre personas y modelo: fiarse de la máquina por ser máquina (sesgo de automatización) y los bucles en que las decisiones del modelo alimentan los datos del siguiente. El Atlas los ordena con la taxonomía de Suresh y Guttag, de siete tipos (histórico, de representación, de medición, de agregación, de aprendizaje, de evaluación y de despliegue), y la usa así: nombrar el tipo antes de elegir el arreglo. Reponderar los datos ayuda con un sesgo de representación y no toca uno de despliegue.</p>
+<p>Ejemplo adaptado del Atlas (sintético): un modelo que decide derivar desde atención primaria a reumatología se entrena con la etiqueta «derivación en ventana», que mide en parte la necesidad clínica y en parte el criterio del médico que derivó (sesgo de medición). Si además trata igual a dos poblaciones que presentan la enfermedad de forma distinta, añade un sesgo de agregación.</p>
+<p>Ejemplo del libro: COMPAS, software de predicción de reincidencia usado en tribunales de EE. UU. Sus creadores defendían que estaba calibrado por niveles de riesgo; un reportaje denunció que etiquetaba como de alto riesgo a más acusados afroamericanos que a blancos con historiales casi idénticos, y el libro añade que generaba más falsos positivos para ellos y más falsos negativos para los blancos. Las dos cosas eran ciertas a la vez, y esa es la clave de la lección.</p>
+
+<h3>Tres maneras de decir «justo»</h3>
+<p>El libro enumera cinco ideas de equidad: individual (a personas parecidas, trato parecido), de grupo, procedimental (procesos consistentes y transparentes), distributiva (reparto de recursos) y contrafactual (la decisión no cambiaría si el atributo protegido fuera otro). Para monitorizar hay que traducirlas a números, y la práctica se ha concentrado en la equidad de grupo, con tres definiciones que presenta el libro:</p>
+<div class="tw"><table>
+<thead><tr><th>Definición del libro</th><th>Pregunta que responde (propia)</th><th>Métricas del Atlas</th><th>Necesita</th></tr></thead>
+<tbody>
+<tr><td>Paridad estadística (<em>statistical parity</em>): misma tasa de decisiones positivas por grupo</td><td>¿Se reparte igual el resultado favorable?</td><td>Impacto dispar (<em>disparate impact</em>, razón) y diferencia de paridad estadística</td><td>Predicciones y grupo</td></tr>
+<tr><td>Probabilidades igualadas (<em>equalized odds</em>): mismos falsos positivos y falsos negativos</td><td>¿Se equivoca igual con cada grupo?</td><td>Diferencias de FPR y de FNR; promedios de probabilidades</td><td>Etiquetas reales</td></tr>
+<tr><td>Calibración (<em>calibration</em>): la probabilidad anunciada coincide con la frecuencia real</td><td>¿Un «sí» o un 0,65 vale lo mismo en cada grupo?</td><td>Diferencia de VPP y calibración dentro de grupos</td><td>Etiquetas y probabilidades</td></tr>
+</tbody></table></div>
+<p>Notación: la sensibilidad o TPR (<em>true positive rate</em>) es la fracción de positivos reales que el modelo detecta; la FPR (<em>false positive rate</em>), la de negativos reales marcados como favorables; la FNR es \(1-TPR\). La calibración se estudia a fondo en la lección siguiente; aquí basta su versión binaria, el valor predictivo positivo (VPP, <em>positive predictive value</em>): la proporción de «sí» del modelo que de verdad lo eran. La equidad individual y la contrafactual quedan fuera porque necesitan una noción de «parecido» o un modelo causal; el Atlas avisa de que con solo equidad de grupo puede haber paridad perfecta y casos concretos muy mal tratados.</p>
+
+<div class="example">
+<p class="label">Ejemplo del Atlas (sintético)</p>
+<p>Un modelo decide la elegibilidad para fisioterapia domiciliaria tras el alta, con 200 personas por grupo. La edad es el atributo protegido, el grupo vigilado (supervisado) son los de 65 años o más y el de referencia, los menores. Resultado favorable: ser elegible.</p>
+<div class="tw"><table>
+<thead><tr><th>Grupo</th><th>VP</th><th>FN</th><th>FP</th><th>VN</th><th>Tasa favorable</th><th>TPR</th><th>FPR</th><th>VPP</th></tr></thead>
+<tbody>
+<tr><td>Referencia (menores de 65)</td><td>80</td><td>20</td><td>30</td><td>70</td><td>0,550</td><td>0,80</td><td>0,30</td><td>0,727</td></tr>
+<tr><td>Supervisado (65 o más)</td><td>50</td><td>50</td><td>15</td><td>85</td><td>0,325</td><td>0,50</td><td>0,15</td><td>0,769</td></tr>
+</tbody></table></div>
+<p>Con esa matriz, el impacto dispar es \(0{,}325/0{,}550=0{,}591\), por debajo del 0,80 de fábrica: alerta. La diferencia de paridad es \(-0{,}225\) y la de FNR, \(0{,}50-0{,}20=+0{,}30\): al grupo vigilado se le escapan 30 puntos más de casos reales. La de FPR es \(-0{,}15\), que juega a su favor, y la de VPP, \(+0{,}042\), es casi nula. El modelo suspende en reparto y en falsos negativos; que la FPR salga baja no compensa nada, porque es la otra cara de lo mismo: dice «sí» menos a ese grupo, lo merezca o no. Nota propia: aquí la tasa base es igual en ambos (100 casos reales de 200), así que la brecha es del modelo y no de la aritmética.</p>
+</div>
+
+
+<h3>Por qué no caben los tres a la vez</h3>
+<p>Según el libro (p. 301), ningún clasificador cumple las tres definiciones a la vez salvo que la prevalencia sea igual en los grupos o la predicción sea perfecta. La tasa base (<em>base rate</em>) es esa prevalencia: la proporción de casos realmente positivos en el grupo antes de cualquier predicción. Se ve con un ejemplo del Atlas, que también puedes <a data-ir="practica" href="#sim-m06-l01-impacto-dispar">mover en el simulador de Práctica</a>.</p>
+<div class="example">
+<p class="label">Ejemplo del Atlas (sintético), recolocado</p>
+<p>Un modelo con sensibilidad 0,80 y especificidad 0,90 (TPR 0,80 y FPR 0,10) se aplica igual a dos grupos: los errores son idénticos. El grupo A tiene una prevalencia del 30 % y el grupo B, del 10 %. Por Bayes, el VPP es \(0{,}30\times0{,}80/(0{,}30\times0{,}80+0{,}70\times0{,}10)=0{,}774\) en A y \(0{,}10\times0{,}80/(0{,}10\times0{,}80+0{,}90\times0{,}10)=0{,}471\) en B: un «sí» vale mucho menos en B. Y las tasas favorables son \(0{,}31\) y \(0{,}17\). Si B es el grupo vigilado, el impacto dispar es \(0{,}17/0{,}31=0{,}548\) (cálculo propio). El modelo no trata distinto a nadie: la diferencia sale de la aritmética de las tasas base.</p>
+</div>
+<p>De ahí un argumento propio, corto y general. Si el TPR y la FPR son iguales en los dos grupos, la tasa favorable de cada uno es:</p>
+<div class="formula">\[ P(\hat Y=1)=b\cdot TPR+(1-b)\cdot FPR=FPR+b\,(TPR-FPR) \]</div>
+<p>Con la misma sensibilidad y los mismos falsos positivos, la diferencia entre grupos es \((b_S-b_R)(TPR-FPR)\). Solo se anula si las tasas base coinciden o si el modelo no separa nada (TPR igual a FPR). Y las odds del VPP, es decir, \(VPP/(1-VPP)\), valen \(\frac{b}{1-b}\cdot\frac{TPR}{FPR}\), que vuelve a depender de \(b\). Un matiz también propio sobre la excepción de la predicción perfecta. Según el Atlas, el resultado formal lo demostraron Kleinberg, Mullainathan y Raghavan por un lado y Chouldechova (2017) por otro, y este último con predicciones binarias: mismo FPR, mismo FNR y mismo VPP a la vez. Para eso la excepción vale: con TPR 1 y FPR 0 no hay errores y el VPP es 1 en los dos grupos. Pero no rescata la paridad estadística: la tasa favorable es exactamente la tasa base de cada grupo, e igualarla exigiría que el modelo se equivocara a propósito. Es decir, la frase del libro es exacta para errores y valor predictivo, y demasiado generosa si se lee incluyendo la paridad. La moraleja operativa es que <strong>elegir es una decisión normativa, no solo técnica</strong>.</p>
+<p>Para quien monitoriza, dos consecuencias, ambas del Atlas. Antes de acusar al modelo de una brecha de VPP o de reparto, comprueba si las tasas base ya difieren. Y cualquier objetivo de mitigación implica renunciar a otro marco: esa renuncia se documenta antes de desplegar. El libro añade que forzar una métrica a veces cuesta exactitud, aunque hay trabajos en sanidad que mejoran la equidad con poco efecto sobre ella.</p>
+
+<h3>Quitar la variable no basta</h3>
+<p>La primera idea de quien llega de cumplimiento es excluir el atributo protegido del modelo. Falla (<em>fairness through unawareness</em>) porque otras variables actúan de sustituto (proxy). Ejemplos del libro: un modelo de currículos sin el género seguía puntuando peor a las mujeres por los colegios que constaban, y en la asignación de trasplantes quitar el sexo no eliminó la desventaja de las mujeres, porque la talla y la creatinina la delataban. El Atlas saca la consecuencia de operación: se puede vigilar un atributo aunque el modelo no lo use, perturbándolo en copias sintéticas de cada transacción y viendo si cambia la predicción. El error real es excluir el atributo y además dejar de registrarlo: el sesgo queda sin corregir y sin medir.</p>
+
+<h3>Vigilar en producción: el vocabulario</h3>
+<p>El libro pide dos cosas: medir FPR y FNR por separado en cada subgrupo y mantener una vigilancia continua por grupos demográficos. El Atlas las concreta en un vocabulario que hay que declarar antes de que un número signifique algo:</p>
+<dl class="facts">
+<dt>Atributo protegido</dt><dd>La característica que se vigila (edad, sexo). Se declara como «característica evaluada» y puede no ser entrada del modelo.</dd>
+<dt>Grupo supervisado y de referencia</dt><dd>Se comparan entre sí, nunca con la población entera. El supervisado se elige por hipótesis de riesgo, no por ser minoría (en el Atlas, 18-35 frente a 36-75).</dd>
+<dt>Resultado favorable</dt><dd>El desenlace que beneficia a la persona, declarado a mano. Si se invierte por error, el impacto dispar pasa de 19,50 a más de 100 y la lectura se da la vuelta.</dd>
+<dt>Umbral</dt><dd>Tiene dirección: el impacto dispar alerta por debajo; las diferencias de error, por encima. El valor de fábrica es el 80 % de la regla de las cuatro quintas; en el ejemplo sintético del Atlas se recalibró porque la cohorte ya partía con disparidad. Un recuento de alertas (<em>issue_count</em>) igual a 0 solo dice que ninguna métrica cruzó su umbral.</dd>
+<dt>Ventana</dt><dd>Los últimos N registros con que se calcula. Es parte de la definición del número: sobre el mismo lote de 450 transacciones, el impacto dispar da 27,81 con ventana de 50, 19,50 con 200 y 12,38 con 450 (Atlas).</dd>
+</dl>
+<p>Cuidado con la escala: el Atlas presenta el impacto dispar en 0 a 1 (ideal 1); Vigía lo muestra multiplicado por 100, con la etiqueta «Impacto dispar (escala 0-100)». Un 19,5 en Vigía es un 0,195 en la escala del Atlas.</p>
+
+<h3>Cuando salta la alerta</h3>
+<p>Primero se nombra qué tipo de sesgo hay y solo después se elige el arreglo. El Atlas distingue tres familias técnicas: antes de entrenar (reponderar datos), durante (un adversario que intenta deducir el atributo de las salidas y penaliza al modelo, que el libro destaca) y después (ajustar la decisión final; reequilibrar la salida no arregla el modelo). Aplicar umbrales distintos por grupo abre un debate ético y legal que, según el Atlas, en 2026 carecía de jurisprudencia consolidada en sanidad pública (afirmación del Atlas, no comprobada aquí). El libro insiste en que lo técnico no basta: hacen falta detección temprana, despliegue gradual, diseño participativo y auditorías independientes.</p>
+<p>Qué más mira un monitor cuando un modelo cambia se ve en las lecciones siguientes: calidad y calibración (2), deriva (3), explicabilidad (4) y la capa humana (5).</p>
+
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Dar por bueno un tablero en verde (aviso propio, apoyado en el Atlas).</strong> Un recuento de alertas igual a 0 no prueba equidad: si el umbral está holgado o falta la métrica que importa (por ejemplo, la de falsos negativos), el sesgo sigue ahí. Y con una sola métrica, un modelo puede aprobar en reparto y suspender en errores.</p>
+<p><strong>Ver discriminación en una brecha que es aritmética.</strong> Con tasas base distintas, errores idénticos ya producen impacto dispar y diferencias de VPP. Mira primero las tasas base; luego decide qué marco prima y a qué renuncias.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>Fairness is not one number: I pick the metric that matches the harm, I say which definitions I'm giving up when base rates differ, and I never read "no alerts" as "the model is fair".</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 6.3 Fairness, págs. 294 a 305 (PDF 312 a 323): caso COMPAS (294 y 295), sesgo y sus fuentes (295 a 299), conceptos de equidad y tres definiciones (299 a 301), límites e imposibilidad (301 y 302) y enfoques, con evaluación por subgrupo y vigilancia continua (302 a 305).</li>
+<li>Atlas de métricas de Miguel (obra propia, datos sintéticos): sección «Conceptos» (vocabulario del monitor de equidad, variables proxy, taxonomía de Suresh y Guttag, mitigación, teorema de imposibilidad y tasa base) y sección «Equidad» (fichas de impacto dispar, valor de equidad, paridad estadística, diferencias de FNR, FPR y VPP y calibración dentro de grupos, y la matriz del monitor de fisioterapia).</li>
+<li>Vigía 1.0.0 (github.com/miguelferre/vigia), demo del escenario 1: rutas, comandos y cifras del caso «Digestivo». El laboratorio solo escribe en la carpeta de datos del curso.</li>
+<li>Añadido propio, no procede de las fuentes: las preguntas de cada marco, la fórmula de la brecha con errores iguales, las odds del VPP, el matiz de la predicción perfecta y a qué teorema alcanza, el impacto dispar del ejemplo recolocado, el simulador, el laboratorio y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: un simulador para ver por qué no caben los tres marcos a la vez, un laboratorio con la demo de Vigía y tres ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de impacto dispar.</strong> Empieza con el ejemplo del Atlas recolocado: mismos errores en los dos grupos y tasas base de 10 % y 30 %. Saltan el reparto (impacto dispar 0,548) y el VPP (diferencia de −0,304); solo se cumplen los errores iguales. Pulsa «Igualar tasa favorable»: el impacto dispar pasa a 1,000, pero la FPR del grupo supervisado sube a 25,6 %, la diferencia de FPR a +0,156 y el VPP se hunde. Pulsa «Igualar errores» para volver a errores idénticos y luego «Igualar VPP»: la FPR baja al 2,6 % y el impacto dispar cae a 0,333. Con la tolerancia en 0,10 aún salen dos marcos; bájala a 0,05 y queda uno. Pulsa «Reiniciar» y sube la tasa base del supervisado a 30 %: los tres marcos se cumplen. Por último, pulsa «Reiniciar» otra vez y, con tasas base distintas, pon sensibilidad al 100 % y FPR al 0 % en los dos grupos (predicción perfecta): ¿qué marco falla todavía?</p>
+<div data-widget="m06-l01-impacto-dispar" id="sim-m06-l01-impacto-dispar"></div>
+
+<div class="laboratorio">
+<p class="label">Laboratorio en Vigía</p>
+<p>Vigía es software libre (licencia MIT) del autor del curso: <a href="https://github.com/miguelferre/vigia">github.com/miguelferre/vigia</a>. Solo funciona en Windows 11 de 64 bits. Los datos son sintéticos. La demo guiada presenta como «Digestivo» una derivación de atención primaria a reumatología, con códigos renombrados. Pasos y cifras salen de la demo de Vigía 1.0.0; lo que no hay en ella dice «comprueba en pantalla». Unos 20 minutos sin la instalación (estimación propia); no hace falta para el test.</p>
+<ul>
+<li><strong>Vía 1, zip de la Release (la recomendada).</strong> Descarga <code>vigia-1.0.0-win64.zip</code> y <code>vigia-1.0.0-win64.zip.sha256</code> de la <a href="https://github.com/miguelferre/vigia/releases">página de Releases</a>. Comprueba la huella con <code>Get-FileHash vigia-1.0.0-win64.zip</code>. Extrae el zip entero. Dentro de <code>vigia-1.0.0-win64\</code> arranca con <code>Vigia.cmd &lt;carpeta&gt;</code>, que abre el navegador solo.</li>
+<li><strong>Vía 2, clon.</strong> <code>git clone https://github.com/miguelferre/vigia.git</code> y, desde su raíz, el bloque «Compilar desde el código» del README, copiado literal. Requisitos: Python 3.13 de python.org, uv y Node 20.19 o superior.
+<pre><code>uv sync --locked --extra dev --extra shap
+cd frontend
+npm ci
+$env:VITE_TEMA="miguel"
+npm run build
+cd ..
+.venv\Scripts\python.exe build\build.py all</code></pre>
+Ese bloque deja el zip en <code>dist\</code>. Extráelo y sigue como en la vía 1.</li>
+<li><strong>Carpeta de datos.</strong> Usa una carpeta aparte para el curso (<code>&lt;carpeta&gt;</code>). La carpeta por defecto, <code>Documents\vigia-datos</code>, guarda tus datos si ya usas Vigía.</li>
+</ul>
+<ol>
+<li><strong>Arranca</strong> Vigía con la carpeta de datos del curso: <code>Vigia.cmd &lt;carpeta&gt;</code>. El puerto es el que ves en la barra de direcciones del navegador.</li>
+<li><strong>Abre la demo</strong> en <code>http://127.0.0.1:&lt;puerto&gt;/demo?paso=0</code> (<code>&lt;puerto&gt;</code> es el de la barra de direcciones) y pulsa Empezar. Son 29 pasos (0 a 28). Los pasos 1 a 3 los haces tú (crear el modelo, subir la línea base y revisar los monitores).</li>
+<li><strong>Línea base.</strong> Abre <code>/monitores/equidad?metrica=false_negative_rate_difference</code>. En las semanas b1 a b5 debe salir 0,305, «ok», con umbral superior 0,55. Ese «ok» solo dice que está bajo el umbral.</li>
+<li><strong>El evento.</strong> Carga el lote de casos nuevos (paso 11, botón «Cargar el lote de casos nuevos») y mira <code>e1_evento</code>, hacia el paso 15: la misma métrica debe pasar a 0,631, «alerta». La demo lo desglosa en 25 de 31 jóvenes sin derivar (80,6 %) frente a 17 de 97 (17,5 %); comprueba en pantalla dónde sale.</li>
+<li><strong>Impacto dispar.</strong> Abre <code>/monitores/equidad?metrica=fairness_value</code>. En <code>e1_evento</code> debe salir 19,5, «inestable», con umbral inferior 20, intervalo de 19,50 a 20,98 y 5 favorables (escala 0 a 100). El cociente sin escala (<code>disparate_impact</code>) no tiene tarjeta propia en el monitor: busca su cálculo en el detalle de «Impacto dispar (escala 0-100)» y comprueba en pantalla qué cifras da. Después mira en <code>e1_recovery</code> las tres métricas: la demo dice que equidad vuelve a «ok», sin cifras.</li>
+<li><strong>Ensayo propio (opcional).</strong> Con <code>/demo?paso=28</code> activo, abre <code>/demo#laboratorio</code> y usa «Ejecutar un ensayo» en <code>e1_evento</code>. Controles (rango, valor inicial): tamaño 50 a 1000 (450), proporción de 18 a 35 de 0 a 1 (0,33), sesgo de −3 a 3 (1,1). Predice qué pasará con la diferencia de FNR y el impacto dispar con el sesgo en 0, ejecuta y compara. El ensayo no avanza el guion.</li>
+</ol>
+<p><strong>Cuidado:</strong> no cierres alertas ni reinicies la demo sin motivo, y no metas datos de personas reales. El 61,7 % de la capa humana (paso 21) es otro corte distinto del 0,631 y la demo no lo aclara: comprueba en pantalla y no los concilies. Para apagar Vigía: <code>runtime\python\python.exe -m vigia shutdown --data-dir &lt;carpeta&gt;</code> (en la carpeta de Vigía).</p>
+</div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: leer una matriz por grupo (a mano, 7 minutos)</p>
+<p>Cifras propias y sintéticas. Un modelo de derivación (favorable = derivar) se mide en dos grupos. Supervisado (18 a 35): 300 pacientes, 60 con necesidad real; deriva a 36 de ellos y a 24 de los 240 sin necesidad. Referencia (36 a 75): 500 pacientes, 150 con necesidad; deriva a 120 de ellos y a 35 de los 350 sin necesidad. Alertas: impacto dispar por debajo de 0,80 o diferencia absoluta mayor que 0,10.</p>
+<ol>
+<li>Calcula por grupo la tasa base, la tasa favorable, el TPR, la FPR y el VPP.</li>
+<li>Calcula el impacto dispar y las diferencias de paridad, FPR, FNR y VPP (supervisado menos referencia). ¿Cuáles alertan? ¿Puede deberse alguna a que las tasas base difieren?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Supervisado: tasa base \(60/300=0{,}20\); favorable \((36+24)/300=0{,}20\); TPR \(36/60=0{,}60\); FPR \(24/240=0{,}10\); VPP \(36/60=0{,}60\). Referencia: tasa base \(150/500=0{,}30\); favorable \((120+35)/500=0{,}31\); TPR \(120/150=0{,}80\); FPR \(35/350=0{,}10\); VPP \(120/155=0{,}774\).</p>
+<p><strong>2.</strong> Impacto dispar \(0{,}20/0{,}31=0{,}645\): alerta. Paridad \(0{,}20-0{,}31=-0{,}11\): alerta, por poco. Diferencia de FPR \(0{,}10-0{,}10=0\): no. Diferencia de FNR \(0{,}40-0{,}20=+0{,}20\): alerta. Diferencia de VPP \(0{,}60-0{,}774=-0{,}174\): alerta. Solo la FPR está igualada; el modelo detecta peor a los jóvenes que lo necesitan. Como las tasas base difieren (0,20 frente a 0,30), parte de la brecha de reparto y de VPP sería aritmética; la de FNR no, porque el TPR es distinto (0,60 frente a 0,80).</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: leer un informe de Vigía (a mano, 8 minutos)</p>
+<p>La demo «Digestivo» de Vigía (datos sintéticos) da, según la demo de Vigía 1.0.0: en la línea base, diferencia de FNR 0,305, «ok», con umbral superior 0,55; en <code>e1_evento</code>, diferencia de FNR 0,631, «alerta» (25 de 31 jóvenes sin derivar frente a 17 de 97), e impacto dispar 19,5 «inestable», con umbral inferior 20, intervalo de 19,50 a 20,98 y 5 favorables.</p>
+<ol>
+<li>¿Demuestra la línea base que el modelo era justo? Razona.</li>
+<li>Comprueba el 0,631 con los recuentos.</li>
+<li>¿Por qué puede estar el impacto dispar «inestable» en lugar de en alerta? Si el grupo vigilado tuviera un favorable más, o uno menos, ¿cuánto valdría, a igual denominador?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> No. 0,305 es una diferencia grande; «ok» solo significa que está bajo un umbral (0,55) fijado alto. El Atlas explica que los umbrales de su ejemplo se recalibraron porque la cohorte ya partía con disparidad. Un recuento de alertas nulo no equivale a equidad.</p>
+<p><strong>2.</strong> \(25/31=0{,}806\) y \(17/97=0{,}175\), y \(0{,}806-0{,}175=0{,}631\). Coincide.</p>
+<p><strong>3.</strong> Lectura propia, suponiendo que los 5 favorables son los del grupo vigilado (la demo no lo aclara): el intervalo del número (19,50 a 20,98) contiene el umbral 20, así que no se puede afirmar que lo cruce, y con 5 favorables un solo caso mueve el resultado. Un favorable más: \(19{,}5\times6/5=23{,}4\), sobre el umbral. Uno menos: \(19{,}5\times4/5=15{,}6\), bajo él.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: igualar el reparto con Python (10 minutos)</p>
+<p>Una puntuación con dos campanas (positivos y negativos) separadas 1,5 desviaciones típicas, igual en los dos grupos, y un umbral para decidir. Es el caso del simulador con tasas base de 10 % y 30 %. Ejecútalo: ¿qué le pasa a los errores del grupo supervisado cuando se baja su umbral para igualar la tasa favorable?</p>
+<pre><code>from statistics import NormalDist
+N = NormalDist()
+DPRIME = 1.5            # misma calidad de modelo en los dos grupos
+
+def tasas(c):           # umbral c: es favorable toda puntuación mayor que c
+    return 1 - N.cdf(c - DPRIME), 1 - N.cdf(c)   # TPR, FPR
+
+def favorable(b, c):
+    tpr, fpr = tasas(c)
+    return b * tpr + (1 - b) * fpr
+
+def buscar_umbral(b, objetivo):     # bisección: favorable baja al subir c
+    lo, hi = -4.0, 6.0
+    for _ in range(80):
+        mid = (lo + hi) / 2
+        if favorable(b, mid) &gt; objetivo:
+            lo = mid
+        else:
+            hi = mid
+    return (lo + hi) / 2
+
+bA, bB, cB = 0.10, 0.30, 1.0
+print("A", round(favorable(bA, cB), 3), "B", round(favorable(bB, cB), 3))
+cA = buscar_umbral(bA, favorable(bB, cB))
+tprA, fprA = tasas(cA)
+tprB, fprB = tasas(cB)
+print("umbral de A:", round(cA, 3), "favorable:", round(favorable(bA, cA), 3))
+print("dFPR:", round(fprA - fprB, 3), "dFNR:", round((1 - tprA) - (1 - tprB), 3))</code></pre>
+<details>
+<summary>Ver solución</summary>
+<p>Con el mismo umbral (1,0) los dos grupos tienen TPR 0,691 y FPR 0,159, es decir, errores idénticos, y tasas favorables de 0,212 y 0,318 (impacto dispar 0,665). Para que A llegue a 0,318, su umbral baja a 0,631: el TPR sube a 0,808 y la FPR a 0,264. La diferencia de FPR pasa a +0,105 y la de FNR a −0,116. Igualar el reparto se ha pagado con más falsas alarmas y menos casos perdidos en A: los errores ya no son iguales. Es la incompatibilidad de la teoría, medida, y un umbral distinto por grupo es lo que el Atlas señala como debate ético y legal abierto.</p>
+</details>
+</div>
+
+</div>
+
+</section>

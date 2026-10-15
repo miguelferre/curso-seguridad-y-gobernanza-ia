@@ -1,0 +1,237 @@
+<section class="leccion" data-id="m08/l04">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Un sistema que reparte recursos o decide por mucha gente necesita una regla para juntar en un solo número lo bien o mal que le va a cada persona. Esa regla se llama función de bienestar social (social welfare function) y no es neutral: con las mismas cifras, reglas distintas eligen políticas distintas.</p>
+<p>La regla más conocida suma, y gana la opción con más bienestar total. Otra, la de Rawls, mira solo a quien está peor. Entre las dos hay una familia de reglas que pesan más a quien tiene menos sin olvidarse de los demás, con un mando (alfa) que va de la suma al mínimo.</p>
+<p>Lo que hay que llevarse: elegir la regla es una decisión de valores, y una IA que la use como objetivo la aplicará sin matices.</p>
+
+<svg viewBox="0 0 360 282" role="img" aria-labelledby="fb-t fb-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="fb-t">Mismos datos, dos reglas, dos ganadoras</title>
+<desc id="fb-d">Tres proyectos municipales con el bienestar de tres vecinos. Clínica: 6, 8 y 4, suma 18, mínimo 4. Programa educativo: 8, 6 y 5, suma 19, mínimo 5. Parque: 3, 7 y 10, suma 20, mínimo 3. La suma elige el parque y el mínimo elige el programa educativo.</desc>
+<text x="180" y="18" text-anchor="middle" style="fill:var(--muted);font-size:12px">Bienestar de Ana, Ben y Cara con cada proyecto (ejemplo del libro)</text>
+<line x1="12" y1="160" x2="348" y2="160" style="stroke:var(--rule-strong);stroke-width:1.5"/>
+<rect x="8" y="26" width="112" height="228" rx="8" style="fill:none;stroke:var(--rule);stroke-width:1.5"/>
+<rect x="124" y="26" width="112" height="228" rx="8" style="fill:none;stroke:var(--ex);stroke-width:2.5"/>
+<rect x="240" y="26" width="112" height="228" rx="8" style="fill:none;stroke:var(--accent);stroke-width:2.5"/>
+<g style="fill:var(--accent)">
+<rect x="26" y="82" width="20" height="78" rx="2"/><rect x="52" y="56" width="20" height="104" rx="2"/><rect x="78" y="108" width="20" height="52" rx="2" style="fill:var(--trap)"/>
+<rect x="142" y="56" width="20" height="104" rx="2"/><rect x="168" y="82" width="20" height="78" rx="2"/><rect x="194" y="95" width="20" height="65" rx="2" style="fill:var(--trap)"/>
+<rect x="258" y="121" width="20" height="39" rx="2" style="fill:var(--trap)"/><rect x="284" y="69" width="20" height="91" rx="2"/><rect x="310" y="30" width="20" height="130" rx="2"/>
+</g>
+<g style="fill:var(--muted);font-size:11px" text-anchor="middle">
+<text x="36" y="174">Ana</text><text x="62" y="174">Ben</text><text x="88" y="174">Cara</text>
+<text x="152" y="174">Ana</text><text x="178" y="174">Ben</text><text x="204" y="174">Cara</text>
+<text x="268" y="174">Ana</text><text x="294" y="174">Ben</text><text x="320" y="174">Cara</text>
+</g>
+<g style="fill:currentColor;font-size:13px;font-weight:700" text-anchor="middle">
+<text x="64" y="196">Clínica</text><text x="180" y="196">Educación</text><text x="296" y="196">Parque</text>
+</g>
+<g style="fill:currentColor;font-size:12px" text-anchor="middle">
+<text x="64" y="214">Suma 18</text><text x="180" y="214">Suma 19</text><text x="296" y="214">Suma 20</text>
+<text x="64" y="230">Mínimo 4</text><text x="180" y="230">Mínimo 5</text><text x="296" y="230">Mínimo 3</text>
+</g>
+<text x="180" y="272" text-anchor="middle" style="font-size:12px;font-weight:700"><tspan style="fill:var(--ex)">El mínimo elige Educación</tspan><tspan style="fill:var(--muted)"> · </tspan><tspan style="fill:var(--accent-ink)">La suma elige Parque</tspan></text>
+</svg>
+<p style="color:var(--muted);font-size:.85rem;margin:0">La barra rojiza marca a quien está peor en cada proyecto.</p>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Calcular la suma, el mínimo, la suma de logaritmos y la función isoelástica de un vector de bienestar, y decir qué política elige cada una.</li>
+<li>Explicar por qué las reglas discrepan y qué actitud ante la desigualdad hay detrás de cada una.</li>
+<li>Distinguir el prioritarismo del igualitarismo y del argumento utilitarista de los rendimientos decrecientes.</li>
+<li>Nombrar los tres usos de estas funciones con IA (estimar, entrenar, optimizar) y sus límites.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>El problema de la agregación</h3>
+<p>Hasta ahora se ha hablado de cuánto bienestar tiene una persona. Un sistema que decide para muchas necesita otra cosa: pasar de las cifras individuales a un juicio sobre el conjunto. Ese paso es el problema de la agregación (aggregation problem). Decide sin decirlo cuánto pesa una persona frente a otra y cuánto la mayoría frente a la minoría.</p>
+<p>Una función de bienestar social (social welfare function, SWF) resuelve el paso con una receta: recibe el vector con el bienestar de cada persona y devuelve un único número, y a mayor número, mejor sociedad según esa función. Por eso sirve como objetivo con el que entrenar a una IA y como vara con la que juzgar sus recomendaciones. Aquí damos por buenas las cifras de cada persona; cómo se obtienen es asunto de la lección anterior, y qué hacer si no sabemos cuál es la teoría moral correcta, de la siguiente.</p>
+
+<p><strong>Ejemplo del libro.</strong> Un ayuntamiento elige entre tres proyectos, una clínica, un programa educativo y un parque, y estima el bienestar de tres vecinos con cada uno.</p>
+<div class="tw"><table>
+<thead><tr><th>Vecino</th><th>Clínica</th><th>Educación</th><th>Parque</th></tr></thead>
+<tbody>
+<tr><td>Ana</td><td>6</td><td>8</td><td>3</td></tr>
+<tr><td>Ben</td><td>8</td><td>6</td><td>7</td></tr>
+<tr><td>Cara</td><td>4</td><td>5</td><td>10</td></tr>
+</tbody>
+</table></div>
+<p>Ningún proyecto destaca y cada vecino tiene un favorito distinto. Hace falta una regla sistemática.</p>
+
+<h3>¿Y si solo tengo rankings?</h3>
+<p>Una salida barata es prescindir de las cifras: cada persona ordena las opciones y una regla combina los órdenes, como en una votación. Es una regla ordinal, porque solo usa el orden. Además supone que cada cual vota lo que más le conviene y se equivoca menos al no tener que estimar magnitudes.</p>
+<p>En el ejemplo del libro, si cada uno vota solo su proyecto favorito, el recuento empata: Ana votaría el programa educativo, Ben la clínica y Cara el parque, y nada permite desempatar. Es un caso de un problema general, el teorema de imposibilidad de Arrow (Arrow's impossibility theorem): con solo información ordinal no existe una regla que cumpla a la vez varios criterios razonables, como que no mande una sola persona o que, si todos prefieren A a B, la regla también. Una salida es añadir cuánto se prefiere cada cosa, es decir, cifras. Las dos familias que siguen las usan.</p>
+<p>Una precaución antes de seguir: el valor que da una función solo se compara con el de esa misma función. Un 20 de la suma y un 20 del mínimo no significan lo mismo, porque cada una define a su manera qué es una sociedad mejor.</p>
+
+<h3>La regla utilitarista: sumar</h3>
+<p>La función utilitarista (utilitarian SWF) suma el bienestar de todos:</p>
+<p class="formula">\[ W = w_1 + w_2 + \dots + w_n \]</p>
+<p>En el ejemplo del ayuntamiento el parque suma 3 + 7 + 10 = 20, la educación 19 y la clínica 18. Gana el parque, aunque Ana sea quien sale peor de todo el cuadro con un 3.</p>
+<p>El análisis coste-beneficio (cost-benefit analysis), que usan muchos gobiernos, es una aproximación tosca de esta regla: pone precio en dinero a cada efecto y suma. Según el libro, una clínica a diez años costaría 22,5 millones y aportaría 40, un neto de +17,5 millones. La tosquedad está en que el dinero no es bienestar. En ese mismo cálculo el sueldo de cinco médicos (5 millones en total) cuenta igual que el empleo de veinte auxiliares (otros 5 millones), aunque probablemente importe menos a quien ya gana bien.</p>
+<p>Sumar tampoco es ser ciego a la desigualdad. Por los rendimientos decrecientes (diminishing marginal returns), un euro vale menos para quien ya tiene mucho que para quien tiene poco, y por eso la suma ya favorece cierta redistribución. El utilitarista solo objeta a la desigualdad si quien tiene menos aprovecha mejor el recurso; la desigualdad en sí no le molesta.</p>
+<p>Hay además un argumento fuerte a favor de sumar. Dos exigencias parecen de sentido común. Si con dos políticas los tres pacientes quedan exactamente igual de bien, la regla no puede preferir una. Y si una política sube el bienestar de un paciente y deja igual a los demás, la regla debe preferirla. El teorema de agregación de Harsanyi (Harsanyi's aggregation theorem) dice que, si cada persona maximiza su utilidad esperada, la suma es la única regla que cumple siempre las dos. (Añadido propio, conocimiento general sin verificar en esta sesión: en la versión general del teorema la suma puede llevar pesos distintos por persona, y elegirlos vuelve a ser una decisión de valores.)</p>
+
+<h3>Dar prioridad a quien está peor</h3>
+<p>(Ejemplo propio.) Un tratamiento sube en 1 punto el bienestar de Ana, que está en 3, o el de Cara, que está en 10. Sumando, da igual a quién se le dé. Una función prioritaria (prioritarian SWF) no es indiferente: cuenta más la mejora de Ana, y solo porque Ana tiene menos. El libro avisa de dos confusiones. Una: no es igualitarismo. El igualitarista quiere estrechar la brecha por sí misma; el prioritarista quiere subir a quien tiene menos, y la brecha le importa solo si con ello mejora el bienestar de alguien. Otra: no es el argumento utilitarista de los rendimientos decrecientes. El utilitarista ayuda al peor situado cuando su mejora rinde más; el prioritarista lo haría aunque el coste y la mejora fueran los mismos que con alguien mejor situado.</p>
+
+<h4>El caso extremo: el maximin de Rawls</h4>
+<p>El bienestar social es el del peor situado (Rawlsian maximin):</p>
+<p class="formula">\[ W = \min(w_1, \dots, w_n) \]</p>
+<p>Con la tabla del ayuntamiento, la clínica deja a Cara en 4, la educación la deja en 5 y el parque deja a Ana en 3. Gana la educación, seguida de la clínica, y el parque queda último. Es la mejor para la suma y la peor para el mínimo.</p>
+<p>La regla tiene un punto débil, el problema del gruñón (grouch problem). Si alguien puntúa siempre bajo, aunque no sufra privación real, la regla volcará todo el esfuerzo en esa persona. (Añadido propio.) De ahí que la regla exija cifras en una escala común: no vale con que cada cual puntúe a su manera.</p>
+
+<h4>Una vía intermedia: el logaritmo</h4>
+<p>Entre la suma y el mínimo hay reglas continuas. La logarítmica suma el logaritmo del bienestar de cada persona:</p>
+<p class="formula">\[ W = \log w_1 + \log w_2 + \dots + \log w_n \]</p>
+<p>El logaritmo tiene rendimientos decrecientes incorporados: cada punto extra suma menos cuanto más bienestar se tiene. Ordena igual que el producto de los bienestares, la regla de Bernoulli-Nash.</p>
+<p><strong>Ejemplo del libro.</strong> Con bienestares 2, 4 y 16 y logaritmos en base 2, \(W = 1 + 2 + 4 = 7\). Pasar a una persona de 2 a 4 sube \(W\) en 1. Pasar a otra de 4 a 8, un cambio del doble de tamaño, también lo sube en 1. Mejorar a cualquiera cuenta, pero cuesta menos subir el valor social mejorando a quien está peor. <a data-ir="practica" href="#sim-m08-l04-margen">Compruébalo en el simulador del margen</a>.</p>
+
+<h4>Un mando para todas: la función isoelástica</h4>
+<p>El libro recoge una forma general que une las tres:</p>
+<p class="formula">\[ W_\alpha = \frac{1}{1-\alpha}\left( w_1^{\,1-\alpha} + w_2^{\,1-\alpha} + \dots + w_n^{\,1-\alpha} \right) \]</p>
+<p>El parámetro \(\alpha\) (alfa) es cuánta prioridad se da al peor situado. Con \(\alpha = 0\) la fórmula es la suma. Cuando \(\alpha\) tiende a 1, ordena las opciones como el logaritmo. Cuando \(\alpha\) crece sin límite, las ordena igual que el mínimo. Entre medias, cada valor de \(\alpha\) es un compromiso distinto entre eficiencia (más total) y equidad (menos daño al peor situado). (Puntualización propia: pasado \(\alpha = 1\) el factor \(1/(1-\alpha)\) es negativo, y por eso \(W_\alpha\) sigue creciendo cuando alguien mejora.) En economía se usa mucho porque permite estimar, a partir de preferencias observadas, el \(\alpha\) de una persona típica. (Opinión propia: qué \(\alpha\) usar para una sociedad entera es una decisión de valores, no un dato.) Puedes girar el mando en el <a data-ir="practica" href="#sim-m08-l04-agregacion">simulador de agregación</a>.</p>
+
+<h3>Por qué discrepan</h3>
+<p>Con la tabla del ayuntamiento, las reglas dan esto (logaritmo en base 2):</p>
+<div class="tw"><table>
+<thead><tr><th>Proyecto</th><th>Suma</th><th>Mínimo</th><th>Suma de log<sub>2</sub></th></tr></thead>
+<tbody>
+<tr><td>Clínica (6, 8, 4)</td><td>18</td><td>4</td><td>7,58</td></tr>
+<tr><td>Educación (8, 6, 5)</td><td><strong>19</strong> (no es la mayor)</td><td><strong>5</strong> (mayor)</td><td><strong>7,91</strong> (mayor)</td></tr>
+<tr><td>Parque (3, 7, 10)</td><td><strong>20</strong> (mayor)</td><td>3</td><td>7,71</td></tr>
+</tbody></table></div>
+<p>La suma elige el parque porque el 10 de Cara compensa el 3 de Ana: solo cuenta el total. El mínimo lo rechaza por ese 3. El logaritmo, que pesa más un punto de quien tiene poco, castiga el 3 de Ana más de lo que premia el 10 de Cara y elige la educación. Aquí coincide con el mínimo, pero no tiene por qué (mira el ejemplo siguiente).</p>
+<p>La discrepancia no es un error de cálculo: cada regla responde a una pregunta distinta. La suma pregunta cuánto bienestar hay. El mínimo pregunta cómo está el que peor está. Las intermedias mezclan las dos preguntas en distinta proporción.</p>
+
+<h3>Funciones de bienestar social y sistemas de IA</h3>
+<p>Piensa en el hospital del ejemplo de más abajo. El libro distingue tres maneras de meter una IA en un cálculo así. La primera es <em>estimar</em>: un modelo predice el bienestar (o la incidencia de una enfermedad) que traería cada propuesta y esas predicciones alimentan la función. La segunda es <em>entrenar</em>: las recompensas de un sistema de aprendizaje por refuerzo se ligan al bienestar social para que, aunque persiga otro fin, como el beneficio de una empresa, siga alineado con las personas. La tercera es <em>optimizar</em>: darle la función como objetivo y dejar que busque la mejor política.</p>
+<p>Los retos son de dos clases. Primero, la función no elige sola: hay que decidir la teoría del bienestar de la que salen las cifras, si se agrega por suma o con prioridad y si además importa algo que no es bienestar agregado. Segundo, el sistema hereda los problemas de cualquier modelo: la vulnerabilidad a los ataques adversarios, el proxy gaming y la dificultad de interpretar por qué decidió lo que decidió.</p>
+<p>(Reflexión propia.) La regla elegida es el objetivo que el sistema perseguirá sin matices. Un asignador de plazas que optimice la suma dejará sin tratamiento al paciente más grave si mejorar a otros da más puntos en total. Uno que optimice el mínimo puede renunciar a una mejora enorme para muchos por una pequeña para quien peor está. Antes de dar la regla a un sistema conviene mirar qué elige en los casos límite, y entregar las cifras de entrada junto con la pregunta de qué escala común usan.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Un hospital tiene plazas escasas de un tratamiento y cuatro pacientes en lista. Un sistema de apoyo estima el bienestar esperado a un año de cada uno, en una escala de 0 a 10, con cuatro políticas. El paciente A es el más grave.</p>
+<div class="tw"><table>
+<thead><tr><th>Política</th><th>A</th><th>B</th><th>C</th><th>D</th><th>Suma</th><th>Mínimo</th><th>Suma de log<sub>2</sub></th></tr></thead>
+<tbody>
+<tr><td>Máximo beneficio</td><td>2</td><td>8</td><td>9</td><td>9</td><td><strong>28</strong></td><td>2</td><td>10,34</td></tr>
+<tr><td>Los más graves primero</td><td>6</td><td>6</td><td>6</td><td>5</td><td>23</td><td><strong>5</strong></td><td>10,08</td></tr>
+<tr><td>Mixta</td><td>4</td><td>7</td><td>7</td><td>8</td><td>26</td><td>4</td><td><strong>10,61</strong></td></tr>
+<tr><td>Orden de llegada</td><td>3</td><td>6</td><td>8</td><td>8</td><td>25</td><td>3</td><td>10,17</td></tr>
+</tbody></table></div>
+<p>Cada regla elige una política distinta. La suma se queda con «Máximo beneficio», que mete 28 puntos pero deja al paciente A en 2. El mínimo elige «Los más graves primero», que pierde 5 puntos de total respecto a la anterior y sube el peor caso de 2 a 5. El logaritmo escoge «Mixta»: no tiene el mayor total ni el mejor mínimo, pero es la que mejor equilibra ambos con el peso que el logaritmo da a cada punto.</p>
+<p>Con la función isoelástica se ve que es cuestión de girar un mando. En este caso, gana «Máximo beneficio» mientras \(\alpha\) sea menor que unos 0,69; «Mixta» hasta unos 3,44; y «Los más graves primero» a partir de ahí. Las tres reglas son los puntos \(\alpha = 0\), \(\alpha = 1\) y \(\alpha \to \infty\) de ese mando. Ninguna cifra dice cuál es el \(\alpha\) correcto: es una decisión sobre valores.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Comparar números de reglas distintas.</strong> Decir que una política «vale 20» no significa nada hasta saber con qué función: solo se compara dentro de una misma función.</p>
+<p><strong>Confundir prioritarismo con igualitarismo, o creer que la suma ignora la desigualdad.</strong> Al prioritarista no le importa la brecha en sí, sino cuánto tiene el que menos tiene. Y el utilitarista, por los rendimientos decrecientes, ya favorece cierta redistribución: no le da igual quién reciba el recurso.</p>
+<p><strong>Tratar la regla como si fuera neutra.</strong> Elegir entre sumar o dar prioridad, y con qué \(\alpha\), es una decisión de valores. Y ninguna regla arregla unas cifras de entrada malas: si el bienestar estimado es un proxy, todo el cálculo hereda el error (reflexión propia).</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>I don't pick an aggregation rule because it looks neutral: I run every candidate rule on the same numbers, see which policy each one chooses, and ask who pays for the difference.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 6.8 Social Welfare Functions, págs. 342 a 352 (PDF 360 a 370): problema de la agregación y ejemplo del ayuntamiento (342 a 344), reglas ordinales y teorema de Arrow (345 y 346), regla utilitarista, coste-beneficio y Harsanyi (346 a 348), prioritarismo, maximin, logaritmo y función isoelástica (348 a 350), usos con IA y retos (350 a 352).</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS). Esta lección no tiene lección asociada. Atlas de métricas: no hay ficha para este tema.</li>
+<li>Discrepancia de la fuente: el texto de la p. 349 da los mínimos 6, 5 y 4 para clínica, educación y parque, y dice que el maximin elegiría la clínica. No cuadra con la Tabla 6.2 ni con la p. 343, que dan 4, 5 y 3 y eligen la educación. La lección usa la tabla. En la p. 344 hay otra errata: el vector (6, 8, 4) se describe con las cifras «siete, ocho y seis».</li>
+<li>Añadido propio, no procede de las fuentes: el ejemplo de las plazas de tratamiento y sus cifras; los cálculos en base 2 del ayuntamiento y de ese ejemplo; los cortes de \(\alpha\) en 0,69 y 3,44; la puntualización sobre el signo de \(1/(1-\alpha)\); la nota sobre los pesos en el teorema de Harsanyi (conocimiento general sin verificar aquí); la reflexión sobre qué haría un asignador de plazas con cada regla; el problema de la escala común; los simuladores y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: primero dos simuladores para explorar y después tres ejercicios.</p>
+
+<p class="consigna"><strong>Simulador de agregación.</strong> Empieza con las plazas de tratamiento. La suma elige «Máximo beneficio», el mínimo «Los más graves primero» y el logaritmo «Mixta». Lee la nota de debajo, que dice qué cuesta pasar de una elección a otra, y gira el mando α de 0 a 8 para ver dónde cambia la ganadora. Después sube el bienestar del paciente A en «Máximo beneficio» de 2 a 4: el logaritmo abandona «Mixta» y se une a la suma, mientras que el mínimo no se mueve. Sube A hasta 5 y observa que el mínimo ya empata entre dos políticas. Pulsa por último el escenario del ayuntamiento y comprueba las cifras de la teoría: la suma elige el parque, y el mínimo y el logaritmo, la educación.</p>
+<div data-widget="m08-l04-agregacion" id="sim-m08-l04-agregacion"></div>
+
+<p class="consigna"><strong>Simulador del margen.</strong> Con (2, 4, 16) y una mejora de 1 punto, la suma da igual a quién, la suma de logaritmos prefiere a la Persona 1 y el mínimo solo gana si la recibe esa misma persona. Pulsa «Duplicar el bienestar de una persona» y verás el caso del libro: la suma prefiere ahora a la más rica (gana 16 puntos), el logaritmo ya no distingue (todas suben 1) y el mínimo sigue con la primera. Prueba a igualar a las tres personas y mira qué le pasa al mínimo.</p>
+<div data-widget="m08-l04-margen" id="sim-m08-l04-margen"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: el ayuntamiento con logaritmos (a mano, 8 minutos)</p>
+<p>Toma la Tabla 6.2 (clínica 6, 8, 4; educación 8, 6, 5; parque 3, 7, 10). Usa \(\log_2 3 \approx 1{,}585\), \(\log_2 5 \approx 2{,}322\), \(\log_2 6 \approx 2{,}585\), \(\log_2 7 \approx 2{,}807\) y \(\log_2 10 \approx 3{,}322\).</p>
+<ol>
+<li>Calcula la suma de logaritmos en base 2 de cada proyecto y di cuál elige.</li>
+<li>Comprueba que ordena igual que el producto de los tres bienestares.</li>
+<li>¿Cuánto tendría que valer el bienestar de Cara con el parque (ahora 10) para que la suma de logaritmos eligiera el parque? ¿Y para que la suma dejara de elegirlo?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Clínica: \(\log_2 6+\log_2 8+\log_2 4 = 2{,}585+3+2 = 7{,}585\). Educación: \(3+2{,}585+2{,}322 = 7{,}907\). Parque: \(1{,}585+2{,}807+3{,}322 = 7{,}714\). Elige la educación: coincide con el mínimo y no con la suma.</p>
+<p><strong>2.</strong> Los productos son \(6\cdot 8\cdot 4 = 192\), \(8\cdot 6\cdot 5 = 240\) y \(3\cdot 7\cdot 10 = 210\). Mismo orden: educación, parque, clínica.</p>
+<p><strong>3.</strong> Para la logarítmica hace falta \(3\cdot 7\cdot c > 240\), es decir, \(c > 11{,}43\), más de lo que admite una escala de 0 a 10: con esta escala el parque no gana nunca con la logarítmica. Para la suma basta \(3+7+c < 19\), es decir, \(c < 9\): la suma deja de elegir el parque en cuanto Cara baja de 9. La suma cambia de elección con una pequeña rebaja de Cara; el logaritmo no elegiría el parque ni con la escala entera, porque el 3 de Ana pesa demasiado.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: el gruñón (a mano, 10 minutos)</p>
+<p>Tres pacientes, Lía, Omar y Pau, y dos políticas. Con la política X sus bienestares son (8, 7, 3) y con la Y son (5, 5, 4). Pau puntúa siempre 3 puntos por debajo de lo que puntuaría una persona media en su misma situación: es un rasgo de carácter, no una privación. Usa \(\log_2 3 \approx 1{,}585\), \(\log_2 5 \approx 2{,}322\), \(\log_2 7 \approx 2{,}807\).</p>
+<ol>
+<li>Calcula la suma, el mínimo y la suma de logaritmos de cada política y di qué elige cada regla.</li>
+<li>Corrige la escala de Pau sumándole 3 en las dos políticas y repite el cálculo.</li>
+<li>¿Qué regla cambia de elección y por qué no lo hacen las demás?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> X: suma 18, mínimo 3, logaritmos \(3+2{,}807+1{,}585 = 7{,}392\). Y: suma 14, mínimo 4, logaritmos \(2{,}322+2{,}322+2 = 6{,}644\). La suma y el logaritmo eligen X; el mínimo elige Y, porque su peor caso (Pau) es 4 y no 3.</p>
+<p><strong>2.</strong> X pasa a (8, 7, 6): suma 21, mínimo 6, logaritmos \(3+2{,}807+2{,}585 = 8{,}392\). Y pasa a (5, 5, 7): suma 17, mínimo 5, logaritmos \(2{,}322+2{,}322+2{,}807 = 7{,}451\). Ahora las tres reglas eligen X.</p>
+<p><strong>3.</strong> Cambia el mínimo. La diferencia de sumas entre X e Y sigue siendo 4, porque sumar 3 a Pau en las dos políticas no altera cuál suma más. El mínimo, en cambio, depende del nivel absoluto de la persona peor situada, así que un sesgo de escala en una sola persona puede decidir la política. Es el problema del gruñón: para usar el mínimo hace falta confiar en que todas las cifras estén en la misma escala.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: girar el mando con Python (8 minutos)</p>
+<p>Este fragmento barre \(\alpha\) en el ejemplo de las plazas de tratamiento y anota cada vez que cambia la política ganadora de la función isoelástica.</p>
+<pre><code>import numpy as np
+
+politicas = {
+    "Máximo beneficio": [2, 8, 9, 9],
+    "Los más graves primero": [6, 6, 6, 5],
+    "Mixta": [4, 7, 7, 8],
+    "Orden de llegada": [3, 6, 8, 8],
+}
+
+def W(v, alfa):
+    v = np.array(v, dtype=float)
+    if abs(alfa - 1) &lt; 1e-9:          # el caso alfa = 1 es el logaritmo
+        return np.log2(v).sum()
+    return (v ** (1 - alfa)).sum() / (1 - alfa)
+
+anterior = None
+for alfa in np.arange(0, 6.001, 0.01):
+    ganadora = max(politicas, key=lambda k: W(politicas[k], alfa))
+    if ganadora != anterior:
+        print(f"alfa = {alfa:.2f}: gana {ganadora}")
+        anterior = ganadora
+
+for a in (0, 6):
+    print(a, sorted(politicas, key=lambda k: -W(politicas[k], a)))
+print(sorted(politicas, key=lambda k: -min(politicas[k])))</code></pre>
+<ol>
+<li>¿En qué valores de \(\alpha\) cambia la ganadora y cuál gana en cada tramo?</li>
+<li>Comprueba que con \(\alpha = 0\) el orden es el de la suma y con \(\alpha = 6\) coincide con el del mínimo.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> El programa imprime tres líneas: gana «Máximo beneficio» desde \(\alpha = 0\), «Mixta» desde 0,69 y «Los más graves primero» desde 3,45. Son los primeros pasos de 0,01 tras cada corte; los cortes exactos están en 0,687 y 3,445 aproximadamente.</p>
+<p><strong>2.</strong> Con \(\alpha = 0\) el orden es «Máximo beneficio» (28), «Mixta» (26), «Orden de llegada» (25) y «Los más graves primero» (23), el de la suma. Con \(\alpha = 6\) el orden es «Los más graves primero», «Mixta», «Orden de llegada» y «Máximo beneficio», que es el de los mínimos 5, 4, 3 y 2.</p></details>
+</div>
+
+</div>
+
+</section>

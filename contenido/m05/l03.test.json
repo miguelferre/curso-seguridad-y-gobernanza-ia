@@ -1,0 +1,117 @@
+[
+  {
+    "id": "m05l03-q01",
+    "tipo": "unica",
+    "enunciado": "Un modelo de riesgo de reingreso está bien calibrado. Entre 200 pacientes a los que dio una probabilidad de 0,8, ¿cuántos reingresos cabe esperar?",
+    "opciones": [
+      "Unos 40",
+      "Unos 100",
+      "Unos 160",
+      "Los 200, porque el modelo estaba seguro"
+    ],
+    "correcta": 2,
+    "explicacion": "Calibrado significa que la probabilidad anunciada coincide con la frecuencia real: 0,8 de 200 pacientes son 160 reingresos. Que el modelo esté 'seguro' no cambia esa cuenta."
+  },
+  {
+    "id": "m05l03-q02",
+    "tipo": "unica",
+    "enunciado": "En el caso que recogen las notas (LeNet frente a ResNet en Cifar100), ¿qué ocurrió al pasar a la red mucho más profunda?",
+    "opciones": [
+      "Mejoró la exactitud y también la calibración",
+      "Mejoró la exactitud, pero la calibración empeoró por exceso de confianza",
+      "Empeoró la exactitud y mejoró la calibración",
+      "No cambió ninguna de las dos"
+    ],
+    "correcta": 1,
+    "explicacion": "La ResNet ganó 14,3 puntos de exactitud, pero su error de calibración pasó de 0,0485 a un valor entre 0,1057 y 0,1653, siempre sobreconfiada. Exactitud y calibración no van de la mano."
+  },
+  {
+    "id": "m05l03-q03",
+    "tipo": "numerica",
+    "enunciado": "Un modelo puntúa a 1000 pacientes en dos tramos. Tramo bajo: 600 pacientes, probabilidad media anunciada 0,2, frecuencia observada 0,3. Tramo alto: 400 pacientes, anunciada 0,8, observada 0,6. ¿Cuánto vale el ECE? Responde como número entre 0 y 1.",
+    "correcta": 0.14,
+    "tolerancia": 0.002,
+    "explicacion": "Distancias: 0,1 en el tramo bajo y 0,2 en el alto. ECE = 0,6 × 0,1 + 0,4 × 0,2 = 0,06 + 0,08 = 0,14. El MCE sería 0,2."
+  },
+  {
+    "id": "m05l03-q04",
+    "tipo": "vf",
+    "enunciado": "Un modelo que asigna a todos los pacientes la prevalencia global de la enfermedad está perfectamente calibrado, y por eso es un buen modelo de riesgo.",
+    "correcta": false,
+    "explicacion": "Lo primero es cierto y lo segundo no: está calibrado, pero no distingue a nadie. Le falta nitidez y discriminación. La calibración es necesaria, no suficiente."
+  },
+  {
+    "id": "m05l03-q05",
+    "tipo": "numerica",
+    "enunciado": "Tres pacientes reciben las probabilidades de reingreso 0,9, 0,2 y 0,7. Los desenlaces reales son 1, 0 y 0 (solo el primero reingresó). ¿Cuánto vale la puntuación de Brier?",
+    "correcta": 0.18,
+    "tolerancia": 0.002,
+    "explicacion": "Los términos son (0,9 - 1)^2 = 0,01, (0,2 - 0)^2 = 0,04 y (0,7 - 0)^2 = 0,49. Su media es 0,54 / 3 = 0,18."
+  },
+  {
+    "id": "m05l03-q06",
+    "tipo": "multiple",
+    "enunciado": "¿Cuáles de estas reglas de puntuación de probabilidades son estrictamente propias, es decir, la única forma de optimizarlas es reportar la probabilidad verdadera?",
+    "opciones": [
+      "La puntuación de Brier",
+      "La verosimilitud logarítmica negativa (log loss)",
+      "El error absoluto entre la probabilidad y el desenlace 0 o 1",
+      "Acierto o fallo tomando 0,5 como punto de corte"
+    ],
+    "correcta": [
+      0,
+      1
+    ],
+    "explicacion": "Con probabilidad real q, el error absoluto esperado es lineal en la probabilidad reportada y se minimiza en un extremo, así que premia exagerar. El acierto con corte en 0,5 solo mira de qué lado cae la probabilidad: 0,51 y 0,99 dan la misma nota, así que la verdad no es la única forma de optimizarlo. Brier y log loss sí son estrictamente propias."
+  },
+  {
+    "id": "m05l03-q07",
+    "tipo": "unica",
+    "enunciado": "¿Qué hace el escalado de temperatura?",
+    "opciones": [
+      "Divide los logits por una constante T antes del softmax o la sigmoide; la T se ajusta minimizando la NLL en validación y no cambia el orden de los casos",
+      "Reentrena la red con más datos hasta que el ECE sea cero",
+      "Reordena a los pacientes por riesgo para subir el AUROC",
+      "Se ajusta sobre el conjunto de test para minimizar el ECE final"
+    ],
+    "correcta": 0,
+    "explicacion": "Dividir todos los logits por la misma constante positiva conserva su orden, así que la exactitud y el AUROC no cambian. Con T mayor que 1 se aplana la distribución. Ajustar T en test contamina la evaluación."
+  },
+  {
+    "id": "m05l03-q08",
+    "tipo": "numerica",
+    "enunciado": "Un modelo binario produce el logit 2,2 para un paciente. Tras el escalado, con T = 2, ¿qué probabilidad de reingreso da la sigmoide del logit dividido por T? Responde como número entre 0 y 1.",
+    "correcta": 0.75,
+    "tolerancia": 0.005,
+    "explicacion": "El logit escalado es 2,2 / 2 = 1,1 y la sigmoide de 1,1 vale 1 / (1 + e^(-1,1)) = 0,750. Antes del escalado, con T = 1, habría dado 0,90: la temperatura la rebaja."
+  },
+  {
+    "id": "m05l03-q09",
+    "tipo": "unica",
+    "enunciado": "Un modelo promete intervalos de predicción del 90 % para los días de estancia. En 200 pacientes, el valor real cae dentro del intervalo en 165 casos. ¿Qué concluyes?",
+    "opciones": [
+      "El intervalo está bien calibrado: 165 de 200 es más del 80 %",
+      "La cobertura es 0,825, por debajo del 0,90 prometido: el intervalo es más estrecho de lo que debería",
+      "La cobertura es 0,825, por encima de lo prometido: los intervalos son demasiado anchos",
+      "No se puede saber sin conocer la predicción puntual"
+    ],
+    "correcta": 1,
+    "explicacion": "PICP = 165 / 200 = 0,825, menor que la cobertura nominal de 0,90, así que el modelo declara más certeza de la que tiene. Siempre se da junto al ancho medio del intervalo, porque se puede inflar la cobertura ensanchándolo."
+  },
+  {
+    "id": "m05l03-q10",
+    "tipo": "multiple",
+    "enunciado": "Un modelo de reingresos se calibró con escalado de temperatura en el hospital A y se lleva al hospital B, con una población más grave. ¿Qué afirmaciones son correctas?",
+    "opciones": [
+      "La calibración medida en A puede no valer en B: hay que volver a medirla con datos de B",
+      "Según las notas, en un estudio de cambio de distribución los conjuntos de modelos (ensembles) fueron el mejor punto de partida",
+      "Un intercepto de calibración muy distinto de 0 se corrige siempre solo con la temperatura",
+      "Como el AUROC no cambia con la temperatura, la calibración tampoco puede cambiar en B"
+    ],
+    "correcta": [
+      0,
+      1
+    ],
+    "explicacion": "Los métodos ajustados con datos del mismo tipo mejoran poco bajo cambio de población, y los ensembles fueron la base más fuerte. Un intercepto desplazado pide recalibrar el desplazamiento, no solo la pendiente. Y AUROC y calibración son ejes independientes: el primero puede quedar igual mientras la segunda se rompe."
+  }
+]

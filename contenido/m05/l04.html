@@ -1,0 +1,229 @@
+<section class="leccion" data-id="m05/l04">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Un modelo de aprendizaje profundo nos da una respuesta, pero no nos dice cómo llegó a ella. La investigación en transparencia intenta abrir esa caja negra con tres tipos de herramienta.</p>
+<p>El mapa de saliencia colorea qué partes de la entrada pesaron en la respuesta, por ejemplo qué zona de una radiografía. La visualización de características pregunta al revés: qué patrón haría saltar a esta neurona. Y los modelos transparentes por diseño, como ProtoPNet, se construyen para responder "esto se parece a aquel caso típico".</p>
+<p>La advertencia central de la lección es que una explicación puede ser muy bonita y falsa. Un mapa se puede pintar sin mirar dentro del modelo, y un modelo que se ha apoyado en un atajo, como el rótulo del hospital en la esquina, puede sacar buena nota en las pruebas y fallar en cuanto cambia el hospital. Por eso cada explicación se pone a prueba: se tapa lo que dice importante, se cambia de modelo, se mira si el mapa se mueve.</p>
+
+<svg viewBox="0 0 360 352" role="img" aria-labelledby="tr-t tr-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="tr-t">Tres herramientas de transparencia y una advertencia</title>
+<desc id="tr-d">Mapa de saliencia: una cuadrícula con dos casillas calientes. Visualización de características: de un cuadrado con ruido a un patrón de rayas. Diseño transparente: un parche de la imagen que se parece a un prototipo. Debajo, un aviso: una explicación bonita no es una explicación fiel.</desc>
+<rect x="4" y="4" width="352" height="88" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="26" style="fill:var(--accent-ink);font-weight:700;font-size:14px">MAPA DE SALIENCIA</text>
+<text x="18" y="48" style="fill:currentColor;font-size:12.5px">¿Qué parte de la entrada</text>
+<text x="18" y="65" style="fill:currentColor;font-size:12.5px">pesó en la respuesta?</text>
+<text x="18" y="83" style="fill:var(--muted);font-size:11.5px">gradiente, oclusión</text>
+<g style="fill:var(--surface);stroke:var(--rule-strong);stroke-width:1">
+<rect x="228" y="20" width="16" height="16"/><rect x="244" y="20" width="16" height="16"/><rect x="260" y="20" width="16" height="16"/><rect x="276" y="20" width="16" height="16"/><rect x="292" y="20" width="16" height="16"/>
+<rect x="228" y="36" width="16" height="16"/><rect x="244" y="36" width="16" height="16"/><rect x="260" y="36" width="16" height="16"/><rect x="276" y="36" width="16" height="16"/><rect x="292" y="36" width="16" height="16"/>
+<rect x="228" y="52" width="16" height="16"/><rect x="244" y="52" width="16" height="16"/><rect x="260" y="52" width="16" height="16"/><rect x="276" y="52" width="16" height="16"/><rect x="292" y="52" width="16" height="16"/>
+</g>
+<rect x="260" y="36" width="16" height="16" style="fill:var(--trap);opacity:.85"/><rect x="276" y="36" width="16" height="16" style="fill:var(--trap);opacity:.5"/><rect x="228" y="20" width="16" height="16" style="fill:var(--trap);opacity:.9"/>
+
+<rect x="4" y="100" width="352" height="88" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="18" y="122" style="fill:var(--ex);font-weight:700;font-size:14px">VISUALIZACIÓN DE CARACTERÍSTICAS</text>
+<text x="18" y="144" style="fill:currentColor;font-size:12.5px">¿Qué patrón hace saltar</text>
+<text x="18" y="161" style="fill:currentColor;font-size:12.5px">a esta neurona?</text>
+<text x="18" y="179" style="fill:var(--muted);font-size:11.5px">optimizar la entrada</text>
+<rect x="222" y="126" width="44" height="44" rx="3" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<g style="fill:var(--ex)"><circle cx="232" cy="136" r="2"/><circle cx="248" cy="132" r="2"/><circle cx="256" cy="146" r="2"/><circle cx="236" cy="152" r="2"/><circle cx="250" cy="162" r="2"/><circle cx="228" cy="164" r="2"/></g>
+<path d="M272 148 H298" style="stroke:var(--ex);stroke-width:2;fill:none"/><polygon points="304,148 296,143 296,153" style="fill:var(--ex)"/>
+<rect x="308" y="126" width="44" height="44" rx="3" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<g style="stroke:var(--ex);stroke-width:2"><line x1="312" y1="150" x2="332" y2="130"/><line x1="312" y1="162" x2="344" y2="130"/><line x1="322" y1="168" x2="348" y2="142"/><line x1="334" y1="168" x2="348" y2="154"/></g>
+
+<rect x="4" y="196" width="352" height="88" rx="10" style="fill:var(--surface);stroke:var(--rule-strong);stroke-width:2"/>
+<text x="18" y="218" style="fill:var(--ink);font-weight:700;font-size:14px">DISEÑO TRANSPARENTE (ProtoPNet)</text>
+<text x="18" y="240" style="fill:currentColor;font-size:12.5px">¿A qué caso típico se parece</text>
+<text x="18" y="257" style="fill:currentColor;font-size:12.5px">esta zona de la imagen?</text>
+<text x="18" y="275" style="fill:var(--muted);font-size:11.5px">prototipos aprendidos</text>
+<rect x="228" y="220" width="38" height="38" rx="3" style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5"/>
+<text x="247" y="272" text-anchor="middle" style="fill:var(--muted);font-size:10.5px">parche</text>
+<text x="290" y="244" text-anchor="middle" style="fill:currentColor;font-size:20px">≈</text>
+<rect x="312" y="220" width="38" height="38" rx="3" style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5;stroke-dasharray:4 3"/>
+<text x="331" y="272" text-anchor="middle" style="fill:var(--muted);font-size:10.5px">prototipo</text>
+
+<rect x="4" y="292" width="352" height="56" rx="10" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:2"/>
+<text x="180" y="315" text-anchor="middle" style="fill:var(--trap);font-weight:700;font-size:13.5px">Ojo: bonito no es fiel</text>
+<text x="180" y="334" text-anchor="middle" style="fill:currentColor;font-size:12px">Tapar, aleatorizar y cambiar de modelo antes de fiarse</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Explicar qué calcula un mapa de saliencia por gradiente y por qué en un modelo lineal el gradiente por la entrada reparte exactamente el logit.</li>
+<li>Aplicar la prueba de cordura de aleatorizar el modelo y la prueba de fidelidad de tapar una región, y decir qué concluir de cada resultado.</li>
+<li>Reconocer un atajo espurio, como la marca de un hospital, y explicar por qué la precisión global no lo detecta.</li>
+<li>Distinguir el objetivo de la visualización de características y el de un modelo transparente por diseño como ProtoPNet, con un límite de cada uno.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>¿Para qué querríamos mirar dentro?</h3>
+<p>En software clásico alguien escribió las reglas y se pueden leer. Una red profunda aprende sus propias transformaciones capa a capa: vemos todos sus números, pero no sabemos traducirlos a algo con sentido. Es la caja negra (<em>black box</em>): solo se la entiende por lo que entra y lo que sale, y sin saber qué ocurre dentro no podemos prever con fiabilidad cómo responderá a entradas nuevas.</p>
+<p>El libro da cuatro motivos para investigar en transparencia (<em>transparency</em>): prevenir fallos y detectar capacidades nuevas; la ética, porque quien recibe una decisión que le afecta puede tener derecho a una explicación; la responsabilidad, porque no es justo cargar al operador humano con lo que no podía controlar; y el engaño, porque mirando solo la conducta un modelo engañoso hábil se parece a uno servicial. Las notas del curso añaden que las métricas de rendimiento describen mal a un modelo: StyleGAN2 y StyleGAN3-R rinden de forma parecida y tienen representaciones internas distintas. Ejemplo propio: dos modelos de triaje con la misma curva ROC pueden usar señales distintas, y solo una sobrevivirá a un cambio de hospital. El panorama del módulo está en Monitorización de modelos (m05/l01); aquí van las herramientas y cómo ponerlas a prueba.</p>
+
+<h3>Mapas de saliencia: colorear lo que pesó</h3>
+<p>Un mapa de saliencia (<em>saliency map</em>) da a cada parte de la entrada (píxel o token) un número que dice cuánto pesó en la predicción, y se pinta como un mapa de calor. Se inspira en cómo miramos: ante la foto de un perro, las orejas cuentan más que el fondo (ejemplo del libro). El método base toma el logit \(z_c\) de la clase de interés y mide cuánto cambiaría al mover un poco cada píxel \(x_i\); los de mayor gradiente serían los más importantes:</p>
+<div class="formula">\[ S_i=\frac{\partial z_c}{\partial x_i} \]</div>
+<p>Las notas del curso citan variantes. SmoothGrad promedia los mapas de copias de la entrada con ruido gaussiano y sale más liso. Otra optimiza una máscara para localizar y difuminar las regiones salientes. La retropropagación guiada (<em>guided backprop</em>) anula activaciones y gradientes negativos y da imágenes vistosas, aunque no se pensó como mapa de saliencia.</p>
+<p>Añadido propio: el gradiente por la entrada (<em>gradient × input</em>), \(S_i=\frac{\partial z_c}{\partial x_i}\,x_i\), que es el del simulador. En un modelo lineal \(z=b+\sum_i w_i x_i\) el gradiente son los pesos y el mapa reparte el logit sin resto:</p>
+<div class="formula">\[ z=b+\sum_i S_i \qquad\text{con}\qquad S_i=w_i\,x_i \]</div>
+<p>Es el caso más favorable; en una red profunda el gradiente es solo una aproximación local y esa exactitud se pierde.</p>
+<p><strong>Con texto</strong> se usa la magnitud del gradiente del logit respecto al embedding de cada token. No hay mapa canónico y, según las notas, ayuda a escribir ejemplos adversarios (véase Robustez adversarial, m04/l01). Ejemplo propio, con cifras inventadas:</p>
+<p style="line-height:2.1"><span style="background:rgba(192,57,43,.05);padding:.15rem .3rem">Paciente</span> <span style="background:rgba(192,57,43,.10);padding:.15rem .3rem">sin</span> <span style="background:rgba(192,57,43,.45);padding:.15rem .3rem">fiebre</span> <span style="background:rgba(192,57,43,.05);padding:.15rem .3rem">con</span> <span style="background:rgba(192,57,43,.85);padding:.15rem .3rem">disnea</span> <span style="background:rgba(192,57,43,.05);padding:.15rem .3rem">y</span> <span style="background:rgba(192,57,43,.35);padding:.15rem .3rem">saturación</span> <span style="background:rgba(192,57,43,.75);padding:.15rem .3rem">88 %</span></p>
+<p>"Fiebre" pesa mucho y "sin" casi nada: si el modelo dijera "infección", sospecharíamos que ignora la negación. Es una hipótesis que se comprobaría cambiando "sin" por "con", no una prueba.</p>
+
+<h3>¿Podemos fiarnos del mapa?</h3>
+<p>Las notas y el libro coinciden en que muchos mapas no pasan pruebas básicas de cordura (<em>sanity checks</em>). La más simple consiste en aleatorizar las capas del modelo y volver a pintar el mapa: si apenas cambia, no refleja lo aprendido, porque acabamos de destruirlo. El libro lo lleva más lejos: en muchos casos el mapa sale casi igual con un modelo sin entrenar, así que funciona como espejo de lo que ya creíamos. Añadido externo (no está en las fuentes del curso ni del libro): el artículo de Adebayo y colaboradores (2018, arXiv 1810.03292, leído el 2026-09-29) concluye que fiarse solo de lo que se ve puede engañar y que algunos métodos de saliencia existentes no dependen ni del modelo ni de los datos. Lo interpretan con una analogía: la detección de bordes, una técnica que dibuja contornos sin necesitar modelo ni datos de entrenamiento.</p>
+<p>Conviene separar dos preguntas:</p>
+<div class="tw"><table>
+<thead><tr><th>Pregunta</th><th>Prueba</th><th>Qué descarta</th></tr></thead>
+<tbody>
+<tr><td>¿El mapa depende del modelo?</td><td>Aleatorizar los pesos (o cambiar de modelo) y comparar mapas</td><td>Métodos tipo detector de bordes</td></tr>
+<tr><td>¿El mapa dice la verdad sobre el modelo?</td><td>Tapar la región marcada y ver si la predicción cambia lo que el mapa afirma (oclusión, <em>occlusion</em>)</td><td>Mapas plausibles pero infieles</td></tr>
+</tbody></table></div>
+<p>Es la distinción que hace el libro entre una explicación fiel y una confabulación (<em>confabulation</em>), plausible pero falsa. Ejemplo del libro: un modelo ajustado para responder siempre la opción (a) inventaba justificaciones creíbles sin nombrar el verdadero motivo. Un mapa bonito puede hacer ese papel en imagen.</p>
+<p>La oclusión es un añadido propio: una práctica habitual que no viene de las notas. Tiene un ajuste que decide el analista, con qué se rellena lo tapado. Con negro se quita todo el aporte de esos píxeles; con gris medio se aproxima a una zona sin nada especial; ninguno es "el neutro". En un modelo lineal con relleno negro, la caída del logit coincide con lo que suma el mapa de gradiente por entrada en esos píxeles, así que las dos pruebas se contrastan entre sí: <a data-ir="practica" href="#sim-m05-l04-saliencia">pruébalo en Práctica</a>.</p>
+
+<h3>Cuando el modelo usa un atajo</h3>
+<p>Un atajo espurio (<em>spurious shortcut</em>) es una señal que acompaña a la etiqueta en el entrenamiento sin ser su causa. Ejemplo propio, muy real en imagen médica: un hospital de referencia recibe más casos graves y estampa su rótulo en la esquina de sus radiografías. Un modelo puede aprender "rótulo igual a neumonía", que es más fácil que buscar una opacidad tenue en el pulmón. Acierta mucho con el reparto en que se entrenó y falla al llegar a un hospital donde el rótulo no informa.</p>
+<p>La precisión global no lo delata, porque se mide en la misma distribución. El simulador lo reproduce con datos sintéticos propios: un modelo A entrenado en dos hospitales (el del rótulo tiene un 85 % de neumonías y el otro un 10 %) y un modelo B entrenado sin esa correlación. Solo los mapas fieles y la oclusión ven la diferencia. Y a la inversa: que el mapa ilumine el pulmón no demuestra que el modelo mire el pulmón, y aunque pase las dos pruebas, dice qué usa el modelo, no qué causa la enfermedad.</p>
+
+<h3>Visualización de características: ¿qué detecta esta neurona?</h3>
+<p>Un mapa explica una predicción. La visualización de características (<em>feature visualization</em>) explica un componente interno: se sintetiza una imagen, por descenso de gradiente sobre la propia entrada, que maximice la activación de una neurona o de un canal. Con \(a_k\) la activación y \(R\) un término que mantiene la imagen parecida a una natural (añadido propio):</p>
+<div class="formula">\[ x^{*}=\arg\max_{x}\ \big[\,a_k(x)-\lambda\,R(x)\,\big] \]</div>
+<p>Según las notas, los canales informan más que las neuronas sueltas y se puede usar una GAN en lugar del descenso de gradiente. Pero no siempre se pueden visualizar canales, y las imágenes naturales que más activan un componente suelen explicarlo mejor que las sintetizadas. El libro añade que muchas neuronas son polisemánticas (<em>polysemantic</em>): responden a cosas sin relación. En su ejemplo, las imágenes de una neurona apuntaban a texto sobre viajes sin que se pudiera estar seguro. Ni siquiera las técnicas simples son transparentes: en el PCA de fotos de caras, de las "caras propias" solo unas pocas se pueden nombrar (ejemplo del libro).</p>
+<p>Ejemplo propio: una neurona que en su imagen sintética parece detectar "líneas finas" puede activarse con los rótulos de texto del hospital, y solo lo verías mirando las radiografías reales que más la activan. La visualización sirve para formular hipótesis, no para cerrarlas.</p>
+
+<h3>Modelos que se explican por diseño</h3>
+<p>Otra vía es cambiar el modelo para que sea transparente desde el principio. Las notas nombran ProtoPNet, que cambia la tubería de predicción. Añadido externo, del artículo original (arXiv 1806.10574, <em>This Looks Like That</em>, leído el 2026-09-29; no está en el libro ni en las notas): la red disecciona la imagen buscando partes prototípicas y combina la evidencia de cada una, con un razonamiento del tipo "esto se parece a aquello". Los autores informan de una precisión comparable a la de su equivalente no interpretable en conjuntos de aves y de coches; no hay aquí resultados clínicos, así que no se dan por supuestos.</p>
+<p>Ejemplo propio: "esta zona se parece a este parche de un caso de neumonía del entrenamiento", que el radiólogo puede juzgar. Límite (razonamiento propio): la explicación forma parte de la arquitectura, pero un prototipo aprendido puede ser el rótulo del hospital. Un modelo transparente puede seguir usando atajos; lo que cambia es que resulta más fácil verlos.</p>
+
+<h3>Lo que queda fuera de esta lección</h3>
+<p>La interpretabilidad mecanicista (rasgos y circuitos) y la ingeniería de representaciones tienen su panorama en Monitorización de modelos (m05/l01). La explicabilidad que se usa en producción, como SHAP o LIME, y las fichas del Atlas se ven en m06/l04.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, datos sintéticos generados por el simulador)</p>
+<p>Radiografía sintética de 8×8 con un rótulo de hospital de 2×2 píxeles en la esquina superior izquierda. A se entrena con imágenes de dos hospitales (el que estampa el rótulo tiene un 85 % de neumonías y el otro un 10 %) y B en un reparto sin relación entre rótulo y enfermedad. Se les pasa un paciente sano con rótulo:</p>
+<div class="tw"><table>
+<thead><tr><th></th><th>Acierto en hospitales de entrenamiento</th><th>Acierto en un hospital nuevo</th><th>P(neumonía) del paciente sano con rótulo</th><th>Parte del mapa en el rótulo</th><th>P(neumonía) al tapar el rótulo con gris</th></tr></thead>
+<tbody>
+<tr><td>Modelo A</td><td>87,3 %</td><td>49,5 %</td><td>71,5 %</td><td>70 %</td><td>14,9 %</td></tr>
+<tr><td>Modelo B</td><td>73,5 %</td><td>75,6 %</td><td>40,6 %</td><td>3 %</td><td>41,5 %</td></tr>
+</tbody></table></div>
+<p>Sobre el papel, A gana a B por casi catorce puntos. Pero dice "neumonía" a un pulmón sano por llevar el rótulo, el 70 % de su mapa cae sobre el rótulo y, al taparlo con gris, su predicción se hunde de 71,5 % a 14,9 %. En un hospital nuevo, donde el rótulo ya no informa, acierta como una moneda al aire. B rinde peor en el entrenamiento, pero es el que aguanta el cambio de hospital. Con relleno negro la predicción de A cae aún más (0,8 %): negro no es "sin rótulo", es "una mancha negra". Y B, por cierto, ronda el 40 al 50 % de probabilidad: la tarea sintética es difícil por diseño, y un modelo transparente no es por eso un modelo bueno.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Confundir "se ve razonable" con "es fiel".</strong> Un mapa que ilumina el pulmón, la frase importante o el contorno de un tumor gusta al clínico y confirma lo que ya pensaba. Si el método no cambia al aleatorizar el modelo, o si tapar lo marcado no mueve la predicción, el mapa es decoración.</p>
+<p><strong>Creer que pasar una prueba lo demuestra todo (aviso propio).</strong> La prueba de cordura solo descarta los mapas independientes del modelo; no garantiza que el mapa sea fiel ni que el modelo sea bueno. La saliencia dice qué usa el modelo, no qué causa la enfermedad ni si lo que usa es legítimo.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>A saliency map is only useful if it passes a sanity check and an occlusion test; a pretty heat map that doesn't change when you randomize the model is just decoration.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 3.2 Monitoring, págs. 118 a 127 (PDF 136 a 145): 3.2.1 <em>ML Systems are Opaque</em> (118 a 121), 3.2.2 <em>Motivations for Transparency Research</em> (121 y 122) y 3.2.3 <em>Approaches to Transparency</em> (122 a 127; explicaciones y confabulación 122 a 124, mapas de saliencia 124).</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS), lección L10 Transparency: saliencia (SmoothGrad, máscaras, retropropagación guiada, texto), visualización de características y ProtoPNet.</li>
+<li>Añadido externo, leído el 2026-09-29 (resúmenes de arXiv): Adebayo et al., <em>Sanity Checks for Saliency Maps</em>, arXiv 1810.03292 (2018); Chen et al., <em>This Looks Like That</em>, arXiv 1806.10574 (NeurIPS 2019). Las notas solo citan una figura de Adebayo y nombran ProtoPNet sin detallarlo.</li>
+<li>Propio: gradiente por la entrada, prueba de oclusión con relleno, nota clínica, radiografía sintética y simulador (datos y cálculos propios, semilla fija).</li>
+<li>Atlas de métricas: sin ficha en esta lección; la explicabilidad en producción está en m06/l04.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+
+<div data-widget="m05-l04-saliencia" id="sim-m05-l04-saliencia"></div>
+<p><strong>Consigna.</strong> (1) Modelo A, paciente sano con rótulo, gradiente × entrada: ¿qué probabilidad da y dónde carga el mapa? Pulsa "Tapar la marca" con relleno gris y luego con negro. (2) Cambia a B y repite. (3) Pon el detector de bordes y alterna A, B y C: ¿se mueve el mapa? Mira el parecido con el de un modelo aleatorio. (4) En A, marca "Hay lesión" y desmarca el rótulo: ¿qué hace con una lesión real? (5) Compara el acierto en el entrenamiento y en el hospital nuevo. Qué observar: el mapa fiel cambia con el modelo y la oclusión lo confirma; la precisión global no lo dice.</p>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: saliencia y oclusión a mano (10 minutos)</p>
+<p>Un clasificador lineal de cuatro píxeles tiene sesgo \(b=-1{,}0\) y pesos \(w=(2{,}0;\ 0{,}5;\ -1{,}0;\ 0{,}0)\). La imagen es \(x=(0{,}9;\ 0{,}4;\ 0{,}6;\ 0{,}8)\).</p>
+<ol>
+<li>Calcula el logit \(z\) y la probabilidad de la clase positiva \(\sigma(z)=1/(1+e^{-z})\).</li>
+<li>Calcula el mapa de gradiente por entrada \(S_i=w_i x_i\) y comprueba que \(b+\sum_i S_i=z\).</li>
+<li>Tapa el píxel 1 con 0 y con 0,5. Calcula el nuevo logit y la nueva probabilidad en cada caso.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p>1. \(z=-1+2\cdot0{,}9+0{,}5\cdot0{,}4-1\cdot0{,}6+0\cdot0{,}8=0{,}4\) y \(\sigma(0{,}4)\approx0{,}599\).</p>
+<p>2. \(S=(1{,}8;\ 0{,}2;\ -0{,}6;\ 0)\). Suman \(1{,}4\) y \(-1+1{,}4=0{,}4=z\).</p>
+<p>3. Con 0, el logit baja lo que aportaba el píxel: \(z=0{,}4-1{,}8=-1{,}4\), \(\sigma\approx0{,}198\). Coincide con el mapa. Con 0,5, el logit cambia \(w_1(0{,}5-0{,}9)=-0{,}8\): \(z=-0{,}4\), \(\sigma\approx0{,}401\). Con el mismo mapa salen dos respuestas: la oclusión depende del relleno, y el mapa solo la predice bien si el relleno es el valor de referencia del que parte el mapa (aquí, 0).</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: prueba de aleatorización en Python (15 minutos)</p>
+<p>Este código monta una radiografía de 8×8 aplanada, un modelo lineal apoyado en la marca de la esquina y compara dos mapas antes y después de barajar los pesos. Ejecútalo (basta NumPy) y responde.</p>
+<pre><code>import numpy as np
+
+rng = np.random.default_rng(0)
+S = 8
+x = rng.uniform(0.1, 0.6, S * S)
+x[[0, 1, 8, 9]] = 0.95                      # la marca del hospital
+w = rng.normal(0, 0.1, S * S)
+w[[0, 1, 8, 9]] = 1.1                       # el modelo se apoya en la marca
+w[[20, 21, 28, 29]] = 0.8                   # y algo en la lesión
+b = -3.0
+
+def sal_gxe(w, x):
+    return w * x
+
+def sal_bordes(x):
+    im = x.reshape(S, S)
+    gx = np.zeros_like(im); gy = np.zeros_like(im)
+    gx[:, 1:-1] = im[:, 2:] - im[:, :-2]
+    gy[1:-1, :] = im[2:, :] - im[:-2, :]
+    return np.hypot(gx, gy).ravel()
+
+def corr(a, b):
+    return np.corrcoef(a, b)[0, 1]
+
+z = b + w @ x
+print("logit", round(float(z), 2), "prob", round(float(1 / (1 + np.exp(-z))), 3))
+
+w_alea = rng.permutation(w)                 # aleatorizar el modelo: barajar los pesos
+print("gxe    antes/despues:", round(corr(sal_gxe(w, x), sal_gxe(w_alea, x)), 2))
+print("bordes antes/despues:", round(corr(sal_bordes(x), sal_bordes(x)), 2))
+
+for relleno in (0.0, 0.5):
+    xt = x.copy(); xt[[0, 1, 8, 9]] = relleno
+    zt = b + w @ xt
+    print("relleno", relleno, "logit", round(float(zt), 2), "prob", round(float(1 / (1 + np.exp(-zt))), 3))</code></pre>
+<p>Responde: (a) ¿Qué método pasa la prueba de aleatorización y cuál no? (b) ¿Por qué la oclusión con 0 y con 0,5 da probabilidades tan distintas? Calcúlalo a mano con \(\sum w_i\) sobre los cuatro píxeles de la marca.</p>
+<details>
+<summary>Ver solución</summary>
+<p>Salida aproximada: logit 2,36 y probabilidad 0,914; correlación del gradiente por entrada antes y después de barajar, 0,35, y del detector de bordes, 1,0; con relleno 0, logit −1,82 y probabilidad 0,14; con relleno 0,5, logit 0,38 y probabilidad 0,594.</p>
+<p>(a) El gradiente por entrada depende de los pesos, así que el mapa cambia al barajarlos (0,35 y no 1,0; el parecido que queda viene del factor de entrada). El detector de bordes no usa el modelo, da 1,0 pase lo que pase y suspende. (b) Los cuatro píxeles de la marca suman \(4\cdot1{,}1=4{,}4\) de peso y el logit cambia \(4{,}4\,(\text{relleno}-0{,}95)\): baja 4,18 con relleno 0 y 1,98 con 0,5, que da \(-1{,}82\) y \(0{,}38\). El gris de 0,5 sigue siendo más brillante que el fondo medio (0,35), así que conserva parte del aporte de la marca.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: qué herramienta y qué cautela (5 minutos)</p>
+<p>Para cada situación elige la herramienta (mapa de saliencia, visualización de características o modelo transparente por diseño) y di una cautela.</p>
+<ol>
+<li>Un mapa de calor sobre ecografías ilumina siempre el marco con los datos del equipo.</li>
+<li>Quieres saber qué detecta el canal 18 de una capa intermedia de un modelo de radiografías.</li>
+<li>El servicio de radiología quiere una explicación del tipo "esta zona se parece a este caso típico".</li>
+<li>Un clasificador de notas clínicas marca "infección" y quieres saber qué palabras lo empujan.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> Mapa de saliencia, pero primero sospechar un atajo: tapar el marco y comprobar la predicción, y probar en imágenes sin marco. <strong>2.</strong> Visualización de características sobre el canal, con las imágenes naturales que más lo activan al lado; cautela: puede ser polisemántico y la imagen sintética engañar. <strong>3.</strong> Un modelo transparente por diseño del tipo ProtoPNet; cautela: un prototipo puede ser un atajo (el rótulo), y aún hay que comprobar que la explicación sirve a quien decide. <strong>4.</strong> Saliencia de tokens (gradiente respecto al embedding); cautela: no hay mapa canónico para texto, así que se confirma cambiando palabras, por ejemplo la negación.</p>
+</details>
+</div>
+
+</div>
+
+</section>

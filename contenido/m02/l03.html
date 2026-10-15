@@ -1,0 +1,262 @@
+<section class="leccion" data-id="m02/l03">
+
+<div data-parte="teoria">
+
+<div class="resumen">
+<p class="label">Resumen en simple</p>
+<p>Un modelo de accidente es una forma de mirar un sistema para preguntarse cómo podría acabar mal. Hoy vemos tres, y las tres piensan en fallos que se encadenan.</p>
+<p>El queso suizo dibuja cada defensa como una loncha con agujeros: el accidente pasa cuando los agujeros de todas las lonchas se alinean. La pajarita separa las medidas que evitan el suceso de las que reducen su daño cuando ya ha ocurrido. El árbol de fallos parte del resultado malo y va hacia atrás, buscando qué combinaciones de causas lo producen.</p>
+<p>Sirven para no depender de una sola defensa y para ver qué caminos quedan abiertos. Pero tienen un límite: suponen que el accidente es una cadena con una causa raíz. En sistemas complejos, con personas y máquinas interactuando, a veces el accidente ocurre sin que nada se rompa.</p>
+
+<svg viewBox="0 0 360 352" role="img" aria-labelledby="rs-t rs-d" style="display:block;width:100%;max-width:460px;height:auto;margin:1rem 0 .5rem;font-family:var(--sans)">
+<title id="rs-t">Tres modelos de accidente</title>
+<desc id="rs-d">Queso suizo: cuatro lonchas con los agujeros alineados y una flecha que las atraviesa. Pajarita: dos triángulos que se tocan en el evento, medidas preventivas a la izquierda y protectoras a la derecha. Árbol de fallos: un resultado no deseado que se descompone en dos causas unidas por una puerta O.</desc>
+<rect x="4" y="4" width="352" height="108" rx="10" style="fill:var(--surface);stroke:var(--accent);stroke-width:2"/>
+<text x="18" y="26" style="fill:var(--accent-ink);font-weight:700;font-size:14px">QUESO SUIZO: capas con agujeros</text>
+<g style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5">
+<rect x="70" y="38" width="22" height="62" rx="3"/><rect x="132" y="38" width="22" height="62" rx="3"/><rect x="194" y="38" width="22" height="62" rx="3"/><rect x="256" y="38" width="22" height="62" rx="3"/>
+</g>
+<g style="fill:var(--surface);stroke:none">
+<rect x="70" y="60" width="22" height="14"/><rect x="132" y="56" width="22" height="16"/><rect x="194" y="58" width="22" height="16"/><rect x="256" y="59" width="22" height="14"/>
+<rect x="70" y="84" width="22" height="8"/><rect x="132" y="42" width="22" height="8"/><rect x="194" y="82" width="22" height="10"/><rect x="256" y="44" width="22" height="9"/>
+</g>
+<line x1="20" y1="66" x2="332" y2="66" style="stroke:var(--trap);stroke-width:2.5"/>
+<polygon points="340,66 328,60 328,72" style="fill:var(--trap)"/>
+<text x="18" y="106" style="fill:var(--muted);font-size:12px">Agujeros alineados = camino al accidente</text>
+
+<rect x="4" y="122" width="352" height="112" rx="10" style="fill:var(--surface);stroke:var(--ex);stroke-width:2"/>
+<text x="18" y="144" style="fill:var(--ex);font-weight:700;font-size:14px">PAJARITA: antes y después</text>
+<polygon points="24,158 24,214 180,186" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<polygon points="336,158 336,214 180,186" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<circle cx="180" cy="186" r="12" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:2"/>
+<text x="40" y="188" style="fill:currentColor;font-size:12.5px">Evitar que ocurra</text>
+<text x="322" y="188" text-anchor="end" style="fill:currentColor;font-size:12.5px">Limitar el daño</text>
+<text x="180" y="226" text-anchor="middle" style="fill:var(--muted);font-size:12px">evento</text>
+
+<rect x="4" y="244" width="352" height="104" rx="10" style="fill:var(--surface);stroke:var(--trap);stroke-width:2"/>
+<text x="18" y="266" style="fill:var(--trap);font-weight:700;font-size:14px">ÁRBOL DE FALLOS: hacia atrás</text>
+<rect x="110" y="276" width="140" height="24" rx="6" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:1.5"/>
+<text x="180" y="293" text-anchor="middle" style="fill:currentColor;font-size:12.5px">Resultado no deseado</text>
+<path d="M180 300 V312 M100 312 H260 M100 312 V322 M260 312 V322" style="fill:none;stroke:var(--trap);stroke-width:1.5"/>
+<circle cx="180" cy="312" r="9" style="fill:var(--surface);stroke:var(--trap);stroke-width:1.5"/>
+<text x="180" y="316.5" text-anchor="middle" style="fill:currentColor;font-size:12px;font-weight:700">O</text>
+<rect x="52" y="322" width="96" height="20" rx="5" style="fill:var(--surface);stroke:var(--trap);stroke-width:1.5"/>
+<text x="100" y="336" text-anchor="middle" style="fill:currentColor;font-size:12px">Causa A</text>
+<rect x="212" y="322" width="96" height="20" rx="5" style="fill:var(--surface);stroke:var(--trap);stroke-width:1.5"/>
+<text x="260" y="336" text-anchor="middle" style="fill:currentColor;font-size:12px">Causa B</text>
+</svg>
+</div>
+
+<div class="objetivos">
+<p class="label">Objetivos</p>
+<ul>
+<li>Explicar el queso suizo y la defensa en profundidad, y calcular la probabilidad de que un peligro atraviese varias capas independientes.</li>
+<li>Dibujar la pajarita de un peligro y clasificar cada medida como preventiva o protectora.</li>
+<li>Construir un árbol de fallos pequeño con puertas Y y O y calcular la probabilidad del evento superior.</li>
+<li>Nombrar tres razones por las que estos modelos no bastan en sistemas complejos y sociotécnicos.</li>
+</ul>
+</div>
+
+<div class="teoria prose">
+
+<h3>Qué es un modelo de accidente</h3>
+<p>Antes de buscar qué puede fallar en un sistema, hace falta una idea de cómo se produce un accidente. Esa idea, puesta en forma de método, es un modelo de accidente (<em>accident model</em>). Decide qué preguntas hacemos al diseñar y al operar. Si crees que un accidente es un eslabón roto, buscarás eslabones que reforzar. Si crees que nace de cómo encajan las piezas, buscarás otra cosa (reflexión propia).</p>
+<p>Esta lección presenta tres herramientas de la familia de los modelos de fallo de componente (<em>component failure accident models</em>): el queso suizo, la pajarita y el análisis de árbol de fallos. Al final veremos dónde se quedan cortas.</p>
+
+<h3>Queso suizo (Swiss cheese model)</h3>
+<p>Piensa en una flecha que intenta cruzar varias lonchas de queso colocadas en fila, una por cada defensa del sistema. La flecha solo avanza si, en cada loncha, encuentra un agujero justo a su altura. Cada agujero es una manera concreta de burlar esa defensa. Por tanto, un accidente es posible cuando existe una recta que enhebra un agujero de cada loncha.</p>
+<p>De ahí sale la defensa en profundidad (<em>defense in depth</em>): con más capas es menos probable que exista un túnel. Ninguna defensa es perfecta. En una infección, evitar aglomeraciones, llevar mascarilla, vacunarse o tener acceso sanitario son capas, y cada una tiene fallos: la mascarilla filtra casi todo pero no todo, y la vacuna puede no cubrir una variante nueva.</p>
+<p>Hay dos formas de mejorar el sistema: añadir lonchas o agujerear menos las que ya hay. Una mascarilla que ajusta mejor encoge un agujero y hace menos probable que coincida con los de las demás.</p>
+
+<h4>Capas como nueves</h4>
+<p>Aquí conecta con la primera lección del módulo, "Descomposición del riesgo y nueves de fiabilidad". Una hipótesis razonable, según el libro, es que cada capa bien hecha elimina hacia el 90 % del riesgo que queda: un orden de magnitud, es decir, un nueve más de fiabilidad. Si la capa \(i\) deja pasar una fracción \(f_i\) de los peligros, y las capas fallan de forma independiente, pasa todo lo que las atraviesa todas:</p>
+<div class="formula">\[ P(\text{atravesar todas})=\prod_{i} f_i \qquad\text{y cada capa aporta}\qquad k_i=-\log_{10} f_i \ \text{nueves} \]</div>
+<p>La fórmula y el reparto en nueves son nuestros (cálculo propio); el libro da la idea y las cifras del 90 %. Con tres capas de IA que dejan pasar un 10 % cada una:</p>
+<div class="tw"><table>
+<thead><tr><th>Capa</th><th>Qué hace</th><th>Deja pasar</th><th>Campo</th></tr></thead>
+<tbody>
+<tr><td>Ajuste fino adversarial</td><td>hace que el modelo rechace peticiones dañinas</td><td>10 %</td><td>robustez</td></tr>
+<tr><td>Conciencia artificial</td><td>frena acciones que dañan el bienestar humano</td><td>10 %</td><td>control</td></tr>
+<tr><td>Vigilantes de IA</td><td>detectan comportamiento indebido en producción (nueve de cada diez veces)</td><td>10 %</td><td>monitorización</td></tr>
+</tbody></table></div>
+<p>El total es \(0{,}1\times0{,}1\times0{,}1=0{,}001\): tres nueves. Lo interesante es que cada capa es de un tipo distinto y sus agujeros no tienen por qué coincidir.</p>
+<p>Ejemplo del libro, contra las capacidades emergentes inesperadas: antes del lanzamiento, cada modelo se entrena con unas 3 veces más cómputo que el anterior y no con 10 veces más, y se criba con pruebas y equipos rojos; en el lanzamiento, el acceso se abre por etapas; después, la detección de anomalías sigue vigilando. Son cuatro capas repartidas en el tiempo.</p>
+<p>Para ver cuántos intentos atraviesan las capas y cómo cambia con el número y el tamaño de los agujeros, <a data-ir="practica" href="#sim-queso-suizo">pruébalo en Práctica</a>.</p>
+
+<h3>Pajarita (bow tie model)</h3>
+<p>La pajarita se dibuja alrededor de un suceso no deseado. Antes de él, a la izquierda, se anotan los peligros que lo provocan y las medidas preventivas que intentan impedirlo. Después, a la derecha, las consecuencias y las medidas protectoras, que se ocupan de que el daño sea el menor posible cuando el suceso ya se ha producido.</p>
+<div class="tw"><table>
+<thead><tr><th></th><th>Escalada (libro)</th><th>Proxy gaming (libro)</th></tr></thead>
+<tbody>
+<tr><td>Evento central</td><td>una caída</td><td>la IA optimiza su objetivo sustituto de forma contraproducente</td></tr>
+<tr><td>Preventiva</td><td>magnesio en las manos para agarrar mejor</td><td>controlar impulsos como la búsqueda de poder: menos recursos, menos ocasiones y menos gravedad</td></tr>
+<tr><td>Protectora</td><td>suelo acolchado debajo</td><td>detección de anomalías que avise pronto a los operadores para corregir</td></tr>
+</tbody></table></div>
+<p>Cada peligro tiene su propia pajarita, y lo sensato es tener medidas de las dos clases para cada uno. Una lectura propia, que enlaza con la ecuación del riesgo de la primera lección del módulo: las preventivas actúan sobre todo sobre la probabilidad del evento y las protectoras sobre su severidad. Es una simplificación, porque una medida puede hacer las dos cosas, como el proxy gaming del ejemplo.</p>
+
+<h3>Árbol de fallos (fault tree analysis, FTA)</h3>
+<p>El árbol de fallos trabaja hacia atrás. Se elige un resultado negativo concreto, se anotan sus causas inmediatas, y de cada causa se preguntan las suyas, hasta llegar a eventos básicos que ya no se descomponen. El libro lo llama "encadenar hacia atrás" (<em>backchaining</em>). El dibujo muestra todos los caminos hasta el resultado, y cada camino que se corta mejora el sistema.</p>
+<p>Los nodos se unen con dos puertas:</p>
+<dl class="facts">
+<div><dt>Puerta O (OR)</dt><dd>Basta una causa. Una bomba deja de mover agua por un fallo mecánico o por uno eléctrico.</dd></div>
+<div><dt>Puerta Y (AND)</dt><dd>Hacen falta todas a la vez. Un incendio necesita combustible, oxígeno y calor suficiente.</dd></div>
+</dl>
+<p>El libro también usa la lógica del árbol para hacer preguntas de decisión. Por ejemplo: ¿hay un grupo claramente responsable de crear la IA? Si no lo hay, el riesgo es que la responsabilidad se diluya. Si lo hay, hay que preguntar por sus creencias, intenciones e incentivos.</p>
+
+<h4>Poner números al árbol</h4>
+<p>Si los eventos básicos son independientes y conocemos su probabilidad \(p_i\), el resto es aritmética (cálculo propio, no viene del libro):</p>
+<div class="formula">\[ P_{\text{Y}}=\prod_i p_i \qquad\qquad P_{\text{O}}=1-\prod_i (1-p_i) \]</div>
+<p>La puerta Y es un queso suizo: todas las capas tienen que fallar. Por eso multiplicar probabilidades reduce el riesgo rápido. La puerta O trabaja al revés: cada causa nueva suma ocasiones de fallar. Se entiende mejor calculando \(P_{\text{O}}\) como uno menos la probabilidad de que ninguna ocurra.</p>
+<p>Otra idea estándar del FTA (también propia): un conjunto mínimo de corte es una combinación mínima de eventos básicos que basta para producir el resultado. Los conjuntos más cortos son los puntos más frágiles, y un evento que aparece solo, sin pareja, sería un punto único de fallo (en el árbol del simulador no hay ninguno: cada corte tiene al menos dos eventos). Para jugar con un árbol pequeño y ver todo esto, <a data-ir="practica" href="#sim-arbol-fallos">pruébalo en Práctica</a>.</p>
+
+<h3>Un complemento: FMEA (añadido propio)</h3>
+<p>El análisis de modos de fallo y sus efectos (<em>failure mode and effects analysis</em>, FMEA) no aparece en el libro, pero es el otro método clásico de esta familia. Va en sentido contrario al árbol: se recorren los componentes uno a uno y, de cada uno, se anota cómo puede fallar (el modo de fallo), qué causa ese modo y qué efecto tiene en el sistema. Muchas plantillas puntúan además gravedad, frecuencia y facilidad de detección para ordenar qué atender primero. El árbol de fallos parte del accidente y busca causas. El FMEA parte de las piezas y busca efectos. Se suelen usar juntos.</p>
+
+<h3>Dónde se quedan cortos</h3>
+<p>Piensa en un error de medicación en una planta (ejemplo propio). Un informe típico dice que la enfermera se equivocó de dosis y da el caso por explicado. Pero ¿por qué había dos envases casi idénticos, por qué era el tercer turno seguido, por qué la alerta del sistema saltaba cien veces al día? Los tres modelos de esta lección se parecen a ese informe: siguen una línea de sucesos hacia atrás hasta una causa raíz (<em>root cause</em>) y se quedan en el qué ocurrió más que en el porqué. El libro los considera útiles, pero demasiado simples para muchos sistemas actuales.</p>
+<p>El problema crece en los sistemas complejos, cuyo comportamiento de conjunto no está en ninguna pieza suelta, y en los sociotécnicos (<em>sociotechnical systems</em>), donde personas y tecnología trabajan juntas: un vehículo con su conductor, una red de transporte, una organización entera. El libro da tres razones:</p>
+<ol>
+<li><strong>Accidentes sin fallo.</strong> Pueden nacer de la interacción entre componentes que funcionan como se diseñaron. Caso del libro: la sonda Mars Polar Lander (1999) se estrelló porque su software cortó los retropropulsores a destiempo. Los sensores de las patas, hechos para detectar el contacto con el suelo, dieron la señal al desplegarse las patas en pleno descenso, y el programa la tomó por un aterrizaje. Cada pieza hizo lo que se le había pedido.</li>
+<li><strong>Causalidad no lineal.</strong> Con bucles de realimentación no siempre hay una cadena que seguir. Ejemplo del libro: un sistema aprende qué anuncios son relevantes por los clics, pero los clics también dependen de la posición. Si subestima ese efecto, deja fijo arriba un anuncio poco relevante. Si lo sobrestima, baraja los anuncios sin criterio.</li>
+<li><strong>Causalidad indirecta.</strong> A veces importan más las condiciones de fondo que el suceso concreto. Si en un evento se derraman muchas bebidas, pedir cuidado a quienes las tiraron ataca el extremo agudo (<em>sharp end</em>), donde ocurre el suceso. Cambiar a un local más grande o limitar el aforo ataca el extremo romo (<em>blunt end</em>), el diseño y las condiciones del sistema, y suele funcionar mejor.</li>
+</ol>
+<p>Esta lección se queda en los modelos de fallo de componente. Los factores sistémicos y los modelos de accidente pensados para sistemas complejos, que el curso trata con el nombre de STAMP, son el paso siguiente.</p>
+
+</div>
+
+<div class="example">
+<p class="label">Ejemplo (propio, cifras inventadas para practicar)</p>
+<p>Sigue con el modelo de triaje de urgencias de la primera lección del módulo. El evento central es un caso urgente etiquetado como no urgente. Esta es su pajarita:</p>
+
+<svg viewBox="0 0 360 330" role="img" aria-labelledby="bt-t bt-d" style="display:block;width:100%;max-width:460px;height:auto;margin:.8rem 0;font-family:var(--sans)">
+<title id="bt-t">Pajarita del triaje</title>
+<desc id="bt-d">De arriba abajo: causas del error, barreras preventivas, el evento central, barreras protectoras y consecuencias. Las bandas se estrechan hacia el evento y se ensanchan después, como una pajarita en vertical.</desc>
+<rect x="4" y="4" width="352" height="56" rx="8" style="fill:var(--surface);stroke:var(--rule-strong);stroke-width:1.5"/>
+<text x="180" y="24" text-anchor="middle" style="fill:var(--muted);font-size:11.5px;font-weight:700;letter-spacing:.06em">CAUSAS</text>
+<text x="180" y="44" text-anchor="middle" style="fill:currentColor;font-size:12.5px">Error del modelo · Dato de laboratorio mal volcado</text>
+<polygon points="20,68 340,68 250,128 110,128" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<text x="180" y="84" text-anchor="middle" style="fill:var(--ex);font-size:11.5px;font-weight:700;letter-spacing:.06em">PREVENTIVAS</text>
+<text x="180" y="102" text-anchor="middle" style="fill:currentColor;font-size:12.5px">Reentrenar el modelo</text>
+<text x="180" y="119" text-anchor="middle" style="fill:currentColor;font-size:12.5px">Validar datos de entrada</text>
+<rect x="70" y="134" width="220" height="44" rx="10" style="fill:var(--trap-bg);stroke:var(--trap);stroke-width:2"/>
+<text x="180" y="152" text-anchor="middle" style="fill:currentColor;font-size:12.5px;font-weight:700">Caso urgente etiquetado</text>
+<text x="180" y="169" text-anchor="middle" style="fill:currentColor;font-size:12.5px;font-weight:700">como no urgente</text>
+<polygon points="110,184 250,184 340,244 20,244" style="fill:var(--ex-bg);stroke:var(--ex);stroke-width:1.5"/>
+<text x="180" y="201" text-anchor="middle" style="fill:currentColor;font-size:12.5px">Revisión de enfermería</text>
+<text x="180" y="218" text-anchor="middle" style="fill:currentColor;font-size:12.5px">Reevaluación a los 30 minutos</text>
+<text x="180" y="236" text-anchor="middle" style="fill:var(--ex);font-size:11.5px;font-weight:700;letter-spacing:.06em">PROTECTORAS</text>
+<rect x="4" y="252" width="352" height="56" rx="8" style="fill:var(--surface);stroke:var(--rule-strong);stroke-width:1.5"/>
+<text x="180" y="272" text-anchor="middle" style="fill:var(--muted);font-size:11.5px;font-weight:700;letter-spacing:.06em">CONSECUENCIAS</text>
+<text x="180" y="292" text-anchor="middle" style="fill:currentColor;font-size:12.5px">Retraso en la atención · Deterioro del paciente</text>
+</svg>
+
+<p>Se pueden leer como un queso suizo de tres capas. Las dos medidas preventivas no cuentan como capas aparte: ya están dentro de la primera cifra. Por cada caso urgente, la probabilidad de que cada capa lo deje pasar es:</p>
+<ul>
+<li>Primera capa, el modelo con sus preventivas: se equivoca en \(0{,}02\) de los casos.</li>
+<li>Segunda capa, la revisión de enfermería: no corrige el error en \(0{,}30\).</li>
+<li>Tercera capa, la reevaluación a los 30 minutos: tampoco lo corrige en \(0{,}20\).</li>
+</ul>
+<div class="formula">\[ 0{,}02\times0{,}30\times0{,}20=0{,}0012 \]</div>
+<p>Es la probabilidad de que un caso urgente acabe con retraso por haber recorrido las tres capas: de cada mil, unos 1,2. Una cuarta capa que deje pasar el 10 % lo bajaría a \(0{,}00012\). Pero ojo: todo depende de que las capas fallen por separado. Si las enfermeras tienden a fiarse de la etiqueta del modelo, la segunda capa deja de ser independiente de la primera y la cifra real será peor.</p>
+</div>
+
+<div class="trap">
+<p class="label">Trampa</p>
+<p><strong>Multiplicar capas supone independencia (aviso propio).</strong> Si dos capas fallan por el mismo motivo (los mismos datos erróneos, la misma prisa, el mismo sesgo), sus agujeros coinciden y el producto exagera la protección. Sumar capas parecidas no compra tantos nueves como parece.</p>
+<p><strong>Buscar la causa raíz.</strong> Cuando un accidente sale de la interacción entre piezas que funcionan bien, retroceder por la cadena no encuentra un culpable, y castigar al último eslabón humano no arregla el sistema.</p>
+</div>
+
+<p class="say"><span class="label">Dicho en inglés</span>I don't trust a single safeguard: I stack independent layers, put both preventive and protective measures around each hazard, and I check whether my layers really fail independently.</p>
+
+<aside class="sources">
+<p class="label">Fuentes</p>
+<ul>
+<li>Libro: Hendrycks, <em>Introduction to AI Safety, Ethics, and Society</em> (Taylor &amp; Francis, 2024). Sección 4.4 Component Failure Accident Models and Methods, págs. 195 a 206 (PDF 213 a 224): queso suizo (195 a 197), pajarita (197 y 198), árbol de fallos (198 a 200) y limitaciones y resumen (200 a 206).</li>
+<li>Curso: <em>Intro to ML Safety</em> (CAIS), lección L4 Accident Models. No hay notas en el repositorio; solo se han usado sus temas declarados como guía de énfasis.</li>
+<li>Añadido propio, no procede de las fuentes: las fórmulas del producto de capas, de las puertas Y y O y del reparto en nueves; la advertencia de la causa común; la lectura de preventivas como probabilidad y protectoras como severidad; los conjuntos mínimos de corte; el apartado de FMEA; el ejemplo del triaje y sus cifras; y los ejercicios.</li>
+</ul>
+</aside>
+
+</div>
+
+<div data-parte="practica">
+<p>Aquí practicas lo de la teoría: primero dos simuladores para explorar, después cuatro ejercicios.</p>
+
+<p class="consigna"><strong>Simulador del queso suizo.</strong> Empieza con tres capas y agujeros de 15 % (cada capa deja pasar un 45 %, teoría en torno al 9 %). Pulsa "Recolocar agujeros" varias veces: con los agujeros fijos, el simulado oscila alrededor de la teoría porque cada disposición tiene su propio valor exacto. Pulsa "Promediar 200 disposiciones": la frecuencia simulada y el promedio exacto se acercan a la teoría. Marca "Recolocar los agujeros en cada intento" para ver el caso de capas independientes. Después marca "Alinear los agujeros" y observa que el resultado sube hacia el de una sola capa: la causa común anula la protección. Por último, compara palancas (más capas o agujeros más pequeños) leyendo la fila de teoría y los nueves, porque con muchas capas o agujeros pequeños el simulado sale 0.</p>
+<div data-widget="queso-suizo" id="sim-queso-suizo"></div>
+
+<p class="consigna"><strong>Simulador del árbol de fallos.</strong> Con los valores iniciales, pon a 0 cada evento básico por turnos y mira cuánto baja la probabilidad del evento superior. Observa qué ramas pesan más y qué diferencia hay entre bajar un evento bajo una puerta Y y uno bajo una puerta O.</p>
+<div data-widget="arbol-fallos" id="sim-arbol-fallos"></div>
+
+<div class="ejercicio" data-ejercicio="a">
+<p class="label">Ejercicio A: capas de un circuito de prescripción (a mano, 6 minutos)</p>
+<p>Un hospital tiene tres barreras contra las prescripciones con error peligroso. Cifras propias de práctica: la alerta automática de interacciones deja pasar un 10 % de esos errores, la revisión de farmacia un 20 % y la verificación de enfermería un 25 %. Se supone que fallan por separado. Cada día llegan 200 prescripciones con error peligroso.</p>
+<ol>
+<li>¿Qué probabilidad hay de que un error atraviese las tres barreras? ¿Cuántos errores llegan al paciente al día, de media?</li>
+<li>¿Cuántos nueves aporta cada barrera y cuántos las tres juntas?</li>
+<li>Se quiere bajar de 0,1 errores al día. Cada barrera nueva deja pasar un 20 %. ¿Cuántas hacen falta?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> \(0{,}1\times0{,}2\times0{,}25=0{,}005\). Al día: \(200\times0{,}005=1\) error.</p>
+<p><strong>2.</strong> \(k=-\log_{10}f\): alerta 1, farmacia \(0{,}699\), enfermería \(0{,}602\). Suman \(2{,}301\), que es \(-\log_{10}0{,}005\). Los nueves de capas independientes se suman.</p>
+<p><strong>3.</strong> Cada barrera multiplica por 0,2. Con una: \(1\times0{,}2=0{,}2\) al día. Con dos: \(0{,}04\) al día. Bastan dos barreras nuevas.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="b">
+<p class="label">Ejercicio B: árbol de fallos de una alerta (a mano, 8 minutos)</p>
+<p>Un modelo de detección temprana de sepsis debería avisar al médico de guardia. El evento superior es "la alerta no llega al médico". Se produce si ocurre una de estas dos cosas: (1) el modelo no detecta el caso, con probabilidad 0,04; (2) el modelo sí lo detecta pero el aviso no se ve, lo que exige que fallen a la vez la notificación en pantalla (0,10) y el aviso sonoro (0,05). Se supone independencia.</p>
+<ol>
+<li>Dibuja el árbol e indica el tipo de cada puerta.</li>
+<li>Calcula la probabilidad de cada puerta y la del evento superior.</li>
+<li>Solo puedes hacer una cosa: reducir a la mitad la probabilidad de que el modelo no detecte el caso, o reducir a la mitad la de la notificación en pantalla. ¿Cuál deja menos riesgo?</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1.</strong> El evento superior cuelga de una puerta O con dos ramas: "modelo no detecta" (evento básico) y "aviso no se ve". Esta última es una puerta Y con dos eventos básicos: pantalla y sonido.</p>
+<p><strong>2.</strong> Puerta Y: \(0{,}10\times0{,}05=0{,}005\). Puerta O superior: \(1-(1-0{,}04)(1-0{,}005)=1-0{,}96\times0{,}995=1-0{,}9552=0{,}0448\), es decir, un 4,48 %.</p>
+<p><strong>3.</strong> Modelo a 0,02: \(1-0{,}98\times0{,}995=0{,}0249\). Pantalla a 0,05: Y vale \(0{,}0025\) y el total \(1-0{,}96\times0{,}9975=0{,}0424\). Gana mejorar el modelo. Lo que cuelga solo de la puerta O pesa casi por completo, y la rama redundante (Y) ya aportaba poco. El punto único de fallo manda.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="c">
+<p class="label">Ejercicio C: causa común, con Python (10 minutos)</p>
+<p>Tres capas dejan pasar cada una un 10 % de los peligros, en teoría por separado. Añade una causa común (idea propia): en un 5 % de los intentos hay un problema, por ejemplo datos de entrada erróneos, que hace fallar las tres capas a la vez. Calcula a mano la probabilidad de atravesar las tres capas y comprueba con este fragmento:</p>
+<pre><code>import random
+random.seed(1)
+
+def intento(p, capas, c):
+    if random.random() &lt; c:      # causa común: fallan todas a la vez
+        return True
+    return all(random.random() &lt; p for _ in range(capas))
+
+N = 200_000
+for c in (0.0, 0.05):
+    pasan = sum(intento(0.1, 3, c) for _ in range(N))
+    print(c, pasan / N)</code></pre>
+<p>Responde: ¿cuántas veces mayor es la probabilidad con la causa común que sin ella?</p>
+<details>
+<summary>Ver solución</summary>
+<p>Sin causa común: \(0{,}1^3=0{,}001\). Con ella hay que sumar los dos casos, que no se solapan: \(0{,}05+0{,}95\times0{,}001=0{,}05095\). La simulación da cerca de 0,001 y de 0,051. La causa común multiplica el riesgo por unas 51 veces, y lo que dominan son esos pocos intentos en los que todo falla junto. Añadir una cuarta capa apenas ayudaría: seguiría pasando ese 5 %. Habría que atacar la causa común.</p>
+</details>
+</div>
+
+<div class="ejercicio" data-ejercicio="d">
+<p class="label">Ejercicio D: clasificar medidas en la pajarita (5 minutos)</p>
+<p>Evento central (propio): "la alerta de sepsis no llega al médico". Clasifica cada medida como preventiva (P) o protectora (R) y di por qué.</p>
+<ol>
+<li>Reentrenar el modelo con más casos de pacientes mayores.</li>
+<li>Llamar al médico si la alerta no se confirma en 10 minutos.</li>
+<li>Validar que los datos del laboratorio llegan completos antes de puntuar al paciente.</li>
+<li>Protocolo de traslado urgente a cuidados intensivos cuando la sepsis se detecta tarde.</li>
+</ol>
+<details>
+<summary>Ver solución</summary>
+<p><strong>1 y 3: preventivas.</strong> Reducen la probabilidad de que el modelo falle o de que reciba datos malos, es decir, de que el evento ocurra. <strong>2 y 4: protectoras.</strong> La llamada de confirmación (2) cubre el caso en que el evento ya ha ocurrido pero se puede corregir antes de que haga daño; el traslado (4) limita la gravedad cuando llega tarde. Una buena pajarita las necesita de ambos lados.</p>
+</details>
+</div>
+
+</div>
+
+</section>
