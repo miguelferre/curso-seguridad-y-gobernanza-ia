@@ -17811,7 +17811,7 @@ function vistaIndice(){
   LIST.some(function(i){if(avail(i.id)&&!completa(i.id)){sig=i;return true}});
   if(!sig) LIST.some(function(i){if(avail(i.id)){sig=i;return true}});
   var due=vencidas().length, empezado=Object.keys(state.teoria).length||Object.keys(state.notas).length;
-  var h='<div class="hero"><p class="eyebrow">Curso privado</p><h1>Seguridad de la IA</h1>'+
+  var h='<div class="hero"><p class="eyebrow">Curso en español</p><h1>Seguridad de la IA</h1>'+
     '<p class="sub">Riesgo, robustez, monitorización, alineamiento y gobernanza, con fórmulas, ejercicios y tests que se corrigen solos.</p></div>'+
     '<div class="total"><p><b>'+comp+' de '+LIST.length+'</b> lecciones completas (teoría, práctica y test aprobado). Disponibles ahora: '+disp+'.</p>'+barra(comp,LIST.length)+
     '<div class="actions">'+(sig?'<a class="btn primary" href="#/'+sig.id+'">'+(empezado?"Continuar: ":"Empezar: ")+esc(sig.l.titulo)+'</a>':"")+
